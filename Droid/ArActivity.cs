@@ -19,7 +19,7 @@ using Android.Support.V7.App;
 
 namespace mARkIt.Droid
 {
-    //ba
+    //banana
     [Activity(Label = "ArActivity", ConfigurationChanges = Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.KeyboardHidden | Android.Content.PM.ConfigChanges.ScreenSize)]
     public class ArActivity : AppCompatActivity, ILocationListener, ArchitectView.ISensorAccuracyChangeListener
     {
