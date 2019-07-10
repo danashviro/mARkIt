@@ -1,11 +1,11 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
 	<key>CFBundleName</key>
 	<string>mARkIt</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.AR.mARkIt</string>
+	<string>com.companyname.MarkIt</string>
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
 	<key>CFBundleVersion</key>
@@ -44,5 +44,9 @@
 	</array>
 	<key>XSAppIconAssets</key>
 	<string>Assets.xcassets/AppIcon.appiconset</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Access to your current location information (GPS) is needed to find the nearest points of interest around your current position.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Access to the camera is needed to display augmented reality content on top of your camera image.</string>
 </dict>
 </plist>

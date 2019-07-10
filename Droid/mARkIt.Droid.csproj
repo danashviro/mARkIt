@@ -124,27 +124,6 @@
     <AndroidResource Include="Resources\mipmap-xxxhdpi\Icon.png" />
     <AndroidResource Include="Resources\layout\Tabs.axml" />
     <AndroidResource Include="Resources\layout\AR.axml" />
-    <AndroidResource Include="Resources\drawable\baseline_build_24.xml" />
-    <AndroidResource Include="Resources\drawable-hdpi\baseline_build_black_18.png" />
-    <AndroidResource Include="Resources\drawable-hdpi\baseline_build_black_24.png" />
-    <AndroidResource Include="Resources\drawable-hdpi\baseline_build_black_36.png" />
-    <AndroidResource Include="Resources\drawable-hdpi\baseline_build_black_48.png" />
-    <AndroidResource Include="Resources\drawable-mdpi\baseline_build_black_18.png" />
-    <AndroidResource Include="Resources\drawable-mdpi\baseline_build_black_24.png" />
-    <AndroidResource Include="Resources\drawable-mdpi\baseline_build_black_36.png" />
-    <AndroidResource Include="Resources\drawable-mdpi\baseline_build_black_48.png" />
-    <AndroidResource Include="Resources\drawable-xhdpi\baseline_build_black_18.png" />
-    <AndroidResource Include="Resources\drawable-xhdpi\baseline_build_black_24.png" />
-    <AndroidResource Include="Resources\drawable-xhdpi\baseline_build_black_36.png" />
-    <AndroidResource Include="Resources\drawable-xhdpi\baseline_build_black_48.png" />
-    <AndroidResource Include="Resources\drawable-xxhdpi\baseline_build_black_18.png" />
-    <AndroidResource Include="Resources\drawable-xxhdpi\baseline_build_black_24.png" />
-    <AndroidResource Include="Resources\drawable-xxhdpi\baseline_build_black_36.png" />
-    <AndroidResource Include="Resources\drawable-xxhdpi\baseline_build_black_48.png" />
-    <AndroidResource Include="Resources\drawable-xxxhdpi\baseline_build_black_18.png" />
-    <AndroidResource Include="Resources\drawable-xxxhdpi\baseline_build_black_24.png" />
-    <AndroidResource Include="Resources\drawable-xxxhdpi\baseline_build_black_36.png" />
-    <AndroidResource Include="Resources\drawable-xxxhdpi\baseline_build_black_48.png" />
     <AndroidResource Include="Resources\Menu\toolbar_menu.xml" />
   </ItemGroup>
   <ItemGroup>

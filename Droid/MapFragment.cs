@@ -30,5 +30,6 @@ namespace mARkIt.Droid
 
             return base.OnCreateView(inflater, container, savedInstanceState);
         }
+
     }
 }

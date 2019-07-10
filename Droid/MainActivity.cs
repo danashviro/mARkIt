@@ -10,39 +10,35 @@ using Android.Support.V7.App;
 
 namespace mARkIt.Droid
 {
-    [Activity(Label = "Xamarin Example App", MainLauncher = true)]
+    [Activity(Label = "mARk-it", MainLauncher = true)]
     public class MainActivity : AppCompatActivity, IPermissionManagerPermissionManagerCallback
     {
-        Button button;
+       // Button button;
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.Main);
+     
+            {
+                //button = FindViewById(Resource.Id.myButton) as Button;
+                //button.Click += Button_Click;
+            }
 
+            m_Tabs = new Intent(this, typeof(TabsActivity));
 
-
-            
-            button = FindViewById(Resource.Id.myButton) as Button;
-            button.Click += Button_Click;
-            ar = new Intent(this, typeof(TabsActivity));
-
-            string[] permissions =
-        new string[] { Manifest.Permission.Camera, Manifest.Permission.AccessFineLocation };
+            //asking for AR permissions
+            string[] permissions = { Manifest.Permission.Camera, Manifest.Permission.AccessFineLocation };
             ArchitectView.PermissionManager.CheckPermissions(this, permissions, PermissionManager.WikitudePermissionRequest, this);
 
-
-
         }
 
 
-        Intent ar;
-        private void Button_Click(object sender, System.EventArgs e)
-        {
-            ar = new Intent(this, typeof(ArActivity));
+        Intent m_Tabs;
+        //private void Button_Click(object sender, System.EventArgs e)
+        //{
+        //   // ar = new Intent(this, typeof(ArActivity));
 
-
-        }
-
+        //}
 
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Android.Content.PM.Permission[] grantResults)
@@ -59,11 +55,12 @@ namespace mARkIt.Droid
 
         public void PermissionsDenied(string[] deniedPermissions)
         {
+
         }
 
         public void PermissionsGranted(int responseCode)
         {
-            StartActivity(ar);
+            StartActivity(m_Tabs);
         }
 
         public void ShowPermissionRationale(int requestCode, string[] permissions)

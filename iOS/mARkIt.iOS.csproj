@@ -64,7 +64,7 @@
     <DefineConstants>DEBUG;ENABLE_TEST_CLOUD;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodesignKey>iPhone Developer</CodesignKey>
+    <CodesignKey>iPhone Developer: danashviro@gmail.com (2D2839FPCL)</CodesignKey>
     <DeviceSpecificBuild>true</DeviceSpecificBuild>
     <MtouchDebug>true</MtouchDebug>
     <MtouchNoSymbolStrip>true</MtouchNoSymbolStrip>
@@ -76,6 +76,7 @@
     <MtouchArch>ARM64</MtouchArch>
     <MtouchHttpClientHandler>NSUrlSessionHandler</MtouchHttpClientHandler>
     <PlatformTarget>x86</PlatformTarget>
+    <CodesignProvision>iOS Team Provisioning Profile: com.companyname.MarkIt</CodesignProvision>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -98,10 +99,13 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
+    <Folder Include="CoreServices\" />
+    <Folder Include="Resources\ARPages\" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="LaunchScreen.storyboard" />
     <InterfaceDefinition Include="Main.storyboard" />
+    <InterfaceDefinition Include="ARViewController.xib" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
@@ -115,6 +119,58 @@
     <Compile Include="ViewController.designer.cs">
       <DependentUpon>ViewController.cs</DependentUpon>
     </Compile>
+    <Compile Include="RegisterViewController.cs" />
+    <Compile Include="RegisterViewController.designer.cs">
+      <DependentUpon>RegisterViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ARViewController.cs" />
+    <Compile Include="ARViewController.designer.cs">
+      <DependentUpon>ARViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MapViewController.cs" />
+    <Compile Include="MapViewController.designer.cs">
+      <DependentUpon>MapViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainTabBarViewController.cs" />
+    <Compile Include="MainTabBarViewController.designer.cs">
+      <DependentUpon>MainTabBarViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NewMarkViewController.cs" />
+    <Compile Include="NewMarkViewController.designer.cs">
+      <DependentUpon>NewMarkViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CoreServices\ArExperienceAuthorizationController.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\map%403x.png" />
+    <BundleResource Include="Resources\map%402x.png" />
+    <BundleResource Include="Resources\map.png" />
+    <BundleResource Include="Resources\ARPages\3dARPage\assets\couch.wt3" />
+    <BundleResource Include="Resources\ARPages\3dARPage\assets\earth.wt3" />
+    <BundleResource Include="Resources\ARPages\3dARPage\assets\indi.png" />
+    <BundleResource Include="Resources\ARPages\3dARPage\assets\woodSign.png" />
+    <BundleResource Include="Resources\ARPages\3dARPage\index.html" />
+    <BundleResource Include="Resources\ARPages\3dARPage\js\3dARPage.js" />
+    <BundleResource Include="Resources\ARPages\3dARServerPage\.DS_Store" />
+    <BundleResource Include="Resources\ARPages\3dARServerPage\assets\earth.wt3" />
+    <BundleResource Include="Resources\ARPages\3dARServerPage\assets\indi.png" />
+    <BundleResource Include="Resources\ARPages\3dARServerPage\assets\woodSign.png" />
+    <BundleResource Include="Resources\ARPages\3dARServerPage\index.html" />
+    <BundleResource Include="Resources\ARPages\3dARServerPage\js\.DS_Store" />
+    <BundleResource Include="Resources\ARPages\3dARServerPage\js\3dARServerPage.js" />
+    <BundleResource Include="Resources\ARPages\3dARServerPage\js\jquery-2.0.3.min.js" />
+    <BundleResource Include="Resources\ARPages\3dARServerPage\js\marker.js" />
+    <BundleResource Include="Resources\ARPages\ade.js" />
+    <BundleResource Include="Resources\ARPages\MarksPage\assets\woodSign.png" />
+    <BundleResource Include="Resources\ARPages\MarksPage\index.html" />
+    <BundleResource Include="Resources\ARPages\MarksPage\js\MarksPage.js" />
+    <BundleResource Include="Resources\ARPages\ServerPage\assets\indi.png" />
+    <BundleResource Include="Resources\ARPages\ServerPage\assets\woodSign.png" />
+    <BundleResource Include="Resources\ARPages\ServerPage\index.html" />
+    <BundleResource Include="Resources\ARPages\ServerPage\js\jquery-2.0.3.min.js" />
+    <BundleResource Include="Resources\ARPages\ServerPage\js\marker.js" />
+    <BundleResource Include="Resources\ARPages\ServerPage\js\ServerPage.js" />
+    <BundleResource Include="Resources\ARPages\ServerPage\js\temp.js" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

@@ -1,4 +1,4 @@
-﻿// WARNING
+// WARNING
 //
 // This file has been generated automatically by Visual Studio from the outlets and
 // actions declared in your storyboard file.
@@ -7,14 +7,16 @@
 using Foundation;
 using System;
 using System.CodeDom.Compiler;
+using UIKit;
 
 namespace mARkIt.iOS
 {
-    [Register ("ViewController")]
-    partial class ViewController
+    [Register ("RegisterViewController")]
+    partial class RegisterViewController
     {
         [Outlet]
-        UIKit.UIButton Button { get; set; }
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UITextField confirmPasswordTextField { get; set; }
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
@@ -28,16 +30,13 @@ namespace mARkIt.iOS
         [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UIButton registerButton { get; set; }
 
-        [Outlet]
-        [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UIButton signInButton { get; set; }
-
-        [Action ("SignInButton_TouchUpInside:")]
-        [GeneratedCode ("iOS Designer", "1.0")]
-        partial void SignInButton_TouchUpInside (UIKit.UIButton sender);
-
         void ReleaseDesignerOutlets ()
         {
+            if (confirmPasswordTextField != null) {
+                confirmPasswordTextField.Dispose ();
+                confirmPasswordTextField = null;
+            }
+
             if (emailTextField != null) {
                 emailTextField.Dispose ();
                 emailTextField = null;
@@ -51,11 +50,6 @@ namespace mARkIt.iOS
             if (registerButton != null) {
                 registerButton.Dispose ();
                 registerButton = null;
-            }
-
-            if (signInButton != null) {
-                signInButton.Dispose ();
-                signInButton = null;
             }
         }
     }
