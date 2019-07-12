@@ -22,6 +22,10 @@ namespace mARkIt.iOS
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UIButton FacebookButton { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UITextField passwordTextField { get; set; }
 
         [Outlet]
@@ -41,6 +45,11 @@ namespace mARkIt.iOS
             if (emailTextField != null) {
                 emailTextField.Dispose ();
                 emailTextField = null;
+            }
+
+            if (FacebookButton != null) {
+                FacebookButton.Dispose ();
+                FacebookButton = null;
             }
 
             if (passwordTextField != null) {

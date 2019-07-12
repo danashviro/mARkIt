@@ -3,6 +3,7 @@ using Foundation;
 using mARkIt.iOS.CoreServices;
 using UIKit;
 using WikitudeComponent.iOS;
+using mARkIt.Utils;
 
 namespace mARkIt.iOS
 {
@@ -28,6 +29,12 @@ namespace mARkIt.iOS
             }, (UIAlertController alertController) =>
             {
             });
+            FacebookButton.TouchUpInside += FacebookButton_TouchUpInside;
+        }
+
+        private void FacebookButton_TouchUpInside(object sender, EventArgs e)
+        {
+
         }
 
         public void onLoginClick()

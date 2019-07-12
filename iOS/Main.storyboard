@@ -52,6 +52,13 @@
                                     <segue id="1525" destination="1264" kind="show" identifier="registerSeque"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="7091" translatesAutoresizingMaskIntoConstraints="NO" fixedFrame="YES" adjustsImageSizeForAccessibilityContentSizeCategory="YES">
+                                <rect key="frame" x="89" y="494" width="195" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" backgroundImage="Icons/FBLogin.png">
+                                    <color key="titleColor" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace" white="1" alpha="1"/>
+                                </state>
+                            </button>
                         </subviews>
                         <constraints>
                             <constraint id="1004" firstItem="999" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX"/>
@@ -76,12 +83,13 @@
                         <outlet property="signInButton" destination="1001" id="name-outlet-1001"/>
                         <outlet property="passwordTextField" destination="999" id="name-outlet-999"/>
                         <outlet property="registerButton" destination="1002" id="name-outlet-1002"/>
+                        <outlet property="FacebookButton" destination="7091" id="name-outlet-7091"/>
                     </connections>
                     <navigationItem id="1963" key="navigationItem" title="Log in"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="0.0" y="0.0"/>
+            <point key="canvasLocation" x="-4" y="73"/>
         </scene>
         <scene sceneID="1263">
             <objects>
@@ -175,6 +183,8 @@
                     <connections>
                         <segue id="3142" destination="2995" kind="relationship" relationship="viewControllers"/>
                         <segue id="3366" destination="3262" kind="relationship" relationship="viewControllers"/>
+                        <segue id="5545" destination="5477" kind="relationship" relationship="viewControllers"/>
+                        <outlet property="AddMarkButton" destination="3424" id="name-outlet-3424"/>
                     </connections>
                     <navigationItem id="3423" key="navigationItem">
                         <barButtonItem key="rightBarButtonItem" id="3424" systemItem="add">
@@ -200,7 +210,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="AR" id="3141"/>
+                    <tabBarItem key="tabBarItem" title="AR" id="3141" image="Icons/DottedEyeIcon/DottedEyeIcon.png"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2997" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -219,7 +229,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Map" id="3365" image="map.png"/>
+                    <tabBarItem key="tabBarItem" title="Map" id="3365" image="Icons/DottedMapIcon/DottedMapIcon.png"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3264" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -246,8 +256,30 @@
             </objects>
             <point key="canvasLocation" x="423" y="-810"/>
         </scene>
+        <scene sceneID="5476">
+            <objects>
+                <viewController id="5477" sceneMemberID="viewController" customClass="SettingsViewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="5474"/>
+                        <viewControllerLayoutGuide type="bottom" id="5475"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="5478">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Settings" id="5544" image="Icons/DottedSettingsIcon/DottedSettingsIcon.png"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5479" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1018" y="430"/>
+        </scene>
     </scenes>
     <resources>
-        <image name="map.png" width="30" height="30"/>
+        <image name="Icons/DottedSettingsIcon/DottedSettingsIcon.png" width="30" height="30"/>
+        <image name="Icons/DottedEyeIcon/DottedEyeIcon.png" width="30" height="30"/>
+        <image name="Icons/DottedMapIcon/DottedMapIcon.png" width="30" height="30"/>
+        <image name="Icons/FBLogin.png" width="988" height="160"/>
     </resources>
 </document>

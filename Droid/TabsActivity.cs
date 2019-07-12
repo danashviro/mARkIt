@@ -19,6 +19,7 @@ namespace mARkIt.Droid
     public class TabsActivity : Android.Support.V4.App.FragmentActivity
     {
         TabLayout tabLayout;
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -38,6 +39,7 @@ namespace mARkIt.Droid
                     fragmentNavigate(new ARFragment());
                     break;
                 case 1:
+                    fragmentNavigate(new MapFragment());
                     break;
                 case 2:
                     fragmentNavigate(new MapFragment());

@@ -107,6 +107,7 @@
     <Compile Include="Location\LocationProvider.cs" />
     <Compile Include="Util\PlatformConverter.cs" />
     <Compile Include="ArActivity.cs" />
+    <Compile Include="AddAMarkActivity.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -124,12 +125,11 @@
     <AndroidResource Include="Resources\mipmap-xxxhdpi\Icon.png" />
     <AndroidResource Include="Resources\layout\Tabs.axml" />
     <AndroidResource Include="Resources\layout\AR.axml" />
-    <AndroidResource Include="Resources\Menu\toolbar_menu.xml" />
+    <AndroidResource Include="Resources\layout\AddAMark.axml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Location\" />
     <Folder Include="Util\" />
-    <Folder Include="Resources\Menu\" />
   </ItemGroup>
   <ItemGroup>
     <AndroidAsset Include="Assets\ARPages\ade.js" />
