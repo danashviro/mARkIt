@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>CFBundleName</key>
-	<string>mARkIt</string>
+	<string>mARk-it</string>
 	<key>CFBundleIdentifier</key>
 	<string>com.companyname.MarkIt</string>
 	<key>CFBundleShortVersionString</key>

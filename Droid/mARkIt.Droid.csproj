@@ -126,6 +126,7 @@
     <AndroidResource Include="Resources\layout\Tabs.axml" />
     <AndroidResource Include="Resources\layout\AR.axml" />
     <AndroidResource Include="Resources\layout\AddAMark.axml" />
+    <AndroidResource Include="Resources\layout\Map.axml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Location\" />

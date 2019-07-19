@@ -16,11 +16,40 @@ namespace mARkIt.iOS
         {
         }
 
-  
 
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
+            initFormConfig();
+            getWikitudePermissions();
+        }
+
+        private void initFormConfig()
+        {
+            FacebookButton.TouchUpInside += FacebookButton_TouchUpInside;
+            emailTextField.ShouldReturn = delegate
+            {
+                // Changed this slightly to move the text entry to the next field.
+                passwordTextField.BecomeFirstResponder();
+                return true;
+            };
+
+            passwordTextField.ShouldReturn = delegate
+            {
+                passwordTextField.ResignFirstResponder();
+                return true;
+            };
+
+            View.AddGestureRecognizer(new UITapGestureRecognizer(() => View.EndEditing(true))); //hide keyboard when tapping on screen
+        }
+
+        private void FacebookButton_TouchUpInside(object sender, EventArgs e)
+        {
+
+        }
+
+        private void getWikitudePermissions()
+        {
             WTFeatures requiredFeatures = WTFeatures.Geo | WTFeatures.WTFeature_InstantTracking;
 
             ArExperienceAuthorizationController.AuthorizeRestricedAPIAccess(authorizationRequestManager, requiredFeatures, () =>
@@ -29,13 +58,10 @@ namespace mARkIt.iOS
             }, (UIAlertController alertController) =>
             {
             });
-            FacebookButton.TouchUpInside += FacebookButton_TouchUpInside;
         }
+        
 
-        private void FacebookButton_TouchUpInside(object sender, EventArgs e)
-        {
 
-        }
 
         public void onLoginClick()
         {

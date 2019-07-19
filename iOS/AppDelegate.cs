@@ -21,6 +21,10 @@ namespace mARkIt.iOS
             // Override point for customization after application launch.
             // If not required for your application you can safely delete this method
 
+            //Register Syncfusion license
+            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("MTIyODAwQDMxMzcyZTMyMmUzME9VUW53ZlNSems5clIwOHkyM3pDa3VwSTFtb1hScDNUeEczQVdpRG5va1U9");
+
+
             return true;
         }
 
