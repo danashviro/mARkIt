@@ -14,8 +14,16 @@ namespace mARkIt.iOS
     [Register ("SettingsViewController")]
     partial class SettingsViewController
     {
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        Syncfusion.SfRating.iOS.SfRating rating { get; set; }
+
         void ReleaseDesignerOutlets ()
         {
+            if (rating != null) {
+                rating.Dispose ();
+                rating = null;
+            }
         }
     }
 }

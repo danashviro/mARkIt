@@ -1,4 +1,6 @@
+using CoreGraphics;
 using Foundation;
+using Syncfusion.SfRating.iOS;
 using System;
 using UIKit;
 
@@ -14,7 +16,7 @@ namespace mARkIt.iOS
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
-            
+
         }
     }
 }
