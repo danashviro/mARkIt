@@ -331,8 +331,13 @@
                         </subviews>
                     </view>
                     <navigationItem title="Add a mARk" id="3585" key="navigationItem">
-                        <barButtonItem key="rightBarButtonItem" id="3586" systemItem="save"/>
+                        <barButtonItem key="rightBarButtonItem" id="19097" systemItem="done"/>
                     </navigationItem>
+                    <connections>
+                        <outlet property="generalCheckBox" destination="15511" id="name-outlet-15511"/>
+                        <outlet property="saveMarkButton" destination="19097" id="name-outlet-19097"/>
+                        <outlet property="markTextView" destination="9525" id="name-outlet-9525"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3430" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
