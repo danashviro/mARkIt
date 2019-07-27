@@ -2,4 +2,5 @@
 <resources>
     <string name="hello">Hello World, Click Me!</string>
     <string name="app_name">mARkIt.Droid</string>
+  <string name="facebookLogin">Login with Facebook</string>
 </resources>

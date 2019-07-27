@@ -11,6 +11,7 @@ using Android.Runtime;
 using Android.Support.Design.Widget;
 using Android.Views;
 using Android.Widget;
+using mARkIt.Authentication;
 
 namespace mARkIt.Droid
 {
@@ -18,17 +19,27 @@ namespace mARkIt.Droid
 
     public class TabsActivity : Android.Support.V4.App.FragmentActivity
     {
-        TabLayout tabLayout;
+        TabLayout m_TabLayout;
+        ARFragment m_ARFragment;
+        MapFragment m_MapFragment;
+        string m_Email;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
 
+            // todo, send User object between activities and not only email
+            m_Email = Intent.GetStringExtra("Email");
+
             // Create your application here
             SetContentView(Resource.Layout.Tabs);
-            tabLayout = FindViewById<TabLayout>(Resource.Id.mainTabLayout);
-            tabLayout.TabSelected += TabLayout_TabSelected;
-            fragmentNavigate(new ARFragment());
+            m_TabLayout = FindViewById<TabLayout>(Resource.Id.mainTabLayout);
+            m_TabLayout.TabSelected += TabLayout_TabSelected;
+
+            // create fragments
+            m_ARFragment = new ARFragment();
+            m_MapFragment = new MapFragment();
+            fragmentNavigate(m_ARFragment);
         }
 
         private void TabLayout_TabSelected(object sender, TabLayout.TabSelectedEventArgs e)
@@ -36,13 +47,10 @@ namespace mARkIt.Droid
             switch(e.Tab.Position)
             {
                 case 0:
-                    fragmentNavigate(new ARFragment());
+                    fragmentNavigate(m_ARFragment);
                     break;
                 case 1:
-                    fragmentNavigate(new MapFragment());
-                    break;
-                case 2:
-                    fragmentNavigate(new MapFragment());
+                    fragmentNavigate(m_MapFragment);
                     break;
             }
         }
@@ -54,6 +62,10 @@ namespace mARkIt.Droid
             transaction.Commit();
         }
 
-
+        public override void OnBackPressed()
+        {
+            // disabling the backbutton original functionality
+            //base.OnBackPressed();
+        }
     }
 }
