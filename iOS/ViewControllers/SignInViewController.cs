@@ -24,6 +24,8 @@ namespace mARkIt.iOS
         {
             base.ViewDidLoad();
             FacebookButton.TouchUpInside += FacebookButton_TouchUpInside;
+            NavigationItem.SetHidesBackButton(true, false);
+
         }
 
         private void FacebookButton_TouchUpInside(object sender, EventArgs e)

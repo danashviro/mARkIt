@@ -18,5 +18,10 @@ namespace mARkIt.iOS
             base.ViewDidLoad();
 
         }
+
+        partial void LogoutButton_TouchUpInside(UIButton sender)
+        {
+            Xamarin.Essentials.SecureStorage.RemoveAll();
+        }
     }
 }
