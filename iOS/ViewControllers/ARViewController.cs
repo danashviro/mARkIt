@@ -4,7 +4,6 @@ using Foundation;
 using CoreGraphics;
 using AVFoundation;
 using WikitudeComponent.iOS;
-using mARkIt.iOS.CoreServices;
 
 namespace mARkIt.iOS
 {
