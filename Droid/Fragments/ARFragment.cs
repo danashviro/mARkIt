@@ -19,7 +19,7 @@ using Android.Webkit;
 using Com.Wikitude.Architect;
 using Com.Wikitude.Common.Camera;
 
-namespace mARkIt.Droid
+namespace mARkIt.Droid.Fragments
 {
     public class ARFragment : Fragment, ILocationListener, ArchitectView.ISensorAccuracyChangeListener
     {

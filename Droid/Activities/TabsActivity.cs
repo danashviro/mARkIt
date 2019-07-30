@@ -7,6 +7,7 @@ using Android.Support.Design.Widget;
 using Android.Views;
 using Android.Widget;
 using mARkIt.Authentication;
+using mARkIt.Droid.Fragments;
 
 namespace mARkIt.Droid
 {
@@ -16,7 +17,9 @@ namespace mARkIt.Droid
     {
         TabLayout m_TabLayout;
         ARFragment m_ARFragment;
-        MapTab m_MapTab;
+        MapFragment m_MapFragment;
+        SettingsFragment m_SettingsFragment;
+        
         string m_Email;
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -32,7 +35,8 @@ namespace mARkIt.Droid
 
             // create fragments
             m_ARFragment = new ARFragment();
-            m_MapTab = new MapTab();
+            m_MapFragment = new MapFragment();
+            m_SettingsFragment = new SettingsFragment();
             fragmentNavigate(m_ARFragment);
         }
 
@@ -44,7 +48,10 @@ namespace mARkIt.Droid
                     fragmentNavigate(m_ARFragment);
                     break;
                 case 1:
-                    fragmentNavigate(m_MapTab);
+                    fragmentNavigate(m_MapFragment);
+                    break;
+                case 2:
+                    fragmentNavigate(m_SettingsFragment);
                     break;
             }
         }

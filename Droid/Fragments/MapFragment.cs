@@ -9,9 +9,9 @@ using Android.Views;
 using Android.Locations;
 using Android.Gms.Maps.Model;
 
-namespace mARkIt.Droid
+namespace mARkIt.Droid.Fragments
 {
-    public class MapTab : Fragment, IOnMapReadyCallback,ILocationListener
+    public class MapFragment : Fragment, IOnMapReadyCallback,ILocationListener
     {
         MapView m_MapView;
         GoogleMap m_GoogleMap;
@@ -41,7 +41,7 @@ namespace mARkIt.Droid
             // Use this to return your custom view for this Fragment
             // return inflater.Inflate(Resource.Layout.YourFragment, container, false); we need this
             //  setUpMap();
-            m_View= inflater.Inflate(Resource.Layout.Map,container,false);
+            m_View = inflater.Inflate(Resource.Layout.Map, container, false);
             return m_View;
         }
 
