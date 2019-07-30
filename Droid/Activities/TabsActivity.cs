@@ -1,9 +1,4 @@
 ﻿
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 using Android.App;
 using Android.Content;
 using Android.OS;
@@ -17,13 +12,12 @@ namespace mARkIt.Droid
 {
     [Activity(Label = "TabsActivity",ConfigurationChanges = Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.KeyboardHidden | Android.Content.PM.ConfigChanges.ScreenSize)]
 
-    public class TabsActivity : Android.Support.V4.App.FragmentActivity
+    public class TabsActivity : Activity
     {
         TabLayout m_TabLayout;
         ARFragment m_ARFragment;
-        MapFragment m_MapFragment;
+        MapTab m_MapTab;
         string m_Email;
-
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -38,7 +32,7 @@ namespace mARkIt.Droid
 
             // create fragments
             m_ARFragment = new ARFragment();
-            m_MapFragment = new MapFragment();
+            m_MapTab = new MapTab();
             fragmentNavigate(m_ARFragment);
         }
 
@@ -50,14 +44,14 @@ namespace mARkIt.Droid
                     fragmentNavigate(m_ARFragment);
                     break;
                 case 1:
-                    fragmentNavigate(m_MapFragment);
+                    fragmentNavigate(m_MapTab);
                     break;
             }
         }
 
-        private void fragmentNavigate(Android.Support.V4.App.Fragment fragment)
+        private void fragmentNavigate(Fragment fragment)
         {
-            var transaction = SupportFragmentManager.BeginTransaction();
+            var transaction = FragmentManager.BeginTransaction();
             transaction.Replace(Resource.Id.contentFrame, fragment);
             transaction.Commit();
         }

@@ -17,7 +17,7 @@ namespace mARkIt.Droid
     public class MainActivity : AppCompatActivity, IPermissionManagerPermissionManagerCallback, IFacebookAuthenticationDelegate
     {
         User m_User;
-
+        
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
