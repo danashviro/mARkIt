@@ -72,6 +72,7 @@ namespace mARkIt.Droid
             LatLng position = new LatLng(m_Latitude, m_Longitude);
             marker.SetPosition(position);
             marker.SetTitle("Your location");
+            marker.SetIcon(BitmapDescriptorFactory.DefaultMarker(BitmapDescriptorFactory.HueBlue));
             m_GoogleMap.AddMarker(marker);
             var cameraPosition = new Android.Gms.Maps.Model.CameraPosition.Builder().Target(position).Zoom(16).Bearing(0).Build();
             m_GoogleMap.MoveCamera(CameraUpdateFactory.NewCameraPosition(cameraPosition));
