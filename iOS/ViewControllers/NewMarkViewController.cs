@@ -14,7 +14,7 @@ namespace mARkIt.iOS
     public partial class NewMarkViewController : UIViewController, ICLLocationManagerDelegate
     {
         private readonly CLLocationManager locationManager = new CLLocationManager();
-
+        private SfRadioButton m_WoodMarkStyleRadioButton, m_MetalMarkStyleRadioButton, m_SchoolMarkStyleRadioButton;
         public NewMarkViewController (IntPtr handle) : base (handle)
         {
         }
@@ -42,6 +42,15 @@ namespace mARkIt.iOS
             }
 
             saveMarkButton.Clicked += SaveMarkButton_Clicked;
+            doneBarButton.Clicked += DoneBarButton_Clicked;
+
+            m_WoodMarkStyleRadioButton = new SfRadioButton();
+            m_MetalMarkStyleRadioButton = new SfRadioButton();
+            m_SchoolMarkStyleRadioButton = new SfRadioButton();
+            m_WoodMarkStyleRadioButton.IsChecked = true;
+            markStyleRadioGroup.AddArrangedSubview(m_WoodMarkStyleRadioButton);
+            markStyleRadioGroup.AddArrangedSubview(m_MetalMarkStyleRadioButton);
+            markStyleRadioGroup.AddArrangedSubview(m_SchoolMarkStyleRadioButton);
         }
 
         private async void SaveMarkButton_Clicked(object sender, EventArgs e)
@@ -62,6 +71,33 @@ namespace mARkIt.iOS
             {
                 //alert
             }
-        }        
+        }
+
+        
+
+        private async void DoneBarButton_Clicked(object sender, EventArgs e)
+        {
+            CLLocation lastLocation = locationManager.Location;
+            if (lastLocation != null || markTextView.Text != string.Empty)
+            {
+                Location location = new Location()
+                {
+                    latitude = lastLocation.Coordinate.Latitude,
+                    longitude = lastLocation.Coordinate.Longitude,
+                    message = markTextView.Text
+                };
+                await LocationService.Instance().AddLocation(location);
+                NavigationController.PopViewController(true);
+            }
+            else
+            {
+                //alert
+            }
+        }
+
+        partial void CancleBarButton_Activated(UIBarButtonItem sender)
+        {
+            NavigationController.PopViewController(true);
+        }
     }
 }

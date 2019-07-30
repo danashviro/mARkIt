@@ -23,5 +23,7 @@ namespace mARkIt.iOS
         {
             Xamarin.Essentials.SecureStorage.RemoveAll();
         }
+
+       
     }
 }

@@ -16,7 +16,19 @@ namespace mARkIt.iOS
     {
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UIBarButtonItem cancleBarButton { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UIBarButtonItem doneBarButton { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
         Syncfusion.iOS.Buttons.SfCheckBox generalCheckBox { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        Syncfusion.iOS.Buttons.SfRadioGroup markStyleRadioGroup { get; set; }
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
@@ -26,11 +38,30 @@ namespace mARkIt.iOS
         [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UIBarButtonItem saveMarkButton { get; set; }
 
+        [Action ("CancleBarButton_Activated:")]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        partial void CancleBarButton_Activated (UIKit.UIBarButtonItem sender);
+
         void ReleaseDesignerOutlets ()
         {
+            if (cancleBarButton != null) {
+                cancleBarButton.Dispose ();
+                cancleBarButton = null;
+            }
+
+            if (doneBarButton != null) {
+                doneBarButton.Dispose ();
+                doneBarButton = null;
+            }
+
             if (generalCheckBox != null) {
                 generalCheckBox.Dispose ();
                 generalCheckBox = null;
+            }
+
+            if (markStyleRadioGroup != null) {
+                markStyleRadioGroup.Dispose ();
+                markStyleRadioGroup = null;
             }
 
             if (markTextView != null) {

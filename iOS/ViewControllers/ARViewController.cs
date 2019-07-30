@@ -100,6 +100,7 @@ namespace mARkIt.iOS
             NavigationController.Delegate = new NavigationControllerDelegate(architectView);
 
             EdgesForExtendedLayout = UIRectEdge.None;
+            View.BringSubviewToFront(addMarkButton);
         }
 
         public override void ViewWillAppear(bool animated)
