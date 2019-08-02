@@ -9,6 +9,7 @@ namespace mARkIt.iOS
     {
         public MarkTableViewCell (IntPtr handle) : base (handle)
         {
+            //test
         }
 
         public UILabel CoordinatesLabel
