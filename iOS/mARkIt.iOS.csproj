@@ -220,6 +220,14 @@
     <Compile Include="ViewControllers\NavigationController.designer.cs">
       <DependentUpon>NavigationController.cs</DependentUpon>
     </Compile>
+    <Compile Include="MarkTableViewCell.cs" />
+    <Compile Include="MarkTableViewCell.designer.cs">
+      <DependentUpon>MarkTableViewCell.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ViewControllers\MyMarksViewController.cs" />
+    <Compile Include="ViewControllers\MyMarksViewController.designer.cs">
+      <DependentUpon>MyMarksViewController.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\ARPages\3dARPage\assets\couch.wt3" />

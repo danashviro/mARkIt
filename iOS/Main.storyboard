@@ -78,8 +78,9 @@
                     <connections>
                         <segue id="3142" destination="2995" kind="relationship" relationship="viewControllers"/>
                         <segue id="3366" destination="3262" kind="relationship" relationship="viewControllers"/>
-                        <segue id="5545" destination="5477" kind="relationship" relationship="viewControllers"/>
                         <outlet property="AddMarkButton" destination="3424" id="name-outlet-3424"/>
+                        <segue id="37338" destination="37274" kind="relationship" relationship="viewControllers"/>
+                        <segue id="38262" destination="5477" kind="relationship" relationship="viewControllers"/>
                     </connections>
                     <navigationItem id="3423" key="navigationItem">
                         <barButtonItem key="rightBarButtonItem" id="3424" systemItem="add">
@@ -118,7 +119,7 @@
                             </button>
                         </subviews>
                     </view>
-                    <tabBarItem key="tabBarItem" title="AR" id="3141" image="Icons/DottedEyeIcon/DottedEyeIcon.png"/>
+                    <tabBarItem key="tabBarItem" title="Explore" id="3141" image="Icons/DottedEyeIcon/DottedEyeIcon.png"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="addMarkButton" destination="36881" id="name-outlet-36881"/>
@@ -390,7 +391,81 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5479" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1011" y="537"/>
+            <point key="canvasLocation" x="1008" y="1240"/>
+        </scene>
+        <scene sceneID="37273">
+            <objects>
+                <tableViewController id="37274" sceneMemberID="viewController" customClass="MyMarksViewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="37275">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="37278" reuseIdentifier="markCell" customClass="MarkTableViewCell">
+                                <rect key="frame" x="0.0" y="72" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="37278" id="37279">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="38264" translatesAutoresizingMaskIntoConstraints="NO" fixedFrame="YES">
+                                            <rect key="frame" x="16" y="8" width="214" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <view contentMode="scaleToFill" id="38266" customClass="SfRating" translatesAutoresizingMaskIntoConstraints="NO" fixedFrame="YES">
+                                            <rect key="frame" x="268" y="12" width="107" height="19"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <accessibility key="accessibilityConfiguration">
+                                                <accessibilityTraits key="traits" notEnabled="YES"/>
+                                            </accessibility>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </view>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="38265" translatesAutoresizingMaskIntoConstraints="NO" fixedFrame="YES">
+                                            <rect key="frame" x="140" y="12" width="119" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                            <color key="highlightedColor" colorSpace="custom" customColorSpace="sRGB" red="0" green="0.8641222743" blue="1" alpha="1"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="38268" translatesAutoresizingMaskIntoConstraints="NO" fixedFrame="YES">
+                                            <rect key="frame" x="16" y="23" width="190" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="messageLabel" destination="38264" id="name-outlet-38264"/>
+                                    <outlet property="dateLabel" destination="38268" id="name-outlet-38268"/>
+                                    <outlet property="ratingBar" destination="38266" id="name-outlet-38266"/>
+                                    <outlet property="coordinatesLabel" destination="38265" id="name-outlet-38265"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="37274" id="37276"/>
+                            <outlet property="delegate" destination="37274" id="37277"/>
+                        </connections>
+                        <navigationBar contentMode="scaleToFill" id="40656" key="tableHeaderView">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <items>
+                                <navigationItem title="My mARks" id="40657"/>
+                            </items>
+                            <color key="tintColor" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace" white="0" alpha="0"/>
+                        </navigationBar>
+                    </tableView>
+                    <tabBarItem key="tabBarItem" id="37337" title="My mARks"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="37280" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="997" y="495"/>
         </scene>
     </scenes>
     <resources>
