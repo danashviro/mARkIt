@@ -10,38 +10,39 @@ using Xamarin.Auth;
 using Android.Support.V7.App;
 using mARkIt.Authentication;
 using mARkIt.Utils;
+using System.Threading.Tasks;
 
 namespace mARkIt.Droid
 {
-    [Activity(Label = "mARk-It", MainLauncher = true)]
-    public class MainActivity : AppCompatActivity, IPermissionManagerPermissionManagerCallback, IFacebookAuthenticationDelegate
-    {
-        User m_User;
-        
+    [Activity(Label = "Login")]
+    public class LoginActivity: AppCompatActivity, IPermissionManagerPermissionManagerCallback, IFacebookAuthenticationDelegate
+    {      
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-            SetContentView(Resource.Layout.Main);
 
             // create buttons
             Button facebookLoginButton = FindViewById<Button>(Resource.Id.facebookLoginButton);
             facebookLoginButton.Click += OnFacebookLoginButtonClicked;
 
             // auto connect
-            autoConnect();
+            autoConnect("Facebook");
+            //autoConnect("Google");
+
+            SetContentView(Resource.Layout.Login);
         }
 
-        Account m_StoredAccount;
-
-        private async void autoConnect()
+        private static async Task<bool> autoConnect(string i_ServiceType)
         {
+            Account account = null;
             // TODO - add Google
-            m_StoredAccount = await MarkIt.Utils.SecureStorageAccountStore
-                .GetAccountAsync("Facebook");
-            if (m_StoredAccount != null)
+            account = await mARkIt.Authentication.SecureStorageAccountStore
+                .GetAccountAsync(i_ServiceType);
+            if (account != null)
             {
-                startMainApp(m_StoredAccount);
+                //startMainApp(account);
             }
+            return false;
         }
 
         private void askForARPermissions()
@@ -50,14 +51,22 @@ namespace mARkIt.Droid
             ArchitectView.PermissionManager.CheckPermissions(this, permissions, PermissionManager.WikitudePermissionRequest, this);
         }
 
-        private void OnFacebookLoginButtonClicked(object sender, EventArgs e)
+        private async void OnFacebookLoginButtonClicked(object sender, EventArgs e)
         {
-            FacebookAuthenticator facebookAuthenticator = new FacebookAuthenticator(Keys.FacebookAppId,
-                         Configuration.FacebookAuthScope,
-                         this);
-            OAuth2Authenticator oauth2authenticator = facebookAuthenticator.GetOAuth2();
-            Intent FBIntent = oauth2authenticator.GetUI(this);
-            StartActivity(FBIntent);
+            bool canAutoConnect = await autoConnect("Facebook");
+            if (canAutoConnect == false)
+            {
+                FacebookAuthenticator facebookAuthenticator = new FacebookAuthenticator(Keys.FacebookAppId,
+                    Configuration.FacebookAuthScope,
+                    this);
+                OAuth2Authenticator oauth2authenticator = facebookAuthenticator.GetOAuth2();
+                Intent FBIntent = oauth2authenticator.GetUI(this);
+                StartActivity(FBIntent);
+            }
+            else
+            {
+                askForARPermissions();
+            }
         }
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Android.Content.PM.Permission[] grantResults)
@@ -75,22 +84,21 @@ namespace mARkIt.Droid
         {
             new Android.App.AlertDialog.Builder(this)
                .SetTitle("Permissions Denied")
-               .SetMessage("You cannot proceed without granting permissions");
+               .SetMessage("You cannot proceed without granting permissions").Show();
+            // if permission was not granted, we do not want to store any account
+            mARkIt.Authentication.SecureStorageAccountStore.RemoveAllAccounts();
         }
 
         public void PermissionsGranted(int responseCode)
         {
             permissionsGranted = true;
-            // go to main page (tabs) if we got all the permissions
-            Intent mainTabs = new Intent(this, typeof(TabsActivity));
-            mainTabs.PutExtra("Email", m_User.Email);
-            StartActivity(mainTabs);
-            Finish();
         }
 
         public void ShowPermissionRationale(int requestCode, string[] permissions)
         {
-
+            new Android.App.AlertDialog.Builder(this)
+               .SetTitle("Permissions Denied")
+               .SetMessage("You cannot proceed without granting permissions").Show();
         }
 
         public void OnAuthenticationCompleted(Account i_Account)
@@ -122,13 +130,19 @@ namespace mARkIt.Droid
             //   .SetTitle("Authentication sucess")
             //   .SetMessage("SUCCESS")
             //   .Show();
-            m_User = new User();
-            m_User.Email = "dedisidi@gmail.com";
+            User user = new User();
+            user.Email = "dedisidi@gmail.com";
 
-            if (!permissionsGranted)
-            {
-                askForARPermissions();
-            }
+            // go to main page (tabs) if we got all the permissions
+            Intent mainTabs = new Intent(this, typeof(TabsActivity));
+            mainTabs.PutExtra("Email", user.Email);
+            StartActivity(mainTabs);
+            Finish();
+
+            //if (!permissionsGranted)
+            //{
+            //    askForARPermissions();
+            //}
 
             //startMainApp(user);
             //// Retrieve the user's email address

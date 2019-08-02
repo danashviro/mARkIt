@@ -6,7 +6,6 @@ using WikitudeComponent.iOS;
 using mARkIt.Utils;
 using Xamarin.Auth;
 using mARkIt.Authentication;
-using MarkIt.Utils;
 
 namespace mARkIt.iOS
 {

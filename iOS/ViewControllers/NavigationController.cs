@@ -42,7 +42,7 @@ namespace mARkIt.iOS
         private async void autoConnect()
         {
             // TODO - add Google
-            m_StoredAccount = await MarkIt.Utils.SecureStorageAccountStore
+            m_StoredAccount = await mARkIt.Authentication.SecureStorageAccountStore
                 .GetAccountAsync("Facebook");
             if (m_StoredAccount == null)
                 PerformSegue("loginSegue", this);

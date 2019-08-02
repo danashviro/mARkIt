@@ -40,7 +40,7 @@ namespace mARkIt.Authentication
         {
             if (e.IsAuthenticated)
             {
-                await MarkIt.Utils.SecureStorageAccountStore.SaveAccountAsync(e.Account, "Facebook");
+                await mARkIt.Authentication.SecureStorageAccountStore.SaveAccountAsync(e.Account, "Facebook");
                 m_AuthenticationDelegate.OnAuthenticationCompleted(e.Account);
             }
             else
