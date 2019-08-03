@@ -1,35 +1,34 @@
-﻿
-using Android.App;
+﻿using Android.App;
 using Android.Content;
 using Android.OS;
-using Android.Runtime;
 using Android.Support.Design.Widget;
-using Android.Views;
-using Android.Widget;
+using Android.Support.V4.App;
 using mARkIt.Authentication;
 using mARkIt.Droid.Fragments;
+using System;
 
 namespace mARkIt.Droid
 {
-    [Activity(Label = "TabsActivity",ConfigurationChanges = Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.KeyboardHidden | Android.Content.PM.ConfigChanges.ScreenSize)]
+    [Activity(Label = "TabsActivity", ConfigurationChanges = Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.KeyboardHidden | Android.Content.PM.ConfigChanges.ScreenSize)]
 
-    public class TabsActivity : Activity
+    public class TabsActivity : FragmentActivity
     {
         TabLayout m_TabLayout;
-        ARFragment m_ARFragment;
-        MapFragment m_MapFragment;
-        SettingsFragment m_SettingsFragment;
+        private ARFragment m_ARFragment;
+        private MapFragment m_MapFragment;
+        private SettingsFragment m_SettingsFragment;
         
         string m_Email;
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
+            SetContentView(Resource.Layout.Tabs);
 
             // todo, send User object between activities and not only email
-            m_Email = Intent.GetStringExtra("Email");
+            //m_Email = Intent.GetStringExtra("Email");
 
             // Create your application here
-            SetContentView(Resource.Layout.Tabs);
+
             m_TabLayout = FindViewById<TabLayout>(Resource.Id.mainTabLayout);
             m_TabLayout.TabSelected += TabLayout_TabSelected;
 
@@ -37,6 +36,7 @@ namespace mARkIt.Droid
             m_ARFragment = new ARFragment();
             m_MapFragment = new MapFragment();
             m_SettingsFragment = new SettingsFragment();
+            m_SettingsFragment.Logout += M_SettingsFragment_Logout;
             fragmentNavigate(m_ARFragment);
         }
 
@@ -56,9 +56,9 @@ namespace mARkIt.Droid
             }
         }
 
-        private void fragmentNavigate(Fragment fragment)
+        private void fragmentNavigate(Android.Support.V4.App.Fragment fragment)
         {
-            var transaction = FragmentManager.BeginTransaction();
+            var transaction = SupportFragmentManager.BeginTransaction();
             transaction.Replace(Resource.Id.contentFrame, fragment);
             transaction.Commit();
         }
@@ -67,6 +67,17 @@ namespace mARkIt.Droid
         {
             // disabling the backbutton original functionality
             //base.OnBackPressed();
+        }
+
+        private void M_SettingsFragment_Logout(object sender, EventArgs e)
+        {
+            // remove account from device
+            SecureStorageAccountStore.RemoveAllAccounts();
+
+            //  go back to login activity
+            Intent loginIntent = new Intent(this, typeof(LoginActivity));
+            StartActivity(loginIntent);
+            Finish();
         }
     }
 }

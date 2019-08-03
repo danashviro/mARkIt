@@ -11,7 +11,7 @@ using Android.Gms.Maps.Model;
 
 namespace mARkIt.Droid.Fragments
 {
-    public class MapFragment : Fragment, IOnMapReadyCallback,ILocationListener
+    public class MapFragment : Android.Support.V4.App.Fragment, IOnMapReadyCallback,ILocationListener
     {
         MapView m_MapView;
         GoogleMap m_GoogleMap;

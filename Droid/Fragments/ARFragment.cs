@@ -21,7 +21,7 @@ using Com.Wikitude.Common.Camera;
 
 namespace mARkIt.Droid.Fragments
 {
-    public class ARFragment : Fragment, ILocationListener, ArchitectView.ISensorAccuracyChangeListener
+    public class ARFragment : Android.Support.V4.App.Fragment, ILocationListener, ArchitectView.ISensorAccuracyChangeListener
     {
         public readonly static string IntentExtrasKeyExperienceData = "ExperienceData";
         private Location.LocationProvider locationProvider;

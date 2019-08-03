@@ -27,7 +27,7 @@ namespace mARkIt.Authentication
                                         null,
                                         IsUsingNativeUI);
             m_AuthenticationDelegate = i_AuthenticationDelegate;
-            m_OAuth2Authenticator.Completed += OnAuthenticationCompletedAsync;
+            m_OAuth2Authenticator.Completed += OnAuthenticationCompleted;
             m_OAuth2Authenticator.Error += OnAuthenticationFailed;
         }
 
@@ -36,11 +36,10 @@ namespace mARkIt.Authentication
             return m_OAuth2Authenticator;
         }
 
-        private async void OnAuthenticationCompletedAsync(object sender, AuthenticatorCompletedEventArgs e)
+        private void OnAuthenticationCompleted(object sender, AuthenticatorCompletedEventArgs e)
         {
             if (e.IsAuthenticated)
             {
-                await mARkIt.Authentication.SecureStorageAccountStore.SaveAccountAsync(e.Account, "Facebook");
                 m_AuthenticationDelegate.OnAuthenticationCompleted(e.Account);
             }
             else

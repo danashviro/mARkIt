@@ -3412,107 +3412,107 @@ namespace mARkIt.Droid
 			// aapt resource value: 0x7f020054
 			public const int avd_hide_password = 2130837588;
 			
-			// aapt resource value: 0x7f020088
-			public const int avd_hide_password_1 = 2130837640;
-			
 			// aapt resource value: 0x7f020089
-			public const int avd_hide_password_2 = 2130837641;
+			public const int avd_hide_password_1 = 2130837641;
 			
 			// aapt resource value: 0x7f02008a
-			public const int avd_hide_password_3 = 2130837642;
+			public const int avd_hide_password_2 = 2130837642;
+			
+			// aapt resource value: 0x7f02008b
+			public const int avd_hide_password_3 = 2130837643;
 			
 			// aapt resource value: 0x7f020055
 			public const int avd_show_password = 2130837589;
 			
-			// aapt resource value: 0x7f02008b
-			public const int avd_show_password_1 = 2130837643;
-			
 			// aapt resource value: 0x7f02008c
-			public const int avd_show_password_2 = 2130837644;
+			public const int avd_show_password_1 = 2130837644;
 			
 			// aapt resource value: 0x7f02008d
-			public const int avd_show_password_3 = 2130837645;
+			public const int avd_show_password_2 = 2130837645;
+			
+			// aapt resource value: 0x7f02008e
+			public const int avd_show_password_3 = 2130837646;
 			
 			// aapt resource value: 0x7f020056
-			public const int background = 2130837590;
+			public const int common_full_open_on_phone = 2130837590;
 			
 			// aapt resource value: 0x7f020057
-			public const int common_full_open_on_phone = 2130837591;
+			public const int common_google_signin_btn_icon_dark = 2130837591;
 			
 			// aapt resource value: 0x7f020058
-			public const int common_google_signin_btn_icon_dark = 2130837592;
+			public const int common_google_signin_btn_icon_dark_focused = 2130837592;
 			
 			// aapt resource value: 0x7f020059
-			public const int common_google_signin_btn_icon_dark_focused = 2130837593;
+			public const int common_google_signin_btn_icon_dark_normal = 2130837593;
 			
 			// aapt resource value: 0x7f02005a
-			public const int common_google_signin_btn_icon_dark_normal = 2130837594;
+			public const int common_google_signin_btn_icon_dark_normal_background = 2130837594;
 			
 			// aapt resource value: 0x7f02005b
-			public const int common_google_signin_btn_icon_dark_normal_background = 2130837595;
+			public const int common_google_signin_btn_icon_disabled = 2130837595;
 			
 			// aapt resource value: 0x7f02005c
-			public const int common_google_signin_btn_icon_disabled = 2130837596;
+			public const int common_google_signin_btn_icon_light = 2130837596;
 			
 			// aapt resource value: 0x7f02005d
-			public const int common_google_signin_btn_icon_light = 2130837597;
+			public const int common_google_signin_btn_icon_light_focused = 2130837597;
 			
 			// aapt resource value: 0x7f02005e
-			public const int common_google_signin_btn_icon_light_focused = 2130837598;
+			public const int common_google_signin_btn_icon_light_normal = 2130837598;
 			
 			// aapt resource value: 0x7f02005f
-			public const int common_google_signin_btn_icon_light_normal = 2130837599;
+			public const int common_google_signin_btn_icon_light_normal_background = 2130837599;
 			
 			// aapt resource value: 0x7f020060
-			public const int common_google_signin_btn_icon_light_normal_background = 2130837600;
+			public const int common_google_signin_btn_text_dark = 2130837600;
 			
 			// aapt resource value: 0x7f020061
-			public const int common_google_signin_btn_text_dark = 2130837601;
+			public const int common_google_signin_btn_text_dark_focused = 2130837601;
 			
 			// aapt resource value: 0x7f020062
-			public const int common_google_signin_btn_text_dark_focused = 2130837602;
+			public const int common_google_signin_btn_text_dark_normal = 2130837602;
 			
 			// aapt resource value: 0x7f020063
-			public const int common_google_signin_btn_text_dark_normal = 2130837603;
+			public const int common_google_signin_btn_text_dark_normal_background = 2130837603;
 			
 			// aapt resource value: 0x7f020064
-			public const int common_google_signin_btn_text_dark_normal_background = 2130837604;
+			public const int common_google_signin_btn_text_disabled = 2130837604;
 			
 			// aapt resource value: 0x7f020065
-			public const int common_google_signin_btn_text_disabled = 2130837605;
+			public const int common_google_signin_btn_text_light = 2130837605;
 			
 			// aapt resource value: 0x7f020066
-			public const int common_google_signin_btn_text_light = 2130837606;
+			public const int common_google_signin_btn_text_light_focused = 2130837606;
 			
 			// aapt resource value: 0x7f020067
-			public const int common_google_signin_btn_text_light_focused = 2130837607;
+			public const int common_google_signin_btn_text_light_normal = 2130837607;
 			
 			// aapt resource value: 0x7f020068
-			public const int common_google_signin_btn_text_light_normal = 2130837608;
+			public const int common_google_signin_btn_text_light_normal_background = 2130837608;
 			
 			// aapt resource value: 0x7f020069
-			public const int common_google_signin_btn_text_light_normal_background = 2130837609;
+			public const int design_bottom_navigation_item_background = 2130837609;
 			
 			// aapt resource value: 0x7f02006a
-			public const int design_bottom_navigation_item_background = 2130837610;
+			public const int design_fab_background = 2130837610;
 			
 			// aapt resource value: 0x7f02006b
-			public const int design_fab_background = 2130837611;
+			public const int design_ic_visibility = 2130837611;
 			
 			// aapt resource value: 0x7f02006c
-			public const int design_ic_visibility = 2130837612;
+			public const int design_ic_visibility_off = 2130837612;
 			
 			// aapt resource value: 0x7f02006d
-			public const int design_ic_visibility_off = 2130837613;
+			public const int design_password_eye = 2130837613;
 			
 			// aapt resource value: 0x7f02006e
-			public const int design_password_eye = 2130837614;
+			public const int design_snackbar_background = 2130837614;
 			
 			// aapt resource value: 0x7f02006f
-			public const int design_snackbar_background = 2130837615;
+			public const int FBLogin = 2130837615;
 			
 			// aapt resource value: 0x7f020070
-			public const int FBLogin = 2130837616;
+			public const int GLogin = 2130837616;
 			
 			// aapt resource value: 0x7f020071
 			public const int googleg_disabled_color_18 = 2130837617;
@@ -3533,55 +3533,58 @@ namespace mARkIt.Droid
 			public const int ic_mtrl_chip_close_circle = 2130837622;
 			
 			// aapt resource value: 0x7f020077
-			public const int mtrl_snackbar_background = 2130837623;
+			public const int MainLogo = 2130837623;
 			
 			// aapt resource value: 0x7f020078
-			public const int mtrl_tabs_default_indicator = 2130837624;
+			public const int mtrl_snackbar_background = 2130837624;
 			
 			// aapt resource value: 0x7f020079
-			public const int navigation_empty_icon = 2130837625;
+			public const int mtrl_tabs_default_indicator = 2130837625;
 			
 			// aapt resource value: 0x7f02007a
-			public const int notification_action_background = 2130837626;
+			public const int navigation_empty_icon = 2130837626;
 			
 			// aapt resource value: 0x7f02007b
-			public const int notification_bg = 2130837627;
+			public const int notification_action_background = 2130837627;
 			
 			// aapt resource value: 0x7f02007c
-			public const int notification_bg_low = 2130837628;
+			public const int notification_bg = 2130837628;
 			
 			// aapt resource value: 0x7f02007d
-			public const int notification_bg_low_normal = 2130837629;
+			public const int notification_bg_low = 2130837629;
 			
 			// aapt resource value: 0x7f02007e
-			public const int notification_bg_low_pressed = 2130837630;
+			public const int notification_bg_low_normal = 2130837630;
 			
 			// aapt resource value: 0x7f02007f
-			public const int notification_bg_normal = 2130837631;
+			public const int notification_bg_low_pressed = 2130837631;
 			
 			// aapt resource value: 0x7f020080
-			public const int notification_bg_normal_pressed = 2130837632;
+			public const int notification_bg_normal = 2130837632;
 			
 			// aapt resource value: 0x7f020081
-			public const int notification_icon_background = 2130837633;
-			
-			// aapt resource value: 0x7f020086
-			public const int notification_template_icon_bg = 2130837638;
-			
-			// aapt resource value: 0x7f020087
-			public const int notification_template_icon_low_bg = 2130837639;
+			public const int notification_bg_normal_pressed = 2130837633;
 			
 			// aapt resource value: 0x7f020082
-			public const int notification_tile_bg = 2130837634;
+			public const int notification_icon_background = 2130837634;
+			
+			// aapt resource value: 0x7f020087
+			public const int notification_template_icon_bg = 2130837639;
+			
+			// aapt resource value: 0x7f020088
+			public const int notification_template_icon_low_bg = 2130837640;
 			
 			// aapt resource value: 0x7f020083
-			public const int notify_panel_notification_icon_bg = 2130837635;
+			public const int notification_tile_bg = 2130837635;
 			
 			// aapt resource value: 0x7f020084
-			public const int tooltip_frame_dark = 2130837636;
+			public const int notify_panel_notification_icon_bg = 2130837636;
 			
 			// aapt resource value: 0x7f020085
-			public const int tooltip_frame_light = 2130837637;
+			public const int tooltip_frame_dark = 2130837637;
+			
+			// aapt resource value: 0x7f020086
+			public const int tooltip_frame_light = 2130837638;
 			
 			static Drawable()
 			{
@@ -3614,8 +3617,8 @@ namespace mARkIt.Droid
 			// aapt resource value: 0x7f0d0049
 			public const int SYM = 2131558473;
 			
-			// aapt resource value: 0x7f0d00bf
-			public const int action0 = 2131558591;
+			// aapt resource value: 0x7f0d00c4
+			public const int action0 = 2131558596;
 			
 			// aapt resource value: 0x7f0d0097
 			public const int action_bar = 2131558551;
@@ -3638,17 +3641,17 @@ namespace mARkIt.Droid
 			// aapt resource value: 0x7f0d0073
 			public const int action_bar_title = 2131558515;
 			
-			// aapt resource value: 0x7f0d00bc
-			public const int action_container = 2131558588;
+			// aapt resource value: 0x7f0d00c1
+			public const int action_container = 2131558593;
 			
 			// aapt resource value: 0x7f0d0098
 			public const int action_context_bar = 2131558552;
 			
-			// aapt resource value: 0x7f0d00c3
-			public const int action_divider = 2131558595;
+			// aapt resource value: 0x7f0d00c8
+			public const int action_divider = 2131558600;
 			
-			// aapt resource value: 0x7f0d00bd
-			public const int action_image = 2131558589;
+			// aapt resource value: 0x7f0d00c2
+			public const int action_image = 2131558594;
 			
 			// aapt resource value: 0x7f0d0003
 			public const int action_menu_divider = 2131558403;
@@ -3665,11 +3668,11 @@ namespace mARkIt.Droid
 			// aapt resource value: 0x7f0d0075
 			public const int action_mode_close_button = 2131558517;
 			
-			// aapt resource value: 0x7f0d00be
-			public const int action_text = 2131558590;
+			// aapt resource value: 0x7f0d00c3
+			public const int action_text = 2131558595;
 			
-			// aapt resource value: 0x7f0d00cc
-			public const int actions = 2131558604;
+			// aapt resource value: 0x7f0d00d1
+			public const int actions = 2131558609;
 			
 			// aapt resource value: 0x7f0d0076
 			public const int activity_chooser_view_content = 2131558518;
@@ -3682,6 +3685,9 @@ namespace mARkIt.Droid
 			
 			// aapt resource value: 0x7f0d002a
 			public const int adjust_width = 2131558442;
+			
+			// aapt resource value: 0x7f0d00bc
+			public const int after_text_line = 2131558588;
 			
 			// aapt resource value: 0x7f0d0089
 			public const int alertTitle = 2131558537;
@@ -3725,8 +3731,8 @@ namespace mARkIt.Droid
 			// aapt resource value: 0x7f0d007c
 			public const int buttonPanel = 2131558524;
 			
-			// aapt resource value: 0x7f0d00c0
-			public const int cancel_action = 2131558592;
+			// aapt resource value: 0x7f0d00c5
+			public const int cancel_action = 2131558597;
 			
 			// aapt resource value: 0x7f0d0057
 			public const int center = 2131558487;
@@ -3740,8 +3746,8 @@ namespace mARkIt.Droid
 			// aapt resource value: 0x7f0d0090
 			public const int checkbox = 2131558544;
 			
-			// aapt resource value: 0x7f0d00c8
-			public const int chronometer = 2131558600;
+			// aapt resource value: 0x7f0d00cd
+			public const int chronometer = 2131558605;
 			
 			// aapt resource value: 0x7f0d006b
 			public const int clip_horizontal = 2131558507;
@@ -3758,8 +3764,8 @@ namespace mARkIt.Droid
 			// aapt resource value: 0x7f0d008c
 			public const int content = 2131558540;
 			
-			// aapt resource value: 0x7f0d00d3
-			public const int contentFrame = 2131558611;
+			// aapt resource value: 0x7f0d00d9
+			public const int contentFrame = 2131558617;
 			
 			// aapt resource value: 0x7f0d007f
 			public const int contentPanel = 2131558527;
@@ -3806,8 +3812,8 @@ namespace mARkIt.Droid
 			// aapt resource value: 0x7f0d0042
 			public const int end = 2131558466;
 			
-			// aapt resource value: 0x7f0d00ce
-			public const int end_padder = 2131558606;
+			// aapt resource value: 0x7f0d00d3
+			public const int end_padder = 2131558611;
 			
 			// aapt resource value: 0x7f0d0051
 			public const int enterAlways = 2131558481;
@@ -3824,8 +3830,8 @@ namespace mARkIt.Droid
 			// aapt resource value: 0x7f0d008f
 			public const int expanded_menu = 2131558543;
 			
-			// aapt resource value: 0x7f0d00ba
-			public const int facebookLoginButton = 2131558586;
+			// aapt resource value: 0x7f0d00bd
+			public const int facebook_login_button = 2131558589;
 			
 			// aapt resource value: 0x7f0d0068
 			public const int fill = 2131558504;
@@ -3848,6 +3854,9 @@ namespace mARkIt.Droid
 			// aapt resource value: 0x7f0d000a
 			public const int ghost_view = 2131558410;
 			
+			// aapt resource value: 0x7f0d00bf
+			public const int google_login_button = 2131558591;
+			
 			// aapt resource value: 0x7f0d008b
 			public const int group_divider = 2131558539;
 			
@@ -3863,8 +3872,8 @@ namespace mARkIt.Droid
 			// aapt resource value: 0x7f0d007b
 			public const int icon = 2131558523;
 			
-			// aapt resource value: 0x7f0d00cd
-			public const int icon_group = 2131558605;
+			// aapt resource value: 0x7f0d00d2
+			public const int icon_group = 2131558610;
 			
 			// aapt resource value: 0x7f0d002b
 			public const int icon_only = 2131558443;
@@ -3875,8 +3884,8 @@ namespace mARkIt.Droid
 			// aapt resource value: 0x7f0d0078
 			public const int image = 2131558520;
 			
-			// aapt resource value: 0x7f0d00c9
-			public const int info = 2131558601;
+			// aapt resource value: 0x7f0d00ce
+			public const int info = 2131558606;
 			
 			// aapt resource value: 0x7f0d0072
 			public const int italic = 2131558514;
@@ -3908,20 +3917,29 @@ namespace mARkIt.Droid
 			// aapt resource value: 0x7f0d007a
 			public const int list_item = 2131558522;
 			
-			// aapt resource value: 0x7f0d00cf
-			public const int mainTabLayout = 2131558607;
+			// aapt resource value: 0x7f0d00d4
+			public const int logout_button = 2131558612;
+			
+			// aapt resource value: 0x7f0d00d5
+			public const int mainTabLayout = 2131558613;
 			
 			// aapt resource value: 0x7f0d00a8
 			public const int mainToolbar = 2131558568;
 			
+			// aapt resource value: 0x7f0d00ba
+			public const int main_logo = 2131558586;
+			
+			// aapt resource value: 0x7f0d00c0
+			public const int mapView = 2131558592;
+			
 			// aapt resource value: 0x7f0d00bb
-			public const int mapView = 2131558587;
+			public const int markit_text = 2131558587;
 			
-			// aapt resource value: 0x7f0d00d5
-			public const int masked = 2131558613;
+			// aapt resource value: 0x7f0d00db
+			public const int masked = 2131558619;
 			
-			// aapt resource value: 0x7f0d00c2
-			public const int media_actions = 2131558594;
+			// aapt resource value: 0x7f0d00c7
+			public const int media_actions = 2131558599;
 			
 			// aapt resource value: 0x7f0d00a6
 			public const int message = 2131558566;
@@ -3953,14 +3971,17 @@ namespace mARkIt.Droid
 			// aapt resource value: 0x7f0d0026
 			public const int normal = 2131558438;
 			
-			// aapt resource value: 0x7f0d00cb
-			public const int notification_background = 2131558603;
+			// aapt resource value: 0x7f0d00d0
+			public const int notification_background = 2131558608;
 			
-			// aapt resource value: 0x7f0d00c5
-			public const int notification_main_column = 2131558597;
+			// aapt resource value: 0x7f0d00ca
+			public const int notification_main_column = 2131558602;
 			
-			// aapt resource value: 0x7f0d00c4
-			public const int notification_main_column_container = 2131558596;
+			// aapt resource value: 0x7f0d00c9
+			public const int notification_main_column_container = 2131558601;
+			
+			// aapt resource value: 0x7f0d00be
+			public const int or_text = 2131558590;
 			
 			// aapt resource value: 0x7f0d006a
 			public const int outline = 2131558506;
@@ -3989,11 +4010,11 @@ namespace mARkIt.Droid
 			// aapt resource value: 0x7f0d005f
 			public const int right = 2131558495;
 			
-			// aapt resource value: 0x7f0d00ca
-			public const int right_icon = 2131558602;
+			// aapt resource value: 0x7f0d00cf
+			public const int right_icon = 2131558607;
 			
-			// aapt resource value: 0x7f0d00c6
-			public const int right_side = 2131558598;
+			// aapt resource value: 0x7f0d00cb
+			public const int right_side = 2131558603;
 			
 			// aapt resource value: 0x7f0d0027
 			public const int satellite = 2131558439;
@@ -4109,8 +4130,8 @@ namespace mARkIt.Droid
 			// aapt resource value: 0x7f0d0060
 			public const int start = 2131558496;
 			
-			// aapt resource value: 0x7f0d00c1
-			public const int status_bar_latest_event_content = 2131558593;
+			// aapt resource value: 0x7f0d00c6
+			public const int status_bar_latest_event_content = 2131558598;
 			
 			// aapt resource value: 0x7f0d0065
 			public const int stretch = 2131558501;
@@ -4121,14 +4142,14 @@ namespace mARkIt.Droid
 			// aapt resource value: 0x7f0d00a2
 			public const int submit_area = 2131558562;
 			
-			// aapt resource value: 0x7f0d00d0
-			public const int tabItem5 = 2131558608;
+			// aapt resource value: 0x7f0d00d6
+			public const int tabItem5 = 2131558614;
 			
-			// aapt resource value: 0x7f0d00d1
-			public const int tabItem7 = 2131558609;
+			// aapt resource value: 0x7f0d00d7
+			public const int tabItem7 = 2131558615;
 			
-			// aapt resource value: 0x7f0d00d2
-			public const int tabItem8 = 2131558610;
+			// aapt resource value: 0x7f0d00d8
+			public const int tabItem8 = 2131558616;
 			
 			// aapt resource value: 0x7f0d0032
 			public const int tabMode = 2131558450;
@@ -4172,8 +4193,8 @@ namespace mARkIt.Droid
 			// aapt resource value: 0x7f0d001a
 			public const int textinput_helper_text = 2131558426;
 			
-			// aapt resource value: 0x7f0d00c7
-			public const int time = 2131558599;
+			// aapt resource value: 0x7f0d00cc
+			public const int time = 2131558604;
 			
 			// aapt resource value: 0x7f0d0023
 			public const int title = 2131558435;
@@ -4223,8 +4244,8 @@ namespace mARkIt.Droid
 			// aapt resource value: 0x7f0d001b
 			public const int view_offset_helper = 2131558427;
 			
-			// aapt resource value: 0x7f0d00d4
-			public const int visible = 2131558612;
+			// aapt resource value: 0x7f0d00da
+			public const int visible = 2131558618;
 			
 			// aapt resource value: 0x7f0d00a7
 			public const int webview = 2131558567;
@@ -4545,13 +4566,16 @@ namespace mARkIt.Droid
 			public const int select_dialog_singlechoice_material = 2130968644;
 			
 			// aapt resource value: 0x7f040045
-			public const int support_simple_spinner_dropdown_item = 2130968645;
+			public const int Settings = 2130968645;
 			
 			// aapt resource value: 0x7f040046
-			public const int Tabs = 2130968646;
+			public const int support_simple_spinner_dropdown_item = 2130968646;
 			
 			// aapt resource value: 0x7f040047
-			public const int Welcome = 2130968647;
+			public const int Tabs = 2130968647;
+			
+			// aapt resource value: 0x7f040048
+			public const int Welcome = 2130968648;
 			
 			static Layout()
 			{
