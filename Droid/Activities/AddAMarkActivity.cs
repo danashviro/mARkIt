@@ -8,13 +8,14 @@ using Android.App;
 using Android.Content;
 using Android.OS;
 using Android.Runtime;
+using Android.Support.V7.App;
 using Android.Views;
 using Android.Widget;
 
 namespace mARkIt.Droid
 {
     [Activity(Label = "AddAMarkActivity")]
-    public class AddAMarkActivity : Activity
+    public class AddAMarkActivity : AppCompatActivity
     {
         protected override void OnCreate(Bundle savedInstanceState)
         {

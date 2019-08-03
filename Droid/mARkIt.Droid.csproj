@@ -229,7 +229,6 @@
     <Compile Include="Fragments\MapFragment.cs" />
     <Compile Include="Location\LocationProvider.cs" />
     <Compile Include="Util\PlatformConverter.cs" />
-    <Compile Include="Activities\ArActivity.cs" />
     <Compile Include="Activities\AddAMarkActivity.cs" />
   </ItemGroup>
   <ItemGroup>

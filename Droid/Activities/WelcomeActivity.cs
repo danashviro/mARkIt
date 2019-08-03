@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Android;
 using Android.App;
@@ -21,6 +22,8 @@ namespace mARkIt.Droid.Activities
     [Activity(Label = "mARk-It", MainLauncher = true)]
     public class WelcomeActivity : AppCompatActivity, IPermissionManagerPermissionManagerCallback
     {
+        Account m_Account = null;
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -28,13 +31,11 @@ namespace mARkIt.Droid.Activities
             init();
         }
 
-        private async Task init()
+        private async void init()
         {
             await autoConnect();
             askForARPermissions();
         }
-
-        Account m_Account = null;
 
         private async Task autoConnect()
         {
@@ -45,17 +46,41 @@ namespace mARkIt.Droid.Activities
                 m_Account = await mARkIt.Authentication.SecureStorageAccountStore
                     .GetAccountAsync("Google");
             }
+
+            Thread.Sleep(TimeSpan.FromSeconds(30));
+        }
+
+        private void askForARPermissions()
+        {
+            string[] permissions = { Manifest.Permission.Camera,
+                                     Manifest.Permission.AccessFineLocation,
+                                     Manifest.Permission.ReadExternalStorage,
+                                     Manifest.Permission.WriteExternalStorage,
+                                     };
+
+            ArchitectView.PermissionManager.CheckPermissions(this, permissions, PermissionManager.WikitudePermissionRequest, this);
         }
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Android.Content.PM.Permission[] grantResults)
         {
-            int[] results = new int[grantResults.Length];
-            for (int i = 0; i < grantResults.Length; i++)
-            {
-                results[i] = (int)grantResults[i];
-            }
+            int []results = grantResults.Cast<int>().ToArray();
             ArchitectView.PermissionManager.OnRequestPermissionsResult(requestCode, permissions, results);
             ArchitectView.PermissionManager.CheckPermissions(this, permissions, PermissionManager.WikitudePermissionRequest, this);
+        }
+
+        public void PermissionsGranted(int responseCode)
+        {
+            loadApp();
+        }
+
+        public void PermissionsDenied(string[] deniedPermissions)
+        {
+            showPermissionsDeniedDialog();
+        }
+
+        public void ShowPermissionRationale(int requestCode, string[] permissions)
+        {
+            showPermissionsDeniedDialog();
         }
 
         private async void loadApp()
@@ -71,21 +96,6 @@ namespace mARkIt.Droid.Activities
             {
                 startLoginPage();
             }
-        }
-
-        private void onOkClick(object sender, DialogClickEventArgs e)
-        {
-            Finish();
-        }
-
-        private void askForARPermissions()
-        {
-            string[] permissions = { Manifest.Permission.Camera,
-                                     Manifest.Permission.AccessFineLocation,
-                                     Manifest.Permission.ReadExternalStorage,
-                                     Manifest.Permission.WriteExternalStorage,
-                                     };
-            ArchitectView.PermissionManager.CheckPermissions(this, permissions, PermissionManager.WikitudePermissionRequest, this);
         }
 
         private void startLoginPage()
@@ -107,27 +117,12 @@ namespace mARkIt.Droid.Activities
             Finish();
         }
 
-        public void PermissionsDenied(string[] deniedPermissions)
-        {
-            showPermissionsDeniedDialog();
-        }
-
-        public void PermissionsGranted(int responseCode)
-        {
-            loadApp();
-        }
-
-        public void ShowPermissionRationale(int requestCode, string[] permissions)
-        {
-            showPermissionsDeniedDialog();
-        }
-
         private void showPermissionsDeniedDialog()
         {
             Android.App.AlertDialog.Builder dialog = new Android.App.AlertDialog.Builder(this);
             dialog.SetTitle("Permissions Denied");
             dialog.SetMessage("You cannot proceed without granting permissions");
-            dialog.SetPositiveButton("OK", onOkClick);
+            dialog.SetPositiveButton("OK", (sender, eventArgs) => Finish());
             dialog.Show();
         }
     }
