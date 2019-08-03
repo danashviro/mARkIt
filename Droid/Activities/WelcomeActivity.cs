@@ -58,11 +58,10 @@ namespace mARkIt.Droid.Activities
             ArchitectView.PermissionManager.CheckPermissions(this, permissions, PermissionManager.WikitudePermissionRequest, this);
         }
 
-
-
         private async void loadApp()
         {
             await Task.Delay(TimeSpan.FromSeconds(1));
+
             // Go straight to main tabs page
             if (m_Account != null)
             {
@@ -72,7 +71,6 @@ namespace mARkIt.Droid.Activities
             {
                 startLoginPage();
             }
-
         }
 
         private void onOkClick(object sender, DialogClickEventArgs e)
@@ -82,7 +80,11 @@ namespace mARkIt.Droid.Activities
 
         private void askForARPermissions()
         {
-            string[] permissions = { Manifest.Permission.Camera, Manifest.Permission.AccessFineLocation };
+            string[] permissions = { Manifest.Permission.Camera,
+                                     Manifest.Permission.AccessFineLocation,
+                                     Manifest.Permission.ReadExternalStorage,
+                                     Manifest.Permission.WriteExternalStorage,
+                                     };
             ArchitectView.PermissionManager.CheckPermissions(this, permissions, PermissionManager.WikitudePermissionRequest, this);
         }
 
@@ -107,25 +109,26 @@ namespace mARkIt.Droid.Activities
 
         public void PermissionsDenied(string[] deniedPermissions)
         {
+            showPermissionsDeniedDialog();
+        }
+
+        public void PermissionsGranted(int responseCode)
+        {
+            loadApp();
+        }
+
+        public void ShowPermissionRationale(int requestCode, string[] permissions)
+        {
+            showPermissionsDeniedDialog();
+        }
+
+        private void showPermissionsDeniedDialog()
+        {
             Android.App.AlertDialog.Builder dialog = new Android.App.AlertDialog.Builder(this);
             dialog.SetTitle("Permissions Denied");
             dialog.SetMessage("You cannot proceed without granting permissions");
             dialog.SetPositiveButton("OK", onOkClick);
             dialog.Show();
-        }
-
-        public void PermissionsGranted(int responseCode)
-        {
-            m_PermissionsAllowed = true;
-            loadApp();
-
-        }
-
-        private bool m_PermissionsAllowed = false;
-
-        public void ShowPermissionRationale(int requestCode, string[] permissions)
-        {
-            m_PermissionsAllowed = false;
         }
     }
 }
