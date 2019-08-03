@@ -169,6 +169,7 @@
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\120-1.png">
       <Visible>false</Visible>
     </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\LaunchImage.launchimage\Contents.json" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
@@ -219,6 +220,14 @@
     <Compile Include="ViewControllers\NavigationController.cs" />
     <Compile Include="ViewControllers\NavigationController.designer.cs">
       <DependentUpon>NavigationController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MarkTableViewCell.cs" />
+    <Compile Include="MarkTableViewCell.designer.cs">
+      <DependentUpon>MarkTableViewCell.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ViewControllers\MyMarksViewController.cs" />
+    <Compile Include="ViewControllers\MyMarksViewController.designer.cs">
+      <DependentUpon>MyMarksViewController.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -275,6 +284,12 @@
     <BundleResource Include="Resources\markStyles\schoolBoardAddMark.png" />
     <BundleResource Include="Resources\markStyles\metalSignAddMark.png" />
     <BundleResource Include="Resources\markStyles\woodSignAddMark.png" />
+    <BundleResource Include="Resources\Icons\login_buttons\facebook_360_60.png" />
+    <BundleResource Include="Resources\Icons\login_buttons\google_360_60.png" />
+    <BundleResource Include="Resources\Icons\login_buttons\facebook_258_38.png" />
+    <BundleResource Include="Resources\Icons\login_buttons\google_258_38.png" />
+    <BundleResource Include="Resources\Icons\appIcon_240_240.png" />
+    <BundleResource Include="Resources\Icons\appIcon_291_291.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>
