@@ -15,14 +15,6 @@ namespace mARkIt.Droid.Fragments
 {
     public class SettingsFragment : Android.Support.V4.App.Fragment
     {
-        public event EventHandler Logout;
-        public string Dedi;
-
-        public override void OnCreate(Bundle savedInstanceState)
-        {
-            base.OnCreate(savedInstanceState);
-        }
-
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             // Use this to return your custom view for this Fragment
@@ -38,8 +30,13 @@ namespace mARkIt.Droid.Fragments
 
         private void LogoutButton_Click(object sender, EventArgs e)
         {
-            // this tells the TabsActivity to kill itself and go back to login activity
-            this.Logout?.Invoke(null, EventArgs.Empty);
+            // remove account from device
+            SecureStorageAccountStore.RemoveAllAccounts();
+
+            //  go back to login activity
+            Intent loginIntent = new Intent(Activity, typeof(LoginActivity));
+            StartActivity(loginIntent);
+            Activity.Finish();
         }
     }
 }

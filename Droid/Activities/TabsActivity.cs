@@ -36,7 +36,6 @@ namespace mARkIt.Droid
             m_ARFragment = new ARFragment();
             m_MapFragment = new MapFragment();
             m_SettingsFragment = new SettingsFragment();
-            m_SettingsFragment.Logout += M_SettingsFragment_Logout;
             fragmentNavigate(m_ARFragment);
         }
 
@@ -61,23 +60,6 @@ namespace mARkIt.Droid
             var transaction = SupportFragmentManager.BeginTransaction();
             transaction.Replace(Resource.Id.contentFrame, fragment);
             transaction.Commit();
-        }
-
-        public override void OnBackPressed()
-        {
-            // disabling the backbutton original functionality
-            //base.OnBackPressed();
-        }
-
-        private void M_SettingsFragment_Logout(object sender, EventArgs e)
-        {
-            // remove account from device
-            SecureStorageAccountStore.RemoveAllAccounts();
-
-            //  go back to login activity
-            Intent loginIntent = new Intent(this, typeof(LoginActivity));
-            StartActivity(loginIntent);
-            Finish();
         }
     }
 }

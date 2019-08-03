@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Android;
 using Android.App;
@@ -24,27 +25,15 @@ namespace mARkIt.Droid.Activities
         {
             base.OnCreate(savedInstanceState);
 
-            Task.Run(() => autoConnect());
             SetContentView(Resource.Layout.Welcome);
             loadApp();
         }
 
         Account m_Account = null;
 
-        private async void autoConnect()
-        {
-            m_Account = await mARkIt.Authentication.SecureStorageAccountStore
-                .GetAccountAsync("Facebook");
-            if (m_Account == null)
-            {
-                m_Account = await mARkIt.Authentication.SecureStorageAccountStore
-                    .GetAccountAsync("Google");
-            }
-        }
-
         private async void loadApp()
         {
-            await Task.Delay(TimeSpan.FromSeconds(1));
+            await autoConnect();
 
             askForARPermissions();
             if (m_PermissionsAllowed == true)
@@ -64,14 +53,20 @@ namespace mARkIt.Droid.Activities
                 Android.App.AlertDialog.Builder dialog = new Android.App.AlertDialog.Builder(this);
                 dialog.SetTitle("Permissions Denied");
                 dialog.SetMessage("You cannot proceed without granting permissions");
-                dialog.SetPositiveButton("OK", onOkClick);          
+                dialog.SetPositiveButton("OK", (sender, eventArgs) => Finish());          
                 dialog.Show();
             }
         }
 
-        private void onOkClick(object sender, DialogClickEventArgs e)
+        private async Task autoConnect()
         {
-            Finish();
+            m_Account = await mARkIt.Authentication.SecureStorageAccountStore
+                .GetAccountAsync("Facebook");
+            if (m_Account == null)
+            {
+                m_Account = await mARkIt.Authentication.SecureStorageAccountStore
+                    .GetAccountAsync("Google");
+            }
         }
 
         private void askForARPermissions()

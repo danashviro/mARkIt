@@ -50,13 +50,17 @@ namespace mARkIt.Droid
 
         public void OnAuthenticationFailed(string i_Message, Exception i_Exception)
         {
+            
             // if permission was not granted, we do not want to store any account - to be safe
             mARkIt.Authentication.SecureStorageAccountStore.RemoveAllAccounts();
+
+            /*
             // show error message
             new Android.App.AlertDialog.Builder(this)
                            .SetTitle(i_Message)
                            .SetMessage(i_Exception?.ToString())
                            .Show();
+                           */
         }
 
         public void OnAuthenticationCanceled()
