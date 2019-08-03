@@ -1,8 +1,6 @@
 using System;
 using Foundation;
-using mARkIt.iOS.CoreServices;
 using UIKit;
-using WikitudeComponent.iOS;
 using mARkIt.Utils;
 using Xamarin.Auth;
 using mARkIt.Authentication;
@@ -48,10 +46,11 @@ namespace mARkIt.iOS
         }
 
 
-        public void OnAuthenticationCompleted(Account i_Account)
+        public async void OnAuthenticationCompleted(Account i_Account)
         {
             DismissViewController(true, null);
             hasLoggedIn = true;
+            await SecureStorageAccountStore.SaveAccountAsync(i_Account, "Facebook");
             m_User = new User();
             m_User.Email = "dedisidi@gmail.com";
             PerformSegue("launchAppSegue", this);
@@ -61,12 +60,13 @@ namespace mARkIt.iOS
 
         public void OnAuthenticationFailed(string i_Message, Exception i_Exception)
         {
-            //throw new NotImplementedException();
+            SecureStorageAccountStore.RemoveAllAccounts();
         }
 
         public void OnAuthenticationCanceled()
         {
             //throw new NotImplementedException();
         }
+
     }
 }

@@ -292,6 +292,7 @@
     <BundleResource Include="Resources\Icons\login_buttons\google_258_38.png" />
     <BundleResource Include="Resources\Icons\appIcon_240_240.png" />
     <BundleResource Include="Resources\Icons\appIcon_291_291.png" />
+    <BundleResource Include="Resources\appIcon_291_291.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

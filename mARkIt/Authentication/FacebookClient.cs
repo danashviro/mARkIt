@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xamarin.Auth;
 
 namespace mARkIt.Authentication
@@ -18,6 +14,7 @@ namespace mARkIt.Authentication
 
         public string GetEmailAddress()
         {
+            // GET(acces_token, "email")
             throw new NotImplementedException();
         }
     }

@@ -27,7 +27,7 @@
                                 <color key="textColor" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace" white="1" alpha="1"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="1335" translatesAutoresizingMaskIntoConstraints="NO" image="Icons/appIcon_291_291.png">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="1335" translatesAutoresizingMaskIntoConstraints="NO" image="appIcon_291_291.png">
                                 <rect key="frame" x="42" y="188" width="291" height="291"/>
                             </imageView>
                         </subviews>
@@ -46,6 +46,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Icons/appIcon_291_291.png" width="291" height="291"/>
+        <image name="appIcon_291_291.png" width="291" height="291"/>
     </resources>
 </document>
