@@ -19,27 +19,69 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" colorSpace="calibratedRGB" red="0.0196078431372549" green="0.22745098039215686" blue="0.28235294117647058" alpha="1"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="7091" translatesAutoresizingMaskIntoConstraints="NO">
-                                <rect key="frame" x="78" y="318.5" width="195" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="7091" translatesAutoresizingMaskIntoConstraints="NO" adjustsImageSizeForAccessibilityContentSizeCategory="YES">
+                                <rect key="frame" x="61.5" y="393.5" width="258" height="38"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="2"/>
-                                <state key="normal" backgroundImage="Icons/FBLoginIcon.png">
+                                <state key="normal" backgroundImage="Icons/login_buttons/facebook_258_38.png">
                                     <color key="titleColor" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace" white="1" alpha="1"/>
                                 </state>
                                 <connections>
                                     <segue id="24498" destination="2836" kind="show" identifier="launchAppSegue"/>
                                 </connections>
                             </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="41179" translatesAutoresizingMaskIntoConstraints="NO" image="Icons/appIcon_240_240.png">
+                                <rect key="frame" x="70.5" y="58.5" width="240" height="240"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="  Login" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="none" adjustsFontSizeToFit="NO" id="41182" translatesAutoresizingMaskIntoConstraints="NO" layoutMarginsFollowReadableWidth="YES" placeholderIntrinsicWidth="80" placeholderIntrinsicHeight="30" semanticContentAttribute="forceLeftToRight" autoresizesSubviews="NO">
+                                <rect key="frame" x="150.5" y="318.5" width="80" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="23"/>
+                                <color key="textColor" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace" white="1" alpha="1"/>
+                                <nil key="highlightedColor"/>
+                                <directionalEdgeInsets key="directionalLayoutMargins" top="8" left="8" bottom="8" right="8"/>
+                                <size key="shadowOffset" width="0" height="0"/>
+                                <rect key="contentStretch" x="0.0" y="0.0" width="1" height="1"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="41183" translatesAutoresizingMaskIntoConstraints="NO">
+                                <rect key="frame" x="61.5" y="462" width="258" height="38"/>
+                                <state key="normal" backgroundImage="Icons/login_buttons/google_258_38.png"/>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Or" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="41185" translatesAutoresizingMaskIntoConstraints="NO">
+                                <rect key="frame" x="183.5" y="439.5" width="14" height="14.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace" white="1" alpha="1"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" id="42815" translatesAutoresizingMaskIntoConstraints="NO" autoresizesSubviews="NO">
+                                <rect key="frame" x="52" y="348.5" width="271" height="37"/>
+                                <color key="backgroundColor" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace" white="0" alpha="0"/>
+                                <rect key="contentStretch" x="0.0" y="0.0" width="1" height="1"/>
+                                <color key="tintColor" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace" white="0" alpha="0"/>
+                                <constraints>
+                                    <constraint id="42892" firstAttribute="width" constant="271"/>
+                                    <constraint id="42893" firstAttribute="height" constant="37"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <constraints>
-                            <constraint id="23857" firstAttribute="centerX" secondItem="7091" secondAttribute="centerX" constant="12"/>
-                            <constraint id="23858" firstItem="7091" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY"/>
-                            <constraint id="23859" firstItem="7091" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="62"/>
+                            <constraint id="42881" firstItem="41182" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" constant="3"/>
+                            <constraint id="42882" firstItem="41182" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY"/>
+                            <constraint id="42887" firstItem="42815" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX"/>
+                            <constraint id="42896" firstItem="42815" firstAttribute="top" secondItem="41182" secondAttribute="bottom"/>
+                            <constraint id="42899" firstItem="7091" firstAttribute="top" secondItem="42815" secondAttribute="bottom" constant="8"/>
+                            <constraint id="42900" firstItem="7091" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" constant="3"/>
+                            <constraint id="42901" firstItem="41185" firstAttribute="top" secondItem="7091" secondAttribute="bottom" constant="8"/>
+                            <constraint id="42902" firstItem="41185" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" constant="3"/>
+                            <constraint id="42903" firstItem="41183" firstAttribute="top" secondItem="41185" secondAttribute="bottom" constant="8"/>
+                            <constraint id="42904" firstItem="41183" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" constant="3"/>
+                            <constraint id="42905" firstItem="41179" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" constant="3"/>
+                            <constraint id="42906" firstItem="41182" firstAttribute="top" secondItem="41179" secondAttribute="bottom" constant="20"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="FacebookButton" destination="7091" id="name-outlet-7091"/>
+                        <outlet property="GoogleButton" destination="41183" id="name-outlet-41183"/>
                     </connections>
                     <navigationItem id="1963" key="navigationItem" title="Log in"/>
                 </viewController>
@@ -472,11 +514,13 @@
         <image name="Icons/DottedSettingsIcon/DottedSettingsIcon.png" width="30" height="30"/>
         <image name="Icons/DottedEyeIcon/DottedEyeIcon.png" width="30" height="30"/>
         <image name="Icons/DottedMapIcon/DottedMapIcon.png" width="30" height="30"/>
-        <image name="Icons/FBLoginIcon.png" width="185" height="30"/>
         <image name="Icons/circle.png" width="200" height="200"/>
         <image name="markStyles/schoolBoardAddMark.png" width="88" height="88"/>
         <image name="markStyles/metalSignAddMark.png" width="88" height="88"/>
         <image name="markStyles/woodSignAddMark.png" width="88" height="88"/>
+        <image name="Icons/login_buttons/facebook_258_38.png" width="258" height="38"/>
+        <image name="Icons/login_buttons/google_258_38.png" width="258" height="38"/>
+        <image name="Icons/appIcon_240_240.png" width="240" height="240"/>
     </resources>
     <color key="tintColor" colorSpace="custom" customColorSpace="sRGB" red="0.192156862745098" green="0.455261766910553" blue="0.687884092330933" alpha="1"/>
 </document>

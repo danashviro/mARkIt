@@ -18,11 +18,20 @@ namespace mARkIt.iOS
         [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UIButton FacebookButton { get; set; }
 
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UIButton GoogleButton { get; set; }
+
         void ReleaseDesignerOutlets ()
         {
             if (FacebookButton != null) {
                 FacebookButton.Dispose ();
                 FacebookButton = null;
+            }
+
+            if (GoogleButton != null) {
+                GoogleButton.Dispose ();
+                GoogleButton = null;
             }
         }
     }
