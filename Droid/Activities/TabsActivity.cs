@@ -27,8 +27,6 @@ namespace mARkIt.Droid
             // todo, send User object between activities and not only email
             //m_Email = Intent.GetStringExtra("Email");
 
-            // Create your application here
-
             m_TabLayout = FindViewById<TabLayout>(Resource.Id.mainTabLayout);
             m_TabLayout.TabSelected += TabLayout_TabSelected;
 

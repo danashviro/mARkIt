@@ -18,7 +18,7 @@ using Xamarin.Auth;
 namespace mARkIt.Droid.Activities
 {
     [Activity(Label = "mARk-It", MainLauncher = true)]
-    public class WelcomeActivity : Activity, IPermissionManagerPermissionManagerCallback
+    public class WelcomeActivity : AppCompatActivity, IPermissionManagerPermissionManagerCallback
     {
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -92,9 +92,10 @@ namespace mARkIt.Droid.Activities
             // TODO add facebook client to retrieve email / id with the account
 
             //mARkIt.Authentication.FacebookClient fbClient = new Authentication.FacebookClient(i_Account);
-            //fbClient.GetEmailAddress();
-            Intent tabsIntent = new Intent(this, typeof(TabsActivity));
-            StartActivity(tabsIntent);
+            string email = string.Empty; // = fbClient.GetEmailAddress();
+            Intent mainTabs = new Intent(this, typeof(TabsActivity));
+            mainTabs.PutExtra("Email", email);
+            StartActivity(mainTabs);
             Finish();
         }
 
