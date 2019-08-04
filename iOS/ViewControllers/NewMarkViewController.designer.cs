@@ -28,6 +28,10 @@ namespace mARkIt.iOS
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UILabel letterCounterLabel { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
         Syncfusion.iOS.Buttons.SfRadioGroup markStyleRadioGroup { get; set; }
 
         [Outlet]
@@ -57,6 +61,11 @@ namespace mARkIt.iOS
             if (generalCheckBox != null) {
                 generalCheckBox.Dispose ();
                 generalCheckBox = null;
+            }
+
+            if (letterCounterLabel != null) {
+                letterCounterLabel.Dispose ();
+                letterCounterLabel = null;
             }
 
             if (markStyleRadioGroup != null) {

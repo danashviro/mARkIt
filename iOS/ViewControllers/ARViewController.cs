@@ -59,7 +59,6 @@ namespace mARkIt.iOS
         protected ArchitectDelegate delegateObject;
 
         [Weak]
-        protected ArExperience currentArExperience;
         protected WTNavigation loadedArExperienceNavigation = null;
         protected WTNavigation loadingArExperienceNavigation = null;
 

@@ -311,6 +311,14 @@
                                 <rect key="frame" x="63" y="435" width="71" height="71"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="43218" translatesAutoresizingMaskIntoConstraints="NO" fixedFrame="YES" text="40">
+                                <rect key="frame" x="318" y="78" width="30" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15" weight="heavy"/>
+                                <color key="textColor" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace" white="1" alpha="1"/>
+                                <nil key="highlightedColor"/>
+                                <color key="backgroundColor" colorSpace="calibratedRGB" red="0.0196078431372549" green="0.22745098039215686" blue="0.28235294117647058" alpha="1"/>
+                            </label>
                         </subviews>
                     </view>
                     <navigationItem title="Add a mARk" id="3585" key="navigationItem">
@@ -323,6 +331,7 @@
                         <outlet property="doneBarButton" destination="36876" id="name-outlet-36876"/>
                         <outlet property="cancleBarButton" destination="36877" id="name-outlet-36877"/>
                         <outlet property="markStyleRadioGroup" destination="36997" id="name-outlet-36997"/>
+                        <outlet property="letterCounterLabel" destination="43218" id="name-outlet-43218"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3430" userLabel="First Responder" sceneMemberID="firstResponder"/>
