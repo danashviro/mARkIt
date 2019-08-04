@@ -28,16 +28,11 @@ namespace mARkIt.Droid.Activities
         {
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.Welcome);
-            init();
+            Task.Run(autoConnect).ContinueWith(task => askForARPermissions());
         }
 
-        private async void init()
-        {
-            await autoConnect();
-            askForARPermissions();
-        }
 
-        private async Task autoConnect()
+        private async void autoConnect()
         {
             m_Account = await mARkIt.Authentication.SecureStorageAccountStore
                 .GetAccountAsync("Facebook");
@@ -46,8 +41,6 @@ namespace mARkIt.Droid.Activities
                 m_Account = await mARkIt.Authentication.SecureStorageAccountStore
                     .GetAccountAsync("Google");
             }
-
-            Thread.Sleep(TimeSpan.FromSeconds(30));
         }
 
         private void askForARPermissions()
