@@ -33,7 +33,6 @@
     <Compile Include="Authentication\SecureStorageAccountStore.cs" />
     <Compile Include="Authentication\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ArExperience.cs" />
     <Compile Include="Utils\Configuration.cs" />
     <Compile Include="Utils\Keys.cs" />
     <Compile Include="Models\Location.cs" />

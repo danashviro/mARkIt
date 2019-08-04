@@ -10,11 +10,11 @@ namespace mARkIt.iOS
 {
     public partial class NavigationController : UINavigationController
     {
-        private WTAuthorizationRequestManager authorizationRequestManager = new WTAuthorizationRequestManager();
+        private WTAuthorizationRequestManager m_AuthorizationRequestManager = new WTAuthorizationRequestManager();
         User m_User;
         Account m_StoredAccount;
 
-        public NavigationController (IntPtr handle) : base (handle)
+        public NavigationController(IntPtr handle) : base(handle)
         {
 
         }
@@ -23,7 +23,6 @@ namespace mARkIt.iOS
         {
             base.ViewDidLoad();
             getWikitudePermissions();
-            autoConnect();
         }
 
 
@@ -31,11 +30,16 @@ namespace mARkIt.iOS
         {
             WTFeatures requiredFeatures = WTFeatures.Geo | WTFeatures.WTFeature_InstantTracking;
 
-            ArExperienceAuthorizationController.AuthorizeRestricedAPIAccess(authorizationRequestManager, requiredFeatures, () =>
+            ArExperienceAuthorizationController.AuthorizeRestricedAPIAccess(m_AuthorizationRequestManager, requiredFeatures, () =>
             {
-
+                autoConnect();
             }, (UIAlertController alertController) =>
             {
+                UIAlertController alert = new UIAlertController();
+                alertController.Title = "Permissions Denied";
+                alertController.Message = "You cannot proceed without granting permissions";
+                alertController.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, (r) => Environment.Exit(0)));
+                PresentViewController(alert, true, null);
             });
         }
 
