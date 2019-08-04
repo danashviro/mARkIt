@@ -28,7 +28,9 @@ namespace mARkIt.Droid.Activities
         {
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.Welcome);
-            Task.Run(autoConnect).ContinueWith(task => askForARPermissions());
+            Task.Run(() => autoConnect()).ContinueWith(
+                task => askForARPermissions(),
+                TaskScheduler.FromCurrentSynchronizationContext());            
         }
 
 
