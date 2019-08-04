@@ -231,6 +231,10 @@
     <Compile Include="ViewControllers\MyMarksViewController.designer.cs">
       <DependentUpon>MyMarksViewController.cs</DependentUpon>
     </Compile>
+    <Compile Include="ViewControllers\MarkViewController.cs" />
+    <Compile Include="ViewControllers\MarkViewController.designer.cs">
+      <DependentUpon>MarkViewController.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\ARPages\3dARPage\assets\couch.wt3" />

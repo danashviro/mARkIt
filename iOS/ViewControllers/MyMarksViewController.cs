@@ -44,5 +44,16 @@ namespace mARkIt.iOS
             cell.RatingBar.UserInteractionEnabled = false;
             return cell;
         }
+
+        public override void PrepareForSegue(UIStoryboardSegue segue, NSObject sender)
+        {
+            if(segue.Identifier == "markSegue")
+            {
+                var selectedRow = TableView.IndexPathForSelectedRow;
+                var destenationViewController = segue.DestinationViewController as MarkViewController;
+                destenationViewController.Mark = m_Marks[selectedRow.Row];
+            }
+            base.PrepareForSegue(segue, sender);
+        }
     }
 }
