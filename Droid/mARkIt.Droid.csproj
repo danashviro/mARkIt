@@ -221,6 +221,8 @@
   <ItemGroup>
     <Compile Include="Activities\LoginActivity.cs" />
     <Compile Include="Activities\WelcomeActivity.cs" />
+    <Compile Include="Adapters\LocationAdapter.cs" />
+    <Compile Include="Fragments\MyMarksFragment.cs" />
     <Compile Include="Fragments\SettingsFragment.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -293,6 +295,11 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\Settings.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\MyMarks.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

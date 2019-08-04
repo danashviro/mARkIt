@@ -17,7 +17,9 @@ namespace mARkIt.Droid
         private ARFragment m_ARFragment;
         private MapFragment m_MapFragment;
         private SettingsFragment m_SettingsFragment;
-        
+        private MyMarksFragment m_MyMarksFragment;
+
+
         string m_Email;
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -34,6 +36,7 @@ namespace mARkIt.Droid
             m_ARFragment = new ARFragment();
             m_MapFragment = new MapFragment();
             m_SettingsFragment = new SettingsFragment();
+            m_MyMarksFragment = new MyMarksFragment();
             fragmentNavigate(m_ARFragment);
         }
 
@@ -48,6 +51,9 @@ namespace mARkIt.Droid
                     fragmentNavigate(m_MapFragment);
                     break;
                 case 2:
+                    fragmentNavigate(m_MyMarksFragment);
+                    break;
+                case 3:
                     fragmentNavigate(m_SettingsFragment);
                     break;
             }

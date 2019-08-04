@@ -15,8 +15,12 @@
 			android:text="Map"
 			android:id="@+id/tabItem7" />
 		<android.support.design.widget.TabItem
+			android:text="My mARks"
+			android:id="@+id/tabItem8" />
+		<android.support.design.widget.TabItem
 			android:text="Settings"
 			android:id="@+id/tabItem8" />
+		
 
 	</android.support.design.widget.TabLayout>
 

@@ -3,12 +3,54 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
+		<TextView
+		android:text="Catagories"
+		android:textAppearance="?android:attr/textAppearanceMedium"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/CatagoriestextView" />
+	<CheckBox
+		android:text="General"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/GeneralCheckBox" />
+	<CheckBox
+		android:text="Food"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/FoodCheckBox" />
+	<CheckBox
+		android:text="History"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/HistoryCheckBox" />
+	<CheckBox
+		android:text="Sport"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/SportCheckBox" />
+	<TextView
+		android:text="Rating:"
+		android:textAppearance="?android:attr/textAppearanceMedium"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/CatagoriestextView" />
+	<RatingBar
+		    android:id="@+id/RatingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:numStars="5"
+            android:stepSize="0.1"
+            android:isIndicator="false" />
+	<Button
+		android:text="Save"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/SaveButton" />
 	<Button
 	android:id="@+id/logout_button"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:text="Logout"
-    />
+    android:text="Logout" />
 
 </LinearLayout>
