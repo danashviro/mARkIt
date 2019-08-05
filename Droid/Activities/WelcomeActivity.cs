@@ -13,8 +13,10 @@ using Android.Support.V4.App;
 using Android.Support.V7.App;
 using Android.Views;
 using Android.Widget;
+using mARkIt.Authentication;
 using Com.Wikitude.Architect;
 using Com.Wikitude.Common.Permission;
+using Newtonsoft.Json;
 using Xamarin.Auth;
 
 namespace mARkIt.Droid.Activities
@@ -102,12 +104,10 @@ namespace mARkIt.Droid.Activities
 
         private void startMainApp(Account i_Account)
         {
-            // TODO add facebook client to retrieve email / id with the account
-
-            //mARkIt.Authentication.FacebookClient fbClient = new Authentication.FacebookClient(i_Account);
-            string email = string.Empty; // = fbClient.GetEmailAddress();
+            // serialize it so we move it to another activity
+            string accountAsJson = JsonConvert.SerializeObject(i_Account);
             Intent mainTabs = new Intent(this, typeof(TabsActivity));
-            mainTabs.PutExtra("Email", email);
+            mainTabs.PutExtra("account", accountAsJson);
             StartActivity(mainTabs);
             Finish();
         }

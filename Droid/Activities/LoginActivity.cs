@@ -7,6 +7,7 @@ using Xamarin.Auth;
 using Android.Support.V7.App;
 using mARkIt.Authentication;
 using mARkIt.Utils;
+using Newtonsoft.Json;
 
 namespace mARkIt.Droid
 {
@@ -44,8 +45,12 @@ namespace mARkIt.Droid
         {
             // save account to device
             await mARkIt.Authentication.SecureStorageAccountStore.SaveAccountAsync(i_Account, "Facebook");
+
+            // serialize it so we move it to another activity
+            string accountAsJson = JsonConvert.SerializeObject(i_Account);
+
             // start main app
-            startMainApp(i_Account);
+            startMainApp(accountAsJson);
         }
 
         public void OnAuthenticationFailed(string i_Message, Exception i_Exception)
@@ -72,19 +77,10 @@ namespace mARkIt.Droid
                            .Show();
         }
 
-        private void startMainApp(Account i_Account)
+        private void startMainApp(string i_AccountAsJson)
         {
-            // TODO add facebook client to retrieve email / id with the account
-            //mARkIt.Authentication.FacebookClient fbClient = new Authentication.FacebookClient(i_Account);
-            //fbClient.GetEmailAddress();
-
-            // this is just a mock email example
-            User user = new User();
-            user.Email = "dedisidi@gmail.com";
-
-            // go to main page (tabs) if we got all the permissions
             Intent mainTabs = new Intent(this, typeof(TabsActivity));
-            mainTabs.PutExtra("Email", user.Email);
+            mainTabs.PutExtra("account", i_AccountAsJson);
             StartActivity(mainTabs);
             Finish();
         }

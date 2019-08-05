@@ -8,7 +8,9 @@ namespace mARkIt.Authentication
 {
     public class User
     {
-        public string Name { get; set; }
+        public string id { get; set; }
+        public string First_Name { get; set; }
+        public string Last_Name { get; set; }
         public string Email { get; set; }
 
         public User()
