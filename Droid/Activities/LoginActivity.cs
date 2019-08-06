@@ -6,8 +6,8 @@ using System;
 using Xamarin.Auth;
 using Android.Support.V7.App;
 using mARkIt.Authentication;
-using mARkIt.Utils;
 using Newtonsoft.Json;
+using mARkIt.Utils;
 
 namespace mARkIt.Droid
 {

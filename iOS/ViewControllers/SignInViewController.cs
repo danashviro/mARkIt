@@ -4,6 +4,7 @@ using UIKit;
 using mARkIt.Utils;
 using Xamarin.Auth;
 using mARkIt.Authentication;
+using mARkIt.Models;
 
 namespace mARkIt.iOS
 {

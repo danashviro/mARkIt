@@ -27,11 +27,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Authentication\Account\SecureStorageAccountStore.cs" />
     <Compile Include="Authentication\Facebook\FacebookAuthenticator.cs" />
     <Compile Include="Authentication\Facebook\FacebookClient.cs" />
-    <Compile Include="Authentication\Facebook\IFacebookAuthenticationDelegate.cs" />
-    <Compile Include="Authentication\SecureStorageAccountStore.cs" />
     <Compile Include="Abstractions\TableData.cs" />
+    <Compile Include="Authentication\Google\GoogleAuthenticator.cs" />
+    <Compile Include="Authentication\IAuthenticationDelegate.cs" />
     <Compile Include="Models\Mark.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserMarkRating.cs" />
