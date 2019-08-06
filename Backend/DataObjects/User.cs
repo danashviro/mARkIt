@@ -6,11 +6,8 @@ namespace Backend.DataObjects
     public class User : EntityData
     {
         public string First_Name { get; set; }
-
         public string Last_Name { get; set; }
-
         public string Email { get; set; }
-
         public int RelevantCategoriesCode { get; set; }
     }
 }

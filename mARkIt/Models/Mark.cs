@@ -1,8 +1,8 @@
-﻿using Microsoft.Azure.Mobile.Server;
+﻿using mARkIt.Abstractions;
 
-namespace Backend.DataObjects
+namespace mARkIt.Models
 {
-    public class Mark : EntityData
+    class Mark : TableData
     {
         public string UserEmail { get; set; }
         public string Message { get; set; }

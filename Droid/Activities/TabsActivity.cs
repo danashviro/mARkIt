@@ -5,8 +5,8 @@ using Android.Support.Design.Widget;
 using Android.Support.V4.App;
 using mARkIt.Authentication;
 using mARkIt.Droid.Fragments;
+using mARkIt.Models;
 using Newtonsoft.Json;
-using System;
 using System.Threading.Tasks;
 using Xamarin.Auth;
 

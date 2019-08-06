@@ -6,9 +6,7 @@ namespace Backend.DataObjects
     public class UserMarkRating : EntityData
     {
         public string MarkId { get; set; }
-
         public string UserEmail { get; set; }
-
         public int HowManyStars { get; set; }
     }
 }
