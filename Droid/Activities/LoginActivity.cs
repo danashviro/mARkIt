@@ -12,7 +12,7 @@ using Newtonsoft.Json;
 namespace mARkIt.Droid
 {
     [Activity(Label = "Login")]
-    public class LoginActivity: AppCompatActivity, IFacebookAuthenticationDelegate
+    public class LoginActivity: AppCompatActivity, IAuthenticationDelegate
     {      
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -27,7 +27,8 @@ namespace mARkIt.Droid
             facebookLoginButton.Click += OnFacebookLoginButtonClicked;
 
             // google button
-            // TODO
+            ImageButton googleLoginButton = FindViewById<ImageButton>(Resource.Id.google_login_button);
+            googleLoginButton.Click += OnGoogleLoginButtonClicked;
         }
 
         private void OnFacebookLoginButtonClicked(object sender, EventArgs e)
@@ -37,6 +38,17 @@ namespace mARkIt.Droid
                 Configuration.FacebookAuthScope,
                 this);
             OAuth2Authenticator oauth2authenticator = facebookAuthenticator.GetOAuth2();
+            Intent FBIntent = oauth2authenticator.GetUI(this);
+            StartActivity(FBIntent);
+        }
+
+        private void OnGoogleLoginButtonClicked(object sender, EventArgs e)
+        {
+            GoogleAuthenticator googleAuthenticator = new GoogleAuthenticator(
+                Keys.GoogleClientId,
+                Configuration.GoogleAuthScope,
+                this);
+            OAuth2Authenticator oauth2authenticator = googleAuthenticator.GetOAuth2();
             Intent FBIntent = oauth2authenticator.GetUI(this);
             StartActivity(FBIntent);
         }

@@ -1,29 +1,28 @@
 ﻿using mARkIt.Utils;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xamarin.Auth;
 
 namespace mARkIt.Authentication
 {
-    public class FacebookAuthenticator
+    public class GoogleAuthenticator
     {
-        public const string FacebookAuth = "https://m.facebook.com/dialog/oauth/";
-        private const bool IsUsingNativeUI = false;
+        public const string GoogleAuth = "https://accounts.google.com/o/oauth2/v2/auth";
+        public const string GoogleAccessTokenUrl = "https://www.googleapis.com/oauth2/v4/token";
+        private const bool IsUsingNativeUI = true;
         private OAuth2Authenticator m_OAuth2Authenticator;
         private IAuthenticationDelegate m_AuthenticationDelegate;
 
-        public FacebookAuthenticator(string i_ClientId,
+        public GoogleAuthenticator(string i_ClientId,
                                      string i_Scope,
                                      IAuthenticationDelegate i_AuthenticationDelegate)
         {
             m_OAuth2Authenticator = new OAuth2Authenticator(
                                         i_ClientId,
+                                        string.Empty,
                                         i_Scope,
-                                        new Uri(FacebookAuth),
-                                        new Uri(Configuration.FacebookRedirectUrl),
+                                        new Uri(GoogleAuth),
+                                        new Uri(Configuration.GoogleRedirectUrl),
+                                        new Uri(GoogleAccessTokenUrl),
                                         null,
                                         IsUsingNativeUI);
             m_AuthenticationDelegate = i_AuthenticationDelegate;

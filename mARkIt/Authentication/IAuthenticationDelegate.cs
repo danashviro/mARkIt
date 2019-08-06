@@ -7,7 +7,7 @@ using Xamarin.Auth;
 
 namespace mARkIt.Authentication
 {
-    public interface IFacebookAuthenticationDelegate
+    public interface IAuthenticationDelegate
     {
         void OnAuthenticationCompleted(Account i_Account);
         void OnAuthenticationFailed(string i_Message, Exception i_Exception);

@@ -7,7 +7,7 @@ using mARkIt.Authentication;
 
 namespace mARkIt.iOS
 {
-    public partial class SignInViewController : UIViewController, IFacebookAuthenticationDelegate
+    public partial class SignInViewController : UIViewController, IAuthenticationDelegate
     {
         bool hasLoggedIn = false;
         User m_User;
