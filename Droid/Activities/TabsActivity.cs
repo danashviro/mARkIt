@@ -23,14 +23,14 @@ namespace mARkIt.Droid
         private MyMarksFragment m_MyMarksFragment;
         public User m_User;
 
-        protected override void OnCreate(Bundle savedInstanceState)
+        protected override async void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.Tabs);
 
             // create user object from the
             string accountAsJson = Intent.GetStringExtra("account");
-            Task.Run(() => createUserObjectAsync(accountAsJson));
+            await createUserObjectAsync(accountAsJson);
 
             m_TabLayout = FindViewById<TabLayout>(Resource.Id.mainTabLayout);
             m_TabLayout.TabSelected += TabLayout_TabSelected;
@@ -38,16 +38,17 @@ namespace mARkIt.Droid
             // create fragments
             m_ARFragment = new ARFragment();
             m_MapFragment = new MapFragment();
-            m_SettingsFragment = new SettingsFragment();
+            m_SettingsFragment = new SettingsFragment(m_User);
             m_MyMarksFragment = new MyMarksFragment();
             navigateToFragment(m_ARFragment);
         }
 
-        private async void createUserObjectAsync(string i_AccountAsJson)
+        private async Task createUserObjectAsync(string i_AccountAsJson)
         {
             Account account = JsonConvert.DeserializeObject<Account>(i_AccountAsJson);
             FacebookClient fbClient = new Authentication.FacebookClient(account);
-            m_User = await fbClient.GetUserAsync();
+            User user = await fbClient.GetUserAsync();
+            m_User = await User.GetUserByEmail(user.Email);
         }
 
         private void TabLayout_TabSelected(object sender, TabLayout.TabSelectedEventArgs e)
