@@ -24,7 +24,15 @@ namespace mARkIt.iOS
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
+        Syncfusion.iOS.Buttons.SfCheckBox foodCheckBox { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
         Syncfusion.iOS.Buttons.SfCheckBox generalCheckBox { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        Syncfusion.iOS.Buttons.SfCheckBox historyCheckBox { get; set; }
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
@@ -42,6 +50,10 @@ namespace mARkIt.iOS
         [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UIBarButtonItem saveMarkButton { get; set; }
 
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        Syncfusion.iOS.Buttons.SfCheckBox sportCheckBox { get; set; }
+
         [Action ("CancleBarButton_Activated:")]
         [GeneratedCode ("iOS Designer", "1.0")]
         partial void CancleBarButton_Activated (UIKit.UIBarButtonItem sender);
@@ -58,9 +70,19 @@ namespace mARkIt.iOS
                 doneBarButton = null;
             }
 
+            if (foodCheckBox != null) {
+                foodCheckBox.Dispose ();
+                foodCheckBox = null;
+            }
+
             if (generalCheckBox != null) {
                 generalCheckBox.Dispose ();
                 generalCheckBox = null;
+            }
+
+            if (historyCheckBox != null) {
+                historyCheckBox.Dispose ();
+                historyCheckBox = null;
             }
 
             if (letterCounterLabel != null) {
@@ -81,6 +103,11 @@ namespace mARkIt.iOS
             if (saveMarkButton != null) {
                 saveMarkButton.Dispose ();
                 saveMarkButton = null;
+            }
+
+            if (sportCheckBox != null) {
+                sportCheckBox.Dispose ();
+                sportCheckBox = null;
             }
         }
     }

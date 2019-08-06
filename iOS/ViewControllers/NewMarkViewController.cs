@@ -3,6 +3,7 @@ using CoreLocation;
 using Foundation;
 using mARkIt.Models;
 using mARkIt.Services;
+using mARkIt.Utils;
 using Syncfusion.iOS.Buttons;
 using System;
 using System.Linq;
@@ -76,12 +77,15 @@ namespace mARkIt.iOS
 
                 if (location != null)
                 {
+                    int catagories = getCatagories();
+                    string markStyle = getMarkStyle();
                     Models.Location mark = new Models.Location()
                     {
                         latitude = location.Latitude,
                         longitude = location.Longitude,
                         message = markTextView.Text
                     };
+
                     await LocationService.Instance().AddLocation(mark);
                     displayAnAlert("Success", "The mARk uploaded", new Action<UIAlertAction>((a) => NavigationController.PopViewController(true)));
                 }
@@ -96,7 +100,46 @@ namespace mARkIt.iOS
             }
         }
 
+        private string getMarkStyle()
+        {
+            string markStyle = null;
+            if((bool)m_WoodMarkStyleRadioButton.IsChecked)
+            {
+                markStyle = "Wood";
+            }
+            else if ((bool)m_SchoolMarkStyleRadioButton.IsChecked)
+            {
+                markStyle = "School";
+            }
+            else if ((bool)m_MetalMarkStyleRadioButton.IsChecked)
+            {
+                markStyle = "Metal";
+            }
+            return markStyle;
+        }
 
+        private int getCatagories()
+        {
+            int catagories = 0;
+            if((bool)generalCheckBox.IsChecked)
+            {
+                catagories &= (int)eCatagories.General;
+            }
+            if ((bool)foodCheckBox.IsChecked)
+            {
+                catagories &= (int)eCatagories.Food;
+            }
+            if ((bool)sportCheckBox.IsChecked)
+            {
+                catagories &= (int)eCatagories.Sport;
+            }
+            if ((bool)historyCheckBox.IsChecked)
+            {
+                catagories &= (int)eCatagories.History;
+            }
+
+            return catagories;
+        }
 
         private void DoneBarButton_Clicked(object sender, EventArgs e)
         {

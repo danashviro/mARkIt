@@ -4,6 +4,7 @@ using UIKit;
 using System.Collections.Generic;
 using mARkIt.Services;
 using mARkIt.Models;
+using mARkIt.Authentication;
 
 namespace mARkIt.iOS
 {
@@ -11,6 +12,7 @@ namespace mARkIt.iOS
     {
         List<Location> m_Marks;
         Random m_Rand;
+        public User ConnectedUser { get; set; }
 
         public MyMarksViewController (IntPtr handle) : base (handle)
         {
@@ -24,6 +26,7 @@ namespace mARkIt.iOS
             //change to: get my marks
             var marks =await LocationService.Instance().GetLocations();
             m_Marks = new List<Location>(marks);
+            //var marks = await LocationService.Instance().GetMyMarks(ConnectedUser);
             TableView.ReloadData();
         }
 

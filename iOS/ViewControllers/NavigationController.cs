@@ -49,6 +49,11 @@ namespace mARkIt.iOS
             m_StoredAccount = await mARkIt.Authentication.SecureStorageAccountStore
                 .GetAccountAsync("Facebook");
             if (m_StoredAccount == null)
+            {
+                m_StoredAccount = await mARkIt.Authentication.SecureStorageAccountStore
+                    .GetAccountAsync("Google");
+            }
+            if (m_StoredAccount == null)
                 PerformSegue("loginSegue", this);
             else
                 startMainApp(m_StoredAccount);
