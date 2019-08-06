@@ -13,8 +13,8 @@
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MarkIt.Backend</RootNamespace>
-    <AssemblyName>MarkIt.Backend</AssemblyName>
+    <RootNamespace>mARkIt.Backend</RootNamespace>
+    <AssemblyName>mARkIt.Backend</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
@@ -162,7 +162,13 @@
   <ItemGroup>
     <Compile Include="App_Start\Startup.MobileApp.cs" />
     <Compile Include="Controllers\LocationController.cs" />
+    <Compile Include="Controllers\MarkController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Controllers\UserMarkRatingController.cs" />
     <Compile Include="DataObjects\Location.cs" />
+    <Compile Include="DataObjects\Mark.cs" />
+    <Compile Include="DataObjects\UserMarkRating.cs" />
+    <Compile Include="DataObjects\User.cs" />
     <Compile Include="Migrations\201903231506328_Initial.cs" />
     <Compile Include="Migrations\201903231506328_Initial.Designer.cs">
       <DependentUpon>201903231506328_Initial.cs</DependentUpon>

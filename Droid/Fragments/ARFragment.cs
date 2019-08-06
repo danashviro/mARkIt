@@ -18,10 +18,12 @@ using Android.Locations;
 using Android.Webkit;
 using Com.Wikitude.Architect;
 using Com.Wikitude.Common.Camera;
+using Android.Support.Design.Widget;
+using Org.Json;
 
 namespace mARkIt.Droid.Fragments
 {
-    public class ARFragment : Android.Support.V4.App.Fragment, ILocationListener, ArchitectView.ISensorAccuracyChangeListener
+    public class ARFragment : Android.Support.V4.App.Fragment, ILocationListener, ArchitectView.ISensorAccuracyChangeListener,IArchitectJavaScriptInterfaceListener
     {
         public readonly static string IntentExtrasKeyExperienceData = "ExperienceData";
         private Location.LocationProvider locationProvider;
@@ -71,8 +73,11 @@ namespace mARkIt.Droid.Fragments
 
             architectView.OnCreate(config);
             architectView.OnPostCreate();
-
             architectView.Load(arExperiencePath);
+            architectView.AddArchitectJavaScriptInterfaceListener(this);
+            //FloatingActionButton floatingActionButton = new FloatingActionButton(Context);
+            //architectView.AddView(floatingActionButton);
+            //floatingActionButton.Bottom += 300;
         }
 
         public override void OnResume()
@@ -125,5 +130,10 @@ namespace mARkIt.Droid.Fragments
             
         }
 
+        public void OnJSONObjectReceived(JSONObject p0)
+        {
+            Intent C = new Intent(Activity, typeof(LoginActivity));
+            StartActivity(C);
+        }
     }
 }

@@ -332,6 +332,9 @@
                         <outlet property="cancleBarButton" destination="36877" id="name-outlet-36877"/>
                         <outlet property="markStyleRadioGroup" destination="36997" id="name-outlet-36997"/>
                         <outlet property="letterCounterLabel" destination="43218" id="name-outlet-43218"/>
+                        <outlet property="foodCheckBox" destination="15512" id="name-outlet-15512"/>
+                        <outlet property="historyCheckBox" destination="15513" id="name-outlet-15513"/>
+                        <outlet property="sportCheckBox" destination="15514" id="name-outlet-15514"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3430" userLabel="First Responder" sceneMemberID="firstResponder"/>
