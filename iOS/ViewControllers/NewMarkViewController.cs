@@ -87,7 +87,7 @@ namespace mARkIt.iOS
 
                 };
 
-                    await LocationService.Instance().AddLocation(mark);
+                    await Mark.Insert(mark);
                     displayAnAlert("Success", "The mARk uploaded", new Action<UIAlertAction>((a) => NavigationController.PopViewController(true)));
                 }
                 else
@@ -123,20 +123,20 @@ namespace mARkIt.iOS
         {
             int catagories = 0;
             if((bool)generalCheckBox.IsChecked)
-            {
-                catagories &= (int)eCategories.General;
+            { 
+                catagories |= (int)eCategories.General;
             }
             if ((bool)foodCheckBox.IsChecked)
             {
-                catagories &= (int)eCategories.Food;
+                catagories |= (int)eCategories.Food;
             }
             if ((bool)sportCheckBox.IsChecked)
             {
-                catagories &= (int)eCategories.Sport;
+                catagories |= (int)eCategories.Sport;
             }
             if ((bool)historyCheckBox.IsChecked)
             {
-                catagories &= (int)eCategories.History;
+                catagories |= (int)eCategories.History;
             }
 
             return catagories;
