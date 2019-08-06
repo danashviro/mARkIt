@@ -1,6 +1,7 @@
 using Foundation;
 using mARkIt.Authentication;
 using mARkIt.iOS.CoreServices;
+using mARkIt.Models;
 using System;
 using UIKit;
 using WikitudeComponent.iOS;
