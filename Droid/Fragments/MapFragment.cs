@@ -19,11 +19,6 @@ namespace mARkIt.Droid.Fragments
         double m_Latitude, m_Longitude;
         LocationManager m_LocationManager;
 
-        public override void OnCreate(Bundle savedInstanceState)
-        {
-            base.OnCreate(savedInstanceState);
-        }
-
         public override void OnViewCreated(View view, Bundle savedInstanceState)
         {
             base.OnViewCreated(view, savedInstanceState);

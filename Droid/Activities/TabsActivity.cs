@@ -40,7 +40,7 @@ namespace mARkIt.Droid
             m_MapFragment = new MapFragment();
             m_SettingsFragment = new SettingsFragment();
             m_MyMarksFragment = new MyMarksFragment();
-            fragmentNavigate(m_ARFragment);
+            navigateToFragment(m_ARFragment);
         }
 
         private async void createUserObjectAsync(string i_AccountAsJson)
@@ -55,25 +55,40 @@ namespace mARkIt.Droid
             switch(e.Tab.Position)
             {
                 case 0:
-                    fragmentNavigate(m_ARFragment);
+                    navigateToFragment(m_ARFragment);
                     break;
                 case 1:
-                    fragmentNavigate(m_MapFragment);
+                    navigateToFragment(m_MapFragment);
                     break;
                 case 2:
-                    fragmentNavigate(m_MyMarksFragment);
+                    navigateToFragment(m_MyMarksFragment);
                     break;
                 case 3:
-                    fragmentNavigate(m_SettingsFragment);
+                    navigateToFragment(m_SettingsFragment);
                     break;
             }
         }
 
-        private void fragmentNavigate(Android.Support.V4.App.Fragment fragment)
-        {
-            var transaction = SupportFragmentManager.BeginTransaction();
-            transaction.Replace(Resource.Id.contentFrame, fragment);
-            transaction.Commit();
+        Android.Support.V4.App.Fragment m_CurrentShownFragment;
+
+        private void navigateToFragment(Android.Support.V4.App.Fragment fragment)
+        {            
+            // If the fragment hasn't been added yet - add it
+            if (SupportFragmentManager.FindFragmentById(fragment.Id) == null)
+            {
+                SupportFragmentManager.BeginTransaction().Add(Resource.Id.contentFrame, fragment).Commit();
+            }
+
+            // Show the new fragment
+            SupportFragmentManager.BeginTransaction().Show(fragment).Commit();
+
+            // Hide the previous fragment
+            if (m_CurrentShownFragment != null)
+            {
+                SupportFragmentManager.BeginTransaction().Hide(m_CurrentShownFragment).Commit();
+            }
+
+            m_CurrentShownFragment = fragment;
         }
     }
 }
