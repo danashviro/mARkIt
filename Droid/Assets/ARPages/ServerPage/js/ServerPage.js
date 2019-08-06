@@ -1,4 +1,5 @@
-﻿var World = {
+﻿
+var World = {
     initiallyLoadedData: false,
 
     markerDrawable_idle: null,
@@ -77,3 +78,7 @@ $.ajax(settings).done(function (response) {
     }
     
 });
+
+function addButtonClicked() {
+    AR.platform.sendJSONObject({});
+}
