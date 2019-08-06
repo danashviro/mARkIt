@@ -8,7 +8,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mARkIt.Droid", "Droid\mARkI
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mARkIt.iOS", "iOS\mARkIt.iOS.csproj", "{6D2BD9BD-8C41-4E00-AD0C-11EA4B3D6A8A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mARkIt.Backend", "..\markit\Backend\mARkIt.Backend.csproj", "{B9F9B5E8-09DA-452F-82D2-28E37EB08BA2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mARkIt.Backend", "Backend\mARkIt.Backend.csproj", "{B9F9B5E8-09DA-452F-82D2-28E37EB08BA2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -2,14 +2,18 @@
 
 namespace Backend.DataObjects
 {
-
-    // TODO: Erase and use Mark instead
-    public class Location : EntityData
+    public class Mark : EntityData
     {
+        public string UserEmail { get; set; }
+
         public string Message { get; set; }
 
         public double Longitude { get; set; }
 
         public double Latitude { get; set; }
+
+        public string Style { get; set; }
+
+        public int CategoriesCode { get; set; }
     }
 }

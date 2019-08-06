@@ -23,6 +23,12 @@ namespace Backend.Models
 
         public DbSet<Location> Locations { get; set; }
 
+        public DbSet<User> Users { get; set; }
+
+        public DbSet<Mark> Marks { get; set; }
+
+        public DbSet<UserMarkRating> UserMarkRatings { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Add(
