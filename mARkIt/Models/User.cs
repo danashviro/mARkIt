@@ -1,4 +1,6 @@
 ﻿using mARkIt.Abstractions;
+using mARkIt.Services;
+using System.Threading.Tasks;
 
 namespace mARkIt.Models
 {
@@ -11,5 +13,20 @@ namespace mARkIt.Models
         public string Last_Name { get; set; }
         public string Email { get; set; }
         public int RelevantCategoriesCode { get; set; }
+
+        public static async Task<bool> Insert(User i_User)
+        {
+            return await AzureService.Insert(i_User);
+        }
+
+        public static async Task<bool> Delete(User i_User)
+        {
+            return await AzureService.Delete(i_User);
+        }
+
+        public static async Task<bool> Update(User i_User)
+        {
+            return await AzureService.Update(i_User);
+        }
     }
 }
