@@ -69,7 +69,7 @@ namespace mARkIt.Droid
             }
         }
 
-        Android.Support.V4.App.Fragment m_CurrentShownFragment;
+        Android.Support.V4.App.Fragment m_CurrentFragment;
 
         private void navigateToFragment(Android.Support.V4.App.Fragment fragment)
         {            
@@ -83,12 +83,12 @@ namespace mARkIt.Droid
             SupportFragmentManager.BeginTransaction().Show(fragment).Commit();
 
             // Hide the previous fragment
-            if (m_CurrentShownFragment != null)
+            if (m_CurrentFragment != null && m_CurrentFragment != fragment)
             {
-                SupportFragmentManager.BeginTransaction().Hide(m_CurrentShownFragment).Commit();
+                SupportFragmentManager.BeginTransaction().Hide(m_CurrentFragment).Commit();
             }
 
-            m_CurrentShownFragment = fragment;
+            m_CurrentFragment = fragment;
         }
     }
 }
