@@ -77,14 +77,15 @@ namespace mARkIt.iOS
 
                 if (location != null)
                 {
-                    int catagories = getCatagories();
-                    string markStyle = getMarkStyle();
-                    Models.Location mark = new Models.Location()
+                    Mark mark = new Mark()
                     {
-                        latitude = location.Latitude,
-                        longitude = location.Longitude,
-                        message = markTextView.Text
-                    };
+                        Latitude = location.Latitude,
+                        Longitude = location.Longitude,
+                        Message = markTextView.Text,
+                        Style = getMarkStyle(),
+                        CategoriesCode = getCategories()
+
+                };
 
                     await LocationService.Instance().AddLocation(mark);
                     displayAnAlert("Success", "The mARk uploaded", new Action<UIAlertAction>((a) => NavigationController.PopViewController(true)));
@@ -118,24 +119,24 @@ namespace mARkIt.iOS
             return markStyle;
         }
 
-        private int getCatagories()
+        private int getCategories()
         {
             int catagories = 0;
             if((bool)generalCheckBox.IsChecked)
             {
-                catagories &= (int)eCatagories.General;
+                catagories &= (int)eCategories.General;
             }
             if ((bool)foodCheckBox.IsChecked)
             {
-                catagories &= (int)eCatagories.Food;
+                catagories &= (int)eCategories.Food;
             }
             if ((bool)sportCheckBox.IsChecked)
             {
-                catagories &= (int)eCatagories.Sport;
+                catagories &= (int)eCategories.Sport;
             }
             if ((bool)historyCheckBox.IsChecked)
             {
-                catagories &= (int)eCatagories.History;
+                catagories &= (int)eCategories.History;
             }
 
             return catagories;

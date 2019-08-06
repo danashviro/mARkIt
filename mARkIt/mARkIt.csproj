@@ -40,6 +40,8 @@
     <Compile Include="Utils\Keys.cs" />
     <Compile Include="Models\Location.cs" />
     <Compile Include="Services\LocationService.cs" />
+    <Compile Include="Utils\eCategories.cs" />
+    <Compile Include="Services\AzureService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Azure.Mobile.Client, Version=4.1.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">

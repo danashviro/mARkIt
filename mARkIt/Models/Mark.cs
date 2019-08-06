@@ -2,7 +2,7 @@
 
 namespace mARkIt.Models
 {
-    class Mark : TableData
+    public class Mark : TableData
     {
         public string UserEmail { get; set; }
         public string Message { get; set; }
