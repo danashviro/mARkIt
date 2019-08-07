@@ -434,6 +434,12 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="44296" customClass="SfCheckBox" translatesAutoresizingMaskIntoConstraints="NO" fixedFrame="YES">
+                                <rect key="frame" x="138" y="148" width="85" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <state key="normal" title="Nature"/>
+                            </button>
                         </subviews>
                     </view>
                     <tabBarItem key="tabBarItem" title="Settings" id="5544" image="Icons/DottedSettingsIcon/DottedSettingsIcon.png"/>
@@ -441,6 +447,11 @@
                     <connections>
                         <outlet property="rating" destination="16647" id="name-outlet-16647"/>
                         <outlet property="logoutButton" destination="26067" id="name-outlet-26067"/>
+                        <outlet property="generalCheckBox" destination="16649" id="name-outlet-16649"/>
+                        <outlet property="foodCheckBox" destination="16650" id="name-outlet-16650"/>
+                        <outlet property="historyCheckBox" destination="16651" id="name-outlet-16651"/>
+                        <outlet property="sportCheckBox" destination="16648" id="name-outlet-16648"/>
+                        <outlet property="natureCheckBox" destination="44296" id="name-outlet-44296"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5479" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -38,13 +38,13 @@ namespace mARkIt.iOS
 
         private async void getPins()
         {
-            var marks = await Mark.GetMarksAccordingToUserSettings(User);
+            var marks = await Mark.GetRelevantMarks(User.RelevantCategoriesCode);
             foreach (Mark mark in marks)
             {
                 var pin = new MKPointAnnotation()
                 {
                     Title = mark.Message,
-                    Coordinate = new CoreLocation.CLLocationCoordinate2D(mark.Latitude, mark.Longitude)
+                    Coordinate = new CLLocationCoordinate2D(mark.Latitude, mark.Longitude)
                 };
                 mapView.AddAnnotation(pin);
             }
