@@ -42,15 +42,20 @@ namespace mARkIt.Droid.Fragments
         public override void OnViewCreated(View view, Bundle savedInstanceState)
         {
             base.OnViewCreated(m_View, savedInstanceState);
+            addButtonsEvents();
+            findComponents();
+            //OnHiddenChanged is not called when view is created so fillcomponents must be called manually
+            fillComponents();
+        }
+
+        private void addButtonsEvents()
+        {
             Button logoutButton = m_View.FindViewById<Button>(Resource.Id.logout_button);
             Button saveButton = m_View.FindViewById<Button>(Resource.Id.SaveButton);
-            findComponents();
-            fillComponents();
             logoutButton.Click += LogoutButton_Click;
             saveButton.Click += SaveButton_Click;
         }
 
-       
         public override void OnHiddenChanged(bool hidden)
         {
             base.OnHiddenChanged(hidden);
