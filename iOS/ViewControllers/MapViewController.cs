@@ -11,6 +11,7 @@ namespace mARkIt.iOS
     public partial class MapViewController : UIViewController
     {
         private bool m_UserLocationInit = false;
+        public User User { get; set; }
 
         public MapViewController (IntPtr handle) : base (handle)
         {
@@ -37,15 +38,13 @@ namespace mARkIt.iOS
 
         private async void getPins()
         {
-            var locations = await LocationService.Instance().GetLocations();
-            foreach (Location location in locations)
+            var marks = await Mark.GetMarksAccordingToUserSettings(User);
+            foreach (Mark mark in marks)
             {
                 var pin = new MKPointAnnotation()
                 {
-                    Title = location.message,
-                    Coordinate = new CoreLocation.CLLocationCoordinate2D(location.latitude, location.longitude)
-                    //Type = Xamarin.Forms.Maps.PinType.Generic,
-                    //Label = location.message
+                    Title = mark.Message,
+                    Coordinate = new CoreLocation.CLLocationCoordinate2D(mark.Latitude, mark.Longitude)
                 };
                 mapView.AddAnnotation(pin);
             }
