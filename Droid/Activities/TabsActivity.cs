@@ -16,7 +16,7 @@ namespace mARkIt.Droid
 
     public class TabsActivity : FragmentActivity
     {
-        TabLayout m_TabLayout;
+        private TabLayout m_TabLayout;
         private ARFragment m_ARFragment;
         private MapFragment m_MapFragment;
         private SettingsFragment m_SettingsFragment;
@@ -28,9 +28,10 @@ namespace mARkIt.Droid
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.Tabs);
 
-            // create user object from the
+            // create user object from the account
+            string authTypeAsJson = Intent.GetStringExtra("authType");
             string accountAsJson = Intent.GetStringExtra("account");
-            await createUserObjectAsync(accountAsJson);
+            await createUserObjectAsync(accountAsJson, authTypeAsJson);
 
             m_TabLayout = FindViewById<TabLayout>(Resource.Id.mainTabLayout);
             m_TabLayout.TabSelected += TabLayout_TabSelected;
@@ -43,12 +44,25 @@ namespace mARkIt.Droid
             navigateToFragment(m_ARFragment);
         }
 
-        private async Task createUserObjectAsync(string i_AccountAsJson)
+        private async Task createUserObjectAsync(string i_AccountAsJson, string i_AuthType)
         {
             Account account = JsonConvert.DeserializeObject<Account>(i_AccountAsJson);
-            FacebookClient fbClient = new Authentication.FacebookClient(account);
-            User user = await fbClient.GetUserAsync();
-            m_User = await User.GetUserByEmail(user.Email);
+            mARkIt.Authentication.Authentication.e_SupportedAuthentications authType = JsonConvert.DeserializeObject<mARkIt.Authentication.Authentication.e_SupportedAuthentications>(i_AuthType);
+            User user = null;
+            switch (authType)
+            {
+                case mARkIt.Authentication.Authentication.e_SupportedAuthentications.Facebook:
+                    FacebookClient fbClient = new FacebookClient(account);
+                    user = await fbClient.GetUserAsync();
+                    break;
+                case mARkIt.Authentication.Authentication.e_SupportedAuthentications.Google:
+                    GoogleClient glClient = new GoogleClient(account);
+                    user = await glClient.GetUserAsync();
+                    break;
+                default:
+                    break;
+            }
+            m_User = await User.GetUserByEmail(user.Email);;
         }
 
         private void TabLayout_TabSelected(object sender, TabLayout.TabSelectedEventArgs e)

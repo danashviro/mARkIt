@@ -33,6 +33,7 @@
     <Compile Include="Authentication\Facebook\FacebookClient.cs" />
     <Compile Include="Abstractions\TableData.cs" />
     <Compile Include="Authentication\Google\GoogleAuthenticator.cs" />
+    <Compile Include="Authentication\Google\GoogleClient.cs" />
     <Compile Include="Authentication\IAuthenticationDelegate.cs" />
     <Compile Include="Models\Mark.cs" />
     <Compile Include="Models\User.cs" />
