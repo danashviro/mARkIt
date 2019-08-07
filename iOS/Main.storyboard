@@ -149,8 +149,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="36881" translatesAutoresizingMaskIntoConstraints="NO" fixedFrame="YES">
-                                <rect key="frame" x="313" y="556" width="46" height="46"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <rect key="frame" x="313" y="569" width="46" height="46"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <state key="normal" title="+" backgroundImage="Icons/circle.png">
                                     <color key="titleColor" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace" white="1" alpha="1"/>
@@ -158,6 +157,7 @@
                                 <connections>
                                     <segue id="36990" destination="3428" kind="show" identifier="addAMarkSegue"/>
                                 </connections>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                             </button>
                         </subviews>
                     </view>
@@ -211,7 +211,7 @@
         </scene>
         <scene sceneID="3427">
             <objects>
-                <viewController id="3428" sceneMemberID="viewController" customClass="NewMarkViewController">
+                <viewController id="3428" sceneMemberID="viewController" customClass="AddAMarkViewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="3425"/>
                         <viewControllerLayoutGuide type="bottom" id="3426"/>
@@ -265,7 +265,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <state key="normal" title="Sport"/>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Catagories:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="15517" translatesAutoresizingMaskIntoConstraints="NO" fixedFrame="YES">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Categories:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="15517" translatesAutoresizingMaskIntoConstraints="NO" fixedFrame="YES">
                                 <rect key="frame" x="16" y="246" width="97" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -319,6 +319,12 @@
                                 <nil key="highlightedColor"/>
                                 <color key="backgroundColor" colorSpace="calibratedRGB" red="0.0196078431372549" green="0.22745098039215686" blue="0.28235294117647058" alpha="1"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="46880" customClass="SfCheckBox" translatesAutoresizingMaskIntoConstraints="NO" fixedFrame="YES">
+                                <rect key="frame" x="134" y="312" width="75" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <state key="normal" title="Nature"/>
+                            </button>
                         </subviews>
                     </view>
                     <navigationItem title="Add a mARk" id="3585" key="navigationItem">
@@ -335,6 +341,7 @@
                         <outlet property="foodCheckBox" destination="15512" id="name-outlet-15512"/>
                         <outlet property="historyCheckBox" destination="15513" id="name-outlet-15513"/>
                         <outlet property="sportCheckBox" destination="15514" id="name-outlet-15514"/>
+                        <outlet property="natureCheckBox" destination="46880" id="name-outlet-46880"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3430" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -398,7 +405,7 @@
                                 <state key="normal" title="History"/>
                                 <connections/>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Catagories:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="16652" translatesAutoresizingMaskIntoConstraints="NO" fixedFrame="YES">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Categories:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="16652" translatesAutoresizingMaskIntoConstraints="NO" fixedFrame="YES">
                                 <rect key="frame" x="16" y="82" width="97" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -434,6 +441,12 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="44296" customClass="SfCheckBox" translatesAutoresizingMaskIntoConstraints="NO" fixedFrame="YES">
+                                <rect key="frame" x="138" y="148" width="85" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <state key="normal" title="Nature"/>
+                            </button>
                         </subviews>
                     </view>
                     <tabBarItem key="tabBarItem" title="Settings" id="5544" image="Icons/DottedSettingsIcon/DottedSettingsIcon.png"/>
@@ -441,6 +454,12 @@
                     <connections>
                         <outlet property="rating" destination="16647" id="name-outlet-16647"/>
                         <outlet property="logoutButton" destination="26067" id="name-outlet-26067"/>
+                        <outlet property="generalCheckBox" destination="16649" id="name-outlet-16649"/>
+                        <outlet property="foodCheckBox" destination="16650" id="name-outlet-16650"/>
+                        <outlet property="historyCheckBox" destination="16651" id="name-outlet-16651"/>
+                        <outlet property="sportCheckBox" destination="16648" id="name-outlet-16648"/>
+                        <outlet property="natureCheckBox" destination="44296" id="name-outlet-44296"/>
+                        <outlet property="saveButton" destination="36992" id="name-outlet-36992"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5479" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -542,28 +561,29 @@
                                         <barButtonItem key="leftBarButtonItem" title="back" id="43631">
                                             <connections/>
                                         </barButtonItem>
+                                        <barButtonItem key="rightBarButtonItem" id="44641" systemItem="trash"/>
                                     </navigationItem>
                                 </items>
                             </navigationBar>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" id="43633" translatesAutoresizingMaskIntoConstraints="NO" fixedFrame="YES">
-                                <rect key="frame" x="16" y="89" width="322" height="109"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" id="43633" translatesAutoresizingMaskIntoConstraints="NO" fixedFrame="YES" adjustsFontForContentSizeCategory="YES">
+                                <rect key="frame" x="16" y="89" width="343" height="57"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore </string>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" id="43634" translatesAutoresizingMaskIntoConstraints="NO" fixedFrame="YES">
-                                <rect key="frame" x="16" y="235" width="343" height="128"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <rect key="frame" x="0.0" y="256" width="375" height="361"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </mapView>
                             <view contentMode="scaleToFill" id="43636" customClass="SfRating" translatesAutoresizingMaskIntoConstraints="NO" fixedFrame="YES">
-                                <rect key="frame" x="16" y="418" width="276" height="65"/>
+                                <rect key="frame" x="26" y="183" width="276" height="65"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="43963" translatesAutoresizingMaskIntoConstraints="NO" fixedFrame="YES">
-                                <rect key="frame" x="16" y="384" width="283" height="21"/>
+                                <rect key="frame" x="23" y="154" width="283" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
@@ -577,6 +597,7 @@
                         <outlet property="mapView" destination="43634" id="name-outlet-43634"/>
                         <outlet property="backBarButton" destination="43631" id="name-outlet-43631"/>
                         <outlet property="dateLabel" destination="43963" id="name-outlet-43963"/>
+                        <outlet property="deleteMarkButton" destination="44641" id="name-outlet-44641"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="43537" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -16,11 +16,35 @@ namespace mARkIt.iOS
     {
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
+        Syncfusion.iOS.Buttons.SfCheckBox foodCheckBox { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        Syncfusion.iOS.Buttons.SfCheckBox generalCheckBox { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        Syncfusion.iOS.Buttons.SfCheckBox historyCheckBox { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UIButton logoutButton { get; set; }
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
+        Syncfusion.iOS.Buttons.SfCheckBox natureCheckBox { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
         Syncfusion.SfRating.iOS.SfRating rating { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UIBarButtonItem saveButton { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        Syncfusion.iOS.Buttons.SfCheckBox sportCheckBox { get; set; }
 
         [Action ("LogoutButton_TouchUpInside:")]
         [GeneratedCode ("iOS Designer", "1.0")]
@@ -32,14 +56,44 @@ namespace mARkIt.iOS
 
         void ReleaseDesignerOutlets ()
         {
+            if (foodCheckBox != null) {
+                foodCheckBox.Dispose ();
+                foodCheckBox = null;
+            }
+
+            if (generalCheckBox != null) {
+                generalCheckBox.Dispose ();
+                generalCheckBox = null;
+            }
+
+            if (historyCheckBox != null) {
+                historyCheckBox.Dispose ();
+                historyCheckBox = null;
+            }
+
             if (logoutButton != null) {
                 logoutButton.Dispose ();
                 logoutButton = null;
             }
 
+            if (natureCheckBox != null) {
+                natureCheckBox.Dispose ();
+                natureCheckBox = null;
+            }
+
             if (rating != null) {
                 rating.Dispose ();
                 rating = null;
+            }
+
+            if (saveButton != null) {
+                saveButton.Dispose ();
+                saveButton = null;
+            }
+
+            if (sportCheckBox != null) {
+                sportCheckBox.Dispose ();
+                sportCheckBox = null;
             }
         }
     }

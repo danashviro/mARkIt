@@ -8,7 +8,7 @@ namespace mARkIt.iOS
 {
     public partial class MarkViewController : UIViewController
     {
-        public Mark Mark { get; set; }
+        public Mark ViewMark { get; set; }
 
         public MarkViewController (IntPtr handle) : base (handle)
         {
@@ -19,13 +19,27 @@ namespace mARkIt.iOS
             base.ViewDidLoad();
             backBarButton.Clicked += BackBarButton_Clicked;
             prepareMap();
-            messageTextView.Text = Mark.Message;
+            messageTextView.Text = ViewMark.Message;
             ratingBar.Value = 3;
             ratingBar.UserInteractionEnabled = false;
-            dateLabel.Text = Mark.createdAt.ToLocalTime().ToLongDateString();
+            dateLabel.Text = ViewMark.createdAt.ToLocalTime().ToLongDateString();
             ratingBar.ItemSize = 17;
-            
+            deleteMarkButton.Clicked += DeleteMarkButton_Clicked;       
         }
+
+        private async void DeleteMarkButton_Clicked(object sender, EventArgs e)
+        {
+            bool deleted = await Mark.Delete(ViewMark);
+            if(deleted)
+            {
+                Helpers.Alert.DisplayAnAlert("Ok", "The mARk was deleted", new Action<UIAlertAction>((a) => NavigationController.PopViewController(true)), this);
+            }
+            else
+            {
+                Helpers.Alert.DisplayAnAlert("Error", "There was a problem deleting this mARk, Please try later ", null, this);                
+            }
+        }
+        
 
         private void BackBarButton_Clicked(object sender, EventArgs e)
         {
@@ -34,13 +48,13 @@ namespace mARkIt.iOS
 
         private void prepareMap()
         {
-            var markLocation = new CoreLocation.CLLocationCoordinate2D(Mark.Latitude, Mark.Longitude);
+            var markLocation = new CoreLocation.CLLocationCoordinate2D(ViewMark.Latitude, ViewMark.Longitude);
             var coordinateSpan = new MKCoordinateSpan(0.01, 0.01); //this seems to be the maximum zoom out
             var coordinateRegion = new MKCoordinateRegion(markLocation, coordinateSpan);
             mapView.SetRegion(coordinateRegion, false);
             var pin = new MKPointAnnotation()
             {
-                Title = Mark.Message,
+                Title = ViewMark.Message,
                 Coordinate = markLocation
             };
             mapView.AddAnnotation(pin);

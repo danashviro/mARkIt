@@ -184,6 +184,8 @@
     <Folder Include="Resources\Icons\MapIcon\" />
     <Folder Include="ViewControllers\" />
     <Folder Include="Resources\markStyles\" />
+    <Folder Include="Helpers\" />
+    <Folder Include="CustomControls\" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="LaunchScreen.storyboard" />
@@ -208,9 +210,9 @@
     <Compile Include="ViewControllers\MapViewController.designer.cs">
       <DependentUpon>MapViewController.cs</DependentUpon>
     </Compile>
-    <Compile Include="ViewControllers\NewMarkViewController.cs" />
-    <Compile Include="ViewControllers\NewMarkViewController.designer.cs">
-      <DependentUpon>NewMarkViewController.cs</DependentUpon>
+    <Compile Include="ViewControllers\AddAMarkViewController.cs" />
+    <Compile Include="ViewControllers\AddAMarkViewController.designer.cs">
+      <DependentUpon>AddAMarkViewController.cs</DependentUpon>
     </Compile>
     <Compile Include="ViewControllers\SettingsViewController.cs" />
     <Compile Include="ViewControllers\SettingsViewController.designer.cs">
@@ -224,10 +226,6 @@
     <Compile Include="ViewControllers\NavigationController.designer.cs">
       <DependentUpon>NavigationController.cs</DependentUpon>
     </Compile>
-    <Compile Include="MarkTableViewCell.cs" />
-    <Compile Include="MarkTableViewCell.designer.cs">
-      <DependentUpon>MarkTableViewCell.cs</DependentUpon>
-    </Compile>
     <Compile Include="ViewControllers\MyMarksViewController.cs" />
     <Compile Include="ViewControllers\MyMarksViewController.designer.cs">
       <DependentUpon>MyMarksViewController.cs</DependentUpon>
@@ -236,6 +234,12 @@
     <Compile Include="ViewControllers\MarkViewController.designer.cs">
       <DependentUpon>MarkViewController.cs</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\Alert.cs" />
+    <Compile Include="CustomControls\MarkTableViewCell.cs" />
+    <Compile Include="CustomControls\MarkTableViewCell.designer.cs">
+      <DependentUpon>MarkTableViewCell.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\LoginHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\ARPages\3dARPage\assets\couch.wt3" />

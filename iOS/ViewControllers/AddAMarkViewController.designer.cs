@@ -11,8 +11,8 @@ using UIKit;
 
 namespace mARkIt.iOS
 {
-    [Register ("NewMarkViewController")]
-    partial class NewMarkViewController
+    [Register ("AddAMarkViewController")]
+    partial class AddAMarkViewController
     {
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
@@ -45,6 +45,10 @@ namespace mARkIt.iOS
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UITextView markTextView { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        Syncfusion.iOS.Buttons.SfCheckBox natureCheckBox { get; set; }
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
@@ -98,6 +102,11 @@ namespace mARkIt.iOS
             if (markTextView != null) {
                 markTextView.Dispose ();
                 markTextView = null;
+            }
+
+            if (natureCheckBox != null) {
+                natureCheckBox.Dispose ();
+                natureCheckBox = null;
             }
 
             if (saveMarkButton != null) {

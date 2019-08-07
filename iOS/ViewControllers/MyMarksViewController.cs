@@ -12,7 +12,9 @@ namespace mARkIt.iOS
     {
         private List<Mark> m_Marks;
         private Random m_Rand;
-        public User User { get; set; }
+        public User ConnectedUser { get; set; }
+        private bool m_ViewLoaded = false;
+
 
         public MyMarksViewController (IntPtr handle) : base (handle)
         {
@@ -20,12 +22,23 @@ namespace mARkIt.iOS
             m_Rand = new Random();
         }
 
+
         public override async void ViewDidLoad()
         {
             base.ViewDidLoad();
-            //change to: get my marks
-            m_Marks = await Mark.GetMyMarks(User);
+            m_Marks = await Mark.GetMyMarks(ConnectedUser);
             TableView.ReloadData();
+            m_ViewLoaded = true;
+        }
+
+        public override async void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+            if (m_ViewLoaded)
+            {
+                m_Marks = await Mark.GetMyMarks(ConnectedUser);
+                TableView.ReloadData();
+            }
         }
 
         public override nint RowsInSection(UITableView tableView, nint section)
@@ -53,7 +66,7 @@ namespace mARkIt.iOS
             {
                 var selectedRow = TableView.IndexPathForSelectedRow;
                 var destenationViewController = segue.DestinationViewController as MarkViewController;
-                destenationViewController.Mark = m_Marks[selectedRow.Row];
+                destenationViewController.ViewMark = m_Marks[selectedRow.Row];
             }
             base.PrepareForSegue(segue, sender);
         }

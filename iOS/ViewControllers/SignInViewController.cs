@@ -5,13 +5,14 @@ using mARkIt.Utils;
 using Xamarin.Auth;
 using mARkIt.Authentication;
 using mARkIt.Models;
+using mARkIt.iOS.Helpers;
 
 namespace mARkIt.iOS
 {
     public partial class SignInViewController : UIViewController, IAuthenticationDelegate
     {
-        bool hasLoggedIn = false;
-        private Account m_Account;
+        private bool m_HasLoggedIn = false;
+        private User m_User;
 
         public SignInViewController(IntPtr handle) : base(handle)
         {
@@ -41,7 +42,7 @@ namespace mARkIt.iOS
         {
             if (segueIdentifier == "launchAppSegue") //after press login moveOnlyIfLoggedIn 
             {
-                return hasLoggedIn;
+                return m_HasLoggedIn;
             }
             return true;
         }
@@ -50,9 +51,9 @@ namespace mARkIt.iOS
         public async void OnAuthenticationCompleted(Account i_Account)
         {
             DismissViewController(true, null);
-            hasLoggedIn = true;
+            m_HasLoggedIn = true;
             await SecureStorageAccountStore.SaveAccountAsync(i_Account, "Facebook");
-            m_Account = i_Account;
+            m_User = await LoginHelper.CreateUserObject(i_Account);
             PerformSegue("launchAppSegue", this);
 
         }
@@ -63,7 +64,7 @@ namespace mARkIt.iOS
             if (segue.Identifier == "launchAppSegue")
             {
                 var destenationViewController = segue.DestinationViewController as MainTabBarViewController;
-                destenationViewController.Account = m_Account;
+                destenationViewController.ConnectedUser = m_User;
             }
             base.PrepareForSegue(segue, sender);
         }
@@ -75,7 +76,6 @@ namespace mARkIt.iOS
 
         public void OnAuthenticationCanceled()
         {
-            //throw new NotImplementedException();
         }
 
     }

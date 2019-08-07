@@ -19,7 +19,7 @@ namespace mARkIt.iOS
             public ArchitectDelegate(ARViewController arExperienceViewController)
             {
                 this.arExperienceViewController = arExperienceViewController;
-            } 
+            }
 
             public override void DidFinishLoadNavigation(WTArchitectView architectView, WTNavigation navigation)
             {
@@ -52,10 +52,10 @@ namespace mARkIt.iOS
                 this.architectView = architectView;
             }
 
-      
+
         }
 
-        public User User { get; set; }
+        public User ConnectedUser { get; set; }
 
         protected WTArchitectView architectView;
         protected ArchitectDelegate delegateObject;
@@ -214,10 +214,10 @@ namespace mARkIt.iOS
                     }
                     else
                     {
-                        architectStartupConfiguration.CaptureDevicePosition = AVCaptureDevicePosition.Back; 
+                        architectStartupConfiguration.CaptureDevicePosition = AVCaptureDevicePosition.Back;
                     }
                     architectStartupConfiguration.CaptureDeviceResolution = WTCaptureDeviceResolution.WTCaptureDeviceResolution_AUTO;
-                    architectStartupConfiguration.CaptureDeviceFocusMode = AVCaptureFocusMode.ContinuousAutoFocus; 
+                    architectStartupConfiguration.CaptureDeviceFocusMode = AVCaptureFocusMode.ContinuousAutoFocus;
                 }, (bool success, NSError error) =>
                 {
                     isRunning = success;
@@ -238,8 +238,8 @@ namespace mARkIt.iOS
         {
             if (segue.Identifier == "addAMarkSegue")
             {
-                var destenationViewController = segue.DestinationViewController as NewMarkViewController;
-                destenationViewController.User = User;
+                var destenationViewController = segue.DestinationViewController as AddAMarkViewController;
+                destenationViewController.ConnectedUser = ConnectedUser;
             }
             base.PrepareForSegue(segue, sender);
         }

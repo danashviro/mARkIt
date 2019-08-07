@@ -5,24 +5,34 @@ using UIKit;
 using mARkIt.Services;
 using mARkIt.Models;
 using CoreLocation;
+using System.Threading.Tasks;
 
 namespace mARkIt.iOS
 {
     public partial class MapViewController : UIViewController
     {
         private bool m_UserLocationInit = false;
-        public User User { get; set; }
+        public User ConnectedUser { get; set; }
+        private bool m_ViewLoaded = false;
 
         public MapViewController (IntPtr handle) : base (handle)
         {
         }
 
-        public override void ViewDidAppear(bool animated)
+        public override void ViewDidLoad()
         {
-            base.ViewDidAppear(animated);
-            getPins();
-            mapView.DidUpdateUserLocation += MapView_DidUpdateUserLocation; 
+            base.ViewDidLoad();
+            mapView.DidUpdateUserLocation += MapView_DidUpdateUserLocation;
+            m_ViewLoaded = true;
+        }
 
+        public override async void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+            if(m_ViewLoaded)
+            {
+                await getPins();
+            }
         }
 
         private void MapView_DidUpdateUserLocation(object sender, MKUserLocationEventArgs e)
@@ -30,21 +40,22 @@ namespace mARkIt.iOS
             if(!m_UserLocationInit)
             {
                 m_UserLocationInit = true;
-                var coordinateSpan = new MKCoordinateSpan(0.01, 0.01); //this seems to be the maximum zoom out
+                var coordinateSpan = new MKCoordinateSpan(0.01, 0.01);
                 var coordinateRegion = new MKCoordinateRegion(mapView.UserLocation.Coordinate, coordinateSpan);
                 mapView.SetRegion(coordinateRegion, false);
             }
         }
 
-        private async void getPins()
+        private async Task getPins()
         {
-            var marks = await Mark.GetMarksAccordingToUserSettings(User);
+            var marks = await Mark.GetRelevantMarks(ConnectedUser.RelevantCategoriesCode);
+            mapView.RemoveAnnotations(mapView.Annotations);
             foreach (Mark mark in marks)
             {
                 var pin = new MKPointAnnotation()
                 {
                     Title = mark.Message,
-                    Coordinate = new CoreLocation.CLLocationCoordinate2D(mark.Latitude, mark.Longitude)
+                    Coordinate = new CLLocationCoordinate2D(mark.Latitude, mark.Longitude)
                 };
                 mapView.AddAnnotation(pin);
             }
