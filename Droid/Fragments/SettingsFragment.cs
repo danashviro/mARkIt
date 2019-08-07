@@ -10,11 +10,19 @@ using Android.Util;
 using Android.Views;
 using Android.Widget;
 using mARkIt.Authentication;
+using mARkIt.Models;
 
 namespace mARkIt.Droid.Fragments
 {
     public class SettingsFragment : Android.Support.V4.App.Fragment
     {
+        private User m_User;
+
+        public SettingsFragment(User i_User)
+        {
+            m_User = i_User;
+        }
+
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             // Use this to return your custom view for this Fragment

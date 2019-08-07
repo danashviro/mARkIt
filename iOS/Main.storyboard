@@ -156,7 +156,7 @@
                                     <color key="titleColor" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace" white="1" alpha="1"/>
                                 </state>
                                 <connections>
-                                    <segue id="36990" destination="3428" kind="show"/>
+                                    <segue id="36990" destination="3428" kind="show" identifier="addAMarkSegue"/>
                                 </connections>
                             </button>
                         </subviews>

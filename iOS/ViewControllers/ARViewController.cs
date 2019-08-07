@@ -4,6 +4,7 @@ using Foundation;
 using CoreGraphics;
 using AVFoundation;
 using WikitudeComponent.iOS;
+using mARkIt.Models;
 
 namespace mARkIt.iOS
 {
@@ -54,6 +55,7 @@ namespace mARkIt.iOS
       
         }
 
+        public User User { get; set; }
 
         protected WTArchitectView architectView;
         protected ArchitectDelegate delegateObject;
@@ -85,7 +87,7 @@ namespace mARkIt.iOS
             // Perform any additional setup after loading the view, typically from a nib.
 
             architectView = new WTArchitectView();
-            architectView.SetLicenseKey(mARkIt.Utils.Keys.WikitudeLicense);
+            architectView.SetLicenseKey(Utils.Keys.WikitudeLicense);
             delegateObject = new ArchitectDelegate(this);
             architectView.Delegate = delegateObject;
             architectView.TranslatesAutoresizingMaskIntoConstraints = false;
@@ -231,6 +233,16 @@ namespace mARkIt.iOS
             }
         }
         #endregion
+
+        public override void PrepareForSegue(UIStoryboardSegue segue, NSObject sender)
+        {
+            if (segue.Identifier == "addAMarkSegue")
+            {
+                var destenationViewController = segue.DestinationViewController as NewMarkViewController;
+                destenationViewController.User = User;
+            }
+            base.PrepareForSegue(segue, sender);
+        }
 
     }
 }

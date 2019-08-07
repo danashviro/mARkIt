@@ -9,18 +9,19 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using mARkIt.Models;
 
 namespace mARkIt.Droid.Adapters
 {
-    class LocationAdapter : BaseAdapter
+    class MarkAdapter : BaseAdapter
     {
 
         Context context;
-        List<Models.Location> m_Locations;
-        public LocationAdapter(Context context,List<Models.Location> locations)
+        List<Mark> m_Marks;
+        public MarkAdapter(Context context,List<Mark> marks)
         {
             this.context = context;
-            m_Locations = locations;
+            m_Marks = marks;
         }
 
 
@@ -37,14 +38,14 @@ namespace mARkIt.Droid.Adapters
         public override View GetView(int position, View convertView, ViewGroup parent)
         {
             var view = convertView;
-            LocationAdapterViewHolder holder = null;
+            MarkAdapterViewHolder holder = null;
 
             if (view != null)
-                holder = view.Tag as LocationAdapterViewHolder;
+                holder = view.Tag as MarkAdapterViewHolder;
 
             if (holder == null)
             {
-                holder = new LocationAdapterViewHolder();
+                holder = new MarkAdapterViewHolder();
                 var inflater = context.GetSystemService(Context.LayoutInflaterService).JavaCast<LayoutInflater>();
                 //replace with your item and your holder items
                 //comment back in
@@ -57,9 +58,9 @@ namespace mARkIt.Droid.Adapters
 
 
             //fill in your items
-            var location = m_Locations[position];
-            holder.Message.Text =location.message;
-            holder.Date.Text = location.createdAt.ToLocalTime().ToLongDateString();
+            var mark = m_Marks[position];
+            holder.Message.Text = mark.Message;
+            holder.Date.Text = mark.createdAt.ToLocalTime().ToLongDateString();
 
             return view;
         }
@@ -69,13 +70,13 @@ namespace mARkIt.Droid.Adapters
         {
             get
             {
-                return m_Locations.Count;
+                return m_Marks.Count;
             }
         }
 
     }
 
-    class LocationAdapterViewHolder : Java.Lang.Object
+    class MarkAdapterViewHolder : Java.Lang.Object
     {
         //Your adapter views to re-use
         public TextView Message { get; set; }
