@@ -25,6 +25,7 @@ namespace mARkIt.Droid.Activities
     public class WelcomeActivity : AppCompatActivity, IPermissionManagerPermissionManagerCallback
     {
         Account m_Account = null;
+        mARkIt.Authentication.Authentication.e_SupportedAuthentications m_AuthType;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -40,10 +41,12 @@ namespace mARkIt.Droid.Activities
         {
             m_Account = await mARkIt.Authentication.SecureStorageAccountStore
                 .GetAccountAsync("Facebook");
+            m_AuthType = mARkIt.Authentication.Authentication.e_SupportedAuthentications.Facebook;
             if (m_Account == null)
             {
                 m_Account = await mARkIt.Authentication.SecureStorageAccountStore
                     .GetAccountAsync("Google");
+                m_AuthType = mARkIt.Authentication.Authentication.e_SupportedAuthentications.Google;
             }
         }
 
@@ -87,7 +90,7 @@ namespace mARkIt.Droid.Activities
             // Go straight to main tabs page
             if (m_Account != null)
             {
-                startMainApp(m_Account);
+                startMainApp();
             }
             else // go to login page
             {
@@ -102,12 +105,15 @@ namespace mARkIt.Droid.Activities
             Finish();
         }
 
-        private void startMainApp(Account i_Account)
+        private void startMainApp()
         {
             // serialize it so we move it to another activity
-            string accountAsJson = JsonConvert.SerializeObject(i_Account);
+            string accountAsJson = JsonConvert.SerializeObject(m_Account);
+            string authTypeAsJson = JsonConvert.SerializeObject(m_AuthType);
+
             Intent mainTabs = new Intent(this, typeof(TabsActivity));
             mainTabs.PutExtra("account", accountAsJson);
+            mainTabs.PutExtra("authType", authTypeAsJson);
             StartActivity(mainTabs);
             Finish();
         }

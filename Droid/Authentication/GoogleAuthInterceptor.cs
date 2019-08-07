@@ -1,0 +1,42 @@
+﻿using Android.App;
+using Android.Content;
+using Android.OS;
+using System;
+
+namespace mARkIt.Droid.Authentication
+{
+    [Activity(Label = "GoogleAuthInterceptor")]
+    [
+        IntentFilter
+        (
+            actions: new[] { Intent.ActionView },
+            Categories = new[]
+            {
+                Intent.CategoryDefault,
+                Intent.CategoryBrowsable
+            },
+            DataSchemes = new[]
+            {
+                "com.companyname.markit"
+                //mARkIt.Utils.Configuration.PackageName
+            },
+            DataPaths = new[]
+            {
+                "/oauth2redirect"
+                //mARkIt.Utils.Configuration.RedirectUrl
+            }
+        )
+    ]
+    public class GoogleAuthInterceptor : Activity
+    {
+        protected override void OnCreate(Bundle savedInstanceState)
+        {
+            base.OnCreate(savedInstanceState);
+
+            Android.Net.Uri uri_android = Intent.Data;
+            Uri uri_netfx = new Uri(uri_android.ToString());
+            LoginActivity.s_GoogleAuthenticator?.OnPageLoading(uri_netfx);
+            Finish();
+        }
+    }
+}

@@ -28,9 +28,10 @@ namespace mARkIt.Droid
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.Tabs);
 
-            // create user object from the
+            // create user object from the account
+            string authTypeAsJson = Intent.GetStringExtra("authType");
             string accountAsJson = Intent.GetStringExtra("account");
-            Task.Run(() => createUserObjectAsync(accountAsJson));
+            Task.Run(() => createUserObjectAsync(accountAsJson, authTypeAsJson));
 
             m_TabLayout = FindViewById<TabLayout>(Resource.Id.mainTabLayout);
             m_TabLayout.TabSelected += TabLayout_TabSelected;
@@ -43,11 +44,21 @@ namespace mARkIt.Droid
             navigateToFragment(m_ARFragment);
         }
 
-        private async void createUserObjectAsync(string i_AccountAsJson)
+        private async void createUserObjectAsync(string i_AccountAsJson, string i_AuthType)
         {
             Account account = JsonConvert.DeserializeObject<Account>(i_AccountAsJson);
-            FacebookClient fbClient = new Authentication.FacebookClient(account);
-            m_User = await fbClient.GetUserAsync();
+            mARkIt.Authentication.Authentication.e_SupportedAuthentications authType = JsonConvert.DeserializeObject<mARkIt.Authentication.Authentication.e_SupportedAuthentications>(i_AuthType);
+            switch (authType)
+            {
+                case mARkIt.Authentication.Authentication.e_SupportedAuthentications.Facebook:
+                    FacebookClient fbClient = new FacebookClient(account);
+                    m_User = await fbClient.GetUserAsync();
+                    break;
+                case mARkIt.Authentication.Authentication.e_SupportedAuthentications.Google:
+                    break;
+                default:
+                    break;
+            }
         }
 
         private void TabLayout_TabSelected(object sender, TabLayout.TabSelectedEventArgs e)

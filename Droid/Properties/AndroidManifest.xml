@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="1" android:versionName="1.0" package="com.companyname.MarkIt" android:installLocation="auto">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="1" android:versionName="1.0" package="com.companyname.markit" android:installLocation="auto">
 	<uses-sdk android:minSdkVersion="21" android:targetSdkVersion="27" />
 	<uses-feature android:required="true" android:glEsVersion="0x00020000" />
 	<uses-permission android:name="android.permission.CAMERA" />
@@ -18,8 +18,8 @@
 	<uses-feature android:name="android.hardware.sensor.compass" android:required="false" />
 	<uses-feature android:name="android.hardware.sensor.gyroscope" android:required="false" />
 	<application android:theme="@style/Theme.AppCompat.Light.NoActionBar" android:label="mARk-It" android:icon="@mipmap/ic_launcher">
-    <item name="android:windowDisablePreview">true</item>
-    <meta-data android:name="com.google.ar.core" android:value="optional" />
+		<item name="android:windowDisablePreview">true</item>
+		<meta-data android:name="com.google.ar.core" android:value="optional" />
 		<meta-data android:name="com.google.android.maps.v2.API_KEY" android:value="AIzaSyA1e10GauvZfTFmRStjJ7t2SPVSbrZXPAc" />
 		<meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version" />
 	</application>

@@ -28,6 +28,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Authentication\Account\SecureStorageAccountStore.cs" />
+    <Compile Include="Authentication\Authentication.cs" />
     <Compile Include="Authentication\Facebook\FacebookAuthenticator.cs" />
     <Compile Include="Authentication\Facebook\FacebookClient.cs" />
     <Compile Include="Abstractions\TableData.cs" />

@@ -35,6 +35,11 @@ namespace mARkIt.Authentication
             return m_OAuth2Authenticator;
         }
 
+        public void OnPageLoading(Uri i_Uri)
+        {
+            m_OAuth2Authenticator.OnPageLoading(i_Uri);
+        }
+
         private void OnAuthenticationCompleted(object sender, AuthenticatorCompletedEventArgs e)
         {
             if (e.IsAuthenticated)
