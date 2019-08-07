@@ -112,6 +112,7 @@ namespace mARkIt.Droid.Activities
             string authTypeAsJson = JsonConvert.SerializeObject(m_AuthType);
 
             Intent mainTabs = new Intent(this, typeof(TabsActivity));
+            mainTabs.SetFlags(ActivityFlags.ClearTop | ActivityFlags.SingleTop);
             mainTabs.PutExtra("account", accountAsJson);
             mainTabs.PutExtra("authType", authTypeAsJson);
             StartActivity(mainTabs);

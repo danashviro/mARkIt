@@ -51,6 +51,7 @@ namespace mARkIt.Droid
                 this);
             OAuth2Authenticator oauth2authenticator = s_GoogleAuthenticator.GetOAuth2();
             Intent googleIntent = oauth2authenticator.GetUI(this);
+            Xamarin.Auth.CustomTabsConfiguration.CustomTabsClosingMessage = null;
             StartActivity(googleIntent);
         }
 
@@ -104,6 +105,7 @@ namespace mARkIt.Droid
             string authTypeAsJson = JsonConvert.SerializeObject(i_AuthType);
 
             Intent mainTabs = new Intent(this, typeof(TabsActivity));
+            mainTabs.SetFlags(ActivityFlags.ClearTop | ActivityFlags.SingleTop);
             mainTabs.PutExtra("account", accountAsJson);
             mainTabs.PutExtra("authType", authTypeAsJson);
             StartActivity(mainTabs);
