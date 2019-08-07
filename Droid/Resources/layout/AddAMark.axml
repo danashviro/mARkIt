@@ -6,4 +6,52 @@
 	android:layout_height="match_parent"
 	android:minWidth="25px"
 	android:minHeight="25px">
+	<TextView
+		android:text="Message:"
+		android:textAppearance="?android:attr/textAppearanceMedium"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/textView1" />
+	<EditText
+		android:inputType="textMultiLine"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/MarkMessageEditText" />
+	<TextView
+		android:text="Letters: 0"
+		android:textAppearance="?android:attr/textAppearanceSmall"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/LettersTextView" />
+	<CheckBox
+		android:text="General"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/GeneralCheckBox" />
+	<CheckBox
+		android:text="Food"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/FoodCheckBox" />
+	<CheckBox
+		android:text="History"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/HistoryCheckBox" />
+	<CheckBox
+		android:text="Sport"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/SportCheckBox" />
+	<CheckBox
+		android:text="Nature"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/NatureCheckBox" />
+	<Button
+		android:text="Save"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/SaveButton" />
+
 </LinearLayout>

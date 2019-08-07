@@ -107,6 +107,7 @@ namespace mARkIt.Droid.Fragments
             {
                 m_LocationManager.RequestLocationUpdates(provider, 5000, 100, this);
             }
+
         }
     }
 }

@@ -21,13 +21,19 @@ namespace mARkIt.Droid.Fragments
     public class MyMarksFragment : Android.Support.V4.App.ListFragment
     {
         List<Mark> m_Marks;
+        private User m_User;
+
+        public MyMarksFragment(User i_User)
+        {
+            m_User = i_User;
+        }
 
         public override async void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
 
             // Create your fragment here 
-            m_Marks = await AzureService.MobileService.GetTable<Mark>().ToListAsync();
+            m_Marks = await AzureService.MobileService.GetTable<Mark>().Where(m => m.UserEmail == m_User.Email).ToListAsync();
             ListAdapter = new MarkAdapter(Context, m_Marks);
 
 
