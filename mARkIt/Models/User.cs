@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Linq;
+using mARkIt.Utils;
 
 namespace mARkIt.Models
 {
@@ -44,7 +45,7 @@ namespace mARkIt.Models
                 User user = new User()
                 {
                     Email = email,
-                    RelevantCategoriesCode = 0x1F
+                    RelevantCategoriesCode = (int)eCategories.All
                 };
                 await Insert(user);
                 users = await AzureService.MobileService.GetTable<User>().Where(u => u.Email == email).ToListAsync();

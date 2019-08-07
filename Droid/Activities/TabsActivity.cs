@@ -66,6 +66,7 @@ namespace mARkIt.Droid
                     break;
                 case 3:
                     navigateToFragment(m_SettingsFragment);
+                    
                     break;
             }
         }
