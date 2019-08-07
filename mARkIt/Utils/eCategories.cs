@@ -7,6 +7,7 @@ namespace mARkIt.Utils
         Food = 2,
         Sport = 4,
         History = 8,
-        Nature = 16
+        Nature = 16,
+        All = ~0
     }
 }
