@@ -21,7 +21,7 @@ namespace mARkIt.Models
 
         public static async Task<List<Mark>> GetMarksAccordingToUserSettings(User i_User)
         {
-            return await AzureService.MobileService.GetTable<Mark>().Where(mark => (mark.CategoriesCode & i_User.RelevantCategoriesCode) != 0).ToListAsync();
+            return await AzureService.MobileService.GetTable<Mark>().Where(mark => true).ToListAsync();
         }
 
         public static async Task<bool> Insert(Mark i_Mark)
