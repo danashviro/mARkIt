@@ -16,6 +16,7 @@ namespace mARkIt.iOS
     {
         private SfRadioButton m_WoodMarkStyleRadioButton, m_MetalMarkStyleRadioButton, m_SchoolMarkStyleRadioButton;
         private const int m_MaxLettersAllowed = 40;
+        public User User { get; set; }
 
         public NewMarkViewController(IntPtr handle) : base(handle)
         {
@@ -83,8 +84,8 @@ namespace mARkIt.iOS
                         Longitude = location.Longitude,
                         Message = markTextView.Text,
                         Style = getMarkStyle(),
-                        CategoriesCode = getCategories()
-
+                        CategoriesCode = getCategories(),
+                        UserEmail = User.Email
                 };
 
                     await Mark.Insert(mark);

@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Net.Http;
 using System.Threading.Tasks;
 using mARkIt.Abstractions;
 using mARkIt.Services;
+using mARkIt.Utils;
 
 namespace mARkIt.Models
 {
@@ -19,9 +21,17 @@ namespace mARkIt.Models
             return await AzureService.MobileService.GetTable<Mark>().Where(mark => mark.UserEmail == i_User.Email).ToListAsync();       
         }
 
-        public static async Task<List<Mark>> GetMarksAccordingToUserSettings(User i_User)
+        public static async Task<List<Mark>> GetRelevantMarks(int i_RelevantCategoriesCode = (int)eCategories.All, double? i_Longitube = null, double? i_Latitude = null)
         {
-            return await AzureService.MobileService.GetTable<Mark>().Where(mark => (mark.CategoriesCode & i_User.RelevantCategoriesCode) != 0).ToListAsync();
+            Dictionary<string, string> parameters = new Dictionary<string, string>
+            {
+                { "relevantCategoriesCode", i_RelevantCategoriesCode.ToString() },
+                { "longitude", i_Longitube.ToString() },
+                { "latitude", i_Latitude.ToString()}
+            };
+
+            List<Mark> relevantMarks = await AzureService.MobileService.InvokeApiAsync<List<Mark>>("RelevantMarks", HttpMethod.Get, parameters);
+            return relevantMarks;
         }
 
         public static async Task<bool> Insert(Mark i_Mark)

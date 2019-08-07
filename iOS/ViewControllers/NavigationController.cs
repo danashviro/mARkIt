@@ -47,17 +47,17 @@ namespace mARkIt.iOS
         private async void autoConnect()
         {
             // TODO - add Google
-            m_StoredAccount = await mARkIt.Authentication.SecureStorageAccountStore
+            m_StoredAccount = await SecureStorageAccountStore
                 .GetAccountAsync("Facebook");
             if (m_StoredAccount == null)
             {
-                m_StoredAccount = await mARkIt.Authentication.SecureStorageAccountStore
+                m_StoredAccount = await SecureStorageAccountStore
                     .GetAccountAsync("Google");
             }
             if (m_StoredAccount == null)
                 PerformSegue("loginSegue", this);
             else
-                startMainApp(m_StoredAccount);
+                startMainApp();
 
         }
 
@@ -73,11 +73,19 @@ namespace mARkIt.iOS
             }
         }
 
-        private void startMainApp(Account i_Account)
+        private void startMainApp()
         {
-            m_User = new User();
-            m_User.Email = "dedisidi@gmail.com";
             PerformSegue("launchAppSegue", this);
+        }
+
+        public override void PrepareForSegue(UIStoryboardSegue segue, NSObject sender)
+        {
+            if (segue.Identifier == "launchAppSegue")
+            {
+                var destenationViewController = segue.DestinationViewController as MainTabBarViewController;
+                destenationViewController.Account = m_StoredAccount;
+            }
+            base.PrepareForSegue(segue, sender);
         }
 
 

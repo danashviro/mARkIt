@@ -13,6 +13,7 @@ namespace Backend
 
             new MobileAppConfiguration()
                 .UseDefaultConfiguration()
+                .MapApiControllers() 
                 .ApplyTo(config);
 
             // Automatic Code First Migrations
