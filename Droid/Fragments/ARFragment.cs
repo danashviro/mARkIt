@@ -20,6 +20,7 @@ using Com.Wikitude.Architect;
 using Com.Wikitude.Common.Camera;
 using Android.Support.Design.Widget;
 using Org.Json;
+using mARkIt.Models;
 
 namespace mARkIt.Droid.Fragments
 {
@@ -29,6 +30,12 @@ namespace mARkIt.Droid.Fragments
         private Location.LocationProvider locationProvider;
 
         protected ArchitectView architectView;
+        private User m_User;
+
+        public ARFragment(User i_User)
+        {
+            m_User = i_User;
+        }
 
         public override void OnCreate(Bundle savedInstanceState)
         {
@@ -132,8 +139,9 @@ namespace mARkIt.Droid.Fragments
 
         public void OnJSONObjectReceived(JSONObject p0)
         {
-            Intent C = new Intent(Activity, typeof(LoginActivity));
-            StartActivity(C);
+            Intent intent = new Intent(Activity, typeof(AddAMarkActivity));
+            intent.PutExtra("userEmail", m_User.Email);
+            StartActivity(intent);
         }
     }
 }

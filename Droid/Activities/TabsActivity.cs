@@ -37,10 +37,10 @@ namespace mARkIt.Droid
             m_TabLayout.TabSelected += TabLayout_TabSelected;
 
             // create fragments
-            m_ARFragment = new ARFragment();
+            m_ARFragment = new ARFragment(m_User);
             m_MapFragment = new MapFragment();
             m_SettingsFragment = new SettingsFragment(m_User);
-            m_MyMarksFragment = new MyMarksFragment();
+            m_MyMarksFragment = new MyMarksFragment(m_User);
             navigateToFragment(m_ARFragment);
         }
 
