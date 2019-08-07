@@ -10,23 +10,39 @@ using Android.Runtime;
 using Android.Util;
 using Android.Views;
 using Android.Widget;
+using mARkIt.Droid.Activities;
 using mARkIt.Droid.Adapters;
+using mARkIt.Models;
 using mARkIt.Services;
+using Newtonsoft.Json;
 
 namespace mARkIt.Droid.Fragments
 {
     public class MyMarksFragment : Android.Support.V4.App.ListFragment
     {
+        List<Mark> m_Marks;
+
         public override async void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
 
             // Create your fragment here 
-            var locations = await LocationService.Instance().GetLocations();
-            List<Models.Location> locationList = new List<Models.Location>(locations);
+            m_Marks = await AzureService.MobileService.GetTable<Mark>().ToListAsync();
+            ListAdapter = new MarkAdapter(Context, m_Marks);
 
-            ListAdapter = new LocationAdapter(Context,locationList);
 
          }
+
+        public override void OnListItemClick(ListView l, View v, int position, long id)
+        {
+            base.OnListItemClick(l, v, position, id);
+            var selectedMark = m_Marks[position];
+            Intent intent = new Intent(Activity, typeof(MarkPresentationActivity));
+            string MarkAsJson = JsonConvert.SerializeObject(selectedMark);
+            intent.PutExtra("markAsJson", MarkAsJson);
+            StartActivity(intent);
+            
+
+        }
     }
 }
