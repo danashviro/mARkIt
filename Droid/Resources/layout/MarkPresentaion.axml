@@ -43,6 +43,11 @@
             android:numStars="5"
             android:stepSize="0.1"
             android:isIndicator="true" />
+	<Button
+		android:text="Delete"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/DeleteButton" />
 	<fragment
 		class="com.google.android.gms.maps.MapFragment"
 		android:layout_width="match_parent"

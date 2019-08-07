@@ -36,6 +36,9 @@ namespace mARkIt.Droid.Activities
             m_MarkRatingBar = FindViewById<RatingBar>(Resource.Id.MarkRatingBar);
             m_MapFragment = FragmentManager.FindFragmentById<MapFragment>(Resource.Id.MapFragment);
 
+            Button button  = FindViewById<Button>(Resource.Id.DeleteButton);
+            button.Click += deleteButton_Click;
+
             string markAsJson =Intent.GetStringExtra("markAsJson");
             m_Mark  = JsonConvert.DeserializeObject<Mark>(markAsJson);
 
@@ -46,6 +49,14 @@ namespace mARkIt.Droid.Activities
 
             // Create your application here
         }
+
+        private async void deleteButton_Click(object sender, EventArgs e)
+        {
+            await Mark.Delete(m_Mark);
+            Finish();
+        }
+        
+
 
         public void OnMapReady(GoogleMap googleMap)
         {

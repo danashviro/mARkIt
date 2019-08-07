@@ -33,11 +33,23 @@ namespace mARkIt.Droid.Fragments
             base.OnCreate(savedInstanceState);
 
             // Create your fragment here 
-            m_Marks = await AzureService.MobileService.GetTable<Mark>().Where(m => m.UserEmail == m_User.Email).ToListAsync();
-            ListAdapter = new MarkAdapter(Context, m_Marks);
-
+            getMyMarks();
 
          }
+
+        private async void getMyMarks()
+        {
+            m_Marks = await AzureService.MobileService.GetTable<Mark>().Where(m => m.UserEmail == m_User.Email).ToListAsync();
+            ListAdapter = new MarkAdapter(Context, m_Marks);
+        }
+
+        public override void OnHiddenChanged(bool hidden)
+        {
+            base.OnHiddenChanged(hidden);
+            if (hidden == false)
+                getMyMarks();
+
+        }
 
         public override void OnListItemClick(ListView l, View v, int position, long id)
         {
