@@ -12,13 +12,13 @@ using Xamarin.Essentials;
 
 namespace mARkIt.iOS
 {
-    public partial class NewMarkViewController : UIViewController
+    public partial class AddAMarkViewController : UIViewController
     {
         private SfRadioButton m_WoodMarkStyleRadioButton, m_MetalMarkStyleRadioButton, m_SchoolMarkStyleRadioButton;
         private const int m_MaxLettersAllowed = 40;
-        public User User { get; set; }
+        public User ConnectedUser { get; set; }
 
-        public NewMarkViewController(IntPtr handle) : base(handle)
+        public AddAMarkViewController(IntPtr handle) : base(handle)
         {
         }
 
@@ -61,14 +61,6 @@ namespace mARkIt.iOS
             markStyleRadioGroup.AddArrangedSubview(m_SchoolMarkStyleRadioButton);
         }
 
-
-        private void displayAnAlert(string i_Title, string i_Message, Action<UIAlertAction> i_Action)
-        {
-            var alertController = UIAlertController.Create(i_Title, i_Message, UIAlertControllerStyle.Alert);
-            alertController.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, i_Action));
-            PresentViewController(alertController, true, null);
-        }
-
         private async void uploadMarkAsync()
         {
             try
@@ -85,20 +77,20 @@ namespace mARkIt.iOS
                         Message = markTextView.Text,
                         Style = getMarkStyle(),
                         CategoriesCode = getCategories(),
-                        UserEmail = User.Email
+                        UserEmail = ConnectedUser.Email
                 };
 
                     await Mark.Insert(mark);
-                    displayAnAlert("Success", "The mARk uploaded", new Action<UIAlertAction>((a) => NavigationController.PopViewController(true)));
+                    Helpers.Alert.DisplayAnAlert("Success", "The mARk uploaded", new Action<UIAlertAction>((a) => NavigationController.PopViewController(true)),this);
                 }
                 else
                 {
-                    displayAnAlert("Error", "There was a problem uploading your mARk", null);
+                    Helpers.Alert.DisplayAnAlert("Error", "There was a problem uploading your mARk", null,this);
                 }
             }
             catch (Exception)
             {
-                displayAnAlert("Error", "There was a problem uploading your mARk", null);
+                Helpers.Alert.DisplayAnAlert("Error", "There was a problem uploading your mARk", null,this);
             }
         }
 
@@ -139,6 +131,10 @@ namespace mARkIt.iOS
             {
                 catagories |= (int)eCategories.History;
             }
+            if ((bool)natureCheckBox.IsChecked)
+            {
+                catagories |= (int)eCategories.Nature;
+            }
 
             return catagories;
         }
@@ -148,11 +144,15 @@ namespace mARkIt.iOS
             markTextView.UserInteractionEnabled = false;
             if (markTextView.Text.Count<char>() > m_MaxLettersAllowed)
             {
-                displayAnAlert("Error", "There are too many letters!", null);
+                Helpers.Alert.DisplayAnAlert("Error", "There are too many letters!", null, this);
             }
             else if (string.IsNullOrEmpty(markTextView.Text))
             {
-                displayAnAlert("Error", "Please fill mARk text", null);
+                Helpers.Alert.DisplayAnAlert("Error", "Please fill mARk text", null, this);
+            }
+            else if (!((bool)generalCheckBox.IsChecked || (bool)foodCheckBox.IsChecked || (bool)sportCheckBox.IsChecked || (bool)historyCheckBox.IsChecked || (bool)natureCheckBox.IsChecked)) 
+            {
+                Helpers.Alert.DisplayAnAlert("Error", "You must choose at least one category!", null, this);
             }
             else
             {

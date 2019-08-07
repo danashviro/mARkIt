@@ -40,6 +40,10 @@ namespace mARkIt.iOS
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UIBarButtonItem saveButton { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
         Syncfusion.iOS.Buttons.SfCheckBox sportCheckBox { get; set; }
 
         [Action ("LogoutButton_TouchUpInside:")]
@@ -80,6 +84,11 @@ namespace mARkIt.iOS
             if (rating != null) {
                 rating.Dispose ();
                 rating = null;
+            }
+
+            if (saveButton != null) {
+                saveButton.Dispose ();
+                saveButton = null;
             }
 
             if (sportCheckBox != null) {

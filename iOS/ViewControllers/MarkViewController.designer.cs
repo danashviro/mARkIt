@@ -24,6 +24,10 @@ namespace mARkIt.iOS
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UIBarButtonItem deleteMarkButton { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
         MapKit.MKMapView mapView { get; set; }
 
         [Outlet]
@@ -44,6 +48,11 @@ namespace mARkIt.iOS
             if (dateLabel != null) {
                 dateLabel.Dispose ();
                 dateLabel = null;
+            }
+
+            if (deleteMarkButton != null) {
+                deleteMarkButton.Dispose ();
+                deleteMarkButton = null;
             }
 
             if (mapView != null) {
