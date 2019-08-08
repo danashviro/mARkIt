@@ -1,4 +1,5 @@
-﻿using Foundation;
+﻿using System;
+using Foundation;
 using UIKit;
 
 namespace mARkIt.iOS
@@ -57,6 +58,16 @@ namespace mARkIt.iOS
         public override void WillTerminate(UIApplication application)
         {
             // Called when the application is about to terminate. Save data, if needed. See also DidEnterBackground.
+        }
+
+        public override bool OpenUrl(UIApplication application, NSUrl url, string sourceApplication, NSObject annotation)
+        {
+            // Convert iOS NSUrl to C#/netxf/BCL System.Uri
+            var uri_netfx = new Uri(url.AbsoluteString);
+
+            SignInViewController.s_GoogleAuthenticator?.OnPageLoading(uri_netfx);
+
+            return true;
         }
     }
 }

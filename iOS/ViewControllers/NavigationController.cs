@@ -16,6 +16,7 @@ namespace mARkIt.iOS
         private WTAuthorizationRequestManager m_AuthorizationRequestManager = new WTAuthorizationRequestManager();
         private User m_User;
         private Account m_StoredAccount;
+        private Authentication.Authentication.e_SupportedAuthentications m_AuthType;
 
         public NavigationController(IntPtr handle) : base(handle)
         {
@@ -38,29 +39,24 @@ namespace mARkIt.iOS
                 autoConnect();
             }, (UIAlertController alertController) =>
             {
-                Helpers.Alert.DisplayAnAlert("Permissions Denied", "You cannot proceed without granting permissions", (r) => Environment.Exit(0),null);
-                //UIAlertController alert = new UIAlertController();
-                //alertController.Title = "Permissions Denied";
-                //alertController.Message = "You cannot proceed without granting permissions";
-                //alertController.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, (r) => Environment.Exit(0)));
-                //PresentViewController(alert, true, null);
+                Alert.DisplayAnAlert("Permissions Denied", "You cannot proceed without granting permissions", (r) => Environment.Exit(0),null);
             });
         }
 
         private async void autoConnect()
         {
             // TODO - add Google
-            m_StoredAccount = await SecureStorageAccountStore
-                .GetAccountAsync("Facebook");
-            if (m_StoredAccount == null)
-            {
-                m_StoredAccount = await SecureStorageAccountStore
-                    .GetAccountAsync("Google");
-            }
+            string authType;
+            m_StoredAccount = await LoginHelper.AutoConnect();
+
             if (m_StoredAccount == null)
                 PerformSegue("loginSegue", this);
             else
+            {
+                m_StoredAccount.Properties.TryGetValue("AuthType", out authType);
+                m_AuthType = authType == "Facebook" ? Authentication.Authentication.e_SupportedAuthentications.Facebook : Authentication.Authentication.e_SupportedAuthentications.Google;
                 startMainApp();
+            }
 
         }
 
@@ -78,7 +74,7 @@ namespace mARkIt.iOS
 
         private async void startMainApp()
         {
-            m_User = await LoginHelper.CreateUserObject(m_StoredAccount);
+            m_User = await LoginHelper.CreateUserObject(m_StoredAccount,m_AuthType);
             PerformSegue("launchAppSegue", this);
         }
 

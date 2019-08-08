@@ -14,6 +14,7 @@ namespace mARkIt.iOS
         private bool m_UserLocationInit = false;
         public User ConnectedUser { get; set; }
         private bool m_ViewLoaded = false;
+        private MapDelegate m_MapDelegate;
 
         public MapViewController (IntPtr handle) : base (handle)
         {
@@ -24,6 +25,8 @@ namespace mARkIt.iOS
             base.ViewDidLoad();
             mapView.DidUpdateUserLocation += MapView_DidUpdateUserLocation;
             m_ViewLoaded = true;
+            //m_MapDelegate = new MapDelegate();
+            //mapView.Delegate = m_MapDelegate;
         }
 
         public override async void ViewWillAppear(bool animated)
@@ -59,6 +62,8 @@ namespace mARkIt.iOS
                 };
                 mapView.AddAnnotation(pin);
             }
+
         }
+
     }
 }
