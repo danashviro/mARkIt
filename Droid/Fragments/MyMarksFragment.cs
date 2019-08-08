@@ -47,7 +47,15 @@ namespace mARkIt.Droid.Fragments
         {
             base.OnHiddenChanged(hidden);
             if (hidden == false)
-                getMyMarks();
+                 getMyMarks();
+
+        }
+
+        public override void OnResume()
+        {
+            base.OnResume();
+            if(IsHidden==false)
+                 getMyMarks();
 
         }
 
