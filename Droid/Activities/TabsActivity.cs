@@ -80,7 +80,6 @@ namespace mARkIt.Droid
                     break;
                 case 3:
                     navigateToFragment(m_SettingsFragment);
-                    
                     break;
             }
         }
@@ -105,6 +104,11 @@ namespace mARkIt.Droid
             }
 
             m_CurrentFragment = fragment;
+        }
+
+        public override void OnBackPressed()
+        {
+            //base.OnBackPressed();
         }
     }
 }

@@ -17,13 +17,11 @@ namespace mARkIt.Droid.Authentication
             },
             DataSchemes = new[]
             {
-                "com.companyname.markit"
-                //mARkIt.Utils.Configuration.PackageName
+                mARkIt.Utils.Configuration.PackageName
             },
             DataPaths = new[]
             {
-                "/oauth2redirect"
-                //mARkIt.Utils.Configuration.RedirectUrl
+                mARkIt.Utils.Configuration.RedirectUrl
             }
         )
     ]
