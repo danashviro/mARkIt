@@ -30,8 +30,8 @@ namespace mARkIt.Droid
         private CheckBox m_SportCheckBox;
         private CheckBox m_HistoryCheckBox;
         private CheckBox m_NatureCheckBox;
-        private const int m_MaxLetters = 40;
-        private int m_Count = 0;
+        private const int k_MaxLetters = 40;
+        private int m_LettersCount = 0;
         private string m_UserEmail;
 
         public void AfterTextChanged(IEditable s)
@@ -44,8 +44,8 @@ namespace mARkIt.Droid
 
         public void OnTextChanged(ICharSequence s, int start, int before, int count)
         {
-            m_Count = count;
-            int remainingLetters = m_MaxLetters - m_Count;
+            m_LettersCount = count;
+            int remainingLetters = k_MaxLetters - m_LettersCount;
             m_NumOfLettersTextView.SetTextColor(remainingLetters < 0?Android.Graphics.Color.Red: Android.Graphics.Color.Black);
             m_NumOfLettersTextView.Text = "Letters: " + remainingLetters;
         }
@@ -53,44 +53,77 @@ namespace mARkIt.Droid
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
+
             // Create your application here
             SetContentView(Resource.Layout.AddAMark);
             Button saveButton = FindViewById<Button>(Resource.Id.SaveButton);
             saveButton.Click += SaveButton_Click;
             findComponents();
-            m_NumOfLettersTextView.Text = "Letters: " + m_MaxLetters;
+            m_NumOfLettersTextView.Text = "Letters: " + k_MaxLetters;
             m_MessageEditText.AddTextChangedListener(this);
             m_UserEmail = Intent.GetStringExtra("userEmail");
         }
 
         private async void SaveButton_Click(object sender, EventArgs e)
         {
-            if(!atLeastOneCheckBox())
+            bool inputIsValid = validateInput();
+
+            if (inputIsValid)
             {
-                Toast.MakeText(this, "Please check a check box.", ToastLength.Long).Show();
+                try
+                {
+                    var location = await Geolocation.GetLocationAsync();
+
+                    Mark mark = new Mark()
+                    {
+                        Message = m_MessageEditText.Text,
+                        Latitude = location.Latitude,
+                        Longitude = location.Longitude,
+                        UserEmail = m_UserEmail,
+                        CategoriesCode = getCategoriesCode(),
+                    };
+
+                    bool uploadSuccessful = await Mark.Insert(mark);
+                    if (uploadSuccessful)
+                    {
+                        Toast.MakeText(this, "Upload successfull.", ToastLength.Long).Show();
+                        Finish();
+                    }
+                    else
+                    {
+                        Toast.MakeText(this, "Failed to upload the mark...", ToastLength.Long).Show();
+                    }
+                }
+
+                catch (FeatureNotEnabledException ex)
+                {
+                    Toast.MakeText(this, "Please activate location services.", ToastLength.Long).Show();
+                }
             }
-            else if(m_Count==0)
+        }
+
+        private bool validateInput()
+        {
+            bool isInputValid = false;
+
+            if (m_LettersCount == 0)
             {
                 Toast.MakeText(this, "Please insert a message.", ToastLength.Long).Show();
             }
-            else if(m_Count<= m_MaxLetters)
-            {
-                var location = await Geolocation.GetLastKnownLocationAsync();
-                Mark mark = new Mark()
-                {
-                    Message = m_MessageEditText.Text,
-                    Latitude = location.Latitude,
-                    Longitude = location.Longitude,
-                    UserEmail = m_UserEmail,
-                    CategoriesCode = getCategoriesCode(),
-                };
-                await Mark.Insert(mark);
-                Toast.MakeText(this, "Upload successfull.", ToastLength.Long).Show();
-            }
-            else 
+            else if (m_LettersCount > k_MaxLetters)
             {
                 Toast.MakeText(this, "Please delete some letters.", ToastLength.Long).Show();
             }
+            else if (!atLeastOneCheckBox())
+            {
+                Toast.MakeText(this, "Please check a check box.", ToastLength.Long).Show();
+            }
+            else
+            {
+                isInputValid = true;
+            }
+
+            return isInputValid;
         }
 
         private int getCategoriesCode()
