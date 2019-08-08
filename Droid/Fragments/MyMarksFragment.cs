@@ -39,7 +39,7 @@ namespace mARkIt.Droid.Fragments
 
         private async void getMyMarks()
         {
-            m_Marks = await AzureService.MobileService.GetTable<Mark>().Where(m => m.UserEmail == m_User.Email).ToListAsync();
+            m_Marks = await Mark.GetMyMarks(m_User);
             ListAdapter = new MarkAdapter(Context, m_Marks);
         }
 
