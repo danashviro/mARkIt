@@ -53,7 +53,7 @@
 			<string>Google Auth</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.woodenmoose.xamarin.googleauth</string>
+				<string>com.companyname.markit</string>
 			</array>
 			<key>CFBundleURLTypes</key>
 			<string>Viewer</string>

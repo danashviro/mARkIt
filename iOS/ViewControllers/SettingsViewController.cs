@@ -22,7 +22,7 @@ namespace mARkIt.iOS
         {
             base.ViewDidLoad();
             saveButton.Clicked += SaveButton_Clicked;
-            getCategoriesCheckBoxCheckStatusFromServer();
+            getCategoriesCheckBoxCheckStatusFromUser();
             m_ViewLoaded = true;
         }
 
@@ -31,11 +31,11 @@ namespace mARkIt.iOS
             base.ViewWillAppear(animated);
             if (m_ViewLoaded)
             {
-                getCategoriesCheckBoxCheckStatusFromServer();
+                getCategoriesCheckBoxCheckStatusFromUser();
             }              
         }
 
-        private void getCategoriesCheckBoxCheckStatusFromServer()
+        private void getCategoriesCheckBoxCheckStatusFromUser()
         {
             generalCheckBox.IsChecked = (ConnectedUser.RelevantCategoriesCode & (int)eCategories.General) != 0;
             foodCheckBox.IsChecked = (ConnectedUser.RelevantCategoriesCode & (int)eCategories.Food) != 0;

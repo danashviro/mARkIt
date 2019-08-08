@@ -43,9 +43,10 @@ namespace mARkIt.iOS
 
         private void FacebookButton_TouchUpInside(object sender, EventArgs e)
         {
-            s_FacebookAuthenticator = new FacebookAuthenticator(Keys.FacebookAppId,
-                        Configuration.FacebookAuthScope,
-                        this);
+            s_FacebookAuthenticator = new FacebookAuthenticator(
+                Keys.FacebookAppId,
+                Configuration.FacebookAuthScope,
+                this);
             OAuth2Authenticator oauth2authenticator = s_FacebookAuthenticator.GetOAuth2();
 
             PresentViewController(oauth2authenticator.GetUI(), true, null);
@@ -85,6 +86,7 @@ namespace mARkIt.iOS
 
         public void OnAuthenticationFailed(string i_Message, Exception i_Exception)
         {
+            DismissViewController(true, null);
             SecureStorageAccountStore.RemoveAllAccounts();
         }
 
