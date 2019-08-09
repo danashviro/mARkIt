@@ -26,6 +26,7 @@ namespace mARkIt.iOS
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
+
             getWikitudePermissions();
         }
 
