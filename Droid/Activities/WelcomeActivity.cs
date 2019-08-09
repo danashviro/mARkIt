@@ -18,6 +18,7 @@ using Com.Wikitude.Architect;
 using Com.Wikitude.Common.Permission;
 using Newtonsoft.Json;
 using Xamarin.Auth;
+using mARkIt.Models;
 
 namespace mARkIt.Droid.Activities
 {
@@ -105,18 +106,34 @@ namespace mARkIt.Droid.Activities
             Finish();
         }
 
-        private void startMainApp()
+        private async void startMainApp()
         {
-            // serialize it so we move it to another activity
-            string accountAsJson = JsonConvert.SerializeObject(m_Account);
-            string authTypeAsJson = JsonConvert.SerializeObject(m_AuthType);
-
             Intent mainTabs = new Intent(this, typeof(TabsActivity));
             mainTabs.SetFlags(ActivityFlags.ClearTop | ActivityFlags.SingleTop);
-            mainTabs.PutExtra("account", accountAsJson);
-            mainTabs.PutExtra("authType", authTypeAsJson);
+            await createUserObjectAsync(m_Account, m_AuthType);
+
             StartActivity(mainTabs);
             Finish();
+        }
+
+        private async Task createUserObjectAsync(Account i_Account, mARkIt.Authentication.Authentication.e_SupportedAuthentications i_AuthType)
+        {
+            User user = null;
+            switch (i_AuthType)
+            {
+                case mARkIt.Authentication.Authentication.e_SupportedAuthentications.Facebook:
+                    FacebookClient fbClient = new FacebookClient(i_Account);
+                    user = await fbClient.GetUserAsync();
+                    break;
+                case mARkIt.Authentication.Authentication.e_SupportedAuthentications.Google:
+                    GoogleClient glClient = new GoogleClient(i_Account);
+                    user = await glClient.GetUserAsync();
+                    break;
+                default:
+                    break;
+            }
+
+            App.User = await User.GetUserByEmail(user.Email);
         }
 
         private void showPermissionsDeniedDialog()
