@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CFBundleName</key>
-	<string>mARk-it</string>
+	<string>mARk-It</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.companyname.MarkIt</string>
+	<string>com.ar.mark</string>
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
 	<key>CFBundleVersion</key>
@@ -53,7 +53,7 @@
 			<string>Google Auth</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.companyname.markit</string>
+				<string>com.ar.mark</string>
 			</array>
 			<key>CFBundleURLTypes</key>
 			<string>Viewer</string>
