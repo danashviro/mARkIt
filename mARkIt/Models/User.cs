@@ -36,11 +36,7 @@ namespace mARkIt.Models
         public static async Task<User> GetUserByEmail(string email)
         {
             List<User> users= await AzureService.MobileService.GetTable<User>().Where(u => u.Email == email).ToListAsync();
-            if(users.Count!=0)
-            {
-                return users.First();
-            }
-            else
+            if(users.Count==0)
             {
                 User user = new User()
                 {
@@ -49,8 +45,8 @@ namespace mARkIt.Models
                 };
                 await Insert(user);
                 users = await AzureService.MobileService.GetTable<User>().Where(u => u.Email == email).ToListAsync();
-                return users.First();
             }
+            return users.First();
         }
     }
 }
