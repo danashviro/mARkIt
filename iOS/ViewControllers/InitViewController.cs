@@ -13,7 +13,6 @@ namespace mARkIt.iOS
     public partial class InitViewController : UIViewController
     {
         private WTAuthorizationRequestManager m_AuthorizationRequestManager = new WTAuthorizationRequestManager();
-        private User m_User;
         private Account m_StoredAccount;
         private Authentication.Authentication.e_SupportedAuthentications m_AuthType;
 
@@ -74,20 +73,8 @@ namespace mARkIt.iOS
 
         private async void startMainApp()
         {
-            m_User = await LoginHelper.CreateUserObject(m_StoredAccount, m_AuthType);
+            App.User = await LoginHelper.CreateUserObject(m_StoredAccount, m_AuthType);
             PerformSegue("launchAppSegue", this);
-        }
-
-
-
-        public override void PrepareForSegue(UIStoryboardSegue segue, NSObject sender)
-        {
-            if (segue.Identifier == "launchAppSegue")
-            {
-                var destenationViewController = segue.DestinationViewController as MainTabBarViewController;
-                destenationViewController.ConnectedUser = m_User;
-            }
-            base.PrepareForSegue(segue, sender);
         }
 
     }

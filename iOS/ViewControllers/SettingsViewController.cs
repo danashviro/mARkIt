@@ -10,7 +10,6 @@ namespace mARkIt.iOS
 {
     public partial class SettingsViewController : UIViewController
     {
-        public User ConnectedUser { get; set; }
         private bool m_ViewLoaded = false;
 
         public SettingsViewController (IntPtr handle) : base (handle)
@@ -37,18 +36,18 @@ namespace mARkIt.iOS
 
         private void getCategoriesCheckBoxCheckStatusFromUser()
         {
-            generalCheckBox.IsChecked = (ConnectedUser.RelevantCategoriesCode & (int)eCategories.General) != 0;
-            foodCheckBox.IsChecked = (ConnectedUser.RelevantCategoriesCode & (int)eCategories.Food) != 0;
-            sportCheckBox.IsChecked = (ConnectedUser.RelevantCategoriesCode & (int)eCategories.Sport) != 0;
-            historyCheckBox.IsChecked = (ConnectedUser.RelevantCategoriesCode & (int)eCategories.History) != 0;
-            natureCheckBox.IsChecked = (ConnectedUser.RelevantCategoriesCode & (int)eCategories.Nature) != 0;
+            generalCheckBox.IsChecked = (App.User.RelevantCategoriesCode & (int)eCategories.General) != 0;
+            foodCheckBox.IsChecked = (App.User.RelevantCategoriesCode & (int)eCategories.Food) != 0;
+            sportCheckBox.IsChecked = (App.User.RelevantCategoriesCode & (int)eCategories.Sport) != 0;
+            historyCheckBox.IsChecked = (App.User.RelevantCategoriesCode & (int)eCategories.History) != 0;
+            natureCheckBox.IsChecked = (App.User.RelevantCategoriesCode & (int)eCategories.Nature) != 0;
 
         }
 
         private async void SaveButton_Clicked(object sender, EventArgs e)
         {
-            ConnectedUser.RelevantCategoriesCode = getCategories();
-            bool updated = await User.Update(ConnectedUser);
+            App.User.RelevantCategoriesCode = getCategories();
+            bool updated = await User.Update(App.User);
             if(updated)
             {
                 Helpers.Alert.DisplayAnAlert("Ok", "Settings updated!", null, this);

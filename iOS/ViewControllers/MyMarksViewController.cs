@@ -12,7 +12,6 @@ namespace mARkIt.iOS
     {
         private List<Mark> m_Marks;
         private Random m_Rand;
-        public User ConnectedUser { get; set; }
         private bool m_ViewLoaded = false;
 
 
@@ -26,7 +25,7 @@ namespace mARkIt.iOS
         public override async void ViewDidLoad()
         {
             base.ViewDidLoad();
-            m_Marks = await Mark.GetMyMarks(ConnectedUser);
+            m_Marks = await Mark.GetMyMarks(App.User);
             TableView.ReloadData();
             m_ViewLoaded = true;
         }
@@ -36,7 +35,7 @@ namespace mARkIt.iOS
             base.ViewWillAppear(animated);
             if (m_ViewLoaded)
             {
-                m_Marks = await Mark.GetMyMarks(ConnectedUser);
+                m_Marks = await Mark.GetMyMarks(App.User);
                 TableView.ReloadData();
             }
         }
