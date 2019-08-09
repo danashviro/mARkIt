@@ -223,10 +223,6 @@
     <Compile Include="ViewControllers\SignInViewController.designer.cs">
       <DependentUpon>SignInViewController.cs</DependentUpon>
     </Compile>
-    <Compile Include="ViewControllers\NavigationController.cs" />
-    <Compile Include="ViewControllers\NavigationController.designer.cs">
-      <DependentUpon>NavigationController.cs</DependentUpon>
-    </Compile>
     <Compile Include="ViewControllers\MyMarksViewController.cs" />
     <Compile Include="ViewControllers\MyMarksViewController.designer.cs">
       <DependentUpon>MyMarksViewController.cs</DependentUpon>
@@ -241,6 +237,10 @@
       <DependentUpon>MarkTableViewCell.cs</DependentUpon>
     </Compile>
     <Compile Include="CustomControls\MapDelegate.cs" />
+    <Compile Include="ViewControllers\InitViewController.cs" />
+    <Compile Include="ViewControllers\InitViewController.designer.cs">
+      <DependentUpon>InitViewController.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\ARPages\3dARPage\assets\couch.wt3" />

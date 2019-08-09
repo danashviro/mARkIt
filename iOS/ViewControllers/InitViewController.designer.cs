@@ -11,8 +11,8 @@ using UIKit;
 
 namespace mARkIt.iOS
 {
-    [Register ("NavigationController")]
-    partial class NavigationController
+    [Register ("InitViewController")]
+    partial class InitViewController
     {
         void ReleaseDesignerOutlets ()
         {

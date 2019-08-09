@@ -4,21 +4,20 @@ using mARkIt.iOS.CoreServices;
 using mARkIt.iOS.Helpers;
 using mARkIt.Models;
 using System;
-using System.Threading.Tasks;
 using UIKit;
 using WikitudeComponent.iOS;
 using Xamarin.Auth;
 
 namespace mARkIt.iOS
 {
-    public partial class NavigationController : UINavigationController
+    public partial class InitViewController : UIViewController
     {
         private WTAuthorizationRequestManager m_AuthorizationRequestManager = new WTAuthorizationRequestManager();
         private User m_User;
         private Account m_StoredAccount;
         private Authentication.Authentication.e_SupportedAuthentications m_AuthType;
 
-        public NavigationController(IntPtr handle) : base(handle)
+        public InitViewController(IntPtr handle) : base(handle)
         {
 
         }
@@ -40,7 +39,7 @@ namespace mARkIt.iOS
                 autoConnect();
             }, (UIAlertController alertController) =>
             {
-                Alert.DisplayAnAlert("Permissions Denied", "You cannot proceed without granting permissions", (r) => Environment.Exit(0),null);
+                Alert.DisplayAnAlert("Permissions Denied", "You cannot proceed without granting permissions", (r) => Environment.Exit(0), null);
             });
         }
 
@@ -75,7 +74,7 @@ namespace mARkIt.iOS
 
         private async void startMainApp()
         {
-            m_User = await LoginHelper.CreateUserObject(m_StoredAccount,m_AuthType);
+            m_User = await LoginHelper.CreateUserObject(m_StoredAccount, m_AuthType);
             PerformSegue("launchAppSegue", this);
         }
 
@@ -90,7 +89,6 @@ namespace mARkIt.iOS
             }
             base.PrepareForSegue(segue, sender);
         }
-
 
     }
 }
