@@ -128,7 +128,7 @@ namespace mARkIt.Droid
                     break;
             }
 
-            App.User = await User.GetUserByEmail(user.Email);
+            App.ConnectedUser = await User.GetUserByEmail(user.Email);
         }
     }
 }

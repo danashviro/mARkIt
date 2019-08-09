@@ -32,7 +32,7 @@ namespace mARkIt.Droid.Fragments
 
         private async void getMyMarks()
         {
-            m_Marks = await Mark.GetMyMarks(App.User);
+            m_Marks = await Mark.GetMyMarks(App.ConnectedUser);
             ListAdapter = new MarkAdapter(Context, m_Marks);
         }
 

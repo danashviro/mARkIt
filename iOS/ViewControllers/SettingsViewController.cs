@@ -36,18 +36,18 @@ namespace mARkIt.iOS
 
         private void getCategoriesCheckBoxCheckStatusFromUser()
         {
-            generalCheckBox.IsChecked = (App.User.RelevantCategoriesCode & (int)eCategories.General) != 0;
-            foodCheckBox.IsChecked = (App.User.RelevantCategoriesCode & (int)eCategories.Food) != 0;
-            sportCheckBox.IsChecked = (App.User.RelevantCategoriesCode & (int)eCategories.Sport) != 0;
-            historyCheckBox.IsChecked = (App.User.RelevantCategoriesCode & (int)eCategories.History) != 0;
-            natureCheckBox.IsChecked = (App.User.RelevantCategoriesCode & (int)eCategories.Nature) != 0;
+            generalCheckBox.IsChecked = (App.ConnectedUser.RelevantCategoriesCode & (int)eCategories.General) != 0;
+            foodCheckBox.IsChecked = (App.ConnectedUser.RelevantCategoriesCode & (int)eCategories.Food) != 0;
+            sportCheckBox.IsChecked = (App.ConnectedUser.RelevantCategoriesCode & (int)eCategories.Sport) != 0;
+            historyCheckBox.IsChecked = (App.ConnectedUser.RelevantCategoriesCode & (int)eCategories.History) != 0;
+            natureCheckBox.IsChecked = (App.ConnectedUser.RelevantCategoriesCode & (int)eCategories.Nature) != 0;
 
         }
 
         private async void SaveButton_Clicked(object sender, EventArgs e)
         {
-            App.User.RelevantCategoriesCode = getCategories();
-            bool updated = await User.Update(App.User);
+            App.ConnectedUser.RelevantCategoriesCode = getCategories();
+            bool updated = await User.Update(App.ConnectedUser);
             if(updated)
             {
                 Helpers.Alert.DisplayAnAlert("Ok", "Settings updated!", null, this);

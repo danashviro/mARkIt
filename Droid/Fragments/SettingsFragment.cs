@@ -81,14 +81,14 @@ namespace mARkIt.Droid.Fragments
             {
                 catagories |= (int)eCategories.Nature;
             }
-            App.User.RelevantCategoriesCode = catagories;
-            await User.Update(App.User);
+            App.ConnectedUser.RelevantCategoriesCode = catagories;
+            await User.Update(App.ConnectedUser);
             Toast.MakeText(Context, "Upload successfull.", ToastLength.Long).Show();
         }
 
         private void fillComponents()
         {
-            int relevantCategoriesCode = App.User.RelevantCategoriesCode;
+            int relevantCategoriesCode = App.ConnectedUser.RelevantCategoriesCode;
 
             m_GeneralCheckBox.Checked = (relevantCategoriesCode & (int)eCategories.General) != 0 ? true : false;
             m_FoodCheckBox.Checked = (relevantCategoriesCode & (int)eCategories.Food) != 0 ? true : false;

@@ -65,7 +65,7 @@ namespace mARkIt.iOS
         public async void OnAuthenticationCompleted(Account i_Account)
         {
             DismissViewController(true, null);
-            App.User = await LoginHelper.GetUser(s_FacebookAuthenticator, s_GoogleAuthenticator, i_Account);
+            App.ConnectedUser = await LoginHelper.GetUser(s_FacebookAuthenticator, s_GoogleAuthenticator, i_Account);
             m_HasLoggedIn = true;
             PerformSegue("launchAppSegue", this);
         }

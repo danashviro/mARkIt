@@ -73,7 +73,7 @@ namespace mARkIt.iOS
 
         private async void startMainApp()
         {
-            App.User = await LoginHelper.CreateUserObject(m_StoredAccount, m_AuthType);
+            App.ConnectedUser = await LoginHelper.CreateUserObject(m_StoredAccount, m_AuthType);
             PerformSegue("launchAppSegue", this);
         }
 

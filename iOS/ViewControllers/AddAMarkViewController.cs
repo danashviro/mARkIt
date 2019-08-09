@@ -76,7 +76,7 @@ namespace mARkIt.iOS
                         Message = markTextView.Text,
                         Style = getMarkStyle(),
                         CategoriesCode = getCategories(),
-                        UserEmail = App.User.Email
+                        UserEmail = App.ConnectedUser.Email
                 };
 
                     await Mark.Insert(mark);

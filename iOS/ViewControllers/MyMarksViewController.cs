@@ -25,7 +25,7 @@ namespace mARkIt.iOS
         public override async void ViewDidLoad()
         {
             base.ViewDidLoad();
-            m_Marks = await Mark.GetMyMarks(App.User);
+            m_Marks = await Mark.GetMyMarks(App.ConnectedUser);
             TableView.ReloadData();
             m_ViewLoaded = true;
         }
@@ -35,7 +35,7 @@ namespace mARkIt.iOS
             base.ViewWillAppear(animated);
             if (m_ViewLoaded)
             {
-                m_Marks = await Mark.GetMyMarks(App.User);
+                m_Marks = await Mark.GetMyMarks(App.ConnectedUser);
                 TableView.ReloadData();
             }
         }

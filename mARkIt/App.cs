@@ -35,7 +35,7 @@ namespace mARkIt
 
         private User m_User;
 
-        public static User User
+        public static User ConnectedUser
         {
             get
             {
@@ -44,7 +44,7 @@ namespace mARkIt
 
             set
             {
-                Instance.m_User = value; ;
+                Instance.m_User = value; 
             }
         }
     }

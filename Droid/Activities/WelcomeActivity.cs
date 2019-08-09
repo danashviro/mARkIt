@@ -133,7 +133,7 @@ namespace mARkIt.Droid.Activities
                     break;
             }
 
-            App.User = await User.GetUserByEmail(user.Email);
+            App.ConnectedUser = await User.GetUserByEmail(user.Email);
         }
 
         private void showPermissionsDeniedDialog()

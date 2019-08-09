@@ -50,7 +50,7 @@ namespace mARkIt.iOS
 
         private async Task getPins()
         {
-            var marks = await Mark.GetRelevantMarks(App.User.RelevantCategoriesCode);
+            var marks = await Mark.GetRelevantMarks(App.ConnectedUser.RelevantCategoriesCode);
             mapView.RemoveAnnotations(mapView.Annotations);
             foreach (Mark mark in marks)
             {
