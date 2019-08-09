@@ -39,7 +39,6 @@ namespace mARkIt.Droid.Fragments
             addButtonsEvents();
             findComponents();
             //OnHiddenChanged is not called when view is created so fillcomponents must be called manually
-            fillComponents();
         }
 
         private void addButtonsEvents()
@@ -56,6 +55,13 @@ namespace mARkIt.Droid.Fragments
             if(hidden==false)
                 fillComponents();
 
+        }
+
+        public override void OnResume()
+        {
+            base.OnResume();
+            if(IsHidden==false)
+                fillComponents();
         }
 
         private async void SaveButton_Click(object sender, EventArgs e)
