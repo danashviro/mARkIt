@@ -1,12 +1,16 @@
 ﻿using System;
 using System.Threading.Tasks;
 using mARkIt.Models;
+using mARkIt.Utils;
 using Xamarin.Auth;
 
 namespace mARkIt.Authentication
 {
     public class LoginHelper
     {
+        public static GoogleAuthenticator s_GoogleAuthenticator;
+        public static FacebookAuthenticator s_FacebookAuthenticator;
+
         public static async Task<User> CreateUserObject(Account i_Account, Authentication.e_SupportedAuthentications i_AuthType)
         {
             User user = null;
@@ -25,16 +29,16 @@ namespace mARkIt.Authentication
             return await User.GetUserByEmail(user.Email);
         }
 
-        public static async Task<User> GetUser(FacebookAuthenticator i_FacebookAuthenticator, GoogleAuthenticator i_GoogleAuthenticator, Account i_Account)
+        public static async Task<User> GetUser(Account i_Account)
         {
             Authentication.e_SupportedAuthentications authType = Authentication.e_SupportedAuthentications.Facebook;
             // save account to device
-            if (i_FacebookAuthenticator != null)
+            if (s_FacebookAuthenticator != null)
             {
                 await SecureStorageAccountStore.SaveAccountAsync(i_Account, "Facebook");
                 authType = Authentication.e_SupportedAuthentications.Facebook;
             }
-            else if (i_GoogleAuthenticator != null)
+            else if (s_GoogleAuthenticator != null)
             {
                 await SecureStorageAccountStore.SaveAccountAsync(i_Account, "Google");
                 authType = Authentication.e_SupportedAuthentications.Google;
@@ -47,13 +51,11 @@ namespace mARkIt.Authentication
         {
             string authType;
             Account account;
-            account = await SecureStorageAccountStore
-                .GetAccountAsync("Facebook");
+            account = await SecureStorageAccountStore.GetAccountAsync("Facebook");
             authType = "Facebook";
             if (account == null)
             {
-                account = await SecureStorageAccountStore
-                    .GetAccountAsync("Google");
+                account = await SecureStorageAccountStore.GetAccountAsync("Google");
                 authType = "Google";
             }
             if (account != null)
@@ -64,5 +66,16 @@ namespace mARkIt.Authentication
             return account;
         }
 
+        public static OAuth2Authenticator GetFacebook2Authenticator(IAuthenticationDelegate i_AuthenticationDelegate)
+        {
+            s_FacebookAuthenticator = new FacebookAuthenticator(Keys.FacebookAppId,Configuration.FacebookAuthScope, i_AuthenticationDelegate);
+            return s_FacebookAuthenticator.GetOAuth2();
+        }
+
+        public static OAuth2Authenticator GetGoogle2Authenticator(IAuthenticationDelegate i_AuthenticationDelegate)
+        {
+            s_GoogleAuthenticator = new GoogleAuthenticator( Keys.GoogleClientId,Configuration.GoogleAuthScope, i_AuthenticationDelegate);
+            return s_GoogleAuthenticator.GetOAuth2();
+        }
     }
 }
