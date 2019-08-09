@@ -32,7 +32,6 @@ namespace mARkIt.Droid
         private CheckBox m_NatureCheckBox;
         private const int k_MaxLetters = 40;
         private int m_LettersCount = 0;
-        private string m_UserEmail;
 
         public void AfterTextChanged(IEditable s)
         {
@@ -61,7 +60,6 @@ namespace mARkIt.Droid
             findComponents();
             m_NumOfLettersTextView.Text = "Letters: " + k_MaxLetters;
             m_MessageEditText.AddTextChangedListener(this);
-            m_UserEmail = Intent.GetStringExtra("userEmail");
         }
 
         private async void SaveButton_Click(object sender, EventArgs e)
@@ -79,7 +77,7 @@ namespace mARkIt.Droid
                         Message = m_MessageEditText.Text,
                         Latitude = location.Latitude,
                         Longitude = location.Longitude,
-                        UserEmail = m_UserEmail,
+                        UserEmail = App.User.Email,
                         CategoriesCode = getCategoriesCode(),
                     };
 

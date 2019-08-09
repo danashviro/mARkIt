@@ -21,12 +21,6 @@ namespace mARkIt.Droid.Fragments
     public class MyMarksFragment : Android.Support.V4.App.ListFragment
     {
         List<Mark> m_Marks;
-        private User m_User;
-
-        public MyMarksFragment(User i_User)
-        {
-            m_User = i_User;
-        }
 
         public override async void OnCreate(Bundle savedInstanceState)
         {
@@ -34,12 +28,11 @@ namespace mARkIt.Droid.Fragments
 
             // Create your fragment here 
             getMyMarks();
-
          }
 
         private async void getMyMarks()
         {
-            m_Marks = await Mark.GetMyMarks(m_User);
+            m_Marks = await Mark.GetMyMarks(App.User);
             ListAdapter = new MarkAdapter(Context, m_Marks);
         }
 

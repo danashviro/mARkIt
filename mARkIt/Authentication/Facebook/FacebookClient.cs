@@ -7,26 +7,15 @@ using Xamarin.Auth;
 
 namespace mARkIt.Authentication
 {
-    public class FacebookClient
+    public class FacebookClient : AuthenticatorClient
     {
-        private HttpClient m_HttpClient;
-        private string m_AccessToken = string.Empty;
-
-        public FacebookClient(Account i_Account)
+        public FacebookClient(Account i_Account) : base(i_Account)
         {
-            if (i_Account != null)
-            {
-                m_AccessToken = i_Account.Properties["access_token"];
-                m_HttpClient = new HttpClient();
-            }
         }
 
-        public async Task<User> GetUserAsync()
+        protected override string BuildUserRequestUri()
         {
-            string uri = new StringBuilder().AppendFormat("https://graph.facebook.com/me?fields=first_name,last_name,email&access_token={0}", m_AccessToken).ToString();
-            string jsonResponse = await m_HttpClient.GetStringAsync(uri);
-            User user = JsonConvert.DeserializeObject<User>(jsonResponse);
-            return user;
+            return $"https://graph.facebook.com/me?fields=first_name,last_name,email&access_token={m_AccessToken}";
         }
     }
 }

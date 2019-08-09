@@ -8,6 +8,8 @@ using Android.Support.V7.App;
 using mARkIt.Authentication;
 using Newtonsoft.Json;
 using mARkIt.Utils;
+using System.Threading.Tasks;
+using mARkIt.Models;
 
 namespace mARkIt.Droid
 {
@@ -58,6 +60,7 @@ namespace mARkIt.Droid
         public async void OnAuthenticationCompleted(Account i_Account)
         {
             mARkIt.Authentication.Authentication.e_SupportedAuthentications authType = mARkIt.Authentication.Authentication.e_SupportedAuthentications.Facebook;
+
             // save account to device
             if (s_FacebookAuthenticator != null)
             {
@@ -98,18 +101,34 @@ namespace mARkIt.Droid
                            .Show();
         }
 
-        private void startMainApp(Account i_Account, mARkIt.Authentication.Authentication.e_SupportedAuthentications i_AuthType)
+        private async void startMainApp(Account i_Account, mARkIt.Authentication.Authentication.e_SupportedAuthentications i_AuthType)
         {
-            // serialize it so we move it to another activity
-            string accountAsJson = JsonConvert.SerializeObject(i_Account);
-            string authTypeAsJson = JsonConvert.SerializeObject(i_AuthType);
-
             Intent mainTabs = new Intent(this, typeof(TabsActivity));
             mainTabs.SetFlags(ActivityFlags.ClearTop | ActivityFlags.SingleTop);
-            mainTabs.PutExtra("account", accountAsJson);
-            mainTabs.PutExtra("authType", authTypeAsJson);
+            await createUserObjectAsync(i_Account, i_AuthType);
+
             StartActivity(mainTabs);
             Finish();
+        }
+
+        private async Task createUserObjectAsync(Account i_Account, mARkIt.Authentication.Authentication.e_SupportedAuthentications i_AuthType)
+        {
+            User user = null;
+            switch (i_AuthType)
+            {
+                case mARkIt.Authentication.Authentication.e_SupportedAuthentications.Facebook:
+                    FacebookClient fbClient = new FacebookClient(i_Account);
+                    user = await fbClient.GetUserAsync();
+                    break;
+                case mARkIt.Authentication.Authentication.e_SupportedAuthentications.Google:
+                    GoogleClient glClient = new GoogleClient(i_Account);
+                    user = await glClient.GetUserAsync();
+                    break;
+                default:
+                    break;
+            }
+
+            App.User = await User.GetUserByEmail(user.Email);
         }
     }
 }

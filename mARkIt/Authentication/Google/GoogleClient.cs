@@ -8,28 +8,15 @@ using Xamarin.Auth;
 
 namespace mARkIt.Authentication
 {
-    public class GoogleClient
+    public class GoogleClient : AuthenticatorClient
     {
-        private HttpClient m_HttpClient;
-        private string m_AccessToken = string.Empty;
-        private string m_TokenType = string.Empty;
-
-        public GoogleClient(Account i_Account)
+        public GoogleClient(Account i_Account) : base(i_Account)
         {
-            if (i_Account != null)
-            {
-                m_AccessToken = i_Account.Properties["access_token"];
-                m_TokenType = i_Account.Properties["token_type"];
-                m_HttpClient = new HttpClient();
-            }
         }
 
-        public async Task<User> GetUserAsync()
+        protected override string BuildUserRequestUri()
         {
-            string uri = new StringBuilder().AppendFormat("https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token={0}", m_AccessToken).ToString();
-            string jsonResponse = await m_HttpClient.GetStringAsync(uri);
-            User user = JsonConvert.DeserializeObject<User>(jsonResponse);
-            return user;
+            return $"https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token={m_AccessToken}";
         }
     }
 }

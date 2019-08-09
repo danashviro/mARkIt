@@ -17,7 +17,6 @@ namespace mARkIt.Droid.Fragments
 {
     public class SettingsFragment : Android.Support.V4.App.Fragment
     {
-        private User m_User;
         View m_View;
         private CheckBox m_GeneralCheckBox;
         private CheckBox m_FoodCheckBox;
@@ -26,11 +25,6 @@ namespace mARkIt.Droid.Fragments
         private CheckBox m_NatureCheckBox;
 
         //private RatingBar m_RatingBar;
-
-        public SettingsFragment(User i_User)
-        {
-            m_User = i_User;           
-        }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
@@ -87,22 +81,21 @@ namespace mARkIt.Droid.Fragments
             {
                 catagories |= (int)eCategories.Nature;
             }
-            m_User.RelevantCategoriesCode = catagories;
-            await User.Update(m_User);
+            App.User.RelevantCategoriesCode = catagories;
+            await User.Update(App.User);
             Toast.MakeText(Context, "Upload successfull.", ToastLength.Long).Show();
-
         }
 
         private void fillComponents()
         {
-            m_GeneralCheckBox.Checked = (m_User.RelevantCategoriesCode & (int)eCategories.General) != 0 ? true : false;
-            m_FoodCheckBox.Checked = (m_User.RelevantCategoriesCode & (int)eCategories.Food) != 0 ? true : false;
-            m_HistoryCheckBox.Checked = (m_User.RelevantCategoriesCode & (int)eCategories.History) != 0 ? true : false;
-            m_SportCheckBox.Checked = (m_User.RelevantCategoriesCode & (int)eCategories.Sport) != 0 ? true : false;
-            m_NatureCheckBox.Checked = (m_User.RelevantCategoriesCode & (int)eCategories.Nature) != 0 ? true : false;
+            int relevantCategoriesCode = App.User.RelevantCategoriesCode;
+
+            m_GeneralCheckBox.Checked = (relevantCategoriesCode & (int)eCategories.General) != 0 ? true : false;
+            m_FoodCheckBox.Checked = (relevantCategoriesCode & (int)eCategories.Food) != 0 ? true : false;
+            m_HistoryCheckBox.Checked = (relevantCategoriesCode & (int)eCategories.History) != 0 ? true : false;
+            m_SportCheckBox.Checked = (relevantCategoriesCode & (int)eCategories.Sport) != 0 ? true : false;
+            m_NatureCheckBox.Checked = (relevantCategoriesCode & (int)eCategories.Nature) != 0 ? true : false;
             //m_RatingBar.Rating=m_User.Rating
-
-
         }
 
         private void LogoutButton_Click(object sender, EventArgs e)

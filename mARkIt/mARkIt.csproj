@@ -27,6 +27,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Abstractions\AuthenticatorClient.cs" />
+    <Compile Include="App.cs" />
     <Compile Include="Authentication\Account\SecureStorageAccountStore.cs" />
     <Compile Include="Authentication\Authentication.cs" />
     <Compile Include="Authentication\Facebook\FacebookAuthenticator.cs" />
