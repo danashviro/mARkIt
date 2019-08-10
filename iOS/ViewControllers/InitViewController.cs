@@ -44,7 +44,6 @@ namespace mARkIt.iOS
 
         private async void autoConnect()
         {
-            // TODO - add Google
             string authType;
             m_StoredAccount = await LoginHelper.AutoConnect();
 

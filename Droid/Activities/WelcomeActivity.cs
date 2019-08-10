@@ -19,6 +19,7 @@ using Com.Wikitude.Common.Permission;
 using Newtonsoft.Json;
 using Xamarin.Auth;
 using mARkIt.Models;
+using mARkIt.Utils;
 
 namespace mARkIt.Droid.Activities
 {
@@ -40,14 +41,12 @@ namespace mARkIt.Droid.Activities
 
         private async void autoConnect()
         {
-            m_Account = await mARkIt.Authentication.SecureStorageAccountStore
-                .GetAccountAsync("Facebook");
-            m_AuthType = mARkIt.Authentication.Authentication.e_SupportedAuthentications.Facebook;
-            if (m_Account == null)
+            string authType;
+            m_Account = await LoginHelper.AutoConnect();
+            if (m_Account != null)
             {
-                m_Account = await mARkIt.Authentication.SecureStorageAccountStore
-                    .GetAccountAsync("Google");
-                m_AuthType = mARkIt.Authentication.Authentication.e_SupportedAuthentications.Google;
+                m_Account.Properties.TryGetValue("AuthType", out authType);
+                m_AuthType = authType == "Facebook" ? mARkIt.Authentication.Authentication.e_SupportedAuthentications.Facebook : mARkIt.Authentication.Authentication.e_SupportedAuthentications.Google;
             }
         }
 
@@ -87,13 +86,11 @@ namespace mARkIt.Droid.Activities
         private async void loadApp()
         {
             await Task.Delay(TimeSpan.FromSeconds(1));
-
-            // Go straight to main tabs page
             if (m_Account != null)
             {
                 startMainApp();
             }
-            else // go to login page
+            else
             {
                 startLoginPage();
             }
@@ -110,7 +107,15 @@ namespace mARkIt.Droid.Activities
         {
             Intent mainTabs = new Intent(this, typeof(TabsActivity));
             mainTabs.SetFlags(ActivityFlags.ClearTop | ActivityFlags.SingleTop);
-            await createUserObjectAsync(m_Account, m_AuthType);
+            // try to create user with the stored account, if it faills we go to login page
+            try
+            {
+                await createUserObjectAsync(m_Account, m_AuthType);
+            }
+            catch (Exception)
+            {
+                startLoginPage();
+            }
 
             StartActivity(mainTabs);
             Finish();
@@ -126,14 +131,43 @@ namespace mARkIt.Droid.Activities
                     user = await fbClient.GetUserAsync();
                     break;
                 case mARkIt.Authentication.Authentication.e_SupportedAuthentications.Google:
-                    GoogleClient glClient = new GoogleClient(i_Account);
-                    user = await glClient.GetUserAsync();
+                    try
+                    {
+                        GoogleClient glClient = new GoogleClient(i_Account);
+                        user = await glClient.GetUserAsync();
+                    }
+                    catch (Exception)
+                    {
+                        // token has expired, need to refresh it
+                        GoogleAuthenticator glAuth = new GoogleAuthenticator(Keys.GoogleClientId, Configuration.GoogleAuthScope);
+                        var oauth2 = glAuth.GetOAuth2();
+                        oauth2.Completed += OnAuthenticationCompleted_RefreshedToken;
+                        int refreshTokenExpireTime = await oauth2.RequestRefreshTokenAsync(m_Account.Properties["refresh_token"]);
+                        try
+                        {   // retry after refreshing
+                            GoogleClient glClient = new GoogleClient(i_Account);
+                            user = await glClient.GetUserAsync();
+                        }
+                        catch (Exception)
+                        {
+                            throw;
+                        }
+                    }
                     break;
                 default:
                     break;
             }
 
             App.ConnectedUser = await User.GetUserByEmail(user.Email);
+        }
+
+        private void OnAuthenticationCompleted_RefreshedToken(object sender, AuthenticatorCompletedEventArgs e)
+        {
+            if (e.IsAuthenticated)
+            {
+                Console.WriteLine(e.Account.Properties["access_token"]);
+                m_Account.Properties["access_token"] = e.Account.Properties["access_token"];
+            }
         }
 
         private void showPermissionsDeniedDialog()

@@ -24,12 +24,10 @@ namespace mARkIt.Droid
             base.OnCreate(savedInstanceState);
 
             SetContentView(Resource.Layout.Login);
-
-            // facebook button
+            
             ImageButton facebookLoginButton = FindViewById<ImageButton>(Resource.Id.facebook_login_button);
             facebookLoginButton.Click += OnFacebookLoginButtonClicked;
-
-            // google button
+            
             ImageButton googleLoginButton = FindViewById<ImageButton>(Resource.Id.google_login_button);
             googleLoginButton.Click += OnGoogleLoginButtonClicked;
         }
@@ -73,7 +71,6 @@ namespace mARkIt.Droid
                 authType = mARkIt.Authentication.Authentication.e_SupportedAuthentications.Google;
             }
 
-            // start main app
             startMainApp(i_Account, authType);
         }
 

@@ -196,6 +196,9 @@
     <Reference Include="Xamarin.Auth, Version=1.6.0.1, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Xamarin.Auth.1.7.0\lib\MonoAndroid10\Xamarin.Auth.dll</HintPath>
     </Reference>
+    <Reference Include="Xamarin.Auth.Extensions, Version=1.6.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Xamarin.Auth.Extensions.1.7.0\lib\MonoAndroid10\Xamarin.Auth.Extensions.dll</HintPath>
+    </Reference>
     <Reference Include="Xamarin.Essentials, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Xamarin.Essentials.1.2.0\lib\monoandroid90\Xamarin.Essentials.dll</HintPath>
     </Reference>
