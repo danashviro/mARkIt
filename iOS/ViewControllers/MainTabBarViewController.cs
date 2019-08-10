@@ -16,7 +16,7 @@ namespace mARkIt.iOS
             
         }
 
-        public override async void ViewDidLoad()
+        public override void ViewDidLoad()
         {
             base.ViewDidLoad();
             NavigationItem.SetHidesBackButton(true, false);
