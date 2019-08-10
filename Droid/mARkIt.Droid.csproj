@@ -232,7 +232,7 @@
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Activities\TabsActivity.cs" />
-    <Compile Include="Fragments\ARFragment.cs" />
+    <Compile Include="Fragments\ExploreFragment.cs" />
     <Compile Include="Fragments\MapFragment.cs" />
     <Compile Include="Location\LocationProvider.cs" />
     <Compile Include="Activities\AddAMarkActivity.cs" />
@@ -248,7 +248,7 @@
     <AndroidResource Include="Resources\layout\Login.axml" />
     <AndroidResource Include="Resources\values\Strings.xml" />
     <AndroidResource Include="Resources\layout\Tabs.axml" />
-    <AndroidResource Include="Resources\layout\AR.axml" />
+    <AndroidResource Include="Resources\layout\Explore.axml" />
     <AndroidResource Include="Resources\layout\AddAMark.axml" />
     <AndroidResource Include="Resources\layout\Map.axml" />
     <AndroidResource Include="Resources\mipmap-hdpi\ic_launcher.png" />

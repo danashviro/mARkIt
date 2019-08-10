@@ -74,9 +74,8 @@ namespace mARkIt.Droid.Activities
             showPermissionsDeniedDialog();
         }
 
-        private async void loadApp()
+        private void loadApp()
         {
-            await Task.Delay(TimeSpan.FromSeconds(1));
             if (App.ConnectedUser != null)
             {
                 startMainApp();
@@ -94,7 +93,7 @@ namespace mARkIt.Droid.Activities
             Finish();
         }
 
-        private async void startMainApp()
+        private void startMainApp()
         {
             Intent mainTabs = new Intent(this, typeof(TabsActivity));
             mainTabs.SetFlags(ActivityFlags.ClearTop | ActivityFlags.SingleTop);

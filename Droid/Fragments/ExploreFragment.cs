@@ -1,30 +1,17 @@
-﻿
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using Android.App;
-using Android.Content;
+﻿using Android.Content;
 using Android.OS;
 using Android.Runtime;
-using Android.Util;
 using Android.Views;
 using Android.Widget;
 using Android.Locations;
-
-
-
 using Android.Webkit;
 using Com.Wikitude.Architect;
 using Com.Wikitude.Common.Camera;
-using Android.Support.Design.Widget;
 using Org.Json;
-using mARkIt.Models;
 
 namespace mARkIt.Droid.Fragments
 {
-    public class ARFragment : Android.Support.V4.App.Fragment, ILocationListener, ArchitectView.ISensorAccuracyChangeListener,IArchitectJavaScriptInterfaceListener
+    public class ExploreFragment : Android.Support.V4.App.Fragment, ILocationListener, ArchitectView.ISensorAccuracyChangeListener,IArchitectJavaScriptInterfaceListener
     {
         public readonly static string IntentExtrasKeyExperienceData = "ExperienceData";
         private Location.LocationProvider locationProvider;
