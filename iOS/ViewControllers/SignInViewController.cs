@@ -51,7 +51,7 @@ namespace mARkIt.iOS
         public async void OnAuthenticationCompleted(Account i_Account)
         {
             DismissViewController(true, null);
-            App.ConnectedUser = await LoginHelper.GetUser(i_Account);
+            await LoginHelper.CreateUserAndSaveToDevice(i_Account);
             m_HasLoggedIn = true;
             PerformSegue("launchAppSegue", this);
         }

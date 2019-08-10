@@ -10,72 +10,98 @@ namespace mARkIt.Authentication
     {
         public static GoogleAuthenticator s_GoogleAuthenticator;
         public static FacebookAuthenticator s_FacebookAuthenticator;
+        public static Authentication.e_SupportedAuthentications s_AuthType;
 
-        public static async Task<User> CreateUserObject(Account i_Account, Authentication.e_SupportedAuthentications i_AuthType)
+        private static async Task CreateUserObjectAsync(Account i_Account, Func<Account,Task> i_GoogleRefreshTokenFunc = null)
         {
             User user = null;
-            switch (i_AuthType)
+            switch (s_AuthType)
             {
                 case Authentication.e_SupportedAuthentications.Facebook:
                     FacebookClient fbClient = new FacebookClient(i_Account);
                     user = await fbClient.GetUserAsync();
                     break;
                 case Authentication.e_SupportedAuthentications.Google:
-                    GoogleClient glClient = new GoogleClient(i_Account);
-                    user = await glClient.GetUserAsync();
+                    try
+                    {
+                        GoogleClient glClient = new GoogleClient(i_Account);
+                        user = await glClient.GetUserAsync();
+                    }
+                    catch (Exception)
+                    {
+                        if (i_GoogleRefreshTokenFunc != null)
+                        {
+                            await i_GoogleRefreshTokenFunc(i_Account);
+                            try
+                            {   // retry after refreshing
+                                GoogleClient glClient = new GoogleClient(i_Account);
+                                user = await glClient.GetUserAsync();
+                            }
+                            catch (Exception)
+                            {
+                                throw;
+                            }
+                        }
+                    }
                     break;
             }
 
-            return await User.GetUserByEmail(user.Email);
+            App.ConnectedUser = await User.GetUserByEmail(user.Email);
+
         }
 
-        public static async Task<User> GetUser(Account i_Account)
+
+        public static async Task CreateUserAndSaveToDevice(Account i_Account, Func<Account, Task> i_GoogleRefreshTokenFunc = null)
         {
-            Authentication.e_SupportedAuthentications authType = Authentication.e_SupportedAuthentications.Facebook;
             // save account to device
             if (s_FacebookAuthenticator != null)
             {
                 await SecureStorageAccountStore.SaveAccountAsync(i_Account, "Facebook");
-                authType = Authentication.e_SupportedAuthentications.Facebook;
+                s_AuthType = Authentication.e_SupportedAuthentications.Facebook;
             }
             else if (s_GoogleAuthenticator != null)
             {
                 await SecureStorageAccountStore.SaveAccountAsync(i_Account, "Google");
-                authType = Authentication.e_SupportedAuthentications.Google;
+                s_AuthType = Authentication.e_SupportedAuthentications.Google;
             }
-
-            return await CreateUserObject(i_Account, authType);
+            await CreateUserObjectAsync(i_Account, i_GoogleRefreshTokenFunc);
         }
 
-        public static async Task<Account> AutoConnect()
+
+        public static async Task AutoConnect(Func<Account, Task> i_GoogleRefreshTokenFunc)
         {
-            string authType;
             Account account;
             account = await SecureStorageAccountStore.GetAccountAsync("Facebook");
-            authType = "Facebook";
+            s_AuthType = Authentication.e_SupportedAuthentications.Facebook;
             if (account == null)
             {
                 account = await SecureStorageAccountStore.GetAccountAsync("Google");
-                authType = "Google";
-            }
-            if (account != null)
-            {
-                account.Properties.Add("AuthType", authType);
+                s_AuthType = Authentication.e_SupportedAuthentications.Google;
             }
 
-            return account;
+            if (account != null) 
+            {
+                await CreateUserObjectAsync(account, i_GoogleRefreshTokenFunc);
+            }
         }
 
         public static OAuth2Authenticator GetFacebook2Authenticator(IAuthenticationDelegate i_AuthenticationDelegate)
         {
             s_FacebookAuthenticator = new FacebookAuthenticator(Keys.FacebookAppId,Configuration.FacebookAuthScope, i_AuthenticationDelegate);
+            s_GoogleAuthenticator = null;
             return s_FacebookAuthenticator.GetOAuth2();
         }
 
         public static OAuth2Authenticator GetGoogle2Authenticator(IAuthenticationDelegate i_AuthenticationDelegate)
         {
             s_GoogleAuthenticator = new GoogleAuthenticator( Keys.GoogleClientId,Configuration.GoogleAuthScope, i_AuthenticationDelegate);
+            s_FacebookAuthenticator = null;
             return s_GoogleAuthenticator.GetOAuth2();
+        }
+
+        public static void Logout()
+        {
+            Xamarin.Essentials.SecureStorage.RemoveAll();
         }
     }
 }

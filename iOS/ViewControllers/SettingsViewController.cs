@@ -1,5 +1,6 @@
 using CoreGraphics;
 using Foundation;
+using mARkIt.Authentication;
 using mARkIt.Models;
 using mARkIt.Utils;
 using Syncfusion.SfRating.iOS;
@@ -89,7 +90,7 @@ namespace mARkIt.iOS
 
         partial void LogoutButton_TouchUpInside(UIButton sender)
         {
-            Xamarin.Essentials.SecureStorage.RemoveAll();
+            LoginHelper.Logout();
         }
 
        

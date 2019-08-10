@@ -54,7 +54,6 @@ namespace mARkIt.Droid.Fragments
             base.OnHiddenChanged(hidden);
             if(hidden==false)
                 fillComponents();
-
         }
 
         public override void OnResume()
