@@ -1,5 +1,6 @@
 using CoreGraphics;
 using Foundation;
+using mARkIt.Authentication;
 using mARkIt.Models;
 using mARkIt.Utils;
 using Syncfusion.SfRating.iOS;
@@ -10,7 +11,6 @@ namespace mARkIt.iOS
 {
     public partial class SettingsViewController : UIViewController
     {
-        public User ConnectedUser { get; set; }
         private bool m_ViewLoaded = false;
 
         public SettingsViewController (IntPtr handle) : base (handle)
@@ -37,18 +37,18 @@ namespace mARkIt.iOS
 
         private void getCategoriesCheckBoxCheckStatusFromUser()
         {
-            generalCheckBox.IsChecked = (ConnectedUser.RelevantCategoriesCode & (int)eCategories.General) != 0;
-            foodCheckBox.IsChecked = (ConnectedUser.RelevantCategoriesCode & (int)eCategories.Food) != 0;
-            sportCheckBox.IsChecked = (ConnectedUser.RelevantCategoriesCode & (int)eCategories.Sport) != 0;
-            historyCheckBox.IsChecked = (ConnectedUser.RelevantCategoriesCode & (int)eCategories.History) != 0;
-            natureCheckBox.IsChecked = (ConnectedUser.RelevantCategoriesCode & (int)eCategories.Nature) != 0;
+            generalCheckBox.IsChecked = (App.ConnectedUser.RelevantCategoriesCode & (int)eCategories.General) != 0;
+            foodCheckBox.IsChecked = (App.ConnectedUser.RelevantCategoriesCode & (int)eCategories.Food) != 0;
+            sportCheckBox.IsChecked = (App.ConnectedUser.RelevantCategoriesCode & (int)eCategories.Sport) != 0;
+            historyCheckBox.IsChecked = (App.ConnectedUser.RelevantCategoriesCode & (int)eCategories.History) != 0;
+            natureCheckBox.IsChecked = (App.ConnectedUser.RelevantCategoriesCode & (int)eCategories.Nature) != 0;
 
         }
 
         private async void SaveButton_Clicked(object sender, EventArgs e)
         {
-            ConnectedUser.RelevantCategoriesCode = getCategories();
-            bool updated = await User.Update(ConnectedUser);
+            App.ConnectedUser.RelevantCategoriesCode = getCategories();
+            bool updated = await User.Update(App.ConnectedUser);
             if(updated)
             {
                 Helpers.Alert.DisplayAnAlert("Ok", "Settings updated!", null, this);
@@ -90,7 +90,7 @@ namespace mARkIt.iOS
 
         partial void LogoutButton_TouchUpInside(UIButton sender)
         {
-            Xamarin.Essentials.SecureStorage.RemoveAll();
+            LoginHelper.Logout();
         }
 
        

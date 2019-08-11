@@ -30,6 +30,19 @@ namespace mARkIt.Authentication
             m_OAuth2Authenticator.Error += OnAuthenticationFailed;
         }
 
+        public GoogleAuthenticator(string i_ClientId, string i_Scope)
+        {
+            m_OAuth2Authenticator = new OAuth2Authenticator(
+                            i_ClientId,
+                            string.Empty,
+                            i_Scope,
+                            new Uri(GoogleAuth),
+                            new Uri(Configuration.GoogleRedirectUrl),
+                            new Uri(GoogleAccessTokenUrl),
+                            null,
+                            IsUsingNativeUI);
+        }
+
         public OAuth2Authenticator GetOAuth2()
         {
             return m_OAuth2Authenticator;

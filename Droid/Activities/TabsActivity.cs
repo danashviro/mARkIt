@@ -17,12 +17,12 @@ namespace mARkIt.Droid
     public class TabsActivity : FragmentActivity
     {
         private TabLayout m_TabLayout;
-        private ARFragment m_ARFragment;
+        private ExploreFragment m_ExploreFragment;
         private MapFragment m_MapFragment;
         private SettingsFragment m_SettingsFragment;
         private MyMarksFragment m_MyMarksFragment;
 
-        protected override async void OnCreate(Bundle savedInstanceState)
+        protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.Tabs);
@@ -33,11 +33,11 @@ namespace mARkIt.Droid
             m_TabLayout.TabSelected += TabLayout_TabSelected;
 
             // create fragments
-            m_ARFragment = new ARFragment();
+            m_ExploreFragment = new ExploreFragment();
             m_MapFragment = new MapFragment();
             m_SettingsFragment = new SettingsFragment();
             m_MyMarksFragment = new MyMarksFragment();
-            navigateToFragment(m_ARFragment);
+            navigateToFragment(m_ExploreFragment);
         }
 
         private void TabLayout_TabSelected(object sender, TabLayout.TabSelectedEventArgs e)
@@ -45,7 +45,7 @@ namespace mARkIt.Droid
             switch(e.Tab.Position)
             {
                 case 0:
-                    navigateToFragment(m_ARFragment);
+                    navigateToFragment(m_ExploreFragment);
                     break;
                 case 1:
                     navigateToFragment(m_MapFragment);

@@ -55,7 +55,6 @@ namespace mARkIt.iOS
 
         }
 
-        public User ConnectedUser { get; set; }
 
         protected WTArchitectView architectView;
         protected ArchitectDelegate delegateObject;
@@ -233,16 +232,6 @@ namespace mARkIt.iOS
             }
         }
         #endregion
-
-        public override void PrepareForSegue(UIStoryboardSegue segue, NSObject sender)
-        {
-            if (segue.Identifier == "addAMarkSegue")
-            {
-                var destenationViewController = segue.DestinationViewController as AddAMarkViewController;
-                destenationViewController.ConnectedUser = ConnectedUser;
-            }
-            base.PrepareForSegue(segue, sender);
-        }
 
     }
 }

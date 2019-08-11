@@ -1,6 +1,7 @@
 ﻿using Android.App;
 using Android.Content;
 using Android.OS;
+using mARkIt.Authentication;
 using System;
 
 namespace mARkIt.Droid.Authentication
@@ -33,7 +34,7 @@ namespace mARkIt.Droid.Authentication
 
             Android.Net.Uri uri_android = Intent.Data;
             Uri uri_netfx = new Uri(uri_android.ToString());
-            LoginActivity.s_GoogleAuthenticator?.OnPageLoading(uri_netfx);
+            LoginHelper.s_GoogleAuthenticator?.OnPageLoading(uri_netfx);
             Finish();
         }
     }

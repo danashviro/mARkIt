@@ -532,7 +532,7 @@
                             <color key="tintColor" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace" white="0" alpha="0"/>
                         </navigationBar>
                     </tableView>
-                    <tabBarItem key="tabBarItem" id="37337" title="My mARks"/>
+                    <tabBarItem key="tabBarItem" id="37337" title="My mARks" image="Icons/ListIcon/DottedListIcon.png"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections/>
                 </tableViewController>
@@ -626,12 +626,18 @@
                                 <nil key="highlightedColor"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </label>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="47921" fixedFrame="YES" animating="YES">
+                                <rect key="frame" x="178" y="544" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="color" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace" white="1" alpha="1"/>
+                            </activityIndicatorView>
                         </subviews>
                     </view>
                     <navigationItem title="Title" id="47323" key="navigationItem"/>
                     <connections>
                         <segue id="47384" destination="2836" kind="show" identifier="launchAppSegue"/>
                         <segue id="47452" destination="BYZ-38-t0r" kind="show" identifier="loginSegue"/>
+                        <outlet property="activityIndicator" destination="47921" id="name-outlet-47921"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="47234" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -651,6 +657,7 @@
         <image name="Icons/login_buttons/google_258_38.png" width="258" height="38"/>
         <image name="Icons/appIcon_240_240.png" width="240" height="240"/>
         <image name="appIcon_291_291.png" width="291" height="291"/>
+        <image name="Icons/ListIcon/DottedListIcon.png" width="30" height="30"/>
     </resources>
     <color key="tintColor" colorSpace="custom" customColorSpace="sRGB" red="0.192156862745098" green="0.455261766910553" blue="0.687884092330933" alpha="1"/>
 </document>

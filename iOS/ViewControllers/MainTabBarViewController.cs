@@ -16,12 +16,8 @@ namespace mARkIt.iOS
             
         }
 
-        public override async void ViewDidLoad()
+        public override void ViewDidLoad()
         {
-            (this.ViewControllers[0] as ARViewController).ConnectedUser = ConnectedUser;
-            (this.ViewControllers[1] as MapViewController).ConnectedUser = ConnectedUser;
-            (this.ViewControllers[2] as MyMarksViewController).ConnectedUser = ConnectedUser;
-            (this.ViewControllers[3] as SettingsViewController).ConnectedUser = ConnectedUser;
             base.ViewDidLoad();
             NavigationItem.SetHidesBackButton(true, false);
         }

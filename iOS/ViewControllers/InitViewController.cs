@@ -3,7 +3,9 @@ using mARkIt.Authentication;
 using mARkIt.iOS.CoreServices;
 using mARkIt.iOS.Helpers;
 using mARkIt.Models;
+using mARkIt.Utils;
 using System;
+using System.Threading.Tasks;
 using UIKit;
 using WikitudeComponent.iOS;
 using Xamarin.Auth;
@@ -13,9 +15,7 @@ namespace mARkIt.iOS
     public partial class InitViewController : UIViewController
     {
         private WTAuthorizationRequestManager m_AuthorizationRequestManager = new WTAuthorizationRequestManager();
-        private User m_User;
-        private Account m_StoredAccount;
-        private Authentication.Authentication.e_SupportedAuthentications m_AuthType;
+        private Account m_Account;
 
         public InitViewController(IntPtr handle) : base(handle)
         {
@@ -45,16 +45,19 @@ namespace mARkIt.iOS
 
         private async void autoConnect()
         {
-            // TODO - add Google
-            string authType;
-            m_StoredAccount = await LoginHelper.AutoConnect();
+            try
+            {
+                await LoginHelper.AutoConnect(refreshGoogleAccessToken);
+            }
+            catch
+            {
 
-            if (m_StoredAccount == null)
+            }
+
+            if (App.ConnectedUser == null)
                 PerformSegue("loginSegue", this);
             else
             {
-                m_StoredAccount.Properties.TryGetValue("AuthType", out authType);
-                m_AuthType = authType == "Facebook" ? Authentication.Authentication.e_SupportedAuthentications.Facebook : Authentication.Authentication.e_SupportedAuthentications.Google;
                 startMainApp();
             }
 
@@ -64,30 +67,34 @@ namespace mARkIt.iOS
         {
             if (segueIdentifier == "loginSegue") //after press login moveOnlyIfLoggedIn 
             {
-                return m_StoredAccount == null;
+                return App.ConnectedUser == null;
             }
             else
             {
-                return m_StoredAccount != null;
+                return App.ConnectedUser != null;
             }
         }
 
         private async void startMainApp()
         {
-            m_User = await LoginHelper.CreateUserObject(m_StoredAccount, m_AuthType);
             PerformSegue("launchAppSegue", this);
         }
 
-
-
-        public override void PrepareForSegue(UIStoryboardSegue segue, NSObject sender)
+        private async Task refreshGoogleAccessToken(Account i_Account)
         {
-            if (segue.Identifier == "launchAppSegue")
+            GoogleAuthenticator glAuth = new GoogleAuthenticator(Keys.GoogleClientId, Configuration.GoogleAuthScope);
+            OAuth2Authenticator oauth2 = glAuth.GetOAuth2();
+            m_Account = i_Account;
+            oauth2.Completed += OnAuthenticationCompleted_RefreshedToken;
+            int refreshTokenExpireTime = await oauth2.RequestRefreshTokenAsync(i_Account.Properties["refresh_token"]);
+        }
+
+        private void OnAuthenticationCompleted_RefreshedToken(object sender, AuthenticatorCompletedEventArgs e)
+        {
+            if (e.IsAuthenticated)
             {
-                var destenationViewController = segue.DestinationViewController as MainTabBarViewController;
-                destenationViewController.ConnectedUser = m_User;
+                m_Account.Properties["access_token"] = e.Account.Properties["access_token"];
             }
-            base.PrepareForSegue(segue, sender);
         }
 
     }

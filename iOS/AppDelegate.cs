@@ -1,5 +1,6 @@
 ﻿using System;
 using Foundation;
+using mARkIt.Authentication;
 using UIKit;
 
 namespace mARkIt.iOS
@@ -65,7 +66,7 @@ namespace mARkIt.iOS
             // Convert iOS NSUrl to C#/netxf/BCL System.Uri
             var uri_netfx = new Uri(url.AbsoluteString);
 
-            SignInViewController.s_GoogleAuthenticator?.OnPageLoading(uri_netfx);
+            LoginHelper.s_GoogleAuthenticator?.OnPageLoading(uri_netfx);
 
             return true;
         }

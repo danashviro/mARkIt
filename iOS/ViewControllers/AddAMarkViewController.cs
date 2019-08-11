@@ -16,7 +16,6 @@ namespace mARkIt.iOS
     {
         private SfRadioButton m_WoodMarkStyleRadioButton, m_MetalMarkStyleRadioButton, m_SchoolMarkStyleRadioButton;
         private const int m_MaxLettersAllowed = 40;
-        public User ConnectedUser { get; set; }
 
         public AddAMarkViewController(IntPtr handle) : base(handle)
         {
@@ -77,7 +76,7 @@ namespace mARkIt.iOS
                         Message = markTextView.Text,
                         Style = getMarkStyle(),
                         CategoriesCode = getCategories(),
-                        UserEmail = ConnectedUser.Email
+                        UserEmail = App.ConnectedUser.Email
                 };
 
                     await Mark.Insert(mark);
@@ -97,7 +96,7 @@ namespace mARkIt.iOS
         private string getMarkStyle()
         {
             string markStyle = null;
-            if((bool)m_WoodMarkStyleRadioButton.IsChecked)
+            if ((bool)m_WoodMarkStyleRadioButton.IsChecked) 
             {
                 markStyle = "Wood";
             }

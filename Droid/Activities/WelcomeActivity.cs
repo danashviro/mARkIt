@@ -1,24 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 using Android;
 using Android.App;
 using Android.Content;
 using Android.OS;
-using Android.Runtime;
-using Android.Support.V4.App;
 using Android.Support.V7.App;
-using Android.Views;
-using Android.Widget;
 using mARkIt.Authentication;
 using Com.Wikitude.Architect;
 using Com.Wikitude.Common.Permission;
-using Newtonsoft.Json;
 using Xamarin.Auth;
-using mARkIt.Models;
+using mARkIt.Utils;
 
 namespace mARkIt.Droid.Activities
 {
@@ -26,29 +18,27 @@ namespace mARkIt.Droid.Activities
     public class WelcomeActivity : AppCompatActivity, IPermissionManagerPermissionManagerCallback
     {
         Account m_Account = null;
-        mARkIt.Authentication.Authentication.e_SupportedAuthentications m_AuthType;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.Welcome);
-            Task.Run(() => autoConnect()).ContinueWith(
-                task => askForARPermissions(),
-                TaskScheduler.FromCurrentSynchronizationContext());            
+            askForARPermissions();
         }
+
 
 
         private async void autoConnect()
         {
-            m_Account = await mARkIt.Authentication.SecureStorageAccountStore
-                .GetAccountAsync("Facebook");
-            m_AuthType = mARkIt.Authentication.Authentication.e_SupportedAuthentications.Facebook;
-            if (m_Account == null)
+            try
             {
-                m_Account = await mARkIt.Authentication.SecureStorageAccountStore
-                    .GetAccountAsync("Google");
-                m_AuthType = mARkIt.Authentication.Authentication.e_SupportedAuthentications.Google;
+                await LoginHelper.AutoConnect(refreshGoogleAccessToken);
             }
+            catch (Exception)
+            {
+
+            }
+            loadApp();
         }
 
         private void askForARPermissions()
@@ -71,7 +61,7 @@ namespace mARkIt.Droid.Activities
 
         public void PermissionsGranted(int responseCode)
         {
-            loadApp();
+            autoConnect();
         }
 
         public void PermissionsDenied(string[] deniedPermissions)
@@ -84,16 +74,13 @@ namespace mARkIt.Droid.Activities
             showPermissionsDeniedDialog();
         }
 
-        private async void loadApp()
+        private void loadApp()
         {
-            await Task.Delay(TimeSpan.FromSeconds(1));
-
-            // Go straight to main tabs page
-            if (m_Account != null)
+            if (App.ConnectedUser != null)
             {
                 startMainApp();
             }
-            else // go to login page
+            else
             {
                 startLoginPage();
             }
@@ -106,34 +93,29 @@ namespace mARkIt.Droid.Activities
             Finish();
         }
 
-        private async void startMainApp()
+        private void startMainApp()
         {
             Intent mainTabs = new Intent(this, typeof(TabsActivity));
             mainTabs.SetFlags(ActivityFlags.ClearTop | ActivityFlags.SingleTop);
-            await createUserObjectAsync(m_Account, m_AuthType);
-
             StartActivity(mainTabs);
             Finish();
         }
 
-        private async Task createUserObjectAsync(Account i_Account, mARkIt.Authentication.Authentication.e_SupportedAuthentications i_AuthType)
+        private async Task refreshGoogleAccessToken(Account i_Account)
         {
-            User user = null;
-            switch (i_AuthType)
-            {
-                case mARkIt.Authentication.Authentication.e_SupportedAuthentications.Facebook:
-                    FacebookClient fbClient = new FacebookClient(i_Account);
-                    user = await fbClient.GetUserAsync();
-                    break;
-                case mARkIt.Authentication.Authentication.e_SupportedAuthentications.Google:
-                    GoogleClient glClient = new GoogleClient(i_Account);
-                    user = await glClient.GetUserAsync();
-                    break;
-                default:
-                    break;
-            }
+            GoogleAuthenticator glAuth = new GoogleAuthenticator(Keys.GoogleClientId, Configuration.GoogleAuthScope);
+            OAuth2Authenticator oauth2 = glAuth.GetOAuth2();
+            m_Account = i_Account;
+            oauth2.Completed += OnAuthenticationCompleted_RefreshedToken;
+            int refreshTokenExpireTime = await oauth2.RequestRefreshTokenAsync(i_Account.Properties["refresh_token"]);
+        }
 
-            App.User = await User.GetUserByEmail(user.Email);
+        private void OnAuthenticationCompleted_RefreshedToken(object sender, AuthenticatorCompletedEventArgs e)
+        {
+            if (e.IsAuthenticated)
+            {
+                m_Account.Properties["access_token"] = e.Account.Properties["access_token"];
+            }
         }
 
         private void showPermissionsDeniedDialog()

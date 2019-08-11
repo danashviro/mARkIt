@@ -9,17 +9,17 @@
 		android:layout_height="wrap_content"
 		android:layout_width="match_parent">
 		<android.support.design.widget.TabItem
-			android:text="AR"
-			android:id="@+id/tabItem5" />
+			android:text="Explore"
+			android:id="@+id/ExploreTabItem" />
 		<android.support.design.widget.TabItem
 			android:text="Map"
-			android:id="@+id/tabItem7" />
+			android:id="@+id/MapTabItem" />
 		<android.support.design.widget.TabItem
 			android:text="My mARks"
-			android:id="@+id/tabItem8" />
+			android:id="@+id/MymARksTabItem" />
 		<android.support.design.widget.TabItem
 			android:text="Settings"
-			android:id="@+id/tabItem8" />
+			android:id="@+id/SettingsTabItem" />
 		
 
 	</android.support.design.widget.TabLayout>

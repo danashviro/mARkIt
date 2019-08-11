@@ -22,17 +22,9 @@ namespace mARkIt.Droid.Fragments
     {
         List<Mark> m_Marks;
 
-        public override async void OnCreate(Bundle savedInstanceState)
-        {
-            base.OnCreate(savedInstanceState);
-
-            // Create your fragment here 
-            getMyMarks();
-         }
-
         private async void getMyMarks()
         {
-            m_Marks = await Mark.GetMyMarks(App.User);
+            m_Marks = await Mark.GetMyMarks(App.ConnectedUser);
             ListAdapter = new MarkAdapter(Context, m_Marks);
         }
 
