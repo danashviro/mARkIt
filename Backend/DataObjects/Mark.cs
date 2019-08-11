@@ -11,6 +11,12 @@ namespace Backend.DataObjects
         public string Style { get; set; }
         public int CategoriesCode { get; set; }
         public double RatingsSum { get; set; }
-        public int RatingsCount { get; set; }
+        public double RatingsCount { get; set; }
+        public double Rating { get; set; }
+
+        public void UpdateRating()
+        {
+            Rating = RatingsSum / RatingsCount;
+        }
     }
 }

@@ -16,15 +16,8 @@ namespace mARkIt.Models
         public double Latitude { get; set; }
         public string Style { get; set; }
         public int CategoriesCode { get; set; }
-        public double RatingsSum { get; }
         public int RatingsCount { get; }
-        public double Rating
-        {
-            get
-            {
-                return Math.Round(RatingsSum / RatingsCount, 2);
-            }
-        }
+        public double Rating { get; }
 
         public static async Task<List<Mark>> GetMyMarks(User i_User)
         {

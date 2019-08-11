@@ -98,6 +98,8 @@ namespace Backend.Controllers
                             userMarkRating.Rating = rating.Value; // Update the value at the UserMarkRating entry
                         }
 
+
+                        mark.UpdateRating();
                         await context.SaveChangesAsync();
                         transaction.Commit();
                         updateWasSuccessful = true;
