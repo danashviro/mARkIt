@@ -162,11 +162,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\Startup.MobileApp.cs" />
+    <Compile Include="Controllers\RatingController.cs" />
     <Compile Include="Controllers\RelevantMarksController.cs" />
     <Compile Include="Controllers\LocationController.cs" />
     <Compile Include="Controllers\MarkController.cs" />
     <Compile Include="Controllers\UserController.cs" />
-    <Compile Include="Controllers\UserMarkRatingController.cs" />
     <Compile Include="DataObjects\Location.cs" />
     <Compile Include="DataObjects\Mark.cs" />
     <Compile Include="DataObjects\UserMarkRating.cs" />
@@ -192,6 +192,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="Startup.cs" />
+    <Compile Include="Utils.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Web.config" />

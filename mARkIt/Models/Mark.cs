@@ -16,8 +16,8 @@ namespace mARkIt.Models
         public double Latitude { get; set; }
         public string Style { get; set; }
         public int CategoriesCode { get; set; }
-        public double RatingsSum { get; set; }
-        public int RatingsCount { get; set; }
+        public double RatingsSum { get; }
+        public int RatingsCount { get; }
         public double Rating
         {
             get

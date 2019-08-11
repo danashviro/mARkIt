@@ -28,23 +28,35 @@ namespace Backend.Controllers
         // GET api/RelevantMarks
         public List<Mark> Get(int? relevantCategoriesCode, double? longitude, double? latitude)
         {
+            List<Mark> relevantMarksList = null;
+
             if (relevantCategoriesCode == null)
             {
                 throw new HttpResponseException(HttpStatusCode.BadRequest);
             }            
 
-            var relevantMarks = from mark in context.Marks
+            var relevantMarksQueryResult = from mark in context.Marks
                                 where (relevantCategoriesCode & mark.CategoriesCode) != 0
                                 select mark;
 
+            
             if(longitude.HasValue && latitude.HasValue)
             {
-                relevantMarks = from mark in relevantMarks
-                                where markIsCloseEnough(new Vector(mark.Longitude, mark.Latitude), new Vector(longitude.Value, latitude.Value))
-                                select mark;
+                relevantMarksList = new List<Mark>();
+                foreach (Mark mark in relevantMarksQueryResult)
+                {
+                    if (markIsCloseEnough(new Vector(mark.Longitude, mark.Latitude), new Vector(longitude.Value, latitude.Value)))
+                    {
+                        relevantMarksList.Add(mark);
+                    }
+                }
+            }
+            else
+            {
+                relevantMarksList = relevantMarksQueryResult.ToList();
             }
 
-            return relevantMarks.ToList();
+            return relevantMarksList;
         }
 
         private bool markIsCloseEnough(Vector userPos, Vector markPos)
