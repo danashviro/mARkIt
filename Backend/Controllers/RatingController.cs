@@ -77,6 +77,10 @@ namespace Backend.Controllers
 
                         if (userMarkRating == null)
                         {
+                            // Update the mark
+                            mark.RatingsCount++;
+                            mark.RatingsSum += rating.Value;
+
                             // Add the new rating
                             UserMarkRating newRating = context.UserMarkRatings.Create();
                             newRating.UserEmail = userEmail;
@@ -88,10 +92,10 @@ namespace Backend.Controllers
 
                         else
                         {
-                            // Update the existing mark
-                            userMarkRating.Rating = rating.Value;
-                            mark.RatingsCount++;
+                            // Update the existing rating of the mark
+                            mark.RatingsSum -= userMarkRating.Rating;
                             mark.RatingsSum += rating.Value;
+                            userMarkRating.Rating = rating.Value; // Update the value at the UserMarkRating entry
                         }
 
                         await context.SaveChangesAsync();
