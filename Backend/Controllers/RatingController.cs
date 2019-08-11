@@ -53,8 +53,10 @@ namespace Backend.Controllers
         }
 
         [HttpPost]
-        public async Task<double?> Post(string userEmail, string markId, double? rating)
+        public async Task<bool> Post(string userEmail, string markId, double? rating)
         {
+            bool updateWasSuccessful = false;
+
             // Check parameters
             if (userEmail == null || markId == null || rating == null)
             {
@@ -103,19 +105,22 @@ namespace Backend.Controllers
 
                     await context.SaveChangesAsync();
                     transaction.Commit();
+                    updateWasSuccessful = true;
                 }
                 catch (DbEntityValidationException ex)
                 {
                     Utils.LogDbEntityValidationException(ex);
+                    throw(ex);
                 }
                 catch (Exception ex)
                 {
                     Utils.LogException(ex);
                     transaction.Rollback();
+                    throw (ex);
                 }
             }
 
-            return mark.RatingsSum / mark.RatingsCount;
+            return updateWasSuccessful;
         }
 
         private bool checkUserExists(string userEmail)

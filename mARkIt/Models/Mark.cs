@@ -31,8 +31,19 @@ namespace mARkIt.Models
             return await AzureService.MobileService.GetTable<Mark>().Where(mark => mark.UserEmail == i_User.Email).ToListAsync();       
         }
 
+        /// <summary>
+        /// Get a list of marks filtered by categories and/or location.
+        /// </summary>
+        /// <param name="i_RelevantCategoriesCode"> In case filteration by location only is desired - input (int)eCategories.All </param>
+        /// <param name="i_Longitube"> Can be omitted if filteration by location is not desired - only if i_Latitude is ommited as well </param>
+        /// <param name="i_Latitude"> Can be omitted if filteration by location is not desired - only if i_Longitude is ommited as well </param>
+        /// <returns>
+        /// A list of marks if the fetching operation was successful, otherwise returns null;        
+        /// </returns>
         public static async Task<List<Mark>> GetRelevantMarks(int i_RelevantCategoriesCode = (int)eCategories.All, double? i_Longitube = null, double? i_Latitude = null)
         {
+            List<Mark> relevantMarks;
+
             Dictionary<string, string> parameters = new Dictionary<string, string>
             {
                 { "relevantCategoriesCode", i_RelevantCategoriesCode.ToString() },
@@ -40,7 +51,15 @@ namespace mARkIt.Models
                 { "latitude", i_Latitude.ToString()}
             };
 
-            List<Mark> relevantMarks = await AzureService.MobileService.InvokeApiAsync<List<Mark>>("RelevantMarks", HttpMethod.Get, parameters);
+            try
+            {
+                relevantMarks = await AzureService.MobileService.InvokeApiAsync<List<Mark>>("RelevantMarks", HttpMethod.Get, parameters);
+            }
+            catch(Exception ex)
+            {
+                relevantMarks = null;
+            }
+
             return relevantMarks;
         }
 
@@ -58,6 +77,5 @@ namespace mARkIt.Models
         {
             return await AzureService.Update(i_Mark);
         }
-
     }
 }

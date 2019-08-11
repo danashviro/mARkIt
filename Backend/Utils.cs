@@ -24,22 +24,6 @@ namespace mARkIt.Backend
         public static void LogException(Exception ex)
         {
             Log($"{ex.GetBaseException().GetType().Name}: {ex.GetBaseException().Message}");
-            /*
-            Exception currentEx = ex;
-
-            Log($"Printing exception occured in {ex.Source}:");
-
-            while(currentEx != null)
-            {
-                Log($"{ex.GetType().Name}: {Environment.NewLine}{ ex.Message}");
-                if (ex.InnerException != null && !string.IsNullOrEmpty(ex.InnerException.Message))
-                {
-                    Log("Inner exception found: ");
-                }
-
-                currentEx = currentEx.InnerException;
-            } 
-            */
         }
 
         public static void Log(string message)
