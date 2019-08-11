@@ -66,57 +66,45 @@ namespace Backend.Controllers
             Mark mark = await context.Marks.FindAsync(markId);
             bool userExists = checkUserExists(userEmail);
 
-            if (!userExists || mark == null)
+            if (userExists && mark != null)
             {
-                HttpResponseMessage response = new HttpResponseMessage
+                // Use a transaction to update the database
+                using (DbContextTransaction transaction = context.Database.BeginTransaction())
                 {
-                    StatusCode = HttpStatusCode.BadRequest,
-                    Content = new StringContent("The user or the mark do not exist.")
-                };
-
-                throw new HttpResponseException(response);
-            }
-
-            // Use a transaction to update the database
-            using (DbContextTransaction transaction = context.Database.BeginTransaction())
-            {
-                try
-                {
-                    UserMarkRating userMarkRating = await context.UserMarkRatings.FindAsync(userEmail, markId);
-
-                    if (userMarkRating == null)
+                    try
                     {
-                        // Add the new rating
-                        UserMarkRating newRating = context.UserMarkRatings.Create();
-                        newRating.UserEmail = userEmail;
-                        newRating.MarkId = markId;
-                        newRating.Rating = rating.Value;
+                        UserMarkRating userMarkRating = await context.UserMarkRatings.FindAsync(userEmail, markId);
 
-                        context.UserMarkRatings.Add(newRating);
+                        if (userMarkRating == null)
+                        {
+                            // Add the new rating
+                            UserMarkRating newRating = context.UserMarkRatings.Create();
+                            newRating.UserEmail = userEmail;
+                            newRating.MarkId = markId;
+                            newRating.Rating = rating.Value;
+
+                            context.UserMarkRatings.Add(newRating);
+                        }
+
+                        else
+                        {
+                            // Update the existing mark
+                            userMarkRating.Rating = rating.Value;
+                            mark.RatingsCount++;
+                            mark.RatingsSum += rating.Value;
+                        }
+
+                        await context.SaveChangesAsync();
+                        transaction.Commit();
+                        updateWasSuccessful = true;
                     }
 
-                    else
+                    catch (Exception ex)
                     {
-                        // Update the existing mark
-                        userMarkRating.Rating = rating.Value;
-                        mark.RatingsCount++;
-                        mark.RatingsSum += rating.Value;
+                        Utils.LogException(ex);
+                        transaction.Rollback();
+                        throw (ex);
                     }
-
-                    await context.SaveChangesAsync();
-                    transaction.Commit();
-                    updateWasSuccessful = true;
-                }
-                catch (DbEntityValidationException ex)
-                {
-                    Utils.LogDbEntityValidationException(ex);
-                    throw(ex);
-                }
-                catch (Exception ex)
-                {
-                    Utils.LogException(ex);
-                    transaction.Rollback();
-                    throw (ex);
                 }
             }
 
