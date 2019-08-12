@@ -12,8 +12,11 @@ namespace Backend.DataObjects
         public string UserEmail { get; set; }
 
         [StringLength(450)]
+        [ForeignKey("Mark")]
         [Key, Column(Order = 1)]
         public string MarkId { get; set; }
+
+        public virtual Mark Mark {get; set; }
 
         public double Rating { get; set; }
     }
