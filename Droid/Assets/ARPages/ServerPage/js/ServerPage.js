@@ -1,13 +1,19 @@
-﻿
-var World = {
+﻿var World = {
     initiallyLoadedData: false,
 
     markerDrawable_idle: null,
 
     // called to inject new POI data
     loadPoisFromJsonData: function loadPoisFromJsonDataFn(poiData) {
+        if (poiData.style == "Wood") {
+            World.markerDrawable_idle = new AR.ImageResource("assets/woodSign.png");
+        } else if (poiData.style == "Metal") {
+            World.markerDrawable_idle = new AR.ImageResource("assets/metalSign.png");             
+        } else {
+            World.markerDrawable_idle = new AR.ImageResource("assets/schoolSign.png");      
+        }
+
     
-        World.markerDrawable_idle = new AR.ImageResource("assets/woodSign.png");
        
         var marker = new Marker(poiData);
     },
@@ -28,10 +34,11 @@ var World = {
                     {
                          var poiData = {
                              "id": i,
-                             "longitude": (lon),
-                             "latitude": (lat +0.5),
+                             "longitude": row.longitude,
+                             "latitude": row.latitude,
                              "altitude": alt,
-                             "description": row.message
+                             "description": row.message,
+                             "style": row.style
 
                         };
                         noMarks = false;
@@ -57,7 +64,7 @@ AR.context.onLocationChanged = World.locationChanged;
 var settings = {
   "async": true,
   "crossDomain": true,
-  "url": "https://mark-api.azurewebsites.net/tables/Location?ZUMO-API-VERSION=2.0.0",
+  "url": "https://mark-api.azurewebsites.net/tables/Mark?ZUMO-API-VERSION=2.0.0",
   "method": "GET",
   "headers": {
     "cache-control": "no-cache",
@@ -71,13 +78,14 @@ var noMarks = true;
 $.ajax(settings).done(function (response) {
     table = response;
     var e = document.getElementById('debug');
-    e.innerHTML = "got response";
+    //e.innerHTML = "got response";
     tableLoaded = true;
     if(m_LocationChanged){
         World.locationChanged(m_lat, m_lon, m_alt, m_acc);
     }
     
 });
+
 
 function addButtonClicked() {
     AR.platform.sendJSONObject({});

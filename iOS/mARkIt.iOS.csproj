@@ -298,6 +298,8 @@
     <BundleResource Include="Resources\Icons\ListIcon\DottedListIcon.png" />
     <BundleResource Include="Resources\Icons\ListIcon\DottedListIcon%402x.png" />
     <BundleResource Include="Resources\Icons\ListIcon\DottedListIcon%403x.png" />
+    <BundleResource Include="Resources\ARPages\ServerPage\assets\metalSign.png" />
+    <BundleResource Include="Resources\ARPages\ServerPage\assets\schoolSign.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

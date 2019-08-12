@@ -283,6 +283,8 @@
     <AndroidAsset Include="Assets\ARPages\ServerPage\js\ServerPage.js" />
     <AndroidAsset Include="Assets\ARPages\ServerPage\js\jquery-2.0.3.min.js" />
     <AndroidAsset Include="Assets\ARPages\ServerPage\js\marker.js" />
+    <AndroidAsset Include="Assets\ARPages\ServerPage\assets\schoolSign.png" />
+    <AndroidAsset Include="Assets\ARPages\ServerPage\assets\metalSign.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\Welcome.axml">
