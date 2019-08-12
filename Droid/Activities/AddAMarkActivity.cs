@@ -14,6 +14,7 @@ using Android.Text;
 using Android.Views;
 using Android.Widget;
 using Java.Lang;
+using mARkIt.Droid.Helpers;
 using mARkIt.Models;
 using mARkIt.Utils;
 using Xamarin.Essentials;
@@ -80,19 +81,17 @@ namespace mARkIt.Droid
                         UserEmail = App.ConnectedUser.Email,
                         CategoriesCode = getCategoriesCode(),
                     };
-
                     bool uploadSuccessful = await Mark.Insert(mark);
+
                     if (uploadSuccessful)
                     {
-                        Toast.MakeText(this, "Upload successfull.", ToastLength.Long).Show();
-                        Finish();
+                        Alert.Show("Success", "Upload successfull.", this, Finish);
                     }
                     else
                     {
-                        Toast.MakeText(this, "Failed to upload the mark...", ToastLength.Long).Show();
+                        Alert.Show("Faliure", "Upload failed.", this);
                     }
                 }
-
                 catch (FeatureNotEnabledException ex)
                 {
                     Toast.MakeText(this, "Please activate location services.", ToastLength.Long).Show();

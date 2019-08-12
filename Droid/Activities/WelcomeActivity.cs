@@ -11,6 +11,7 @@ using Com.Wikitude.Architect;
 using Com.Wikitude.Common.Permission;
 using Xamarin.Auth;
 using mARkIt.Utils;
+using mARkIt.Droid.Helpers;
 
 namespace mARkIt.Droid.Activities
 {
@@ -120,11 +121,7 @@ namespace mARkIt.Droid.Activities
 
         private void showPermissionsDeniedDialog()
         {
-            Android.App.AlertDialog.Builder dialog = new Android.App.AlertDialog.Builder(this);
-            dialog.SetTitle("Permissions Denied");
-            dialog.SetMessage("You cannot proceed without granting permissions");
-            dialog.SetPositiveButton("OK", (sender, eventArgs) => Finish());
-            dialog.Show();
+            Alert.Show("Permissions Denied", "You cannot proceed without granting permissions", this, Finish);
         }
     }
 }

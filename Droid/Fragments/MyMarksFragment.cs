@@ -48,7 +48,7 @@ namespace mARkIt.Droid.Fragments
         {
             base.OnListItemClick(l, v, position, id);
             var selectedMark = m_Marks[position];
-            Intent intent = new Intent(Activity, typeof(MarkPresentationActivity));
+            Intent intent = new Intent(Activity, typeof(MarkDetailsActivity));
             string MarkAsJson = JsonConvert.SerializeObject(selectedMark);
             intent.PutExtra("markAsJson", MarkAsJson);
             StartActivity(intent);
