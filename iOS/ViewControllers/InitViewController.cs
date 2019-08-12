@@ -1,8 +1,6 @@
-using Foundation;
 using mARkIt.Authentication;
 using mARkIt.iOS.CoreServices;
 using mARkIt.iOS.Helpers;
-using mARkIt.Models;
 using mARkIt.Utils;
 using System;
 using System.Threading.Tasks;
@@ -39,7 +37,7 @@ namespace mARkIt.iOS
                 autoConnect();
             }, (UIAlertController alertController) =>
             {
-                Alert.DisplayAnAlert("Permissions Denied", "You cannot proceed without granting permissions", (r) => Environment.Exit(0), null);
+                Alert.DisplayAnAlert("Permissions Denied", "You cannot proceed without granting permissions", (r) => Environment.Exit(0), this);
             });
         }
 
@@ -55,30 +53,16 @@ namespace mARkIt.iOS
             }
 
             if (App.ConnectedUser == null)
+            {
                 PerformSegue("loginSegue", this);
-            else
-            {
-                startMainApp();
-            }
-
-        }
-
-        public override bool ShouldPerformSegue(string segueIdentifier, NSObject sender)
-        {
-            if (segueIdentifier == "loginSegue") //after press login moveOnlyIfLoggedIn 
-            {
-                return App.ConnectedUser == null;
             }
             else
             {
-                return App.ConnectedUser != null;
+                PerformSegue("launchAppSegue", this);
             }
+
         }
 
-        private async void startMainApp()
-        {
-            PerformSegue("launchAppSegue", this);
-        }
 
         private async Task refreshGoogleAccessToken(Account i_Account)
         {

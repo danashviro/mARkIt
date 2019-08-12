@@ -272,14 +272,9 @@
     <AndroidAsset Include="Assets\ARPages\3dARServerPage\js\3dARServerPage.js" />
     <AndroidAsset Include="Assets\ARPages\3dARServerPage\js\jquery-2.0.3.min.js" />
     <AndroidAsset Include="Assets\ARPages\3dARServerPage\js\marker.js" />
-    <AndroidAsset Include="Assets\ARPages\MarksPage\index.html" />
-    <AndroidAsset Include="Assets\ARPages\MarksPage\assets\d.png" />
-    <AndroidAsset Include="Assets\ARPages\MarksPage\assets\woodSign.png" />
-    <AndroidAsset Include="Assets\ARPages\MarksPage\js\MarksPage.js" />
     <AndroidAsset Include="Assets\ARPages\ServerPage\index.html" />
     <AndroidAsset Include="Assets\ARPages\ServerPage\assets\indi.png" />
     <AndroidAsset Include="Assets\ARPages\ServerPage\assets\woodSign.png" />
-    <AndroidAsset Include="Assets\ARPages\ServerPage\js\EmptyJSFile.js" />
     <AndroidAsset Include="Assets\ARPages\ServerPage\js\ServerPage.js" />
     <AndroidAsset Include="Assets\ARPages\ServerPage\js\jquery-2.0.3.min.js" />
     <AndroidAsset Include="Assets\ARPages\ServerPage\js\marker.js" />

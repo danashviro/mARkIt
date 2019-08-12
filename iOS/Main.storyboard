@@ -133,7 +133,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2840" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="420" y="-42"/>
+            <point key="canvasLocation" x="390" y="-75"/>
         </scene>
         <scene sceneID="2994">
             <objects>
@@ -615,23 +615,29 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" colorSpace="calibratedRGB" red="0.0196078431372549" green="0.22745098039215686" blue="0.28235294117647058" alpha="1"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="47568" translatesAutoresizingMaskIntoConstraints="NO" image="appIcon_291_291.png" fixedFrame="YES">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="47568" translatesAutoresizingMaskIntoConstraints="NO" image="appIcon_291_291.png">
                                 <rect key="frame" x="42" y="188" width="291" height="291"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="mARk-It" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="47569" translatesAutoresizingMaskIntoConstraints="NO" fixedFrame="YES">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="mARk-It" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="47569" translatesAutoresizingMaskIntoConstraints="NO">
                                 <rect key="frame" x="117" y="471" width="141" height="48"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="40"/>
                                 <color key="textColor" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace" white="1" alpha="1"/>
                                 <nil key="highlightedColor"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </label>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="47921" fixedFrame="YES" animating="YES">
-                                <rect key="frame" x="178" y="544" width="20" height="20"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="47921" animating="YES">
+                                <rect key="frame" x="177.5" y="544" width="20" height="20"/>
                                 <color key="color" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace" white="1" alpha="1"/>
                             </activityIndicatorView>
                         </subviews>
+                        <constraints>
+                            <constraint id="48275" firstItem="47568" firstAttribute="centerX" secondItem="47233" secondAttribute="centerX"/>
+                            <constraint id="48276" firstItem="47568" firstAttribute="centerY" secondItem="47233" secondAttribute="centerY"/>
+                            <constraint id="48277" firstItem="47568" firstAttribute="bottom" secondItem="47569" secondAttribute="top" constant="8"/>
+                            <constraint id="48278" firstItem="47569" firstAttribute="leading" secondItem="47233" secondAttribute="leadingMargin" constant="101"/>
+                            <constraint id="48279" firstItem="47921" firstAttribute="top" secondItem="47569" secondAttribute="bottom" constant="25"/>
+                            <constraint id="48280" firstItem="47921" firstAttribute="centerX" secondItem="47568" secondAttribute="centerX"/>
+                            <constraint id="48281" firstItem="47569" firstAttribute="centerX" secondItem="47568" secondAttribute="centerX"/>
+                        </constraints>
                     </view>
                     <navigationItem title="Title" id="47323" key="navigationItem"/>
                     <connections>
