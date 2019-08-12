@@ -53,7 +53,7 @@ namespace Backend.Controllers
         }
 
         [HttpPost]
-        public async Task<bool> Post(string userEmail, string markId, double? rating)
+        public async Task<bool> Post(string userEmail, string markId, float? rating)
         {
             bool updateWasSuccessful = false;
 
@@ -123,6 +123,6 @@ namespace Backend.Controllers
                             select user;
 
             return userQuery.Count() != 0;
-        }     
+        }
     }
 }

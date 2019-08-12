@@ -17,7 +17,7 @@ namespace mARkIt.Models
         public string Style { get; set; }
         public int CategoriesCode { get; set; }
         public int RatingsCount { get; }
-        public double Rating { get; }
+        public float Rating { get; }
 
         public static async Task<List<Mark>> GetMyMarks(User i_User)
         {

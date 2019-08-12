@@ -47,7 +47,7 @@ namespace mARkIt.Droid.Activities
             m_DateTextView = FindViewById<TextView>(Resource.Id.DateTextView1);
             m_MarkRatingBar = FindViewById<RatingBar>(Resource.Id.MarkRatingBar);
             m_MapFragment = FragmentManager.FindFragmentById<MapFragment>(Resource.Id.MapFragment);
-            m_MarkRatingBar.Rating = (float)m_Mark.Rating;
+            m_MarkRatingBar.Rating = m_Mark.Rating;
         }
 
         private async void deleteButton_Click(object sender, EventArgs e)

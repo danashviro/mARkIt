@@ -6,7 +6,7 @@ namespace mARkIt.Services
 {
     public class AzureService
     {
-        private static string BackendURL = "http://mark-api.azurewebsites.net/";
+        private static string BackendURL = "https://mark-api.azurewebsites.net/";
 
         public static MobileServiceClient MobileService = new MobileServiceClient(BackendURL);
 
@@ -17,7 +17,7 @@ namespace mARkIt.Services
                 await MobileService.GetTable<T>().InsertAsync(i_ObjectToInsert);
                 return true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return false;
             }
@@ -30,7 +30,7 @@ namespace mARkIt.Services
                 await MobileService.GetTable<T>().DeleteAsync(i_ObjectToDelete);
                 return true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return false;
             }
@@ -43,7 +43,7 @@ namespace mARkIt.Services
                 await MobileService.GetTable<T>().UpdateAsync(i_ObjectToUpdate);
                 return true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return false;
             }

@@ -1,4 +1,5 @@
-﻿using Microsoft.Azure.Mobile.Server;
+﻿using System;
+using Microsoft.Azure.Mobile.Server;
 
 namespace Backend.DataObjects
 {
@@ -10,11 +11,11 @@ namespace Backend.DataObjects
         public double Latitude { get; set; }
         public string Style { get; set; }
         public int CategoriesCode { get; set; }
-        public double RatingsSum { get; set; }
-        public double RatingsCount { get; set; }
-        public double Rating { get; set; }
+        public float RatingsSum { get; set; }
+        public int RatingsCount { get; set; }
+        public float Rating { get; set; }
 
-        public void UpdateRating()
+        internal void UpdateRating()
         {
             Rating = RatingsSum / RatingsCount;
         }

@@ -18,6 +18,6 @@ namespace Backend.DataObjects
 
         public virtual Mark Mark {get; set; }
 
-        public double Rating { get; set; }
+        public float Rating { get; set; }
     }
 }

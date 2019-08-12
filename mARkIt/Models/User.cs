@@ -61,7 +61,7 @@ namespace mARkIt.Models
         /// 
         /// Note: Also returns 'false' if the user or the mark do not exist in the database.
         /// </returns>
-        public static async Task<bool> RateMark(string i_Email, string i_MarkId, double i_Rating)
+        public static async Task<bool> RateMark(string i_Email, string i_MarkId, float i_Rating)
         {
             bool updateSuccessful = false;
 
@@ -96,9 +96,9 @@ namespace mARkIt.Models
         ///  
         /// Note: Also returns 'null' if a rating of the mark by the user does not exist in the database.
         /// </returns>
-        public static async Task<double?> GetUserRatingForMark(string i_Email, string i_MarkId)
+        public static async Task<float?> GetUserRatingForMark(string i_Email, string i_MarkId)
         {
-            double? userRatingOfMark;
+            float? userRatingOfMark;
 
             Dictionary<string, string> parameters = new Dictionary<string, string>
             {
@@ -108,7 +108,7 @@ namespace mARkIt.Models
 
             try
             {
-                userRatingOfMark = await AzureService.MobileService.InvokeApiAsync<double?>("Rating", HttpMethod.Get, parameters);
+                userRatingOfMark = await AzureService.MobileService.InvokeApiAsync<float?>("Rating", HttpMethod.Get, parameters);
             }
             catch(Exception ex)
             {
