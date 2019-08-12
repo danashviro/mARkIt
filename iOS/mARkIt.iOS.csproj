@@ -251,16 +251,12 @@
     <BundleResource Include="Resources\ARPages\3dARServerPage\js\jquery-2.0.3.min.js" />
     <BundleResource Include="Resources\ARPages\3dARServerPage\js\marker.js" />
     <BundleResource Include="Resources\ARPages\ade.js" />
-    <BundleResource Include="Resources\ARPages\MarksPage\assets\woodSign.png" />
-    <BundleResource Include="Resources\ARPages\MarksPage\index.html" />
-    <BundleResource Include="Resources\ARPages\MarksPage\js\MarksPage.js" />
     <BundleResource Include="Resources\ARPages\ServerPage\assets\indi.png" />
     <BundleResource Include="Resources\ARPages\ServerPage\assets\woodSign.png" />
     <BundleResource Include="Resources\ARPages\ServerPage\index.html" />
     <BundleResource Include="Resources\ARPages\ServerPage\js\jquery-2.0.3.min.js" />
     <BundleResource Include="Resources\ARPages\ServerPage\js\marker.js" />
     <BundleResource Include="Resources\ARPages\ServerPage\js\ServerPage.js" />
-    <BundleResource Include="Resources\ARPages\ServerPage\js\temp.js" />
     <BundleResource Include="Resources\Icons\EyeIcon\eyeIcon.png" />
     <BundleResource Include="Resources\Icons\EyeIcon\eyeIcon%402x.png" />
     <BundleResource Include="Resources\Icons\EyeIcon\eyeIcon%403x.png" />
@@ -298,6 +294,8 @@
     <BundleResource Include="Resources\Icons\ListIcon\DottedListIcon.png" />
     <BundleResource Include="Resources\Icons\ListIcon\DottedListIcon%402x.png" />
     <BundleResource Include="Resources\Icons\ListIcon\DottedListIcon%403x.png" />
+    <BundleResource Include="Resources\ARPages\ServerPage\assets\metalSign.png" />
+    <BundleResource Include="Resources\ARPages\ServerPage\assets\schoolSign.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

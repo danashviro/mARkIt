@@ -11,13 +11,14 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using mARkIt.Droid.Helpers;
 using mARkIt.Models;
 using Newtonsoft.Json;
 
 namespace mARkIt.Droid.Activities
 {
-    [Activity(Label = "MarkPresentationActivity")]
-    public class MarkPresentationActivity : Activity,IOnMapReadyCallback
+    [Activity(Label = "MarkDetailsActivity")]
+    public class MarkDetailsActivity : Activity,IOnMapReadyCallback
     {
         MapFragment m_MapFragment;
         TextView m_MessageTextView;
@@ -30,40 +31,42 @@ namespace mARkIt.Droid.Activities
         {
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.MarkPresentaion);
+            findComponents();
+            Button button  = FindViewById<Button>(Resource.Id.DeleteButton);
+            button.Click += deleteButton_Click;
+            string markAsJson =Intent.GetStringExtra("markAsJson");
+            m_Mark  = JsonConvert.DeserializeObject<Mark>(markAsJson);
+            m_MessageTextView.Text = m_Mark.Message;
+            m_DateTextView.Text= m_Mark.createdAt.ToLocalTime().ToLongDateString();
+            m_MapFragment.GetMapAsync(this);
+        }
 
+        private void findComponents()
+        {
             m_MessageTextView = FindViewById<TextView>(Resource.Id.MessageTextView1);
             m_DateTextView = FindViewById<TextView>(Resource.Id.DateTextView1);
             m_MarkRatingBar = FindViewById<RatingBar>(Resource.Id.MarkRatingBar);
             m_MapFragment = FragmentManager.FindFragmentById<MapFragment>(Resource.Id.MapFragment);
-
-            Button button  = FindViewById<Button>(Resource.Id.DeleteButton);
-            button.Click += deleteButton_Click;
-
-            string markAsJson =Intent.GetStringExtra("markAsJson");
-            m_Mark  = JsonConvert.DeserializeObject<Mark>(markAsJson);
-
-            m_MessageTextView.Text = m_Mark.Message;
-            m_DateTextView.Text= m_Mark.createdAt.ToLocalTime().ToLongDateString();
-            //m_MarkRatingBar.Rating = m_Mark.Rating;
-            m_MapFragment.GetMapAsync(this);
-
-            // Create your application here
+            m_MarkRatingBar.Rating = (float)m_Mark.Rating;
         }
 
         private async void deleteButton_Click(object sender, EventArgs e)
         {
-            await Mark.Delete(m_Mark);
-            Finish();
-        }
-        
-
+            bool deleted = await Mark.Delete(m_Mark);
+            if(deleted)
+            {
+                Alert.Show("Success", "Mark deleted successfully", this, Finish);
+            }
+            else
+            {
+                Alert.Show("Failure", "Mark couldnt be deleted", this);
+            }
+        }      
 
         public void OnMapReady(GoogleMap googleMap)
         {
             m_GoogleMap = googleMap;
             mapToMarkLocation();
-
-
         }
 
         private void mapToMarkLocation()

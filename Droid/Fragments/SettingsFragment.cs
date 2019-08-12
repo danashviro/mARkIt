@@ -24,8 +24,6 @@ namespace mARkIt.Droid.Fragments
         private CheckBox m_HistoryCheckBox;
         private CheckBox m_NatureCheckBox;
 
-        //private RatingBar m_RatingBar;
-
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             // Use this to return your custom view for this Fragment
@@ -36,9 +34,8 @@ namespace mARkIt.Droid.Fragments
         public override void OnViewCreated(View view, Bundle savedInstanceState)
         {
             base.OnViewCreated(m_View, savedInstanceState);
-            addButtonsEvents();
             findComponents();
-            //OnHiddenChanged is not called when view is created so fillcomponents must be called manually
+            addButtonsEvents();
         }
 
         private void addButtonsEvents()
@@ -87,8 +84,15 @@ namespace mARkIt.Droid.Fragments
                 catagories |= (int)eCategories.Nature;
             }
             App.ConnectedUser.RelevantCategoriesCode = catagories;
-            await User.Update(App.ConnectedUser);
-            Toast.MakeText(Context, "Upload successfull.", ToastLength.Long).Show();
+            bool updated = await User.Update(App.ConnectedUser);
+            if(updated)
+            {
+                Toast.MakeText(Context, "Upload successfull!", ToastLength.Long).Show();
+            }
+            else
+            {
+                Toast.MakeText(Context, "Upload failed!", ToastLength.Long).Show();
+            }
         }
 
         private void fillComponents()
@@ -100,7 +104,6 @@ namespace mARkIt.Droid.Fragments
             m_HistoryCheckBox.Checked = (relevantCategoriesCode & (int)eCategories.History) != 0 ? true : false;
             m_SportCheckBox.Checked = (relevantCategoriesCode & (int)eCategories.Sport) != 0 ? true : false;
             m_NatureCheckBox.Checked = (relevantCategoriesCode & (int)eCategories.Nature) != 0 ? true : false;
-            //m_RatingBar.Rating=m_User.Rating
         }
 
         private void LogoutButton_Click(object sender, EventArgs e)

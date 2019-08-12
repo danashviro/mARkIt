@@ -1,8 +1,4 @@
-using CoreGraphics;
-using CoreLocation;
-using Foundation;
 using mARkIt.Models;
-using mARkIt.Services;
 using mARkIt.Utils;
 using Syncfusion.iOS.Buttons;
 using System;
