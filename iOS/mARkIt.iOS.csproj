@@ -197,8 +197,6 @@
     <Compile Include="ViewControllers\ARViewController.designer.cs">
       <DependentUpon>ARViewController.cs</DependentUpon>
     </Compile>
-    <Compile Include="ViewControllers\MainTabBarViewController.cs" />
-    <Compile Include="ViewControllers\MainTabBarViewController.designer.cs" />
     <Compile Include="ViewControllers\MapViewController.cs" />
     <Compile Include="ViewControllers\MapViewController.designer.cs">
       <DependentUpon>MapViewController.cs</DependentUpon>

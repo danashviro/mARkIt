@@ -7,6 +7,8 @@ using mARkIt.Authentication;
 using mARkIt.Droid.Fragments;
 using mARkIt.Models;
 using Newtonsoft.Json;
+using System;
+using System.Drawing;
 using System.Threading.Tasks;
 using Xamarin.Auth;
 
@@ -31,6 +33,7 @@ namespace mARkIt.Droid
 
             m_TabLayout = FindViewById<TabLayout>(Resource.Id.mainTabLayout);
             m_TabLayout.TabSelected += TabLayout_TabSelected;
+            createTabLayoutIconsAndText();
 
             // create fragments
             m_ExploreFragment = new ExploreFragment();
@@ -84,6 +87,18 @@ namespace mARkIt.Droid
         public override void OnBackPressed()
         {
             //base.OnBackPressed();
+        }
+
+        private void createTabLayoutIconsAndText()
+        {
+            m_TabLayout.GetTabAt(0).SetIcon(Resource.Drawable.Explore);
+            m_TabLayout.GetTabAt(1).SetIcon(Resource.Drawable.Map);
+            m_TabLayout.GetTabAt(2).SetIcon(Resource.Drawable.MyMarks);
+            m_TabLayout.GetTabAt(3).SetIcon(Resource.Drawable.Settings);
+
+            //m_TabLayout.SetSelectedTabIndicatorColor(Color.White.ToArgb());
+            //m_TabLayout.SetSelectedTabIndicatorHeight((int)(5 * GetResources().getDisplayMetrics().density));
+            //m_TabLayout.SetTabTextColors(Color.White.ToArgb(), Color.BlueViolet.ToArgb());
         }
     }
 }

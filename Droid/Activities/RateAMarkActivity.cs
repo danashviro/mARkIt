@@ -41,6 +41,8 @@ namespace mARkIt.Droid.Activities
             
             if(succeded)
             {
+                Mark mark = await Mark.GetById(m_MarkId);
+                m_MarkRatingBar.Rating = mark.Rating;
                 Alert.Show("Success", "Your rating has been submited.",this);
             }
             else

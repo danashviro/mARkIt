@@ -1,6 +1,7 @@
 using CoreGraphics;
 using Foundation;
 using mARkIt.Authentication;
+using mARkIt.iOS.Helpers;
 using mARkIt.Models;
 using mARkIt.Utils;
 using Syncfusion.SfRating.iOS;
@@ -11,7 +12,7 @@ namespace mARkIt.iOS
 {
     public partial class SettingsViewController : UIViewController
     {
-        private bool m_ViewLoaded = false;
+        private int? m_CategoriesCode = null;
 
         public SettingsViewController (IntPtr handle) : base (handle)
         {
@@ -22,15 +23,14 @@ namespace mARkIt.iOS
         {
             base.ViewDidLoad();
             saveButton.Clicked += SaveButton_Clicked;
-            getCategoriesCheckBoxCheckStatusFromUser();
-            m_ViewLoaded = true;
         }
 
         public override void ViewWillAppear(bool animated)
         {
             base.ViewWillAppear(animated);
-            if (m_ViewLoaded)
+            if (m_CategoriesCode == null || m_CategoriesCode.Value != App.ConnectedUser.RelevantCategoriesCode)
             {
+                m_CategoriesCode = App.ConnectedUser.RelevantCategoriesCode;
                 getCategoriesCheckBoxCheckStatusFromUser();
             }              
         }
@@ -51,11 +51,11 @@ namespace mARkIt.iOS
             bool updated = await User.Update(App.ConnectedUser);
             if(updated)
             {
-                Helpers.Alert.DisplayAnAlert("Ok", "Settings updated!", this);
+                Alert.Display("Ok", "Settings updated!", this);
             }
             else
             {
-                Helpers.Alert.DisplayAnAlert("Error", "Settings updated!", this);
+                Alert.Display("Error", "Their was a problem saving your settings, please try again later", this);
             }
         }
 

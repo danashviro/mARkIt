@@ -37,7 +37,7 @@ namespace mARkIt.iOS
                 autoConnect();
             }, (UIAlertController alertController) =>
             {
-                Alert.DisplayAnAlert("Permissions Denied", "You cannot proceed without granting permissions", this, (r) => Environment.Exit(0));
+                Alert.Display("Permissions Denied", "You cannot proceed without granting permissions", this, (r) => Environment.Exit(0));
             });
         }
 
