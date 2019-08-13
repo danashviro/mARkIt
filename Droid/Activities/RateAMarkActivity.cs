@@ -20,13 +20,15 @@ namespace mARkIt.Droid.Activities
         private RatingBar m_MarkRatingBar;
         private RatingBar m_YourRatingBar;
         private string m_MarkId;
-        protected override void OnCreate(Bundle savedInstanceState)
+        protected async override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.RateAMark);
             m_MarkRatingBar = FindViewById<RatingBar>(Resource.Id.MarkRatingBar);
             m_YourRatingBar = FindViewById<RatingBar>(Resource.Id.YourRatingBar);
             m_MarkId = Intent.GetStringExtra("markId");
+            Mark mark= await Mark.GetById(m_MarkId);
+            m_MarkRatingBar.Rating = mark.Rating;
             Button saveButton = FindViewById<Button>(Resource.Id.saveButton);
             saveButton.Click += SaveButton_Click;
         }

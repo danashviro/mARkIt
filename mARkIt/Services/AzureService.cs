@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
+using mARkIt.Abstractions;
 using Microsoft.WindowsAzure.MobileServices;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace mARkIt.Services
 {
@@ -33,6 +36,20 @@ namespace mARkIt.Services
             catch (Exception ex)
             {
                 return false;
+            }
+        }
+
+        public static async Task<T> GetById<T>(string i_Id) where T : TableData
+        {
+            try
+            {
+                var table = MobileService.GetTable<T>().Where(t => t.id == i_Id);
+                var list=await table.ToListAsync();
+                return list.First();
+            }
+            catch (Exception ex)
+            {
+                return null;
             }
         }
 

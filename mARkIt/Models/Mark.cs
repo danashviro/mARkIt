@@ -24,6 +24,12 @@ namespace mARkIt.Models
             return await AzureService.MobileService.GetTable<Mark>().Where(mark => mark.UserEmail == i_User.Email).ToListAsync();       
         }
 
+        public async static Task<Mark> GetById(string i_Id)
+        {
+            Mark mark=await AzureService.GetById<Mark>(i_Id);
+            return mark;
+        }
+
         /// <summary>
         /// Get a list of marks filtered by categories and/or location.
         /// </summary>
