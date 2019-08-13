@@ -1,6 +1,7 @@
-﻿using System;
+﻿using System.Web.Http;
+using System;
+using System.Security.Claims;
 using System.Data.Entity.Validation;
-
 
 namespace mARkIt.Backend
 {
@@ -30,5 +31,19 @@ namespace mARkIt.Backend
         {
             System.Diagnostics.Trace.WriteLine(message);
         }
+
+        public static string GetLoggedUserId(this ApiController apiController)
+        {
+            string userId = null;
+
+            var claim = ((ClaimsPrincipal)apiController.User).FindFirst(ClaimTypes.NameIdentifier);
+            if (claim != null)
+            {
+                userId = claim.Value;
+            }
+
+            return userId;
+        }
+
     }
 }

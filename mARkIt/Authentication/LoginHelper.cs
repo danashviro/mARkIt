@@ -1,7 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Net.Http;
 using System.Threading.Tasks;
 using mARkIt.Models;
+using mARkIt.Services;
 using mARkIt.Utils;
+using Microsoft.WindowsAzure.MobileServices;
 using Xamarin.Auth;
 
 namespace mARkIt.Authentication
@@ -10,18 +14,18 @@ namespace mARkIt.Authentication
     {
         public static GoogleAuthenticator s_GoogleAuthenticator;
         public static FacebookAuthenticator s_FacebookAuthenticator;
-        public static Authentication.e_SupportedAuthentications s_AuthType;
+        public static MobileServiceAuthenticationProvider s_AuthType;
 
-        private static async Task CreateUserObjectAsync(Account i_Account, Func<Account,Task> i_GoogleRefreshTokenFunc = null)
+        private static async Task CreateUserObjectAsync(Account i_Account, Func<Account, Task> i_GoogleRefreshTokenFunc = null)
         {
             User user = null;
             switch (s_AuthType)
             {
-                case Authentication.e_SupportedAuthentications.Facebook:
+                case MobileServiceAuthenticationProvider.Facebook:
                     FacebookClient fbClient = new FacebookClient(i_Account);
                     user = await fbClient.GetUserAsync();
                     break;
-                case Authentication.e_SupportedAuthentications.Google:
+                case MobileServiceAuthenticationProvider.Google:
                     try
                     {
                         GoogleClient glClient = new GoogleClient(i_Account);
@@ -46,8 +50,8 @@ namespace mARkIt.Authentication
                     break;
             }
 
+            await AzureService.LoginToBackend(s_AuthType, i_Account);
             App.ConnectedUser = await User.GetUserByEmail(user.Email);
-
         }
 
 
@@ -57,12 +61,12 @@ namespace mARkIt.Authentication
             if (s_FacebookAuthenticator != null)
             {
                 await SecureStorageAccountStore.SaveAccountAsync(i_Account, "Facebook");
-                s_AuthType = Authentication.e_SupportedAuthentications.Facebook;
+                s_AuthType = MobileServiceAuthenticationProvider.Facebook;
             }
             else if (s_GoogleAuthenticator != null)
             {
                 await SecureStorageAccountStore.SaveAccountAsync(i_Account, "Google");
-                s_AuthType = Authentication.e_SupportedAuthentications.Google;
+                s_AuthType = MobileServiceAuthenticationProvider.Google;
             }
             await CreateUserObjectAsync(i_Account, i_GoogleRefreshTokenFunc);
         }
@@ -72,14 +76,14 @@ namespace mARkIt.Authentication
         {
             Account account;
             account = await SecureStorageAccountStore.GetAccountAsync("Facebook");
-            s_AuthType = Authentication.e_SupportedAuthentications.Facebook;
+            s_AuthType = MobileServiceAuthenticationProvider.Facebook;
             if (account == null)
             {
                 account = await SecureStorageAccountStore.GetAccountAsync("Google");
-                s_AuthType = Authentication.e_SupportedAuthentications.Google;
+                s_AuthType = MobileServiceAuthenticationProvider.Google;
             }
 
-            if (account != null) 
+            if (account != null)
             {
                 await CreateUserObjectAsync(account, i_GoogleRefreshTokenFunc);
             }
@@ -87,14 +91,14 @@ namespace mARkIt.Authentication
 
         public static OAuth2Authenticator GetFacebook2Authenticator(IAuthenticationDelegate i_AuthenticationDelegate)
         {
-            s_FacebookAuthenticator = new FacebookAuthenticator(Keys.FacebookAppId,Configuration.FacebookAuthScope, i_AuthenticationDelegate);
+            s_FacebookAuthenticator = new FacebookAuthenticator(Keys.FacebookAppId, Configuration.FacebookAuthScope, i_AuthenticationDelegate);
             s_GoogleAuthenticator = null;
             return s_FacebookAuthenticator.GetOAuth2();
         }
 
         public static OAuth2Authenticator GetGoogle2Authenticator(IAuthenticationDelegate i_AuthenticationDelegate)
         {
-            s_GoogleAuthenticator = new GoogleAuthenticator( Keys.GoogleClientId,Configuration.GoogleAuthScope, i_AuthenticationDelegate);
+            s_GoogleAuthenticator = new GoogleAuthenticator(Keys.GoogleClientId, Configuration.GoogleAuthScope, i_AuthenticationDelegate);
             s_FacebookAuthenticator = null;
             return s_GoogleAuthenticator.GetOAuth2();
         }
@@ -102,6 +106,7 @@ namespace mARkIt.Authentication
         public static void Logout()
         {
             Xamarin.Essentials.SecureStorage.RemoveAll();
+            // AzureService.Logout();
         }
     }
 }

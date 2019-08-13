@@ -21,8 +21,6 @@ namespace Backend.Models
             System.Diagnostics.Debug.WriteLine(msg);
         }
 
-        public DbSet<Location> Locations { get; set; }
-
         public DbSet<User> Users { get; set; }
 
         public DbSet<Mark> Marks { get; set; }
