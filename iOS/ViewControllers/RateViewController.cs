@@ -12,10 +12,12 @@ namespace mARkIt.iOS
         {
         }
 
-        public override void ViewDidLoad()
+        public override async void ViewDidLoad()
         {
             base.ViewDidLoad();
-            //markRating.Value
+            markRating.Value = (await Mark.GetById(MarkId)).Rating;
+            var userRatingVal = await User.GetUserRatingForMark(App.ConnectedUser.Email, MarkId);
+            userRating.Value = userRatingVal != null ? userRatingVal.Value : 0;
             saveButton.Clicked += SaveButton_Clicked;
             backButton.Clicked += BackButton_Clicked;
         }
