@@ -30,7 +30,7 @@ namespace mARkIt.Droid.Activities
             Mark mark= await Mark.GetById(m_MarkId);
             m_MarkRatingBar.Rating = mark.Rating;
             float? rating= await User.GetUserRatingForMark(App.ConnectedUser.Email, m_MarkId);
-            m_YourRatingBar.Rating = rating==null? 0:(float)rating;
+            m_YourRatingBar.Rating = rating == null ? 0 : rating.Value;
             Button saveButton = FindViewById<Button>(Resource.Id.saveButton);
             saveButton.Click += SaveButton_Click;
         }
