@@ -1,3 +1,4 @@
+using mARkIt.iOS.Helpers;
 using mARkIt.Models;
 using mARkIt.Utils;
 using Syncfusion.iOS.Buttons;
@@ -37,7 +38,7 @@ namespace mARkIt.iOS
             }
             else if (remainingLetters < 10)
             {
-                letterCounterLabel.TextColor = UIColor.Orange;
+                letterCounterLabel.TextColor = UIColor.Yellow;
             }
             else
             {
@@ -80,20 +81,20 @@ namespace mARkIt.iOS
             }
             catch (Exception) { }
 
-            if(markUploaded)
+            if (markUploaded)
             {
-                Helpers.Alert.DisplayAnAlert("Success", "The mARk uploaded", this, new Action<UIAlertAction>((a) => NavigationController.PopViewController(true)));
+                Alert.Display("Success", "The mARk uploaded", this, new Action<UIAlertAction>((a) => NavigationController.PopViewController(true)));
             }
             else
             {
-                Helpers.Alert.DisplayAnAlert("Error", "There was a problem uploading your mARk", this);
+                Alert.Display("Error", "There was a problem uploading your mARk", this);
             }
         }
 
         private string getMarkStyle()
         {
             string markStyle = null;
-            if ((bool)m_WoodMarkStyleRadioButton.IsChecked) 
+            if ((bool)m_WoodMarkStyleRadioButton.IsChecked)
             {
                 markStyle = "Wood";
             }
@@ -111,8 +112,8 @@ namespace mARkIt.iOS
         private int getCategories()
         {
             int catagories = 0;
-            if((bool)generalCheckBox.IsChecked)
-            { 
+            if ((bool)generalCheckBox.IsChecked)
+            {
                 catagories |= (int)eCategories.General;
             }
             if ((bool)foodCheckBox.IsChecked)
@@ -140,15 +141,15 @@ namespace mARkIt.iOS
             markTextView.UserInteractionEnabled = false;
             if (markTextView.Text.Count<char>() > m_MaxLettersAllowed)
             {
-                Helpers.Alert.DisplayAnAlert("Error", "There are too many letters!", this);
+                Alert.Display("Error", "There are too many letters!", this);
             }
             else if (string.IsNullOrEmpty(markTextView.Text))
             {
-                Helpers.Alert.DisplayAnAlert("Error", "Please fill mARk text", this);
+                Alert.Display("Error", "Please fill mARk text", this);
             }
-            else if (!((bool)generalCheckBox.IsChecked || (bool)foodCheckBox.IsChecked || (bool)sportCheckBox.IsChecked || (bool)historyCheckBox.IsChecked || (bool)natureCheckBox.IsChecked)) 
+            else if (!((bool)generalCheckBox.IsChecked || (bool)foodCheckBox.IsChecked || (bool)sportCheckBox.IsChecked || (bool)historyCheckBox.IsChecked || (bool)natureCheckBox.IsChecked))
             {
-                Helpers.Alert.DisplayAnAlert("Error", "You must choose at least one category!", this);
+                Alert.Display("Error", "You must choose at least one category!", this);
             }
             else
             {

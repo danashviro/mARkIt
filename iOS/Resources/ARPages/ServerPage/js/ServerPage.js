@@ -77,8 +77,8 @@ var noMarks = true;
 
 $.ajax(settings).done(function (response) {
     table = response;
-    var e = document.getElementById('debug');
-    e.innerHTML = "got response";
+    //var e = document.getElementById('debug');
+    //e.innerHTML = "got response";
     tableLoaded = true;
     if(m_LocationChanged){
         World.locationChanged(m_lat, m_lon, m_alt, m_acc);

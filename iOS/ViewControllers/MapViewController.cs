@@ -12,7 +12,6 @@ namespace mARkIt.iOS
     public partial class MapViewController : UIViewController
     {
         private bool m_UserLocationInit = false;
-        private bool m_ViewLoaded = false;
         //private MapDelegate m_MapDelegate;
 
         public MapViewController (IntPtr handle) : base (handle)
@@ -23,7 +22,6 @@ namespace mARkIt.iOS
         {
             base.ViewDidLoad();
             mapView.DidUpdateUserLocation += MapView_DidUpdateUserLocation;
-            m_ViewLoaded = true;
             //m_MapDelegate = new MapDelegate();
             //mapView.Delegate = m_MapDelegate;
         }
@@ -31,10 +29,7 @@ namespace mARkIt.iOS
         public override async void ViewWillAppear(bool animated)
         {
             base.ViewWillAppear(animated);
-            if(m_ViewLoaded)
-            {
-                await getPins();
-            }
+            await getPins();
         }
 
         private void MapView_DidUpdateUserLocation(object sender, MKUserLocationEventArgs e)

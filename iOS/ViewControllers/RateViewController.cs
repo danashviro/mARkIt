@@ -1,5 +1,7 @@
 using Foundation;
+using mARkIt.iOS.Helpers;
 using mARkIt.Models;
+using Syncfusion.SfRating.iOS;
 using System;
 using UIKit;
 
@@ -12,14 +14,21 @@ namespace mARkIt.iOS
         {
         }
 
+
         public override async void ViewDidLoad()
         {
-            base.ViewDidLoad();
+            markRating.UserInteractionEnabled = false;
+            markRating.ItemSize = 33;
+            markRating.Precision = SFRatingPrecision.Exact;
+            userRating.ItemSize = 33;
+            userRating.Precision = SFRatingPrecision.Exact;
             markRating.Value = (await Mark.GetById(MarkId)).Rating;
             var userRatingVal = await User.GetUserRatingForMark(App.ConnectedUser.Email, MarkId);
             userRating.Value = userRatingVal != null ? userRatingVal.Value : 0;
             saveButton.Clicked += SaveButton_Clicked;
             backButton.Clicked += BackButton_Clicked;
+            base.ViewDidLoad();
+
         }
 
         private void BackButton_Clicked(object sender, EventArgs e)
@@ -31,11 +40,12 @@ namespace mARkIt.iOS
         {
             if (await User.RateMark(App.ConnectedUser.Email, MarkId, (float)userRating.Value))
             {
-                Helpers.Alert.DisplayAnAlert("Success", "The mARk rateted", this);
+                markRating.Value = (await Mark.GetById(MarkId)).Rating;
+                Alert.Display("Success", "The mARk rateted", this);
             }
             else
             {
-                Helpers.Alert.DisplayAnAlert("Error", "Thir was a problem rate this mARk", this);
+                Alert.Display("Error", "Their was a problem rate this mARk", this);
             }
         }
     }

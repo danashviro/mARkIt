@@ -1,5 +1,6 @@
 using Foundation;
 using MapKit;
+using mARkIt.iOS.Helpers;
 using mARkIt.Models;
 using Syncfusion.SfRating.iOS;
 using System;
@@ -19,7 +20,6 @@ namespace mARkIt.iOS
         {
             base.ViewDidLoad();
             backBarButton.Clicked += BackBarButton_Clicked;
-            ratingBar.Value = 3;
             ratingBar.UserInteractionEnabled = false;
             ratingBar.ItemSize = 17;
             ratingBar.Precision = SFRatingPrecision.Exact;
@@ -41,11 +41,11 @@ namespace mARkIt.iOS
             bool deleted = await Mark.Delete(ViewMark);
             if(deleted)
             {
-                Helpers.Alert.DisplayAnAlert("Ok", "The mARk was deleted", this, new Action<UIAlertAction>((a) => NavigationController.PopViewController(true)));
+                Alert.Display("Ok", "The mARk was deleted", this, new Action<UIAlertAction>((a) => NavigationController.PopViewController(true)));
             }
             else
             {
-                Helpers.Alert.DisplayAnAlert("Error", "There was a problem deleting this mARk, Please try later", this);                
+                Alert.Display("Error", "There was a problem deleting this mARk, Please try again later", this);                
             }
         }
         

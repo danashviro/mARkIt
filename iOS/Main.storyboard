@@ -110,7 +110,7 @@
         </scene>
         <scene sceneID="2835">
             <objects>
-                <tabBarController id="2836" sceneMemberID="viewController" customClass="MainTabBarViewController">
+                <tabBarController id="2836" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" id="2839">
                         <rect key="frame" x="0.0" y="617" width="375" height="50"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -119,17 +119,9 @@
                     <connections>
                         <segue id="3142" destination="2995" kind="relationship" relationship="viewControllers"/>
                         <segue id="3366" destination="3262" kind="relationship" relationship="viewControllers"/>
-                        <outlet property="AddMarkButton" destination="3424" id="name-outlet-3424"/>
                         <segue id="37338" destination="37274" kind="relationship" relationship="viewControllers"/>
                         <segue id="38262" destination="5477" kind="relationship" relationship="viewControllers"/>
                     </connections>
-                    <navigationItem id="3423" key="navigationItem">
-                        <barButtonItem key="rightBarButtonItem" id="3424" systemItem="add">
-                            <connections>
-                                <segue id="3578" destination="3428" kind="show"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2840" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
