@@ -51,11 +51,11 @@ namespace mARkIt.iOS
             bool updated = await User.Update(App.ConnectedUser);
             if(updated)
             {
-                Helpers.Alert.DisplayAnAlert("Ok", "Settings updated!", null, this);
+                Helpers.Alert.DisplayAnAlert("Ok", "Settings updated!", this);
             }
             else
             {
-                Helpers.Alert.DisplayAnAlert("Error", "Settings updated!", null, this);
+                Helpers.Alert.DisplayAnAlert("Error", "Settings updated!", this);
             }
         }
 

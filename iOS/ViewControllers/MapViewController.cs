@@ -13,7 +13,7 @@ namespace mARkIt.iOS
     {
         private bool m_UserLocationInit = false;
         private bool m_ViewLoaded = false;
-        private MapDelegate m_MapDelegate;
+        //private MapDelegate m_MapDelegate;
 
         public MapViewController (IntPtr handle) : base (handle)
         {

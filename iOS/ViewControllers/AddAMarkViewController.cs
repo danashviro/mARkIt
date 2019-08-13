@@ -58,6 +58,7 @@ namespace mARkIt.iOS
 
         private async void uploadMarkAsync()
         {
+            bool markUploaded = false;
             try
             {
                 var request = new GeolocationRequest(GeolocationAccuracy.High);
@@ -73,19 +74,19 @@ namespace mARkIt.iOS
                         Style = getMarkStyle(),
                         CategoriesCode = getCategories(),
                         UserEmail = App.ConnectedUser.Email
-                };
-
-                    await Mark.Insert(mark);
-                    Helpers.Alert.DisplayAnAlert("Success", "The mARk uploaded", new Action<UIAlertAction>((a) => NavigationController.PopViewController(true)),this);
-                }
-                else
-                {
-                    Helpers.Alert.DisplayAnAlert("Error", "There was a problem uploading your mARk", null,this);
+                    };
+                    markUploaded = await Mark.Insert(mark);
                 }
             }
-            catch (Exception)
+            catch (Exception) { }
+
+            if(markUploaded)
             {
-                Helpers.Alert.DisplayAnAlert("Error", "There was a problem uploading your mARk", null,this);
+                Helpers.Alert.DisplayAnAlert("Success", "The mARk uploaded", this, new Action<UIAlertAction>((a) => NavigationController.PopViewController(true)));
+            }
+            else
+            {
+                Helpers.Alert.DisplayAnAlert("Error", "There was a problem uploading your mARk", this);
             }
         }
 
@@ -139,15 +140,15 @@ namespace mARkIt.iOS
             markTextView.UserInteractionEnabled = false;
             if (markTextView.Text.Count<char>() > m_MaxLettersAllowed)
             {
-                Helpers.Alert.DisplayAnAlert("Error", "There are too many letters!", null, this);
+                Helpers.Alert.DisplayAnAlert("Error", "There are too many letters!", this);
             }
             else if (string.IsNullOrEmpty(markTextView.Text))
             {
-                Helpers.Alert.DisplayAnAlert("Error", "Please fill mARk text", null, this);
+                Helpers.Alert.DisplayAnAlert("Error", "Please fill mARk text", this);
             }
             else if (!((bool)generalCheckBox.IsChecked || (bool)foodCheckBox.IsChecked || (bool)sportCheckBox.IsChecked || (bool)historyCheckBox.IsChecked || (bool)natureCheckBox.IsChecked)) 
             {
-                Helpers.Alert.DisplayAnAlert("Error", "You must choose at least one category!", null, this);
+                Helpers.Alert.DisplayAnAlert("Error", "You must choose at least one category!", this);
             }
             else
             {

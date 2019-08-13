@@ -5,20 +5,19 @@ using System.Collections.Generic;
 using mARkIt.Services;
 using mARkIt.Models;
 using mARkIt.Authentication;
+using Syncfusion.SfRating.iOS;
 
 namespace mARkIt.iOS
 {
     public partial class MyMarksViewController : UITableViewController
     {
         private List<Mark> m_Marks;
-        private Random m_Rand;
         private bool m_ViewLoaded = false;
 
 
         public MyMarksViewController (IntPtr handle) : base (handle)
         {
             m_Marks = new List<Mark>();
-            m_Rand = new Random();
         }
 
 
@@ -53,8 +52,9 @@ namespace mARkIt.iOS
             cell.DateLabel.Text  = mark.createdAt.ToLocalTime().ToLongDateString();
             //cell.coordinatesLabel.Text  = $"{mark.latitude}, {mark.latitude}";
             cell.RatingBar.ItemSize = 10;
-            cell.RatingBar.Value = m_Rand.Next(5);
             cell.RatingBar.UserInteractionEnabled = false;
+            cell.RatingBar.Precision = SFRatingPrecision.Exact;
+            cell.RatingBar.Value = (float)mark.Rating;
 
             return cell;
         }
