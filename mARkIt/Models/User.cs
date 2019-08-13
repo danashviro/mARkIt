@@ -76,7 +76,7 @@ namespace mARkIt.Models
             {
                 updateSuccessful = await AzureService.MobileService.InvokeApiAsync<bool>("Rating", HttpMethod.Post, parameters);
             }
-            catch(Exception ex)
+            catch(Exception)
             {
                 updateSuccessful = false;
             }
@@ -110,7 +110,7 @@ namespace mARkIt.Models
             {
                 userRatingOfMark = await AzureService.MobileService.InvokeApiAsync<float?>("Rating", HttpMethod.Get, parameters);
             }
-            catch(Exception ex)
+            catch(Exception)
             {
                 return userRatingOfMark = null;
             }

@@ -20,7 +20,7 @@ namespace mARkIt.Services
                 await MobileService.GetTable<T>().InsertAsync(i_ObjectToInsert);
                 return true;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return false;
             }
@@ -33,7 +33,7 @@ namespace mARkIt.Services
                 await MobileService.GetTable<T>().DeleteAsync(i_ObjectToDelete);
                 return true;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return false;
             }
@@ -47,7 +47,7 @@ namespace mARkIt.Services
                 var list=await table.ToListAsync();
                 return list.First();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return null;
             }
@@ -60,7 +60,7 @@ namespace mARkIt.Services
                 await MobileService.GetTable<T>().UpdateAsync(i_ObjectToUpdate);
                 return true;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return false;
             }

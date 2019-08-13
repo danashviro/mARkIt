@@ -54,7 +54,7 @@ namespace mARkIt.Models
             {
                 relevantMarks = await AzureService.MobileService.InvokeApiAsync<List<Mark>>("RelevantMarks", HttpMethod.Get, parameters);
             }
-            catch(Exception ex)
+            catch(Exception)
             {
                 relevantMarks = null;
             }
