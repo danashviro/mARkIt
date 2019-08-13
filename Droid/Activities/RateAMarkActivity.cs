@@ -29,6 +29,8 @@ namespace mARkIt.Droid.Activities
             m_MarkId = Intent.GetStringExtra("markId");
             Mark mark= await Mark.GetById(m_MarkId);
             m_MarkRatingBar.Rating = mark.Rating;
+            float? rating= await User.GetUserRatingForMark(App.ConnectedUser.Email, m_MarkId);
+            m_YourRatingBar.Rating = rating==null? 0:(float)rating;
             Button saveButton = FindViewById<Button>(Resource.Id.saveButton);
             saveButton.Click += SaveButton_Click;
         }
