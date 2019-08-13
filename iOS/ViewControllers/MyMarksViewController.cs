@@ -54,7 +54,7 @@ namespace mARkIt.iOS
             cell.RatingBar.ItemSize = 10;
             cell.RatingBar.UserInteractionEnabled = false;
             cell.RatingBar.Precision = SFRatingPrecision.Exact;
-            cell.RatingBar.Value = (float)mark.Rating;
+            cell.RatingBar.Value = mark.Rating;
 
             return cell;
         }

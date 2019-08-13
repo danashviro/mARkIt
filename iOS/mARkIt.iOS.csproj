@@ -233,6 +233,10 @@
     <Compile Include="ViewControllers\InitViewController.designer.cs">
       <DependentUpon>InitViewController.cs</DependentUpon>
     </Compile>
+    <Compile Include="RateViewController.cs" />
+    <Compile Include="RateViewController.designer.cs">
+      <DependentUpon>RateViewController.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\ARPages\3dARPage\assets\couch.wt3" />

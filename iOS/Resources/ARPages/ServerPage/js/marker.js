@@ -1,9 +1,9 @@
-﻿function Marker(poiData) {
+﻿function Marker(markData) {
 
-    this.poiData = poiData;
+    this.markData = markData;
 
-    //var markerLocation = new AR.GeoLocation(poiData.latitude, poiData.longitude, poiData.altitude);
-    var markerLocation = new AR.RelativeLocation(null, 5, 0, 1);
+    var markerLocation = new AR.GeoLocation(markData.latitude, markData.longitude, markData.altitude);
+    //var markerLocation = new AR.RelativeLocation(null, 5, 0, 1);
 
     this.markerDrawable_idle = new AR.ImageDrawable(World.markerDrawable_idle, 2.5, {
         zOrder: 0,
@@ -12,7 +12,7 @@
 
 
 
-    this.descriptionLabel = new AR.Label(poiData.description.trunc(15), 0.5, {
+    this.descriptionLabel = new AR.Label(markData.message.trunc(15), 0.5, {
         zOrder: 1,
         style: {
             textColor: '#FFFFFF'
@@ -29,11 +29,17 @@
         drawables: {
             cam: [this.markerDrawable_idle, this.descriptionLabel],
             indicator: [indicatorDrawable]
+        },
+        onClick: function () {
+            AR.platform.sendJSONObject({ "option": "rate", "markId": markData.id });
         }
     });
 
     return this;
 }
+
+
+
 
 // will truncate all strings longer than given max-length "n". e.g. "foobar".trunc(3) -> "foo..."
 String.prototype.trunc = function(n) {

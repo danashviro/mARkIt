@@ -4,10 +4,10 @@
     markerDrawable_idle: null,
 
     // called to inject new POI data
-    loadPoisFromJsonData: function loadPoisFromJsonDataFn(poiData) {
-        if (poiData.style == "Wood") {
+    loadMarksFromJsonData: function loadMarksFromJsonDataFn(markData) {
+        if (markData.style == "Wood") {
             World.markerDrawable_idle = new AR.ImageResource("assets/woodSign.png");
-        } else if (poiData.style == "Metal") {
+        } else if (markData.style == "Metal") {
             World.markerDrawable_idle = new AR.ImageResource("assets/metalSign.png");             
         } else {
             World.markerDrawable_idle = new AR.ImageResource("assets/schoolSign.png");      
@@ -15,7 +15,7 @@
 
     
        
-        var marker = new Marker(poiData);
+        var marker = new Marker(markData);
     },
     
 
@@ -29,20 +29,20 @@
         if (tableLoaded) {
 
                for (var i = 0 ; i < table.length ; i++) {
-                   var row = table[i];
-                   if((row.longitude <= (lon + 0.0005))&& (row.longitude >= (lon - 0.0005)) && (row.latitude <= (lat + 0.0005))&& (row.latitude >= (lat - 0.0005)) && noMarks)
+                   var mark = table[i];
+                   if((mark.longitude <= (lon + 0.0005))&& (mark.longitude >= (lon - 0.0005)) && (mark.latitude <= (lat + 0.0005))&& (mark.latitude >= (lat - 0.0005)) && noMarks)
                     {
-                         var poiData = {
-                             "id": i,
-                             "longitude": row.longitude,
-                             "latitude": row.latitude,
+                         var markData = {
+                             "id": mark.id,
+                             "longitude": mark.longitude,
+                             "latitude": mark.latitude,
                              "altitude": alt,
-                             "description": row.message,
-                             "style": row.style
+                             "message": mark.message,
+                             "style": mark.style
 
                         };
                         noMarks = false;
-                        World.loadPoisFromJsonData(poiData);
+                        World.loadMarksFromJsonData(markData);
                         
                     }
 
@@ -78,7 +78,7 @@ var noMarks = true;
 $.ajax(settings).done(function (response) {
     table = response;
     var e = document.getElementById('debug');
-    //e.innerHTML = "got response";
+    e.innerHTML = "got response";
     tableLoaded = true;
     if(m_LocationChanged){
         World.locationChanged(m_lat, m_lon, m_alt, m_acc);

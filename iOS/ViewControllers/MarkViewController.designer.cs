@@ -36,6 +36,10 @@ namespace mARkIt.iOS
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UILabel numOfRatersLabels { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
         Syncfusion.SfRating.iOS.SfRating ratingBar { get; set; }
 
         void ReleaseDesignerOutlets ()
@@ -63,6 +67,11 @@ namespace mARkIt.iOS
             if (messageTextView != null) {
                 messageTextView.Dispose ();
                 messageTextView = null;
+            }
+
+            if (numOfRatersLabels != null) {
+                numOfRatersLabels.Dispose ();
+                numOfRatersLabels = null;
             }
 
             if (ratingBar != null) {

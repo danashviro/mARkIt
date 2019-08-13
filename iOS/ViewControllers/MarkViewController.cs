@@ -31,7 +31,8 @@ namespace mARkIt.iOS
         {
             messageTextView.Text = ViewMark.Message;
             dateLabel.Text = ViewMark.createdAt.ToLocalTime().ToLongDateString();
-            ratingBar.Value = (float)ViewMark.Rating;
+            ratingBar.Value = ViewMark.Rating;
+            numOfRatersLabels.Text = ViewMark.RatingsCount.ToString();
             prepareMap();
         }
 

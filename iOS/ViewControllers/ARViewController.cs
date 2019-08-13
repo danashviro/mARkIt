@@ -96,11 +96,32 @@ namespace mARkIt.iOS
             architectView.CenterYAnchor.ConstraintEqualTo(View.CenterYAnchor).Active = true;
             architectView.WidthAnchor.ConstraintEqualTo(View.WidthAnchor).Active = true;
             architectView.HeightAnchor.ConstraintEqualTo(View.HeightAnchor).Active = true;
-
             NavigationController.Delegate = new NavigationControllerDelegate(architectView);
-
+            architectView.ReceivedJSONObject += ArchitectView_ReceivedJSONObject;
             EdgesForExtendedLayout = UIRectEdge.None;
             View.BringSubviewToFront(addMarkButton);
+        }
+
+        private void ArchitectView_ReceivedJSONObject(object sender, ArchitectViewReceivedJSONObjectEventArgs e)
+        {
+            string option = e.JsonObject.ObjectForKey(new NSString("option")).ToString();
+            if (option == "rate")
+            {
+                m_LastMarkSelectedId = e.JsonObject.ObjectForKey(new NSString("markId")).ToString();
+                PerformSegue("rateSegue",this);
+            }
+        }
+
+        private string m_LastMarkSelectedId;
+
+        public override void PrepareForSegue(UIStoryboardSegue segue, NSObject sender)
+        {
+            base.PrepareForSegue(segue, sender);
+            if(segue.Identifier== "rateSegue")
+            {
+                var destenationViewController = segue.DestinationViewController as MarkViewController;
+                destenationViewController.ViewMark = m_Marks[selectedRow.Row];
+            }
         }
 
         public override void ViewWillAppear(bool animated)
