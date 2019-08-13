@@ -89,5 +89,5 @@ $.ajax(settings).done(function (response) {
 
 
 function addButtonClicked() {
-    AR.platform.sendJSONObject({});
+    AR.platform.sendJSONObject({"option":"add"});
 }
