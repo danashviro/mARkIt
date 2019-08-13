@@ -197,8 +197,6 @@
     <Compile Include="ViewControllers\ARViewController.designer.cs">
       <DependentUpon>ARViewController.cs</DependentUpon>
     </Compile>
-    <Compile Include="ViewControllers\MainTabBarViewController.cs" />
-    <Compile Include="ViewControllers\MainTabBarViewController.designer.cs" />
     <Compile Include="ViewControllers\MapViewController.cs" />
     <Compile Include="ViewControllers\MapViewController.designer.cs">
       <DependentUpon>MapViewController.cs</DependentUpon>
@@ -236,6 +234,18 @@
     <Compile Include="ViewControllers\RateViewController.cs" />
     <Compile Include="ViewControllers\RateViewController.designer.cs">
       <DependentUpon>RateViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="hh.cs" />
+    <Compile Include="hh.designer.cs">
+      <DependentUpon>hh.cs</DependentUpon>
+    </Compile>
+    <Compile Include="uu.cs" />
+    <Compile Include="uu.designer.cs">
+      <DependentUpon>uu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ViewControllers\MainTabBarViewController.cs" />
+    <Compile Include="ViewControllers\MainTabBarViewController.designer.cs">
+      <DependentUpon>MainTabBarViewController.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

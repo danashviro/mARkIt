@@ -2,8 +2,8 @@
 
     this.markData = markData;
 
-    var markerLocation = new AR.GeoLocation(markData.latitude, markData.longitude, markData.altitude);
-    //var markerLocation = new AR.RelativeLocation(null, 5, 0, 1);
+    //var markerLocation = new AR.GeoLocation(markData.latitude, markData.longitude, markData.altitude);
+    var markerLocation = new AR.RelativeLocation(null, 5, 0, 1);
 
     this.markerDrawable_idle = new AR.ImageDrawable(World.markerDrawable_idle, 2.5, {
         zOrder: 0,
