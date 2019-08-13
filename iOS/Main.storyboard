@@ -739,6 +739,8 @@
                     <connections>
                         <outlet property="markRating" destination="49032" id="name-outlet-49032"/>
                         <outlet property="userRating" destination="49033" id="name-outlet-49033"/>
+                        <outlet property="saveButton" destination="49037" id="name-outlet-49037"/>
+                        <outlet property="backButton" destination="49036" id="name-outlet-49036"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="49028" userLabel="First Responder" sceneMemberID="firstResponder"/>
