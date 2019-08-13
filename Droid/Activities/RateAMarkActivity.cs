@@ -27,7 +27,7 @@ namespace mARkIt.Droid.Activities
             m_MarkRatingBar = FindViewById<RatingBar>(Resource.Id.MarkRatingBar);
             m_YourRatingBar = FindViewById<RatingBar>(Resource.Id.YourRatingBar);
             m_MarkId = Intent.GetStringExtra("markId");
-            Button saveButton = FindViewById<Button>(Resource.Id.SaveButton);
+            Button saveButton = FindViewById<Button>(Resource.Id.saveButton);
             saveButton.Click += SaveButton_Click;
         }
 
