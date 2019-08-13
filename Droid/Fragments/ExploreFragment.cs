@@ -8,6 +8,7 @@ using Android.Webkit;
 using Com.Wikitude.Architect;
 using Com.Wikitude.Common.Camera;
 using Org.Json;
+using mARkIt.Droid.Activities;
 
 namespace mARkIt.Droid.Fragments
 {
@@ -120,7 +121,17 @@ namespace mARkIt.Droid.Fragments
 
         public void OnJSONObjectReceived(JSONObject p0)
         {
-            Intent intent = new Intent(Activity, typeof(AddAMarkActivity));
+            string option = p0.GetString("option");
+            Intent intent;
+            if (option == "add")
+            {
+                intent = new Intent(Activity, typeof(AddAMarkActivity));
+            }
+            else //if(option=="rate")
+            {
+                intent = new Intent(Activity, typeof(RateAMarkActivity));
+                intent.PutExtra("markId", p0.GetString("markId"));
+            }
             StartActivity(intent);
         }
     }

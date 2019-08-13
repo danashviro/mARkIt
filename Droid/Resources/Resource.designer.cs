@@ -3627,8 +3627,8 @@ namespace mARkIt.Droid
 			// aapt resource value: 0x7f0d0045
 			public const int CTRL = 2131558469;
 			
-			// aapt resource value: 0x7f0d00e7
-			public const int CatagoriestextView = 2131558631;
+			// aapt resource value: 0x7f0d00e9
+			public const int CatagoriestextView = 2131558633;
 			
 			// aapt resource value: 0x7f0d00cd
 			public const int DateTextView1 = 2131558605;
@@ -3636,8 +3636,8 @@ namespace mARkIt.Droid
 			// aapt resource value: 0x7f0d00d0
 			public const int DeleteButton = 2131558608;
 			
-			// aapt resource value: 0x7f0d00eb
-			public const int ExploreTabItem = 2131558635;
+			// aapt resource value: 0x7f0d00ed
+			public const int ExploreTabItem = 2131558637;
 			
 			// aapt resource value: 0x7f0d0046
 			public const int FUNCTION = 2131558470;
@@ -3666,8 +3666,8 @@ namespace mARkIt.Droid
 			// aapt resource value: 0x7f0d00d1
 			public const int MapFragment = 2131558609;
 			
-			// aapt resource value: 0x7f0d00ec
-			public const int MapTabItem = 2131558636;
+			// aapt resource value: 0x7f0d00ee
+			public const int MapTabItem = 2131558638;
 			
 			// aapt resource value: 0x7f0d00a9
 			public const int MarkMessageEditText = 2131558569;
@@ -3678,14 +3678,14 @@ namespace mARkIt.Droid
 			// aapt resource value: 0x7f0d00cb
 			public const int MessageTextView1 = 2131558603;
 			
-			// aapt resource value: 0x7f0d00ed
-			public const int MymARksTabItem = 2131558637;
+			// aapt resource value: 0x7f0d00ef
+			public const int MymARksTabItem = 2131558639;
 			
 			// aapt resource value: 0x7f0d00af
 			public const int NatureCheckBox = 2131558575;
 			
-			// aapt resource value: 0x7f0d00e8
-			public const int RatingBar = 2131558632;
+			// aapt resource value: 0x7f0d00ea
+			public const int RatingBar = 2131558634;
 			
 			// aapt resource value: 0x7f0d0048
 			public const int SHIFT = 2131558472;
@@ -3696,11 +3696,14 @@ namespace mARkIt.Droid
 			// aapt resource value: 0x7f0d00b0
 			public const int SaveButton = 2131558576;
 			
-			// aapt resource value: 0x7f0d00ee
-			public const int SettingsTabItem = 2131558638;
+			// aapt resource value: 0x7f0d00f0
+			public const int SettingsTabItem = 2131558640;
 			
 			// aapt resource value: 0x7f0d00ae
 			public const int SportCheckBox = 2131558574;
+			
+			// aapt resource value: 0x7f0d00e7
+			public const int YourRatingBar = 2131558631;
 			
 			// aapt resource value: 0x7f0d00d7
 			public const int action0 = 2131558615;
@@ -3849,8 +3852,8 @@ namespace mARkIt.Droid
 			// aapt resource value: 0x7f0d008c
 			public const int content = 2131558540;
 			
-			// aapt resource value: 0x7f0d00ef
-			public const int contentFrame = 2131558639;
+			// aapt resource value: 0x7f0d00f1
+			public const int contentFrame = 2131558641;
 			
 			// aapt resource value: 0x7f0d007f
 			public const int contentPanel = 2131558527;
@@ -4002,11 +4005,11 @@ namespace mARkIt.Droid
 			// aapt resource value: 0x7f0d007a
 			public const int list_item = 2131558522;
 			
-			// aapt resource value: 0x7f0d00e9
-			public const int logout_button = 2131558633;
+			// aapt resource value: 0x7f0d00eb
+			public const int logout_button = 2131558635;
 			
-			// aapt resource value: 0x7f0d00ea
-			public const int mainTabLayout = 2131558634;
+			// aapt resource value: 0x7f0d00ec
+			public const int mainTabLayout = 2131558636;
 			
 			// aapt resource value: 0x7f0d00c2
 			public const int mainToolbar = 2131558594;
@@ -4020,8 +4023,8 @@ namespace mARkIt.Droid
 			// aapt resource value: 0x7f0d00c4
 			public const int markit_text = 2131558596;
 			
-			// aapt resource value: 0x7f0d00f1
-			public const int masked = 2131558641;
+			// aapt resource value: 0x7f0d00f3
+			public const int masked = 2131558643;
 			
 			// aapt resource value: 0x7f0d00da
 			public const int media_actions = 2131558618;
@@ -4103,6 +4106,9 @@ namespace mARkIt.Droid
 			
 			// aapt resource value: 0x7f0d0027
 			public const int satellite = 2131558439;
+			
+			// aapt resource value: 0x7f0d00e8
+			public const int saveButton = 2131558632;
 			
 			// aapt resource value: 0x7f0d000c
 			public const int save_image_matrix = 2131558412;
@@ -4332,8 +4338,8 @@ namespace mARkIt.Droid
 			// aapt resource value: 0x7f0d001b
 			public const int view_offset_helper = 2131558427;
 			
-			// aapt resource value: 0x7f0d00f0
-			public const int visible = 2131558640;
+			// aapt resource value: 0x7f0d00f2
+			public const int visible = 2131558642;
 			
 			// aapt resource value: 0x7f0d00a7
 			public const int webview = 2131558567;
@@ -4651,25 +4657,28 @@ namespace mARkIt.Droid
 			public const int notification_template_part_time = 2130968643;
 			
 			// aapt resource value: 0x7f040044
-			public const int select_dialog_item_material = 2130968644;
+			public const int RateAMark = 2130968644;
 			
 			// aapt resource value: 0x7f040045
-			public const int select_dialog_multichoice_material = 2130968645;
+			public const int select_dialog_item_material = 2130968645;
 			
 			// aapt resource value: 0x7f040046
-			public const int select_dialog_singlechoice_material = 2130968646;
+			public const int select_dialog_multichoice_material = 2130968646;
 			
 			// aapt resource value: 0x7f040047
-			public const int Settings = 2130968647;
+			public const int select_dialog_singlechoice_material = 2130968647;
 			
 			// aapt resource value: 0x7f040048
-			public const int support_simple_spinner_dropdown_item = 2130968648;
+			public const int Settings = 2130968648;
 			
 			// aapt resource value: 0x7f040049
-			public const int Tabs = 2130968649;
+			public const int support_simple_spinner_dropdown_item = 2130968649;
 			
 			// aapt resource value: 0x7f04004a
-			public const int Welcome = 2130968650;
+			public const int Tabs = 2130968650;
+			
+			// aapt resource value: 0x7f04004b
+			public const int Welcome = 2130968651;
 			
 			static Layout()
 			{

@@ -224,6 +224,7 @@
   <ItemGroup>
     <Compile Include="Activities\LoginActivity.cs" />
     <Compile Include="Activities\MarkDetailsActivity.cs" />
+    <Compile Include="Activities\RateAMarkActivity.cs" />
     <Compile Include="Activities\WelcomeActivity.cs" />
     <Compile Include="Adapters\MarkAdapter.cs" />
     <Compile Include="Authentication\GoogleAuthInterceptor.cs" />
@@ -308,6 +309,11 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\MarkPresentaion.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\RateAMark.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
