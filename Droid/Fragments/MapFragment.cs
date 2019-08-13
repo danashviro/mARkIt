@@ -8,6 +8,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Locations;
 using Android.Gms.Maps.Model;
+using mARkIt.Models;
 
 namespace mARkIt.Droid.Fragments
 {
@@ -18,6 +19,7 @@ namespace mARkIt.Droid.Fragments
         View m_View;
         double m_Latitude, m_Longitude;
         LocationManager m_LocationManager;
+        private bool m_MapLoaded;
 
         public override void OnViewCreated(View view, Bundle savedInstanceState)
         {
@@ -28,6 +30,7 @@ namespace mARkIt.Droid.Fragments
                 m_MapView.OnCreate(null);
                 m_MapView.OnResume();
             }
+            m_MapLoaded = false;
         }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -47,16 +50,18 @@ namespace mARkIt.Droid.Fragments
             googleMap.MapType = GoogleMap.MapTypeNormal;
             mapToMyLocation();
             addMarksFromServer();
+            m_MapLoaded = true;
         }
 
         private async void addMarksFromServer()
         {
-            var locations = await LocationService.Instance().GetLocations();
-            foreach (mARkIt.Models.Location location in locations)
+            var marks = await Mark.GetRelevantMarks(App.ConnectedUser.RelevantCategoriesCode,m_Longitude,m_Latitude);
+
+            foreach (Mark mark in marks)
             {
                 MarkerOptions marker = new MarkerOptions();
-                marker.SetPosition(new LatLng(location.latitude, location.longitude));
-                marker.SetTitle(location.message);
+                marker.SetPosition(new LatLng(mark.Latitude, mark.Longitude));
+                marker.SetTitle(mark.Message);
                 m_GoogleMap.AddMarker(marker);
             }
         }
@@ -108,6 +113,23 @@ namespace mARkIt.Droid.Fragments
                 m_LocationManager.RequestLocationUpdates(provider, 5000, 100, this);
             }
 
+            if (IsHidden == false && m_MapLoaded == true) 
+            {
+                m_GoogleMap.Clear();
+                mapToMyLocation();
+                addMarksFromServer();
+            }
+        }
+
+        public override void OnHiddenChanged(bool hidden)
+        {
+            base.OnHiddenChanged(hidden);
+            if (hidden == false && m_MapLoaded == true) 
+            {
+                m_GoogleMap.Clear();
+                mapToMyLocation();
+                addMarksFromServer();
+            }
         }
     }
 }
