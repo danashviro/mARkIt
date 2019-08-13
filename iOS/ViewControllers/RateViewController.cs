@@ -17,15 +17,24 @@ namespace mARkIt.iOS
             base.ViewDidLoad();
             //markRating.Value
             saveButton.Clicked += SaveButton_Clicked;
+            backButton.Clicked += BackButton_Clicked;
+        }
+
+        private void BackButton_Clicked(object sender, EventArgs e)
+        {
+            NavigationController.PopViewController(true);
         }
 
         private async void SaveButton_Clicked(object sender, EventArgs e)
         {
             if (await User.RateMark(App.ConnectedUser.Email, MarkId, (float)userRating.Value))
             {
-                Helpers.Alert.DisplayAnAlert("Success", "The mARk uploaded", this, new Action<UIAlertAction>((a) => NavigationController.PopViewController(true)));
+                Helpers.Alert.DisplayAnAlert("Success", "The mARk rateted", this);
             }
-            //NavigationController.PopViewController(true);
+            else
+            {
+                Helpers.Alert.DisplayAnAlert("Error", "Thir was a problem rate this mARk", this);
+            }
         }
     }
 }

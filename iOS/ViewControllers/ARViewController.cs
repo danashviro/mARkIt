@@ -119,8 +119,8 @@ namespace mARkIt.iOS
             base.PrepareForSegue(segue, sender);
             if(segue.Identifier== "rateSegue")
             {
-                var destenationViewController = segue.DestinationViewController as MarkViewController;
-                destenationViewController.ViewMark = m_Marks[selectedRow.Row];
+                var destenationViewController = segue.DestinationViewController as RateViewController;
+                destenationViewController.MarkId = m_LastMarkSelectedId;
             }
         }
 
