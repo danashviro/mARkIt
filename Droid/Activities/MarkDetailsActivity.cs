@@ -31,11 +31,11 @@ namespace mARkIt.Droid.Activities
         {
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.MarkPresentaion);
-            findComponents();
-            Button button  = FindViewById<Button>(Resource.Id.DeleteButton);
-            button.Click += deleteButton_Click;
             string markAsJson =Intent.GetStringExtra("markAsJson");
             m_Mark  = JsonConvert.DeserializeObject<Mark>(markAsJson);
+            Button button = FindViewById<Button>(Resource.Id.DeleteButton);
+            button.Click += deleteButton_Click;
+            findComponents();
             m_MessageTextView.Text = m_Mark.Message;
             m_DateTextView.Text= m_Mark.createdAt.ToLocalTime().ToLongDateString();
             m_MapFragment.GetMapAsync(this);

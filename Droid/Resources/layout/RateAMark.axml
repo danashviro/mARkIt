@@ -29,7 +29,7 @@
 		 android:id="@+id/YourRatingBar"
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
-		 style="?android:attr/ratingBarStyleSmall"
+		 tyle="?android:attr/ratingBarStyleSmall"
          android:numStars="5"
          android:stepSize="0.1"
          android:isIndicator="false" />
