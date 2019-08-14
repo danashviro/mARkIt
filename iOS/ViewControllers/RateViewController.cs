@@ -23,7 +23,7 @@ namespace mARkIt.iOS
             userRating.ItemSize = 33;
             userRating.Precision = SFRatingPrecision.Exact;
             markRating.Value = (await Mark.GetById(MarkId)).Rating;
-            var userRatingVal = await User.GetUserRatingForMark(App.ConnectedUser.Email, MarkId);
+            var userRatingVal = await User.GetUserRatingForMark(MarkId);
             userRating.Value = userRatingVal != null ? userRatingVal.Value : 0;
             saveButton.Clicked += SaveButton_Clicked;
             backButton.Clicked += BackButton_Clicked;
@@ -38,7 +38,7 @@ namespace mARkIt.iOS
 
         private async void SaveButton_Clicked(object sender, EventArgs e)
         {
-            if (await User.RateMark(App.ConnectedUser.Email, MarkId, (float)userRating.Value))
+            if (await User.RateMark(MarkId, (float)userRating.Value))
             {
                 markRating.Value = (await Mark.GetById(MarkId)).Rating;
                 Alert.Display("Success", "The mARk rateted", this);

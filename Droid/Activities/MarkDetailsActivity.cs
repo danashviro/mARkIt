@@ -18,7 +18,7 @@ using Newtonsoft.Json;
 namespace mARkIt.Droid.Activities
 {
     [Activity(Label = "MarkDetailsActivity")]
-    public class MarkDetailsActivity : Activity,IOnMapReadyCallback
+    public class MarkDetailsActivity : Activity, IOnMapReadyCallback
     {
         MapFragment m_MapFragment;
         TextView m_MessageTextView;
@@ -37,7 +37,7 @@ namespace mARkIt.Droid.Activities
             button.Click += deleteButton_Click;
             findComponents();
             m_MessageTextView.Text = m_Mark.Message;
-            m_DateTextView.Text= m_Mark.createdAt.ToLocalTime().ToLongDateString();
+            m_DateTextView.Text= m_Mark.CreatedAt.ToLocalTime().ToLongDateString();
             m_MapFragment.GetMapAsync(this);
         }
 

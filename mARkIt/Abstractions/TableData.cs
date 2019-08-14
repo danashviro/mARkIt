@@ -8,10 +8,10 @@ namespace mARkIt.Abstractions
 {
     public abstract class TableData
     {
-        public bool deleted { get; set; }
-        public DateTime updatedAt { get; set; }
-        public DateTime createdAt { get; set; }
-        public string version { get; set; }
-        public string id { get; set; }
+        public string Id { get; set; }
+        public string Version { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public DateTime UpdatedAt { get; set; }
+        public bool Deleted { get; set; }
     }
 }

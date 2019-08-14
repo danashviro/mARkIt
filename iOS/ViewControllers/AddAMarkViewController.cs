@@ -73,8 +73,7 @@ namespace mARkIt.iOS
                         Longitude = location.Longitude,
                         Message = markTextView.Text,
                         Style = getMarkStyle(),
-                        CategoriesCode = getCategories(),
-                        UserEmail = App.ConnectedUser.Email
+                        CategoriesCode = getCategories()
                     };
                     markUploaded = await Mark.Insert(mark);
                 }

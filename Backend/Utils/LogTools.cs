@@ -5,7 +5,7 @@ using System.Data.Entity.Validation;
 
 namespace mARkIt.Backend
 {
-    public static class Utils
+    public static class LogTools
     {
         public static void LogDbEntityValidationException(DbEntityValidationException ex)
         {
@@ -31,19 +31,5 @@ namespace mARkIt.Backend
         {
             System.Diagnostics.Trace.WriteLine(message);
         }
-
-        public static string GetLoggedUserId(this ApiController apiController)
-        {
-            string userId = null;
-
-            var claim = ((ClaimsPrincipal)apiController.User).FindFirst(ClaimTypes.NameIdentifier);
-            if (claim != null)
-            {
-                userId = claim.Value;
-            }
-
-            return userId;
-        }
-
     }
 }

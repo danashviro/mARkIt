@@ -6,9 +6,14 @@ using System.Web.Http.OData;
 using Microsoft.Azure.Mobile.Server;
 using Backend.DataObjects;
 using Backend.Models;
+using System.Net;
+using mARkIt.Backend.Utils;
+using mARkIt.Backend;
+using System;
 
 namespace Backend.Controllers
 {
+    [Authorize]
     public class UserController : TableController<User>
     {
         protected override void Initialize(HttpControllerContext controllerContext)
@@ -17,6 +22,7 @@ namespace Backend.Controllers
             MobileServiceContext context = new MobileServiceContext();
             DomainManager = new EntityDomainManager<User>(context, Request);
         }
+        public string LoggedUserId => this.GetLoggedUserId();
 
         // GET tables/User
         public IQueryable<User> GetAllUser()
@@ -27,12 +33,14 @@ namespace Backend.Controllers
         // GET tables/User/48D68C86-6EA6-4C25-AA33-223FC9A27959
         public SingleResult<User> GetUser(string id)
         {
+            validateOwner(id);
             return Lookup(id);
         }
 
         // PATCH tables/User/48D68C86-6EA6-4C25-AA33-223FC9A27959
         public Task<User> PatchUser(string id, Delta<User> patch)
         {
+            validateOwner(id);
             return UpdateAsync(id, patch);
         }
 
@@ -46,7 +54,17 @@ namespace Backend.Controllers
         // DELETE tables/User/48D68C86-6EA6-4C25-AA33-223FC9A27959
         public Task DeleteUser(string id)
         {
+            validateOwner(id);
             return DeleteAsync(id);
+        }
+
+        public void validateOwner(string id)
+        {
+            var result = Lookup(id).Queryable.Where(item => item.Id.Equals(LoggedUserId)).FirstOrDefault<User>();
+            if (result == null)
+            {
+                throw new HttpResponseException(HttpStatusCode.NotFound);
+            }
         }
     }
 }

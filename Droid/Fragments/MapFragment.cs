@@ -55,7 +55,7 @@ namespace mARkIt.Droid.Fragments
 
         private async void addMarksFromServer()
         {
-            var marks = await Mark.GetRelevantMarks(App.ConnectedUser.RelevantCategoriesCode,m_Longitude,m_Latitude);
+            var marks = await Mark.GetRelevantMarks(m_Longitude,m_Latitude);
 
             foreach (Mark mark in marks)
             {

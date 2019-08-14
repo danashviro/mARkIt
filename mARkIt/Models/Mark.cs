@@ -10,7 +10,7 @@ namespace mARkIt.Models
 {
     public class Mark : TableData
     {
-        public string UserEmail { get; set; }
+        public string UserId { get; set; }
         public string Message { get; set; }
         public double Longitude { get; set; }
         public double Latitude { get; set; }
@@ -19,9 +19,9 @@ namespace mARkIt.Models
         public int RatingsCount { get; set; }
         public float Rating { get; set; }
 
-        public static async Task<List<Mark>> GetMyMarks(User i_User)
+        public static async Task<List<Mark>> GetMyMarks()
         {
-            return await AzureService.MobileService.GetTable<Mark>().Where(mark => mark.UserEmail == i_User.Email).ToListAsync();       
+            return await AzureService.MobileService.GetTable<Mark>().Where(mark => mark.UserId == App.ConnectedUser.Id).ToListAsync();       
         }
 
         public async static Task<Mark> GetById(string i_Id)
@@ -33,19 +33,17 @@ namespace mARkIt.Models
         /// <summary>
         /// Get a list of marks filtered by categories and/or location.
         /// </summary>
-        /// <param name="i_RelevantCategoriesCode"> In case filteration by location only is desired - input (int)eCategories.All </param>
         /// <param name="i_Longitube"> Can be omitted if filteration by location is not desired - only if i_Latitude is ommited as well </param>
         /// <param name="i_Latitude"> Can be omitted if filteration by location is not desired - only if i_Longitude is ommited as well </param>
         /// <returns>
         /// A list of marks if the fetching operation was successful, otherwise returns null;        
         /// </returns>
-        public static async Task<List<Mark>> GetRelevantMarks(int i_RelevantCategoriesCode = (int)eCategories.All, double? i_Longitube = null, double? i_Latitude = null)
+        public static async Task<List<Mark>> GetRelevantMarks(double? i_Longitube = null, double? i_Latitude = null)
         {
             List<Mark> relevantMarks;
 
             Dictionary<string, string> parameters = new Dictionary<string, string>
             {
-                { "relevantCategoriesCode", i_RelevantCategoriesCode.ToString() },
                 { "longitude", i_Longitube.ToString() },
                 { "latitude", i_Latitude.ToString()}
             };
@@ -54,7 +52,7 @@ namespace mARkIt.Models
             {
                 relevantMarks = await AzureService.MobileService.InvokeApiAsync<List<Mark>>("RelevantMarks", HttpMethod.Get, parameters);
             }
-            catch(Exception)
+            catch(Exception ex)
             {
                 relevantMarks = null;
             }

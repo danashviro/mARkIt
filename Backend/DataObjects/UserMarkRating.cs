@@ -8,15 +8,19 @@ namespace Backend.DataObjects
     public class UserMarkRating
     {
         [StringLength(450)]
+        [ForeignKey("User")]
         [Key, Column(Order = 0)]
-        public string UserEmail { get; set; }
+        public string UserId { get; set; }
+
+        public virtual User User { get; set; }
+
 
         [StringLength(450)]
-        //[ForeignKey("Mark")]
+        [ForeignKey("Mark")]
         [Key, Column(Order = 1)]
         public string MarkId { get; set; }
 
-        //public virtual Mark Mark {get; set; }
+        public virtual Mark Mark {get; set; }
 
         public float Rating { get; set; }
     }

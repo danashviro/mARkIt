@@ -212,7 +212,8 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="Startup.cs" />
-    <Compile Include="Utils.cs" />
+    <Compile Include="Utils\Extensions.cs" />
+    <Compile Include="Utils\LogTools.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Web.config" />

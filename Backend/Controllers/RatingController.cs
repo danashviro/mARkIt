@@ -12,6 +12,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Data.Entity.Validation;
 using mARkIt.Backend;
+using mARkIt.Backend.Utils;
 
 namespace Backend.Controllers
 {
@@ -22,25 +23,25 @@ namespace Backend.Controllers
 
         private const double k_RelevantMarksDistanceRadius = 10;
 
-
         MobileServiceContext context;
 
         public RatingController()
         {
             context = new MobileServiceContext();
         }
+        public string LoggedUserId => this.GetLoggedUserId();
 
         // GET api/RatingController
         [HttpGet]
-        public double? Get(string userEmail, string markId)
+        public double? Get(string markId)
         {
             // Check parameters validity
-            if (userEmail == null || markId == null)
+            if (markId == null)
             {
                 throw new HttpResponseException(HttpStatusCode.BadRequest);
             }
 
-            UserMarkRating userMarkRating = context.UserMarkRatings.Find(userEmail, markId);
+            UserMarkRating userMarkRating = context.UserMarkRatings.Find(LoggedUserId, markId);
 
             if (userMarkRating == null)
             {
@@ -53,27 +54,26 @@ namespace Backend.Controllers
         }
 
         [HttpPost]
-        public async Task<bool> Post(string userEmail, string markId, float? rating)
+        public async Task<bool> Post(string markId, float? rating)
         {
             bool updateWasSuccessful = false;
 
             // Check parameters
-            if (userEmail == null || markId == null || rating == null)
+            if (markId == null || rating == null)
             {
                 throw new HttpResponseException(HttpStatusCode.BadRequest);
             }
 
             Mark mark = await context.Marks.FindAsync(markId);
-            bool userExists = checkUserExists(userEmail);
 
-            if (userExists && mark != null)
+            if (mark != null)
             {
                 // Use a transaction to update the database
                 using (DbContextTransaction transaction = context.Database.BeginTransaction())
                 {
                     try
                     {
-                        UserMarkRating userMarkRating = await context.UserMarkRatings.FindAsync(userEmail, markId);
+                        UserMarkRating userMarkRating = await context.UserMarkRatings.FindAsync(LoggedUserId, markId);
 
                         if (userMarkRating == null)
                         {
@@ -83,7 +83,7 @@ namespace Backend.Controllers
 
                             // Add the new rating
                             UserMarkRating newRating = context.UserMarkRatings.Create();
-                            newRating.UserEmail = userEmail;
+                            newRating.UserId = LoggedUserId;
                             newRating.MarkId = markId;
                             newRating.Rating = rating.Value;
 
@@ -93,6 +93,7 @@ namespace Backend.Controllers
                         else
                         {
                             // Update the existing rating of the mark
+                            validateOwner(userMarkRating);
                             mark.RatingsSum -= userMarkRating.Rating;
                             mark.RatingsSum += rating.Value;
                             userMarkRating.Rating = rating.Value; // Update the value at the UserMarkRating entry
@@ -106,7 +107,7 @@ namespace Backend.Controllers
 
                     catch (Exception ex)
                     {
-                        Utils.LogException(ex);
+                        LogTools.LogException(ex);
                         transaction.Rollback();
                         throw (ex);
                     }
@@ -116,13 +117,12 @@ namespace Backend.Controllers
             return updateWasSuccessful;
         }
 
-        private bool checkUserExists(string userEmail)
-        {
-            var userQuery = from user in context.Users
-                            where user.Email == userEmail
-                            select user;
-
-            return userQuery.Count() != 0;
+        public void validateOwner(UserMarkRating userMarkRating)
+        {            
+            if (userMarkRating.UserId != LoggedUserId)
+            {
+                throw new HttpResponseException(HttpStatusCode.NotFound);
+            }
         }
     }
 }

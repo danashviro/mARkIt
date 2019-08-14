@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using mARkIt.Abstractions;
 using mARkIt.Authentication;
+using mARkIt.Models;
+using mARkIt.Utils;
 using Microsoft.WindowsAzure.MobileServices;
 using Newtonsoft.Json.Linq;
 using Xamarin.Auth;
@@ -16,6 +18,21 @@ namespace mARkIt.Services
 
         public static MobileServiceClient MobileService = new MobileServiceClient(BackendURL);
 
+        public static string LoggedUserId
+        {
+            get
+            {
+                string loggedUserId = "";
+                if (MobileService.CurrentUser != null)
+                {
+                    // Azure places "sid:" at the start of the generated id, which we want to remove to avoid redundancy and URI errors (because of ':' character)
+                    loggedUserId = MobileService.CurrentUser.UserId.Replace("sid:", "");
+                }
+
+                return loggedUserId;
+            }
+        }
+
         public static bool IsConnected
         {
             get
@@ -26,6 +43,29 @@ namespace mARkIt.Services
 
         public static async Task LoginToBackend(MobileServiceAuthenticationProvider i_AuthType, Account i_Account)
         {
+            var zumoPayload = makeZumoPayload(i_AuthType, i_Account);
+            await MobileService.LoginAsync(i_AuthType, zumoPayload);
+
+            User user = await GetById<User>(LoggedUserId);
+
+            if (user == null)
+            {
+                // Add the user to the database
+                user = new User()
+                {
+                    Id = LoggedUserId,
+                    RelevantCategoriesCode = (int)eCategories.All
+                };
+
+                await Insert(user);
+                user = await GetById<User>(LoggedUserId);
+            }
+
+            App.ConnectedUser = user;
+        }
+
+        private static JObject makeZumoPayload(MobileServiceAuthenticationProvider i_AuthType, Account i_Account)
+        {
             var zumoPayload = new JObject();
             zumoPayload.Add("access_token", i_Account.Properties["access_token"]);
 
@@ -34,7 +74,7 @@ namespace mARkIt.Services
                 zumoPayload.Add("id_token", i_Account.Properties["id_token"]);
             }
 
-            await MobileService.LoginAsync(i_AuthType, zumoPayload);
+            return zumoPayload;
         }
 
         public static async Task<bool> Insert<T>(T i_ObjectToInsert)
@@ -44,7 +84,7 @@ namespace mARkIt.Services
                 await MobileService.GetTable<T>().InsertAsync(i_ObjectToInsert);
                 return true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return false;
             }
@@ -67,7 +107,7 @@ namespace mARkIt.Services
         {
             try
             {
-                var table = MobileService.GetTable<T>().Where(t => t.id == i_Id);
+                var table = MobileService.GetTable<T>().Where(t => t.Id == i_Id);
                 var list = await table.ToListAsync();
                 return list.First();
             }
@@ -84,7 +124,7 @@ namespace mARkIt.Services
                 await MobileService.GetTable<T>().UpdateAsync(i_ObjectToUpdate);
                 return true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return false;
             }

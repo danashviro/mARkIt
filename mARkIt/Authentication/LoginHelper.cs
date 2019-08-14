@@ -18,7 +18,8 @@ namespace mARkIt.Authentication
 
         private static async Task CreateUserObjectAsync(Account i_Account, Func<Account, Task> i_GoogleRefreshTokenFunc = null)
         {
-            User user = null;
+            User user;
+
             switch (s_AuthType)
             {
                 case MobileServiceAuthenticationProvider.Facebook:
@@ -51,7 +52,6 @@ namespace mARkIt.Authentication
             }
 
             await AzureService.LoginToBackend(s_AuthType, i_Account);
-            App.ConnectedUser = await User.GetUserByEmail(user.Email);
         }
 
 

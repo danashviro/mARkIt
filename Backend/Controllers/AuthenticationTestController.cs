@@ -9,6 +9,7 @@ using Backend.Models;
 using System.Windows;
 using System.Security.Claims;
 using mARkIt.Backend;
+using mARkIt.Backend.Utils;
 
 namespace Backend.Controllers
 {

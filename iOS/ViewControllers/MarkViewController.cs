@@ -30,7 +30,7 @@ namespace mARkIt.iOS
         private void initMarkDetails()
         {
             messageTextView.Text = ViewMark.Message;
-            dateLabel.Text = ViewMark.createdAt.ToLocalTime().ToLongDateString();
+            dateLabel.Text = ViewMark.CreatedAt.ToLocalTime().ToLongDateString();
             ratingBar.Value = ViewMark.Rating;
             numOfRatersLabels.Text = ViewMark.RatingsCount.ToString();
             prepareMap();

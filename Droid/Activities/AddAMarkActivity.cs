@@ -78,7 +78,6 @@ namespace mARkIt.Droid
                         Message = m_MessageEditText.Text,
                         Latitude = location.Latitude,
                         Longitude = location.Longitude,
-                        UserEmail = App.ConnectedUser.Email,
                         CategoriesCode = getCategoriesCode(),
                     };
                     bool uploadSuccessful = await Mark.Insert(mark);

@@ -54,7 +54,7 @@ namespace mARkIt.Droid.Adapters
             //fill in your items
             var mark = m_Marks[position];
             holder.Message.Text = mark.Message;
-            holder.Date.Text = mark.createdAt.ToLocalTime().ToLongDateString();
+            holder.Date.Text = mark.CreatedAt.ToLocalTime().ToLongDateString();
 
             return view;
         }

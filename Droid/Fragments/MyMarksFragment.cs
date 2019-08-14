@@ -24,7 +24,7 @@ namespace mARkIt.Droid.Fragments
 
         private async void getMyMarks()
         {
-            m_Marks = await Mark.GetMyMarks(App.ConnectedUser);
+            m_Marks = await Mark.GetMyMarks();
             ListAdapter = new MarkAdapter(Context, m_Marks);
         }
 
@@ -33,7 +33,6 @@ namespace mARkIt.Droid.Fragments
             base.OnHiddenChanged(hidden);
             if (hidden == false)
                  getMyMarks();
-
         }
 
         public override void OnResume()

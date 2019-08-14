@@ -29,7 +29,7 @@ namespace mARkIt.Droid.Activities
             m_MarkId = Intent.GetStringExtra("markId");
             Mark mark= await Mark.GetById(m_MarkId);
             m_MarkRatingBar.Rating = mark.Rating;
-            float? rating= await User.GetUserRatingForMark(App.ConnectedUser.Email, m_MarkId);
+            float? rating= await User.GetUserRatingForMark(m_MarkId);
             m_YourRatingBar.Rating = rating == null ? 0 : rating.Value;
             Button saveButton = FindViewById<Button>(Resource.Id.saveButton);
             saveButton.Click += SaveButton_Click;
@@ -37,7 +37,7 @@ namespace mARkIt.Droid.Activities
 
         private async void SaveButton_Click(object sender, EventArgs e)
         {
-            bool succeded = await User.RateMark(App.ConnectedUser.Email, m_MarkId, m_YourRatingBar.Rating);
+            bool succeded = await User.RateMark(m_MarkId, m_YourRatingBar.Rating);
             
             if(succeded)
             {

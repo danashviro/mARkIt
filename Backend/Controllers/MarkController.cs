@@ -7,6 +7,9 @@ using Microsoft.Azure.Mobile.Server;
 using Backend.DataObjects;
 using Backend.Models;
 using System;
+using mARkIt.Backend;
+using System.Net;
+using mARkIt.Backend.Utils;
 
 namespace Backend.Controllers
 {
@@ -18,6 +21,8 @@ namespace Backend.Controllers
             MobileServiceContext context = new MobileServiceContext();
             DomainManager = new EntityDomainManager<Mark>(context, Request);
         }
+
+        public string LoggedUserId => this.GetLoggedUserId();
 
         // GET tables/Mark
         public IQueryable<Mark> GetAllMark()
@@ -32,22 +37,37 @@ namespace Backend.Controllers
         }
 
         // PATCH tables/Mark/48D68C86-6EA6-4C25-AA33-223FC9A27959
+        [Authorize]
         public Task<Mark> PatchMark(string id, Delta<Mark> patch)
         {
+            validateOwner(id);
             return UpdateAsync(id, patch);
         }
 
         // POST tables/Mark
+        [Authorize]
         public async Task<IHttpActionResult> PostMark(Mark item)
         {
+            item.UserId = LoggedUserId;
             Mark current = await InsertAsync(item);
             return CreatedAtRoute("Tables", new { id = current.Id }, current);
         }
 
         // DELETE tables/Mark/48D68C86-6EA6-4C25-AA33-223FC9A27959
+        [Authorize]
         public Task DeleteMark(string id)
         {
+            validateOwner(id);
             return DeleteAsync(id);
+        }
+
+        public void validateOwner(string id)
+        {
+            var result = Lookup(id).Queryable.Where(item => item.UserId.Equals(LoggedUserId)).FirstOrDefault<Mark>();
+            if (result == null)
+            {
+                throw new HttpResponseException(HttpStatusCode.NotFound);
+            }
         }
     }
 }

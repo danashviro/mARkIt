@@ -7,18 +7,21 @@ using System;
 using System.Linq;
 using Backend.Models;
 using System.Windows;
+using mARkIt.Backend.Utils;
 
 namespace Backend.Controllers
 {
     [MobileAppController]
+    [Authorize]
     public class RelevantMarksController : ApiController
     {
         private const double k_EarthRadius = 6371e3;
 
         private const double k_RelevantMarksDistanceRadius = 10;
 
-
         MobileServiceContext context;
+
+        public string LoggedUserId => this.GetLoggedUserId();
 
         public RelevantMarksController()
         {
@@ -26,14 +29,11 @@ namespace Backend.Controllers
         }
 
         // GET api/RelevantMarks
-        public List<Mark> Get(int? relevantCategoriesCode, double? longitude, double? latitude)
+        public List<Mark> Get(double? longitude, double? latitude)
         {
             List<Mark> relevantMarksList = null;
 
-            if (relevantCategoriesCode == null)
-            {
-                throw new HttpResponseException(HttpStatusCode.BadRequest);
-            }            
+            int relevantCategoriesCode = getUserRelevantCateogiresCode();
 
             var relevantMarksQueryResult = from mark in context.Marks
                                 where (relevantCategoriesCode & mark.CategoriesCode) != 0
@@ -57,6 +57,12 @@ namespace Backend.Controllers
             }
 
             return relevantMarksList;
+        }
+
+        private int getUserRelevantCateogiresCode()
+        {
+            var userQuery = from user in context.Users where user.Id == LoggedUserId select user.RelevantCategoriesCode;
+            return userQuery.First();
         }
 
         private bool markIsCloseEnough(Vector userPos, Vector markPos)

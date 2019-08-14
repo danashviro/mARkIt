@@ -21,7 +21,7 @@ namespace mARkIt.iOS
         public override async void ViewWillAppear(bool animated)
         {
             base.ViewWillAppear(animated);
-            m_Marks = await Mark.GetMyMarks(App.ConnectedUser);
+            m_Marks = await Mark.GetMyMarks();
             TableView.ReloadData();
         }
 
@@ -35,7 +35,7 @@ namespace mARkIt.iOS
             var cell = tableView.DequeueReusableCell("markCell") as MarkTableViewCell;
             var mark = m_Marks[indexPath.Row];
             cell.MessageLabel.Text = mark.Message;
-            cell.DateLabel.Text  = mark.createdAt.ToLocalTime().ToLongDateString();
+            cell.DateLabel.Text  = mark.CreatedAt.ToLocalTime().ToLongDateString();
             cell.RatingBar.ItemSize = 10;
             cell.RatingBar.UserInteractionEnabled = false;
             cell.RatingBar.Precision = SFRatingPrecision.Exact;
