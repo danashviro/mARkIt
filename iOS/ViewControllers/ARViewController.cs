@@ -253,23 +253,13 @@ namespace mARkIt.iOS
 
         private async void getMarks(double i_Longitude, double i_Latitude)
         {
-            var list = await Mark.GetRelevantMarks(7, i_Longitude, i_Latitude);
-            if(list == null)
+            var list = await Mark.GetRelevantMarks(i_Longitude, i_Latitude);
+            if (list != null)
             {
-                list = new System.Collections.Generic.List<Mark>();
-                list.Add(new Mark()
-                {
-                    Message = "dana",
-                    Longitude = i_Longitude,
-                    Latitude = i_Latitude,
-                    id = "32",
-                    Style = "Matal"
-                });
+                var jsonList = JsonConvert.SerializeObject(list);
+                string functionCall = @"setMarks(" + jsonList + ")";
+                architectView.CallJavaScript(functionCall);
             }
-            var t =JsonConvert.SerializeObject(list);
-            string c = @"setMarks(" + t + ")";
-
-            architectView.CallJavaScript(c);
         }
 
         private string m_LastMarkSelectedId;

@@ -9,6 +9,8 @@ using Com.Wikitude.Architect;
 using Com.Wikitude.Common.Camera;
 using Org.Json;
 using mARkIt.Droid.Activities;
+using mARkIt.Models;
+using Newtonsoft.Json;
 
 namespace mARkIt.Droid.Fragments
 {
@@ -37,13 +39,11 @@ namespace mARkIt.Droid.Fragments
         {
             base.OnActivityCreated(savedInstanceState);
 
-            //var experience = ArExperience.Deserialize(Arguments.GetByteArray(IntentExtrasKeyExperienceData));
-
             var arExperiencePath = "ARPages/ServerPage/index.html";
 
             var config = new ArchitectStartupConfiguration
             {
-                LicenseKey = mARkIt.Utils.Keys.WikitudeLicense,
+                LicenseKey = Utils.Keys.WikitudeLicense,
                 CameraPosition = CameraSettings.CameraPosition.Back,
                 CameraResolution = CameraSettings.CameraResolution.FULLHD1920x1080,
                 CameraFocusMode = CameraSettings.CameraFocusMode.Continuous,
@@ -126,13 +126,32 @@ namespace mARkIt.Droid.Fragments
             if (option == "add")
             {
                 intent = new Intent(Activity, typeof(AddAMarkActivity));
+                StartActivity(intent);
             }
-            else //if(option=="rate")
+            else if(option=="rate")
             {
                 intent = new Intent(Activity, typeof(RateAMarkActivity));
                 intent.PutExtra("markId", p0.GetString("markId"));
+                StartActivity(intent);
             }
-            StartActivity(intent);
+            else if (option == "getMarks")
+            {
+                double longitude = p0.GetDouble("longitude");
+                double latitude = p0.GetDouble("latitude");
+                getMarks(longitude, latitude);
+            }
+        }
+
+
+        private async void getMarks(double i_Longitude, double i_Latitude)
+        {
+            var list = await Mark.GetRelevantMarks(i_Longitude, i_Latitude);
+            if (list != null)
+            {
+                var jsonList = JsonConvert.SerializeObject(list);
+                string functionCall = @"setMarks(" + jsonList + ")";
+                architectView.CallJavascript(functionCall);
+            }
         }
     }
 }

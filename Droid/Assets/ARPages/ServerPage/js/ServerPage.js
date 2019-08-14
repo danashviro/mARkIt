@@ -25,20 +25,24 @@
         m_acc = acc;
         m_alt = alt;
         m_LocationChanged = true;
+        if(!req)
+        {   req = true;
+            AR.platform.sendJSONObject({ "option": "getMarks", "longitude": lon, "latitude": lat });
+        }
 
-        if (tableLoaded) {
+        if (marksLoaded) {
 
-               for (var i = 0 ; i < table.length ; i++) {
-                   var mark = table[i];
-                   if((mark.longitude <= (lon + 0.0005))&& (mark.longitude >= (lon - 0.0005)) && (mark.latitude <= (lat + 0.0005))&& (mark.latitude >= (lat - 0.0005)) && noMarks)
+               for (var i = 0 ; i < marks.length ; i++) {
+                   var mark = marks[i];
+                   if((mark.Longitude <= (lon + 0.0005))&& (mark.Longitude >= (lon - 0.0005)) && (mark.Latitude <= (lat + 0.0005))&& (mark.Latitude >= (lat - 0.0005)) && noMarks)
                     {
                          var markData = {
-                             "id": mark.id,
-                             "longitude": mark.longitude,
-                             "latitude": mark.latitude,
+                             "id": mark.Id,
+                             "longitude": mark.Longitude,
+                             "latitude": mark.Latitude,
                              "altitude": alt,
-                             "message": mark.message,
-                             "style": mark.style
+                             "message": mark.Message,
+                             "style": mark.Style
 
                         };
                         noMarks = false;
@@ -56,38 +60,18 @@ var m_lon;
 var m_alt;
 var m_acc;
 var m_LocationChanged = false;
-
+var req = false;
 
 AR.context.onLocationChanged = World.locationChanged;
 
-
-var settings = {
-  "async": true,
-  "crossDomain": true,
-  "url": "https://mark-api.azurewebsites.net/tables/Mark?ZUMO-API-VERSION=2.0.0",
-  "method": "GET",
-  "headers": {
-    "cache-control": "no-cache",
-  }
-}
-
-var table;
-var tableLoaded = false;
+var marks;
+var marksLoaded = false;
 var noMarks = true;
 
-$.ajax(settings).done(function (response) {
-    table = response;
-    //var e = document.getElementById('debug');
-    //e.innerHTML = "got response";
-    tableLoaded = true;
-    if(m_LocationChanged){
-        World.locationChanged(m_lat, m_lon, m_alt, m_acc);
-    }
-    
-});
 
-
-
-function addButtonClicked() {
-    AR.platform.sendJSONObject({"option":"add"});
+function setMarks(marksList)
+{
+   marks = marksList;
+   marksLoaded = true;
+   World.locationChanged(m_lat,m_lon,m_alt,m_acc);
 }
