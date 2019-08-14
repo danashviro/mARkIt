@@ -5,6 +5,7 @@ using CoreGraphics;
 using AVFoundation;
 using WikitudeComponent.iOS;
 using mARkIt.Models;
+using Newtonsoft.Json;
 
 namespace mARkIt.iOS
 {
@@ -102,28 +103,7 @@ namespace mARkIt.iOS
             View.BringSubviewToFront(addMarkButton);
         }
 
-        private void ArchitectView_ReceivedJSONObject(object sender, ArchitectViewReceivedJSONObjectEventArgs e)
-        {
-            string option = e.JsonObject.ObjectForKey(new NSString("option")).ToString();
-            if (option == "rate")
-            {
-                m_LastMarkSelectedId = e.JsonObject.ObjectForKey(new NSString("markId")).ToString();
-                PerformSegue("rateSegue",this);
-            }
-        }
-
-        private string m_LastMarkSelectedId;
-
-        public override void PrepareForSegue(UIStoryboardSegue segue, NSObject sender)
-        {
-            base.PrepareForSegue(segue, sender);
-            if(segue.Identifier== "rateSegue")
-            {
-                var destenationViewController = segue.DestinationViewController as RateViewController;
-                destenationViewController.MarkId = m_LastMarkSelectedId;
-            }
-        }
-
+      
         public override void ViewWillAppear(bool animated)
         {
             base.ViewWillAppear(animated);
@@ -253,6 +233,57 @@ namespace mARkIt.iOS
             }
         }
         #endregion
+
+        private void ArchitectView_ReceivedJSONObject(object sender, ArchitectViewReceivedJSONObjectEventArgs e)
+        {
+            string option = e.JsonObject.ObjectForKey(new NSString("option")).ToString();
+
+            if (option == "rate")
+            {
+                m_LastMarkSelectedId = e.JsonObject.ObjectForKey(new NSString("markId")).ToString();
+                PerformSegue("rateSegue", this);
+            }
+            else if (option == "getMarks")
+            {
+                double longitude = ((NSNumber)e.JsonObject.ObjectForKey(new NSString("longitude"))).DoubleValue;
+                double latitude = ((NSNumber)e.JsonObject.ObjectForKey(new NSString("latitude"))).DoubleValue; 
+                getMarks(longitude, latitude);
+            }
+        }
+
+        private async void getMarks(double i_Longitude, double i_Latitude)
+        {
+            var list = await Mark.GetRelevantMarks(7, i_Longitude, i_Latitude);
+            if(list == null)
+            {
+                list = new System.Collections.Generic.List<Mark>();
+                list.Add(new Mark()
+                {
+                    Message = "dana",
+                    Longitude = i_Longitude,
+                    Latitude = i_Latitude,
+                    id = "32",
+                    Style = "Matal"
+                });
+            }
+            var t =JsonConvert.SerializeObject(list);
+            string c = @"setMarks(" + t + ")";
+
+            architectView.CallJavaScript(c);
+        }
+
+        private string m_LastMarkSelectedId;
+
+        public override void PrepareForSegue(UIStoryboardSegue segue, NSObject sender)
+        {
+            base.PrepareForSegue(segue, sender);
+            if (segue.Identifier == "rateSegue")
+            {
+                var destenationViewController = segue.DestinationViewController as RateViewController;
+                destenationViewController.MarkId = m_LastMarkSelectedId;
+            }
+        }
+
 
     }
 }
