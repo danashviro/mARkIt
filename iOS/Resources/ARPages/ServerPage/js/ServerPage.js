@@ -37,7 +37,7 @@
                    if((mark.Longitude <= (lon + 0.0005))&& (mark.Longitude >= (lon - 0.0005)) && (mark.Latitude <= (lat + 0.0005))&& (mark.Latitude >= (lat - 0.0005)) && noMarks)
                     {
                          var markData = {
-                             "id": mark.Id,
+                             "id": mark.id,
                              "longitude": mark.Longitude,
                              "latitude": mark.Latitude,
                              "altitude": alt,
