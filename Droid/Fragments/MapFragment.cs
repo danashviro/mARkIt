@@ -9,6 +9,8 @@ using Android.Views;
 using Android.Locations;
 using Android.Gms.Maps.Model;
 using mARkIt.Models;
+using System;
+using mARkIt.Utils;
 
 namespace mARkIt.Droid.Fragments
 {
@@ -60,10 +62,39 @@ namespace mARkIt.Droid.Fragments
             foreach (Mark mark in marks)
             {
                 MarkerOptions marker = new MarkerOptions();
+
                 marker.SetPosition(new LatLng(mark.Latitude, mark.Longitude));
                 marker.SetTitle(mark.Message);
+                marker.SetIcon(GetIconByCategory(mark.CategoriesCode));
                 m_GoogleMap.AddMarker(marker);
             }
+        }
+
+        private BitmapDescriptor GetIconByCategory(int i_CategoriesCode)
+        {
+            BitmapDescriptor icon = null;
+            if((i_CategoriesCode&(int)eCategories.General)!=0)
+            {
+                icon= BitmapDescriptorFactory.FromResource(Resource.Drawable.General);
+            }
+            else if((i_CategoriesCode & (int)eCategories.Food) != 0)
+            {
+                icon = BitmapDescriptorFactory.FromResource(Resource.Drawable.Food);
+            }
+            else if ((i_CategoriesCode & (int)eCategories.Sport) != 0)
+            {
+                icon = BitmapDescriptorFactory.FromResource(Resource.Drawable.Sport);
+            }
+            else if ((i_CategoriesCode & (int)eCategories.History) != 0)
+            {
+                icon = BitmapDescriptorFactory.FromResource(Resource.Drawable.History);
+            }
+            else if ((i_CategoriesCode & (int)eCategories.Nature) != 0)
+            {
+                icon = BitmapDescriptorFactory.FromResource(Resource.Drawable.Nature);
+            }
+
+            return icon;
         }
 
         private void mapToMyLocation()
@@ -71,8 +102,8 @@ namespace mARkIt.Droid.Fragments
             MarkerOptions marker = new MarkerOptions();
             LatLng position = new LatLng(m_Latitude, m_Longitude);
             marker.SetPosition(position);
-            marker.SetTitle("Your location");
-            marker.SetIcon(BitmapDescriptorFactory.DefaultMarker(BitmapDescriptorFactory.HueBlue));
+            marker.SetTitle("Your here");
+            marker.SetIcon(BitmapDescriptorFactory.FromResource(Resource.Drawable.Here));
             m_GoogleMap.AddMarker(marker);
             var cameraPosition = new Android.Gms.Maps.Model.CameraPosition.Builder().Target(position).Zoom(16).Bearing(0).Build();
             m_GoogleMap.MoveCamera(CameraUpdateFactory.NewCameraPosition(cameraPosition));

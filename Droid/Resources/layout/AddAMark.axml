@@ -23,35 +23,41 @@
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:id="@+id/LettersTextView" />
-	<CheckBox
+	<RadioGroup
+		android:minWidth="25px"
+		android:minHeight="25px"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/radioGroup1">
+	<RadioButton
 		android:text="General"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:id="@+id/GeneralCheckBox" />
-	<CheckBox
+		android:id="@+id/GeneralRadioButton" />
+	<RadioButton
 		android:text="Food"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:id="@+id/FoodCheckBox" />
-	<CheckBox
+		android:id="@+id/FoodRadioButton" />
+	<RadioButton
 		android:text="History"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:id="@+id/HistoryCheckBox" />
-	<CheckBox
+		android:id="@+id/HistoryRadioButton" />
+	<RadioButton
 		android:text="Sport"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:id="@+id/SportCheckBox" />
-	<CheckBox
+		android:id="@+id/SportRadioButton" />
+	<RadioButton
 		android:text="Nature"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:id="@+id/NatureCheckBox" />
+		android:id="@+id/NatureRadioButton" />
+	</RadioGroup>
 	<Button
 		android:text="Save"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:id="@+id/SaveButton" />
-
+		android:id="@+id/SaveRadioButton" />
 </LinearLayout>

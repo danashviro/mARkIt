@@ -26,11 +26,11 @@ namespace mARkIt.Droid
     {
         private EditText m_MessageEditText;
         private TextView m_NumOfLettersTextView;
-        private CheckBox m_GeneralCheckBox;
-        private CheckBox m_FoodCheckBox;
-        private CheckBox m_SportCheckBox;
-        private CheckBox m_HistoryCheckBox;
-        private CheckBox m_NatureCheckBox;
+        private RadioButton m_GeneralRadioButton;
+        private RadioButton m_FoodRadioButton;
+        private RadioButton m_SportRadioButton;
+        private RadioButton m_HistoryRadioButton;
+        private RadioButton m_NatureRadioButton;
         private const int k_MaxLetters = 40;
         private int m_LettersCount = 0;
 
@@ -110,9 +110,9 @@ namespace mARkIt.Droid
             {
                 Toast.MakeText(this, "Please delete some letters.", ToastLength.Long).Show();
             }
-            else if (!atLeastOneCheckBox())
+            else if (!atLeastOneRadioButton())
             {
-                Toast.MakeText(this, "Please check a check box.", ToastLength.Long).Show();
+                Toast.MakeText(this, "Please check a category.", ToastLength.Long).Show();
             }
             else
             {
@@ -125,43 +125,43 @@ namespace mARkIt.Droid
         private int getCategoriesCode()
         {
             int catagories = 0;
-            if (m_GeneralCheckBox.Checked)
+            if (m_GeneralRadioButton.Checked)
             {
                 catagories |= (int)eCategories.General;
             }
-            if (m_FoodCheckBox.Checked)
+            else if (m_FoodRadioButton.Checked)
             {
                 catagories |= (int)eCategories.Food;
             }
-            if (m_SportCheckBox.Checked)
+            else if (m_SportRadioButton.Checked)
             {
                 catagories |= (int)eCategories.Sport;
             }
-            if (m_HistoryCheckBox.Checked)
+            else if (m_HistoryRadioButton.Checked)
             {
                 catagories |= (int)eCategories.History;
             }
-            if (m_NatureCheckBox.Checked)
+            else if (m_NatureRadioButton.Checked)
             {
                 catagories |= (int)eCategories.Nature;
             }
             return catagories;
         }
 
-        private bool atLeastOneCheckBox()
+        private bool atLeastOneRadioButton()
         {
-            return m_GeneralCheckBox.Checked || m_FoodCheckBox.Checked || m_SportCheckBox.Checked || m_HistoryCheckBox.Checked || m_NatureCheckBox.Checked;
+            return m_GeneralRadioButton.Checked || m_FoodRadioButton.Checked || m_SportRadioButton.Checked || m_HistoryRadioButton.Checked || m_NatureRadioButton.Checked;
         }
 
         private void findComponents()
         {
             m_MessageEditText = FindViewById<EditText>(Resource.Id.MarkMessageEditText);
             m_NumOfLettersTextView = FindViewById<TextView>(Resource.Id.LettersTextView);
-            m_GeneralCheckBox = FindViewById<CheckBox>(Resource.Id.GeneralCheckBox);
-            m_FoodCheckBox = FindViewById<CheckBox>(Resource.Id.FoodCheckBox);
-            m_HistoryCheckBox = FindViewById<CheckBox>(Resource.Id.HistoryCheckBox);
-            m_SportCheckBox = FindViewById<CheckBox>(Resource.Id.SportCheckBox);
-            m_NatureCheckBox = FindViewById<CheckBox>(Resource.Id.NatureCheckBox);
+            m_GeneralRadioButton = FindViewById<RadioButton>(Resource.Id.GeneralRadioButton);
+            m_FoodRadioButton = FindViewById<RadioButton>(Resource.Id.FoodRadioButton);
+            m_HistoryRadioButton = FindViewById<RadioButton>(Resource.Id.HistoryRadioButton);
+            m_SportRadioButton = FindViewById<RadioButton>(Resource.Id.SportRadioButton);
+            m_NatureRadioButton = FindViewById<RadioButton>(Resource.Id.NatureRadioButton);
         }
     }
 }
