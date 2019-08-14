@@ -62,37 +62,47 @@ namespace mARkIt.Droid.Fragments
 
         private async void SaveButton_Click(object sender, EventArgs e)
         {
-            int catagories = 0;
-            if(m_GeneralCheckBox.Checked)
-            {
-                catagories |= (int)eCategories.General;
-            }
-            if (m_FoodCheckBox.Checked)
-            {
-                catagories |= (int)eCategories.Food;
-            }
-            if (m_SportCheckBox.Checked)
-            {
-                catagories |= (int)eCategories.Sport;
-            }
-            if (m_HistoryCheckBox.Checked)
-            {
-                catagories |= (int)eCategories.History;
-            }
-            if (m_NatureCheckBox.Checked)
-            {
-                catagories |= (int)eCategories.Nature;
-            }
+            int catagories = getCaregories();
+            Button button = sender as Button;
+            button.Clickable = false;
             App.ConnectedUser.RelevantCategoriesCode = catagories;
             bool updated = await User.Update(App.ConnectedUser);
             if(updated)
             {
                 Toast.MakeText(Context, "Upload successfull!", ToastLength.Long).Show();
+                button.Clickable = true;
             }
             else
             {
                 Toast.MakeText(Context, "Upload failed!", ToastLength.Long).Show();
+                button.Clickable = true;
             }
+        }
+
+        private int getCaregories()
+        {
+            int categories = 0;
+            if (m_GeneralCheckBox.Checked)
+            {
+                categories |= (int)eCategories.General;
+            }
+            if (m_FoodCheckBox.Checked)
+            {
+                categories |= (int)eCategories.Food;
+            }
+            if (m_SportCheckBox.Checked)
+            {
+                categories |= (int)eCategories.Sport;
+            }
+            if (m_HistoryCheckBox.Checked)
+            {
+                categories |= (int)eCategories.History;
+            }
+            if (m_NatureCheckBox.Checked)
+            {
+                categories |= (int)eCategories.Nature;
+            }
+            return categories;
         }
 
         private void fillComponents()

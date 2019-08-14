@@ -66,6 +66,8 @@ namespace mARkIt.Droid
         private async void SaveButton_Click(object sender, EventArgs e)
         {
             bool inputIsValid = validateInput();
+            Button button = sender as Button;
+            button.Clickable = false;
 
             if (inputIsValid)
             {
@@ -84,16 +86,20 @@ namespace mARkIt.Droid
 
                     if (uploadSuccessful)
                     {
+
                         Alert.Show("Success", "Upload successfull.", this, Finish);
+
                     }
                     else
                     {
                         Alert.Show("Faliure", "Upload failed.", this);
+                        button.Clickable = true;
                     }
                 }
                 catch (FeatureNotEnabledException ex)
                 {
                     Toast.MakeText(this, "Please activate location services.", ToastLength.Long).Show();
+                    button.Clickable = true;
                 }
             }
         }

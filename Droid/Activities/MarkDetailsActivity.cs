@@ -52,6 +52,8 @@ namespace mARkIt.Droid.Activities
 
         private async void deleteButton_Click(object sender, EventArgs e)
         {
+            Button button = sender as Button;
+            button.Clickable = false;
             bool deleted = await Mark.Delete(m_Mark);
             if(deleted)
             {
@@ -59,7 +61,7 @@ namespace mARkIt.Droid.Activities
             }
             else
             {
-                Alert.Show("Failure", "Mark couldnt be deleted", this);
+                Alert.Show("Failure", "Mark couldnt be deleted", this, () => button.Clickable = true);
             }
         }      
 
