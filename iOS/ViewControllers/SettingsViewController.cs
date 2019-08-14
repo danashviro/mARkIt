@@ -23,6 +23,7 @@ namespace mARkIt.iOS
         {
             base.ViewDidLoad();
             saveButton.Clicked += SaveButton_Clicked;
+            logoutButton.TouchUpInside += LogoutButton_TouchUpInside;
         }
 
         public override void ViewWillAppear(bool animated)
@@ -88,11 +89,10 @@ namespace mARkIt.iOS
         }
 
 
-        partial void LogoutButton_TouchUpInside(UIButton sender)
+        private async void LogoutButton_TouchUpInside(object sender, EventArgs e)
         {
-            LoginHelper.Logout();
+            await LoginHelper.Logout();
         }
 
-       
     }
 }

@@ -106,10 +106,10 @@ namespace mARkIt.Droid.Fragments
             m_NatureCheckBox.Checked = (relevantCategoriesCode & (int)eCategories.Nature) != 0 ? true : false;
         }
 
-        private void LogoutButton_Click(object sender, EventArgs e)
+        private async void LogoutButton_Click(object sender, EventArgs e)
         {
             // remove account from device
-            LoginHelper.Logout();
+            await LoginHelper.Logout();
 
             //  go back to login activity
             Intent loginIntent = new Intent(Activity, typeof(LoginActivity));

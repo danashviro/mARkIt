@@ -46,10 +46,6 @@ namespace mARkIt.iOS
         [GeneratedCode ("iOS Designer", "1.0")]
         Syncfusion.iOS.Buttons.SfCheckBox sportCheckBox { get; set; }
 
-        [Action ("LogoutButton_TouchUpInside:")]
-        [GeneratedCode ("iOS Designer", "1.0")]
-        partial void LogoutButton_TouchUpInside (UIKit.UIButton sender);
-
         [Action ("UIBarButtonItem36992_Activated:")]
         [GeneratedCode ("iOS Designer", "1.0")]
         partial void UIBarButtonItem36992_Activated (UIKit.UIBarButtonItem sender);

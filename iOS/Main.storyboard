@@ -416,7 +416,6 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Logout"/>
                                 <connections>
-                                    <action selector="LogoutButton_TouchUpInside:" destination="5477" id="26068" eventType="touchUpInside"/>
                                     <segue id="26137" destination="BYZ-38-t0r" kind="show"/>
                                 </connections>
                             </button>
