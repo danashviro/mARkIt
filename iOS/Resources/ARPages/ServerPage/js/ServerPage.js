@@ -30,24 +30,8 @@
         }
 
         if (m_MarksLoaded) {
-
-               for (var i = 0 ; i < m_Marks.length ; i++) {
-                   var mark = m_Marks[i];
-                   if((!markIsShowed(mark)) && (mark.Longitude <= (lon + 0.0002))&& (mark.Longitude >= (lon - 0.0002)) && (mark.Latitude <= (lat + 0.0002))&& (mark.Latitude >= (lat - 0.0002)))
-                    {
-                         var markData = {
-                             "id": mark.id,
-                             "longitude": mark.Longitude,
-                             "latitude": mark.Latitude,
-                             "altitude": alt,
-                             "message": mark.Message,
-                             "style": mark.Style
-
-                        };
-                        World.loadMarksFromJsonData(markData);                        
-                    }
-
-                 }
+            deleteOldMarks();
+            showMarks();
         }
     },
 };
@@ -74,14 +58,47 @@ function getMarks() {
    AR.platform.sendJSONObject({ "option": "getMarks", "longitude": m_lon, "latitude": m_lat });   
 }
 
-function markIsShowed(mark)
-{
-    
+function markIsShowed(mark){  
     for (var i = 0 ; i < m_ShowedMarks.length ; i++) {
         if(mark.id == m_ShowedMarks[i].markData.id)
             return true;
     }
     return false;
+}
 
+function markInNewList(mark){  
+    for (var i = 0 ; i < m_Marks.length ; i++) {
+        if(m_Marks[i].id == mark.id)
+            return true;
+    }
+    return false;
+}
 
+function deleteOldMarks(){
+    for (var i = 0 ; i < m_ShowedMarks.length ; i++) {
+        var markData = m_ShowedMarks[i].markData;
+        if( !markInNewList(markData) || !((markData.Longitude <= (m_lon + 0.0002))&& (markData.Longitude >= (m_lon - 0.0002)) && (markData.Latitude <= (m_lat + 0.0002))&& (markData.Latitude >= (m_lat - 0.0002)))){
+            m_ShowedMarks.markerObject.enabled = false;
+            m_ShowedMarks.splice(i, i);
+        }
+    }
+}
+
+function showMarks(){
+    for (var i = 0 ; i < m_Marks.length ; i++) {
+        var mark = m_Marks[i];
+        if((!markIsShowed(mark)) && (mark.Longitude <= (m_lon + 0.0002))&& (mark.Longitude >= (m_lon - 0.0002)) && (mark.Latitude <= (m_lat + 0.0002))&& (mark.Latitude >= (m_lat - 0.0002)))
+         {
+              var markData = {
+                  "id": mark.id,
+                  "longitude": mark.Longitude,
+                  "latitude": mark.Latitude,
+                  "altitude": m_alt,
+                  "message": mark.Message,
+                  "style": mark.Style
+
+             };
+             World.loadMarksFromJsonData(markData);                        
+         }
+      }
 }
