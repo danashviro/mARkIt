@@ -109,7 +109,7 @@ namespace mARkIt.Droid.Fragments
         private void LogoutButton_Click(object sender, EventArgs e)
         {
             // remove account from device
-            SecureStorageAccountStore.RemoveAllAccounts();
+            LoginHelper.Logout();
 
             //  go back to login activity
             Intent loginIntent = new Intent(Activity, typeof(LoginActivity));
