@@ -26,7 +26,7 @@
         if (!m_LocationChanged) {
             m_LocationChanged = true;
             getMarks();
-            setInterval(getMarks, 10000);
+            setInterval(getMarks, 60000);
         }
 
         if (m_MarksLoaded) {
