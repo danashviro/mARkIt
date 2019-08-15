@@ -38,6 +38,7 @@ namespace mARkIt.Droid.Activities
             findComponents();
             m_MessageTextView.Text = m_Mark.Message;
             m_DateTextView.Text= m_Mark.CreatedAt.ToLocalTime().ToLongDateString();
+            m_MarkRatingBar.Rating = m_Mark.Rating;
             m_MapFragment.GetMapAsync(this);
         }
 

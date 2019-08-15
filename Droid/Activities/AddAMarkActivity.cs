@@ -31,6 +31,9 @@ namespace mARkIt.Droid
         private RadioButton m_SportRadioButton;
         private RadioButton m_HistoryRadioButton;
         private RadioButton m_NatureRadioButton;
+        private RadioButton m_WoodRadioButton;
+        private RadioButton m_MetalRadioButton;
+        private RadioButton m_SchoolRadioButton;
         private const int k_MaxLetters = 40;
         private int m_LettersCount = 0;
 
@@ -81,6 +84,7 @@ namespace mARkIt.Droid
                         Latitude = location.Latitude,
                         Longitude = location.Longitude,
                         CategoriesCode = getCategoriesCode(),
+                        Style = getStyle()
                     };
                     bool uploadSuccessful = await Mark.Insert(mark);
 
@@ -104,6 +108,24 @@ namespace mARkIt.Droid
             }
         }
 
+        private string getStyle()
+        {
+            string style = null;
+            if (m_WoodRadioButton.Checked == true)
+            {
+                style = "Wood";
+            }
+            else if(m_MetalRadioButton.Checked == true)
+            {
+                style = "Metal";
+            }
+            else if(m_SchoolRadioButton.Checked == true)
+            {
+                style = "School";
+            }
+            return style;
+        }
+
         private bool validateInput()
         {
             bool isInputValid = false;
@@ -115,10 +137,6 @@ namespace mARkIt.Droid
             else if (m_LettersCount > k_MaxLetters)
             {
                 Toast.MakeText(this, "Please delete some letters.", ToastLength.Long).Show();
-            }
-            else if (!atLeastOneRadioButton())
-            {
-                Toast.MakeText(this, "Please check a category.", ToastLength.Long).Show();
             }
             else
             {
@@ -133,30 +151,25 @@ namespace mARkIt.Droid
             int catagories = 0;
             if (m_GeneralRadioButton.Checked)
             {
-                catagories |= (int)eCategories.General;
+                catagories = (int)eCategories.General;
             }
             else if (m_FoodRadioButton.Checked)
             {
-                catagories |= (int)eCategories.Food;
+                catagories = (int)eCategories.Food;
             }
             else if (m_SportRadioButton.Checked)
             {
-                catagories |= (int)eCategories.Sport;
+                catagories = (int)eCategories.Sport;
             }
             else if (m_HistoryRadioButton.Checked)
             {
-                catagories |= (int)eCategories.History;
+                catagories = (int)eCategories.History;
             }
             else if (m_NatureRadioButton.Checked)
             {
-                catagories |= (int)eCategories.Nature;
+                catagories = (int)eCategories.Nature;
             }
             return catagories;
-        }
-
-        private bool atLeastOneRadioButton()
-        {
-            return m_GeneralRadioButton.Checked || m_FoodRadioButton.Checked || m_SportRadioButton.Checked || m_HistoryRadioButton.Checked || m_NatureRadioButton.Checked;
         }
 
         private void findComponents()
@@ -168,6 +181,9 @@ namespace mARkIt.Droid
             m_HistoryRadioButton = FindViewById<RadioButton>(Resource.Id.HistoryRadioButton);
             m_SportRadioButton = FindViewById<RadioButton>(Resource.Id.SportRadioButton);
             m_NatureRadioButton = FindViewById<RadioButton>(Resource.Id.NatureRadioButton);
+            m_WoodRadioButton= FindViewById<RadioButton>(Resource.Id.WoodRadioButton);
+            m_MetalRadioButton = FindViewById<RadioButton>(Resource.Id.MetalRadioButton);
+            m_SchoolRadioButton=FindViewById<RadioButton>(Resource.Id.SchoolRadioButton);
         }
     }
 }
