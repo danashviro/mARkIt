@@ -226,7 +226,6 @@
     <Compile Include="CustomControls\MarkTableViewCell.designer.cs">
       <DependentUpon>MarkTableViewCell.cs</DependentUpon>
     </Compile>
-    <Compile Include="CustomControls\MapDelegate.cs" />
     <Compile Include="ViewControllers\InitViewController.cs" />
     <Compile Include="ViewControllers\InitViewController.designer.cs">
       <DependentUpon>InitViewController.cs</DependentUpon>
@@ -235,6 +234,7 @@
     <Compile Include="ViewControllers\RateViewController.designer.cs">
       <DependentUpon>RateViewController.cs</DependentUpon>
     </Compile>
+    <Compile Include="CustomControls\MarkAnnotation.cs" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\ARPages\3dARPage\assets\couch.wt3" />
@@ -298,6 +298,14 @@
     <BundleResource Include="Resources\Icons\ListIcon\DottedListIcon%403x.png" />
     <BundleResource Include="Resources\ARPages\ServerPage\assets\metalSign.png" />
     <BundleResource Include="Resources\ARPages\ServerPage\assets\schoolSign.png" />
+    <BundleResource Include="Resources\mapPins\Food.png" />
+    <BundleResource Include="Resources\mapPins\General.png" />
+    <BundleResource Include="Resources\mapPins\History.png" />
+    <BundleResource Include="Resources\mapPins\Nature.png" />
+    <BundleResource Include="Resources\mapPins\Sport.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\mapPins\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

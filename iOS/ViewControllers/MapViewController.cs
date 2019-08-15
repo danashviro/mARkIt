@@ -6,24 +6,70 @@ using mARkIt.Services;
 using mARkIt.Models;
 using CoreLocation;
 using System.Threading.Tasks;
+using mARkIt.Utils;
+using mARkIt.iOS.CustomControls;
 
 namespace mARkIt.iOS
 {
     public partial class MapViewController : UIViewController
     {
         private bool m_UserLocationInit = false;
-        //private MapDelegate m_MapDelegate;
 
         public MapViewController (IntPtr handle) : base (handle)
         {
+
         }
 
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
             mapView.DidUpdateUserLocation += MapView_DidUpdateUserLocation;
-            //m_MapDelegate = new MapDelegate();
-            //mapView.Delegate = m_MapDelegate;
+            mapView.GetViewForAnnotation = GetViewForAnnotation;
+        }
+
+        string pId = "PinAnnotation";
+
+        public MKAnnotationView GetViewForAnnotation(MKMapView mapView, IMKAnnotation annotation)
+        {
+            MKAnnotationView pinView = null;
+            if (annotation is MarkAnnotation)
+            {
+                pinView = mapView.DequeueReusableAnnotation(pId);
+                if (pinView == null)
+                    pinView = new MKAnnotationView(annotation, pId);
+                pinView.Image = GetIconByCategory((annotation as MarkAnnotation).Category);
+                pinView.CanShowCallout = true;
+            }
+
+            return pinView;
+        }
+
+        private UIImage GetIconByCategory(eCategories i_Category)
+        {
+            UIImage icon = null;
+            switch (i_Category)
+            {
+                case eCategories.General:
+                    icon = UIImage.FromBundle("mapPins/General.png");
+                    break;
+                case eCategories.Food:
+                    icon = UIImage.FromBundle("mapPins/Food.png");
+                    break;
+                case eCategories.Sport:
+                    icon = UIImage.FromBundle("mapPins/Sport.png");
+                    break;
+                case eCategories.History:
+                    icon = UIImage.FromBundle("mapPins/History.png");
+                    break;
+                case eCategories.Nature:
+                    icon = UIImage.FromBundle("mapPins/Nature.png");
+                    break;
+                default:
+                    icon = UIImage.FromBundle("mapPins/General.png");
+                    break;
+            }
+
+            return icon;
         }
 
         public override async void ViewWillAppear(bool animated)
@@ -49,11 +95,12 @@ namespace mARkIt.iOS
             mapView.RemoveAnnotations(mapView.Annotations);
             foreach (Mark mark in marks)
             {
-                var pin = new MKPointAnnotation()
+                var pin = new MarkAnnotation()
                 {
                     Title = mark.Message,
-                    Coordinate = new CLLocationCoordinate2D(mark.Latitude, mark.Longitude)
-                };
+                    Coordinate = new CLLocationCoordinate2D(mark.Latitude, mark.Longitude),
+                    Category = (eCategories)mark.CategoriesCode
+                };         
                 mapView.AddAnnotation(pin);
             }
 
