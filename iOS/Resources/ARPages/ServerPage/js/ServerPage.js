@@ -26,7 +26,7 @@
         if (!m_LocationChanged) {
             m_LocationChanged = true;
             getMarks();
-            setInterval(getMarks, 60000);
+            setInterval(getMarks, 10000);
         }
 
         if (m_MarksLoaded) {
@@ -77,8 +77,8 @@ function markInNewList(mark){
 function deleteOldMarks(){
     for (var i = 0 ; i < m_ShowedMarks.length ; i++) {
         var markData = m_ShowedMarks[i].markData;
-        if( !markInNewList(markData) || !((markData.Longitude <= (m_lon + 0.0002))&& (markData.Longitude >= (m_lon - 0.0002)) && (markData.Latitude <= (m_lat + 0.0002))&& (markData.Latitude >= (m_lat - 0.0002)))){
-            m_ShowedMarks.markerObject.enabled = false;
+        if( (markInNewList(markData)==false) || !((markData.longitude <= (m_lon + 0.0002))&& (markData.longitude >= (m_lon - 0.0002)) && (markData.latitude <= (m_lat + 0.0002))&& (markData.latitude >= (m_lat - 0.0002)))){
+            m_ShowedMarks[i].markerObject.enabled = false;
             m_ShowedMarks.splice(i, i);
         }
     }
