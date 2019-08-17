@@ -4,6 +4,7 @@ using mARkIt.Utils;
 using Syncfusion.iOS.Buttons;
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 using UIKit;
 using Xamarin.Essentials;
 
@@ -12,6 +13,11 @@ namespace mARkIt.iOS
     public partial class AddAMarkViewController : UIViewController
     {
         private SfRadioButton m_WoodMarkStyleRadioButton, m_MetalMarkStyleRadioButton, m_SchoolMarkStyleRadioButton;
+        private SfRadioButton m_GeneralCategoryRadioButton;
+        private SfRadioButton m_FoodCategoryRadioButton;
+        private SfRadioButton m_HistoryCategoryRadioButton;
+        private SfRadioButton m_SportCategoryRadioButton;
+        private SfRadioButton m_NatureCategoryRadioButton;
         private const int m_MaxLettersAllowed = 40;
 
         public AddAMarkViewController(IntPtr handle) : base(handle)
@@ -24,8 +30,34 @@ namespace mARkIt.iOS
             View.AddGestureRecognizer(new UITapGestureRecognizer(() => View.EndEditing(true)));
             doneBarButton.Clicked += DoneBarButton_Clicked;
             addMarkStyleRadioButtons();
+            addCategoriesRadioButtons();
             markTextView.Changed += MarkTextView_Changed;
-            letterCounterLabel.Text = m_MaxLettersAllowed.ToString();
+            letterCounterLabel.Text = m_MaxLettersAllowed.ToString();        }
+
+        private void addCategoriesRadioButtons()
+        {
+            m_GeneralCategoryRadioButton = new SfRadioButton();
+            m_FoodCategoryRadioButton = new SfRadioButton();
+            m_HistoryCategoryRadioButton = new SfRadioButton();
+            m_SportCategoryRadioButton = new SfRadioButton();
+            m_NatureCategoryRadioButton = new SfRadioButton();
+            m_GeneralCategoryRadioButton.IsChecked = true;
+            m_GeneralCategoryRadioButton.SetTitle("General", UIControlState.Normal);
+            m_FoodCategoryRadioButton.SetTitle("Food", UIControlState.Normal);
+            m_HistoryCategoryRadioButton.SetTitle("History", UIControlState.Normal);
+            m_SportCategoryRadioButton.SetTitle("Sport", UIControlState.Normal);
+            m_NatureCategoryRadioButton.SetTitle("Nature", UIControlState.Normal);
+            m_GeneralCategoryRadioButton.Font = UIFont.FromName("Arial", 15);
+            m_FoodCategoryRadioButton.Font = UIFont.FromName("Arial", 15);
+            m_HistoryCategoryRadioButton.Font = UIFont.FromName("Arial", 15);
+            m_SportCategoryRadioButton.Font = UIFont.FromName("Arial", 15);
+            m_NatureCategoryRadioButton.Font = UIFont.FromName("Arial", 15);
+
+            categoriesRadioGroup.AddArrangedSubview(m_GeneralCategoryRadioButton);
+            categoriesRadioGroup.AddArrangedSubview(m_FoodCategoryRadioButton);
+            categoriesRadioGroup.AddArrangedSubview(m_HistoryCategoryRadioButton);
+            categoriesRadioGroup.AddArrangedSubview(m_SportCategoryRadioButton);
+            categoriesRadioGroup.AddArrangedSubview(m_NatureCategoryRadioButton);
         }
 
         private void MarkTextView_Changed(object sender, EventArgs e)
@@ -57,7 +89,7 @@ namespace mARkIt.iOS
             markStyleRadioGroup.AddArrangedSubview(m_SchoolMarkStyleRadioButton);
         }
 
-        private async void uploadMarkAsync()
+        private async Task uploadMarkAsync()
         {
             bool markUploaded = false;
             try
@@ -73,7 +105,7 @@ namespace mARkIt.iOS
                         Longitude = location.Longitude,
                         Message = markTextView.Text,
                         Style = getMarkStyle(),
-                        CategoriesCode = getCategories()
+                        CategoriesCode = getCategory()
                     };
                     markUploaded = await Mark.Insert(mark);
                 }
@@ -108,34 +140,34 @@ namespace mARkIt.iOS
             return markStyle;
         }
 
-        private int getCategories()
+        private int getCategory()
         {
-            int catagories = 0;
-            if ((bool)generalCheckBox.IsChecked)
+            int category = 0;
+            if ((bool)m_GeneralCategoryRadioButton.IsChecked)
             {
-                catagories |= (int)eCategories.General;
+                category = (int)eCategories.General;
             }
-            if ((bool)foodCheckBox.IsChecked)
+            else if ((bool)m_FoodCategoryRadioButton.IsChecked)
             {
-                catagories |= (int)eCategories.Food;
+                category = (int)eCategories.Food;
             }
-            if ((bool)sportCheckBox.IsChecked)
+            else if ((bool)m_SportCategoryRadioButton.IsChecked)
             {
-                catagories |= (int)eCategories.Sport;
+                category = (int)eCategories.Sport;
             }
-            if ((bool)historyCheckBox.IsChecked)
+            else if ((bool)m_HistoryCategoryRadioButton.IsChecked)
             {
-                catagories |= (int)eCategories.History;
+                category = (int)eCategories.History;
             }
-            if ((bool)natureCheckBox.IsChecked)
+            else if ((bool)m_NatureCategoryRadioButton.IsChecked)
             {
-                catagories |= (int)eCategories.Nature;
+                category = (int)eCategories.Nature;
             }
 
-            return catagories;
+            return category;
         }
 
-        private void DoneBarButton_Clicked(object sender, EventArgs e)
+        private async void DoneBarButton_Clicked(object sender, EventArgs e)
         {
             markTextView.UserInteractionEnabled = false;
             if (markTextView.Text.Count<char>() > m_MaxLettersAllowed)
@@ -146,13 +178,9 @@ namespace mARkIt.iOS
             {
                 Alert.Display("Error", "Please fill mARk text", this);
             }
-            else if (!((bool)generalCheckBox.IsChecked || (bool)foodCheckBox.IsChecked || (bool)sportCheckBox.IsChecked || (bool)historyCheckBox.IsChecked || (bool)natureCheckBox.IsChecked))
-            {
-                Alert.Display("Error", "You must choose at least one category!", this);
-            }
             else
             {
-                uploadMarkAsync();
+                await uploadMarkAsync();
             }
 
             markTextView.UserInteractionEnabled = true;
@@ -162,5 +190,6 @@ namespace mARkIt.iOS
         {
             NavigationController.PopViewController(true);
         }
+
     }
 }

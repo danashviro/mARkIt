@@ -20,19 +20,11 @@ namespace mARkIt.iOS
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
+        Syncfusion.iOS.Buttons.SfRadioGroup categoriesRadioGroup { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UIBarButtonItem doneBarButton { get; set; }
-
-        [Outlet]
-        [GeneratedCode ("iOS Designer", "1.0")]
-        Syncfusion.iOS.Buttons.SfCheckBox foodCheckBox { get; set; }
-
-        [Outlet]
-        [GeneratedCode ("iOS Designer", "1.0")]
-        Syncfusion.iOS.Buttons.SfCheckBox generalCheckBox { get; set; }
-
-        [Outlet]
-        [GeneratedCode ("iOS Designer", "1.0")]
-        Syncfusion.iOS.Buttons.SfCheckBox historyCheckBox { get; set; }
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
@@ -48,15 +40,7 @@ namespace mARkIt.iOS
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
-        Syncfusion.iOS.Buttons.SfCheckBox natureCheckBox { get; set; }
-
-        [Outlet]
-        [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UIBarButtonItem saveMarkButton { get; set; }
-
-        [Outlet]
-        [GeneratedCode ("iOS Designer", "1.0")]
-        Syncfusion.iOS.Buttons.SfCheckBox sportCheckBox { get; set; }
 
         [Action ("CancleBarButton_Activated:")]
         [GeneratedCode ("iOS Designer", "1.0")]
@@ -69,24 +53,14 @@ namespace mARkIt.iOS
                 cancleBarButton = null;
             }
 
+            if (categoriesRadioGroup != null) {
+                categoriesRadioGroup.Dispose ();
+                categoriesRadioGroup = null;
+            }
+
             if (doneBarButton != null) {
                 doneBarButton.Dispose ();
                 doneBarButton = null;
-            }
-
-            if (foodCheckBox != null) {
-                foodCheckBox.Dispose ();
-                foodCheckBox = null;
-            }
-
-            if (generalCheckBox != null) {
-                generalCheckBox.Dispose ();
-                generalCheckBox = null;
-            }
-
-            if (historyCheckBox != null) {
-                historyCheckBox.Dispose ();
-                historyCheckBox = null;
             }
 
             if (letterCounterLabel != null) {
@@ -104,19 +78,9 @@ namespace mARkIt.iOS
                 markTextView = null;
             }
 
-            if (natureCheckBox != null) {
-                natureCheckBox.Dispose ();
-                natureCheckBox = null;
-            }
-
             if (saveMarkButton != null) {
                 saveMarkButton.Dispose ();
                 saveMarkButton = null;
-            }
-
-            if (sportCheckBox != null) {
-                sportCheckBox.Dispose ();
-                sportCheckBox = null;
             }
         }
     }
