@@ -1,9 +1,5 @@
 ﻿using mARkIt.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace mARkIt
 {
@@ -11,6 +7,7 @@ namespace mARkIt
     {
         private static App s_Instance = null;
         private static object s_LockObj = new Object();
+        public static event Action<User> UserChanged;
 
         private App() { }
 
@@ -31,7 +28,7 @@ namespace mARkIt
 
                 return s_Instance;
             }
-        }    
+        }
 
         private User m_User;
 
@@ -44,7 +41,11 @@ namespace mARkIt
 
             set
             {
-                Instance.m_User = value; 
+                if (Instance.m_User != value && value != null)
+                {
+                    Instance.m_User = value;
+                    UserChanged?.Invoke(ConnectedUser);
+                }
             }
         }
     }

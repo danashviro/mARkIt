@@ -6,6 +6,7 @@ using System;
 using Xamarin.Auth;
 using Android.Support.V7.App;
 using mARkIt.Authentication;
+using mARkIt.Droid.Services;
 
 namespace mARkIt.Droid
 {
@@ -43,6 +44,7 @@ namespace mARkIt.Droid
         public async void OnAuthenticationCompleted(Account i_Account)
         {
             await LoginHelper.CreateUserAndSaveToDevice(i_Account);
+            PushNotificationsService.Register(context: this);
             startMainApp();
         }
 

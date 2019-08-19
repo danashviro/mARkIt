@@ -35,9 +35,10 @@ namespace mARkIt.Models
         /// <param name="i_Rating"></param>
         /// <returns>
         /// Returns 'true' if the rating was added/updated successfully, 'false' otherwise.
-        /// 
-        /// Note: Also returns 'false' if the user or the mark do not exist in the database.
         /// </returns>
+        /// <remarks>
+        /// Also returns 'false' if the user or the mark do not exist in the database.
+        /// </remarks>
         public static async Task<bool> RateMark(string i_MarkId, float i_Rating)
         {
             bool updateSuccessful = false;
@@ -62,15 +63,14 @@ namespace mARkIt.Models
 
         /// <summary>
         /// Get the rating an existing user gave to an existing mark.
-        /// 
-        /// 
         /// </summary>
         /// <param name="i_MarkId"></param>
         /// <returns>
         /// Returns a 'double?' which will hold the rating if it was fetched successfully, 'null' otherwise. 
-        ///  
-        /// Note: Also returns 'null' if a rating of the mark by the user does not exist in the database.
         /// </returns>
+        /// <remarks>
+        /// Also returns 'null' if a rating of the mark by the user does not exist in the database.
+        /// </remarks>
         public static async Task<float?> GetUserRatingForMark(string i_MarkId)
         {
             float? userRatingOfMark;

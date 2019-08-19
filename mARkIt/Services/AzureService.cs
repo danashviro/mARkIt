@@ -133,6 +133,7 @@ namespace mARkIt.Services
         public static async Task Logout()
         {
            await MobileService.LogoutAsync();
+            App.ConnectedUser = null;
         }
     }
 }

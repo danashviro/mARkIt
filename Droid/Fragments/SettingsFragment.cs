@@ -12,6 +12,7 @@ using Android.Widget;
 using mARkIt.Authentication;
 using mARkIt.Models;
 using mARkIt.Utils;
+using Microsoft.AppCenter.Push;
 
 namespace mARkIt.Droid.Fragments
 {
@@ -120,6 +121,9 @@ namespace mARkIt.Droid.Fragments
         {
             // remove account from device
             await LoginHelper.Logout();
+
+            // disable notifications
+            await Push.SetEnabledAsync(false);
 
             //  go back to login activity
             Intent loginIntent = new Intent(Activity, typeof(LoginActivity));

@@ -12,6 +12,7 @@ using Com.Wikitude.Common.Permission;
 using Xamarin.Auth;
 using mARkIt.Utils;
 using mARkIt.Droid.Helpers;
+using mARkIt.Droid.Services;
 
 namespace mARkIt.Droid.Activities
 {
@@ -26,8 +27,6 @@ namespace mARkIt.Droid.Activities
             SetContentView(Resource.Layout.Welcome);
             askForARPermissions();
         }
-
-
 
         private async void autoConnect()
         {
@@ -79,6 +78,7 @@ namespace mARkIt.Droid.Activities
         {
             if (App.ConnectedUser != null)
             {
+                PushNotificationsService.Register(context: this);
                 startMainApp();
             }
             else
