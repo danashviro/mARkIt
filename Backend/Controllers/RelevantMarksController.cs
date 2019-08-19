@@ -1,6 +1,5 @@
 ﻿using System.Web.Http;
 using Microsoft.Azure.Mobile.Server.Config;
-using System.Net;
 using System.Collections.Generic;
 using Backend.DataObjects;
 using System;
@@ -36,11 +35,11 @@ namespace Backend.Controllers
             int relevantCategoriesCode = getUserRelevantCateogiresCode();
 
             var relevantMarksQueryResult = from mark in context.Marks
-                                where (relevantCategoriesCode & mark.CategoriesCode) != 0
-                                select mark;
+                                           where (relevantCategoriesCode & mark.CategoriesCode) != 0
+                                           select mark;
 
-            
-            if(longitude.HasValue && latitude.HasValue)
+
+            if (longitude.HasValue && latitude.HasValue)
             {
                 relevantMarksList = new List<Mark>();
                 foreach (Mark mark in relevantMarksQueryResult)
@@ -84,7 +83,7 @@ namespace Backend.Controllers
             double calculatedValue2 = 2 * Math.Atan2(Math.Sqrt(calculatedValue1), Math.Sqrt(1 - calculatedValue1));
 
             //Based on earth radius, in km
-            double distance = (k_EarthRadius * calculatedValue2) / 1000; 
+            double distance = (k_EarthRadius * calculatedValue2) / 1000;
 
             return distance;
         }

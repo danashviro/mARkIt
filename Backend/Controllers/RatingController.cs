@@ -1,16 +1,11 @@
 ﻿using System.Web.Http;
 using Microsoft.Azure.Mobile.Server.Config;
 using System.Net;
-using System.Collections.Generic;
 using Backend.DataObjects;
 using System;
-using System.Linq;
 using Backend.Models;
-using System.Windows;
 using System.Data.Entity;
-using System.Net.Http;
 using System.Threading.Tasks;
-using System.Data.Entity.Validation;
 using mARkIt.Backend;
 using mARkIt.Backend.Utils;
 
@@ -64,53 +59,48 @@ namespace Backend.Controllers
                 throw new HttpResponseException(HttpStatusCode.BadRequest);
             }
 
-            Mark mark = await context.Marks.FindAsync(markId);
-
-            if (mark != null)
+            // Use a transaction to update the database
+            using (DbContextTransaction transaction = context.Database.BeginTransaction())
             {
-                // Use a transaction to update the database
-                using (DbContextTransaction transaction = context.Database.BeginTransaction())
+                try
                 {
-                    try
+                    UserMarkRating userMarkRating = await context.UserMarkRatings.FindAsync(LoggedUserId, markId);
+
+                    if (userMarkRating == null)
                     {
-                        UserMarkRating userMarkRating = await context.UserMarkRatings.FindAsync(LoggedUserId, markId);
+                        // Create and add the new rating
+                        userMarkRating = context.UserMarkRatings.Create();
+                        userMarkRating.UserId = LoggedUserId;
+                        userMarkRating.MarkId = markId;
+                        userMarkRating.Rating = rating.Value;
 
-                        if (userMarkRating == null)
-                        {
-                            // Update the mark
-                            mark.RatingsCount++;
-                            mark.RatingsSum += rating.Value;
+                        context.UserMarkRatings.Add(userMarkRating);
 
-                            // Add the new rating
-                            UserMarkRating newRating = context.UserMarkRatings.Create();
-                            newRating.UserId = LoggedUserId;
-                            newRating.MarkId = markId;
-                            newRating.Rating = rating.Value;
-
-                            context.UserMarkRatings.Add(newRating);
-                        }
-
-                        else
-                        {
-                            // Update the existing rating of the mark
-                            validateOwner(userMarkRating);
-                            mark.RatingsSum -= userMarkRating.Rating;
-                            mark.RatingsSum += rating.Value;
-                            userMarkRating.Rating = rating.Value; // Update the value at the UserMarkRating entry
-                        }
-
-                        mark.UpdateRating();
-                        await context.SaveChangesAsync();
-                        transaction.Commit();
-                        updateWasSuccessful = true;
+                        // Update the mark
+                        userMarkRating.Mark.RatingsCount++;
+                        userMarkRating.Mark.RatingsSum += rating.Value;
                     }
 
-                    catch (Exception ex)
+                    else
                     {
-                        LogTools.LogException(ex);
-                        transaction.Rollback();
-                        throw (ex);
+                        // Update the existing rating of the mark
+                        validateOwner(userMarkRating);
+                        userMarkRating.Mark.RatingsSum -= userMarkRating.Rating;
+                        userMarkRating.Mark.RatingsSum += rating.Value;
+                        userMarkRating.Rating = rating.Value; // Update the value at the UserMarkRating entry
                     }
+
+                    userMarkRating.Mark.UpdateRating();
+                    await context.SaveChangesAsync();
+                    transaction.Commit();
+                    updateWasSuccessful = true;
+                }
+
+                catch (Exception ex)
+                {
+                    LogTools.LogException(ex);
+                    transaction.Rollback();
+                    throw ex;
                 }
             }
 
@@ -118,7 +108,7 @@ namespace Backend.Controllers
         }
 
         public void validateOwner(UserMarkRating userMarkRating)
-        {            
+        {
             if (userMarkRating.UserId != LoggedUserId)
             {
                 throw new HttpResponseException(HttpStatusCode.NotFound);

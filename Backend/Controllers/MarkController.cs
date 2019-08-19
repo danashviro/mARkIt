@@ -10,6 +10,8 @@ using System;
 using mARkIt.Backend;
 using System.Net;
 using mARkIt.Backend.Utils;
+using mARkIt.Backend.Notifications;
+using System.Collections.Generic;
 
 namespace Backend.Controllers
 {
@@ -50,7 +52,21 @@ namespace Backend.Controllers
         {
             item.UserId = LoggedUserId;
             Mark current = await InsertAsync(item);
+            await pushNotification();
             return CreatedAtRoute("Tables", new { id = current.Id }, current);
+        }
+
+        private async Task pushNotification()
+        {
+            Notification notification = new Notification
+            {
+                IsBroadcast = false,
+                Targets = new List<string> { LoggedUserId },
+                Name = $"Mark upload - {DateTime.Now.ToString("MMddHHmmss")}",
+                Title = "Congrats!",
+                Body = "You've uploaded a new mark!"
+            };
+            await notification.Push();
         }
 
         // DELETE tables/Mark/48D68C86-6EA6-4C25-AA33-223FC9A27959
