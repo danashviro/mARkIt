@@ -299,10 +299,10 @@
     <BundleResource Include="Resources\ARPages\ServerPage\assets\metalSign.png" />
     <BundleResource Include="Resources\ARPages\ServerPage\assets\schoolSign.png" />
     <BundleResource Include="Resources\mapPins\Food.png" />
-    <BundleResource Include="Resources\mapPins\General.png" />
     <BundleResource Include="Resources\mapPins\History.png" />
     <BundleResource Include="Resources\mapPins\Nature.png" />
     <BundleResource Include="Resources\mapPins\Sport.png" />
+    <BundleResource Include="Resources\mapPins\General.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\mapPins\" />
