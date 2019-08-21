@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Net.Http;
 using System.Threading.Tasks;
 using mARkIt.Models;
 using mARkIt.Services;
@@ -56,7 +54,7 @@ namespace mARkIt.Authentication
 
 
         public static async Task CreateUserAndSaveToDevice(Account i_Account, Func<Account, Task> i_GoogleRefreshTokenFunc = null)
-        {
+        {            
             // save account to device
             if (s_FacebookAuthenticator != null)
             {

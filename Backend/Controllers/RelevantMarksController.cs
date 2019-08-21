@@ -16,7 +16,7 @@ namespace Backend.Controllers
     {
         private const double k_EarthRadius = 6371e3;
 
-        private const double k_RelevantMarksDistanceRadius = 10;
+        private const double k_DefaultProximityThreshhold = 10;
 
         MobileServiceContext context;
 
@@ -28,34 +28,40 @@ namespace Backend.Controllers
         }
 
         // GET api/RelevantMarks
-        public List<Mark> Get(double? longitude, double? latitude)
+        public List<Mark> Get(double? longitude, double? latitude, double? proximityThreshhold)
         {
-            List<Mark> relevantMarksList = null;
+            List<Mark> relevantMarksByCategoryAndProximity = null;
 
             int relevantCategoriesCode = getUserRelevantCateogiresCode();
 
-            var relevantMarksQueryResult = from mark in context.Marks
+            var relevantMarksByCategory =  from mark in context.Marks
                                            where (relevantCategoriesCode & mark.CategoriesCode) != 0
                                            select mark;
 
-
             if (longitude.HasValue && latitude.HasValue)
             {
-                relevantMarksList = new List<Mark>();
-                foreach (Mark mark in relevantMarksQueryResult)
+                if (!proximityThreshhold.HasValue)
                 {
-                    if (markIsCloseEnough(new Vector(mark.Longitude, mark.Latitude), new Vector(longitude.Value, latitude.Value)))
+                    proximityThreshhold = k_DefaultProximityThreshhold;
+                }
+
+                relevantMarksByCategoryAndProximity = new List<Mark>();
+                foreach (Mark mark in relevantMarksByCategory)
+                {
+                    Vector userPos = new Vector(longitude.Value, latitude.Value);
+                    Vector markPos = new Vector(mark.Longitude, mark.Latitude);
+                    if (markIsCloseEnough(userPos, markPos, proximityThreshhold.Value))
                     {
-                        relevantMarksList.Add(mark);
+                        relevantMarksByCategoryAndProximity.Add(mark);
                     }
                 }
             }
             else
             {
-                relevantMarksList = relevantMarksQueryResult.ToList();
+                relevantMarksByCategoryAndProximity = relevantMarksByCategory.ToList();
             }
 
-            return relevantMarksList;
+            return relevantMarksByCategoryAndProximity;
         }
 
         private int getUserRelevantCateogiresCode()
@@ -64,9 +70,9 @@ namespace Backend.Controllers
             return userQuery.First();
         }
 
-        private bool markIsCloseEnough(Vector userPos, Vector markPos)
+        private bool markIsCloseEnough(Vector userPos, Vector markPos, double proximityThreshhold)
         {
-            return distanceInKm(userPos, markPos) < k_RelevantMarksDistanceRadius;
+            return distanceInKm(userPos, markPos) < proximityThreshhold;
         }
 
         // Derived from the article https://www.movable-type.co.uk/scripts/latlong.html

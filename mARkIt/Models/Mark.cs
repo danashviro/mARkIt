@@ -38,14 +38,15 @@ namespace mARkIt.Models
         /// <returns>
         /// A list of marks if the fetching operation was successful, otherwise returns null;        
         /// </returns>
-        public static async Task<List<Mark>> GetRelevantMarks(double? i_Longitube = null, double? i_Latitude = null)
+        public static async Task<List<Mark>> GetRelevantMarks(double? i_Longitube = null, double? i_Latitude = null, double? i_ProximityThreshhold = null)
         {
             List<Mark> relevantMarks;
 
             Dictionary<string, string> parameters = new Dictionary<string, string>
             {
                 { "longitude", i_Longitube.ToString() },
-                { "latitude", i_Latitude.ToString()}
+                { "latitude", i_Latitude.ToString()},
+                {"proximityThreshhold",i_ProximityThreshhold.ToString()}
             };
 
             try
