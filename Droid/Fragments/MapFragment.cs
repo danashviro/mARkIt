@@ -11,28 +11,27 @@ using Android.Gms.Maps.Model;
 using mARkIt.Models;
 using System;
 using mARkIt.Utils;
+using System.Threading.Tasks;
 
 namespace mARkIt.Droid.Fragments
 {
-    public class MapFragment : Android.Support.V4.App.Fragment, IOnMapReadyCallback,ILocationListener
+    public class MapFragment : Android.Support.V4.App.Fragment, IOnMapReadyCallback, ILocationListener
     {
-        MapView m_MapView;
-        GoogleMap m_GoogleMap;
-        View m_View;
-        double m_Latitude, m_Longitude;
-        LocationManager m_LocationManager;
-        private bool m_MapLoaded;
+        private MapView m_MapView;
+        private GoogleMap m_GoogleMap;
+        private View m_View;
+        private double m_Latitude, m_Longitude;
+        private LocationManager m_LocationManager;
 
         public override void OnViewCreated(View view, Bundle savedInstanceState)
         {
             base.OnViewCreated(view, savedInstanceState);
             m_MapView = m_View.FindViewById<MapView>(Resource.Id.mapView);
-            if(m_MapView!=null)
+            if(m_MapView != null)
             {
                 m_MapView.OnCreate(null);
                 m_MapView.OnResume();
             }
-            m_MapLoaded = false;
         }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -52,7 +51,6 @@ namespace mARkIt.Droid.Fragments
             googleMap.MapType = GoogleMap.MapTypeNormal;
             mapToMyLocation();
             addMarksFromServer();
-            m_MapLoaded = true;
         }
 
         private async void addMarksFromServer()
@@ -116,6 +114,49 @@ namespace mARkIt.Droid.Fragments
             m_MapView.GetMapAsync(this);
         }
 
+        public override void OnPause()
+        {
+            base.OnPause();
+            m_LocationManager.RemoveUpdates(this);
+        }
+
+        public override void OnResume()
+        {
+            base.OnResume();
+
+            m_LocationManager = Activity.GetSystemService(Context.LocationService) as LocationManager;
+            string provider = LocationManager.GpsProvider;
+            if (m_LocationManager.IsProviderEnabled(provider))
+            {
+                m_LocationManager.RequestLocationUpdates(provider, 5000, 100, this);
+            }
+
+            getCurrentLocation().Wait();
+            m_MapView.GetMapAsync(this);
+        }
+
+        public override void OnHiddenChanged(bool hidden)
+        {
+            base.OnHiddenChanged(hidden);
+            if (!hidden)
+            {
+                getCurrentLocation().Wait();
+                m_MapView.GetMapAsync(this);
+            }
+        }
+
+        private async Task getCurrentLocation()
+        {
+            var geoInfo = await Plugin.Geolocator.CrossGeolocator.Current.GetLastKnownLocationAsync();
+            if (geoInfo != null)
+            {
+                m_Latitude = geoInfo.Latitude;
+                m_Longitude = geoInfo.Longitude;
+            }
+        }
+
+        #region Empty implementations of ILocationListener methods
+
         public void OnProviderDisabled(string provider)
         {
         }
@@ -128,39 +169,6 @@ namespace mARkIt.Droid.Fragments
         {
         }
 
-        public override void OnPause()
-        {
-            base.OnPause();
-            m_LocationManager.RemoveUpdates(this);
-        }
-
-        public override void OnResume()
-        {
-            base.OnResume();
-            m_LocationManager = Activity.GetSystemService(Context.LocationService) as LocationManager;
-            string provider = LocationManager.GpsProvider;
-            if (m_LocationManager.IsProviderEnabled(provider))
-            {
-                m_LocationManager.RequestLocationUpdates(provider, 5000, 100, this);
-            }
-
-            if (IsHidden == false && m_MapLoaded == true) 
-            {
-                m_GoogleMap.Clear();
-                mapToMyLocation();
-                addMarksFromServer();
-            }
-        }
-
-        public override void OnHiddenChanged(bool hidden)
-        {
-            base.OnHiddenChanged(hidden);
-            if (hidden == false && m_MapLoaded == true) 
-            {
-                m_GoogleMap.Clear();
-                mapToMyLocation();
-                addMarksFromServer();
-            }
-        }
+        #endregion
     }
 }

@@ -4,86 +4,34 @@ using Newtonsoft.Json.Linq;
 
 namespace mARkIt.Backend.Notifications
 {
-    public abstract class NotificationJson
+    public class NotificationJson
     {
-        private eTargetType targetType = eTargetType.Users;
+        private NotificationTarget m_Target;
 
-        [JsonIgnore]
-        public eTargetType TargetType
+        [JsonProperty("notification_target")]
+        private NotificationTarget Target
         {
             get
             {
-                return targetType;
+                if (IsBroadcast)
+                {
+                    // Don't serialize this property
+                    return null;
+                }
+                else
+                {
+                    return m_Target;
+                }
             }
 
             set
             {
-                targetType = value;
-
-                // Match to the accepted API format
-                switch (value)
-                {
-                    case eTargetType.Users:
-                        notificationTarget.Type = "user_ids_target";
-                        break;
-                    case eTargetType.Devices:
-                        notificationTarget.Type = "devices_target";
-                        break;
-                    case eTargetType.Accounts:
-                        notificationTarget.Type = "account_ids_target";
-                        break;
-                }
+                m_Target = value;
             }
         }
 
-        public override string ToString()
-        {
-            adjustToTargetsType();
-
-            var serializer = new JsonSerializer { NullValueHandling = NullValueHandling.Ignore };
-            var notificationJObject = JObject.FromObject(this, serializer);
-
-            if (CustomData != null)
-            {
-                addCustomData(notificationJObject);
-            }
-
-            return notificationJObject.ToString();
-        }
-
-        private void addCustomData(JObject notificationObject)
-        {
-            var notificationContentJObject = (JObject)notificationObject["notification_content"];
-            var innerCustomDataJObject = (JObject)notificationContentJObject["custom_data"];
-
-
-            foreach (KeyValuePair<string, string> entry in CustomData)
-            {
-                innerCustomDataJObject.Add(entry.Key, entry.Value);
-            }
-        }
-
-        /// <summary>
-        /// To serialize the object in the accepted API format - assign Targets to the matching property while setting null to the others (which disables their serialization).
-        /// </summary>
-        private void adjustToTargetsType()
-        {
-            switch (TargetType)
-            {
-                case eTargetType.Users:
-                    notificationTarget.Users = Targets;
-                    notificationTarget.Devices = notificationTarget.Accounts = null;
-                    break;
-                case eTargetType.Devices:
-                    notificationTarget.Devices = Targets;
-                    notificationTarget.Users = notificationTarget.Accounts = null;
-                    break;
-                case eTargetType.Accounts:
-                    notificationTarget.Accounts = Targets;
-                    notificationTarget.Users = notificationTarget.Devices = null;
-                    break;
-            }
-        }
+        [JsonProperty("notification_content")]
+        private NotificationContent Content { get; set; }
 
         /// <summary>
         /// Determines whether the notification will be sent to every registered device, or by the assigned targets.
@@ -99,22 +47,49 @@ namespace mARkIt.Backend.Notifications
         /// - The type of the targets should be only one of users/devices/accounts and updated accordingly in the property NotificationObject.TargetType.
         /// </remarks>
         [JsonIgnore]
-        public List<string> Targets { get; set; } = new List<string>();
+        public List<string> Targets { get; set; }
+
+        private eTargetType m_TargetType;
 
         [JsonIgnore]
-        public Dictionary<string, string> CustomData { get; set; }
+        public eTargetType TargetType
+        {
+            get
+            {
+                return m_TargetType;
+            }
+
+            set
+            {
+                m_TargetType = value;
+
+                // Match to the accepted API format
+                switch (value)
+                {
+                    case eTargetType.Users:
+                        m_Target.Type = "user_ids_target";
+                        break;
+                    case eTargetType.Devices:
+                        m_Target.Type = "devices_target";
+                        break;
+                    case eTargetType.Accounts:
+                        m_Target.Type = "account_ids_target";
+                        break;
+                }
+            }
+        }
 
         [JsonIgnore]
         public string Name
         {
             get
             {
-                return NotificationContent.Name;
+                return Content.Name;
             }
 
             set
             {
-                NotificationContent.Name = value;
+                Content.Name = value;
             }
         }
 
@@ -123,12 +98,12 @@ namespace mARkIt.Backend.Notifications
         {
             get
             {
-                return NotificationContent.Title;
+                return Content.Title;
             }
 
             set
             {
-                NotificationContent.Title = value;
+                Content.Title = value;
             }
         }
 
@@ -137,87 +112,92 @@ namespace mARkIt.Backend.Notifications
         {
             get
             {
-                return NotificationContent.Body;
+                return Content.Body;
             }
 
             set
             {
-                NotificationContent.Body = value;
+                Content.Body = value;
             }
         }
 
         [JsonIgnore]
-        protected string Icon
+        public IDictionary<string, string> CustomData
         {
             get
             {
-                return NotificationContent.CustomData.Icon;
+                return Content.CustomData;
             }
 
-            set
+            private set
             {
-                NotificationContent.CustomData.Icon = value;
+                Content.CustomData = value;
             }
         }
 
-        [JsonIgnore]
-        protected string Sound
+        public NotificationJson()
         {
-            get
-            {
-                return NotificationContent.CustomData.Sound;
-            }
-
-            set
-            {
-                NotificationContent.CustomData.Sound = value;
-            }
+            Target = new NotificationTarget();
+            Content = new NotificationContent();
+            Targets = new List<string>();
+            TargetType = eTargetType.Users;
+            CustomData = new Dictionary<string, string>();
         }
 
-        [JsonIgnore]
-        protected string Color
+        public override string ToString()
         {
-            get
+            adjustToTargetsType();
+
+            // Don't serialize this property if it's empty
+            if(CustomData.Count == 0)
             {
-                return NotificationContent.CustomData.Color;
+                CustomData = null;
             }
-            set
+
+            var serializer = new JsonSerializer { NullValueHandling = NullValueHandling.Ignore };
+            var notificationJObject = JObject.FromObject(this, serializer);
+
+            // Restore to the previous state in case null was assigned
+            if(CustomData == null)
             {
-                NotificationContent.CustomData.Color = value;
+                CustomData = new Dictionary<string, string>();
             }
+
+            return notificationJObject.ToString();
         }
 
-        #region functional properties
 
-        private _NotificationTarget notificationTarget = new _NotificationTarget();
-
-        [JsonProperty("notification_target")]
-        private _NotificationTarget NotificationTarget
+        /// <summary>
+        /// To serialize the object in the accepted API format - assign Targets to the matching property while setting null to the others (which disables their serialization).
+        /// </summary>
+        private void adjustToTargetsType()
         {
-            get
+            if (Target != null)
             {
-                if (IsBroadcast)
+                switch (TargetType)
                 {
-                    // Don't serialize this property
-                    return null;
-                }
-                else
-                {
-                    return notificationTarget;
+                    case eTargetType.Users:
+                        Target.Users = Targets;
+                        Target.Devices = Target.Accounts = null;
+                        break;
+                    case eTargetType.Devices:
+                        Target.Devices = Targets;
+                        Target.Users = Target.Accounts = null;
+                        break;
+                    case eTargetType.Accounts:
+                        Target.Accounts = Targets;
+                        Target.Users = Target.Devices = null;
+                        break;
                 }
             }
         }
-
-        [JsonProperty("notification_content")]
-        private _NotificationContent NotificationContent { get; set; } = new _NotificationContent();
-        #endregion
 
         #region private class definitions for json serialization
 
-        private class _NotificationTarget
+        private class NotificationTarget
         {
             [JsonProperty("type")]
-            public string Type { get; set; } = "user_ids_target";
+            public string Type { get; set; } 
 
             [JsonProperty("user_ids")]
             public List<string> Users { get; set; }
@@ -229,31 +209,25 @@ namespace mARkIt.Backend.Notifications
             public List<string> Accounts { get; set; }
         }
 
-        private class _NotificationContent
+        private class NotificationContent
         {
             [JsonProperty("name")]
-            public string Name { get; set; } = string.Empty;
+            public string Name { get; set; }
 
             [JsonProperty("title")]
-            public string Title { get; set; } = string.Empty;
+            public string Title { get; set; }
 
             [JsonProperty("body")]
-            public string Body { get; set; } = string.Empty;
+            public string Body { get; set; }
 
             [JsonProperty("custom_data")]
-            public _CustomData CustomData { get; set; } = new _CustomData();
-        }
+            public IDictionary<string, string> CustomData { get; set; }
 
-        private class _CustomData
-        {
-            [JsonProperty("sound")]
-            public string Sound { get; set; } = "default";
-
-            [JsonProperty("icon")]
-            public string Icon { get; set; }
-
-            [JsonProperty("color")]
-            public string Color { get; set; }
+            public NotificationContent()
+            {
+                Name = Title = Body = string.Empty;
+                CustomData = new Dictionary<string, string>();
+            }
         }
 
         #endregion

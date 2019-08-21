@@ -9,11 +9,19 @@ using System.Web;
 
 namespace mARkIt.Backend.Notifications
 {
-    public class Notification
+    /// <summary>
+    /// Defines and pushes a notification to Android and iOS devices via AppCenter configuration.
+    /// </summary>
+    public abstract class Notification
     {
-        private const string appCenterApiToken = "2d1ebd8c1c907e453bb933b79c9d02a340247caf";
-        private AndroidNotificationJson androidNotificationObj = new AndroidNotificationJson();
-        private IOSNotificationJson iOSNotificationObj = new IOSNotificationJson();
+        private string m_ApiToken;
+        private string m_BaseUrl;
+        private string m_AndroidUrl;
+        private string m_iOSUrl;
+        private Dictionary<string, string> m_OriginalCustomDataAndroid;
+        private Dictionary<string, string> m_OriginalCustomDataIOS;
+        protected abstract NotificationJson AndroidNotificationObj { get; }
+        protected abstract NotificationJson iOSNotificationObj { get; }
 
         /// <summary>
         /// Determines if the notification will be sent to all the registered devices, or only to the listed Targets.
@@ -22,12 +30,12 @@ namespace mARkIt.Backend.Notifications
         {
             get
             {
-                return androidNotificationObj.IsBroadcast;
+                return AndroidNotificationObj.IsBroadcast;
             }
 
             set
             {
-                androidNotificationObj.IsBroadcast = iOSNotificationObj.IsBroadcast = value;
+                AndroidNotificationObj.IsBroadcast = iOSNotificationObj.IsBroadcast = value;
             }
         }
 
@@ -38,12 +46,12 @@ namespace mARkIt.Backend.Notifications
         {
             get
             {
-                return androidNotificationObj.Name;
+                return AndroidNotificationObj.Name;
             }
 
             set
             {
-                androidNotificationObj.Name = iOSNotificationObj.Name = value;
+                AndroidNotificationObj.Name = iOSNotificationObj.Name = value;
             }
         }
 
@@ -51,24 +59,24 @@ namespace mARkIt.Backend.Notifications
         {
             get
             {
-                return androidNotificationObj.Title;
+                return AndroidNotificationObj.Title;
             }
 
             set
             {
-                androidNotificationObj.Title = iOSNotificationObj.Title = value;
+                AndroidNotificationObj.Title = iOSNotificationObj.Title = value;
             }
         }
         public string Body
         {
             get
             {
-                return androidNotificationObj.Body;
+                return AndroidNotificationObj.Body;
             }
 
             set
             {
-                androidNotificationObj.Body = iOSNotificationObj.Body = value;
+                AndroidNotificationObj.Body = iOSNotificationObj.Body = value;
             }
         }
 
@@ -86,12 +94,12 @@ namespace mARkIt.Backend.Notifications
         {
             get
             {
-                return androidNotificationObj.Targets;
+                return AndroidNotificationObj.Targets;
             }
 
             set
             {
-                androidNotificationObj.Targets = iOSNotificationObj.Targets = value;
+                AndroidNotificationObj.Targets = iOSNotificationObj.Targets = value;
             }
         }
 
@@ -102,53 +110,78 @@ namespace mARkIt.Backend.Notifications
         {
             get
             {
-                return androidNotificationObj.TargetType;
+                return AndroidNotificationObj.TargetType;
             }
 
             set
             {
-                androidNotificationObj.TargetType = iOSNotificationObj.TargetType = value;
+                AndroidNotificationObj.TargetType = iOSNotificationObj.TargetType = value;
             }
         }
 
         /// <summary>
         /// Additional data that can be extracted by the client while receiving the notification.
         /// </summary>
-        public Dictionary<string, string> CustomData
-        {
-            get
-            {
-                return androidNotificationObj.CustomData;
-            }
+        public IDictionary<string, string> AdditionalData { get; private set; }
 
-            set
-            {
-                androidNotificationObj.CustomData = iOSNotificationObj.CustomData = value;
-            }
+        public Notification(
+            string i_AppCenterApiToken,
+            string i_AppCenterOrganizationName,
+            string i_AppCenterAndroidProjectName,
+            string i_AppCenterIOSProjectName)
+        {
+            m_ApiToken = i_AppCenterApiToken;
+            m_BaseUrl = $"https://api.appcenter.ms/v0.1/apps/{i_AppCenterOrganizationName}/";
+            m_AndroidUrl = $"{i_AppCenterAndroidProjectName}/push/notifications";
+            m_iOSUrl = $"{i_AppCenterIOSProjectName}/push/notifications";
+
+            AdditionalData = new Dictionary<string, string>();                
         }
 
-        public async Task Push()
+        /// <summary>
+        /// Pushes the notification to Android and iOS devices according to the configuration
+        /// </summary>
+        /// <remarks>
+        /// Due to targets count, the notification may be sent over multiple http requests.
+        /// </remarks>
+        /// <returns>
+        /// A touple of http response messages from the last http request:
+        /// The first response is from the request to push to Android,
+        /// the second response is from the request to push to iOS.
+        /// </returns>
+        public async Task<Tuple<HttpResponseMessage,HttpResponseMessage>> Push()
         {
+            Tuple<HttpResponseMessage, HttpResponseMessage> responses = null;
+
+            addAdditionalDataToCustomData();
+
             using (HttpClient client = new HttpClient())
             {
-                client.BaseAddress = new Uri("https://api.appcenter.ms/v0.1/apps/MTA_FinalProject_mARk-It/");
+                client.BaseAddress = new Uri(m_BaseUrl);
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                client.DefaultRequestHeaders.Add("X-API-Token", appCenterApiToken);
+                client.DefaultRequestHeaders.Add("X-API-Token", m_ApiToken);
 
                 if (IsBroadcast)
                 {
-                    await sendPushRequest(client);
+                    responses = await sendPushRequest(client);
                 }
                 else
                 {
-                    await sendInChunks(client);
+                    responses = await sendInChunks(client);
                 }
             }
+
+            // For accurate reflection of the changes in AdditionalData between pushes
+            revertCustomDataChanges();
+
+            return responses;
         }
 
-        private async Task sendInChunks(HttpClient client)
+        private async Task<Tuple<HttpResponseMessage, HttpResponseMessage>> sendInChunks(HttpClient i_HttpClient)
         {
+            Tuple<HttpResponseMessage, HttpResponseMessage> responses = null;
+
             // Per API request AppCenter can only publish 100 user-targeted notifications, or 1000 specific device-targeted notifications
             int maxChunkSize = TargetType == eTargetType.Devices ? 1000 : 100;
 
@@ -158,25 +191,69 @@ namespace mARkIt.Backend.Notifications
             {
                 Targets = allTargets.Take(100).ToList();
                 allTargets.RemoveRange(index: 0, count: maxChunkSize);
-                await sendPushRequest(client);
+                responses = await sendPushRequest(i_HttpClient);
             }
 
             // Send the rest
             if (allTargets.Count > 0)
             {
                 Targets = allTargets;
-                await sendPushRequest(client);
+                responses = await sendPushRequest(i_HttpClient);
+            }
+
+            return responses;
+        }
+
+        private async Task<Tuple<HttpResponseMessage, HttpResponseMessage>> sendPushRequest(HttpClient i_HttpClient)
+        {
+            var androidPushContent = new StringContent(AndroidNotificationObj.ToString(), Encoding.UTF8, "application/json");
+            var androidPushResponse = await i_HttpClient.PostAsync(m_AndroidUrl, androidPushContent);
+
+            var iOSPushContent = new StringContent(iOSNotificationObj.ToString(), Encoding.UTF8, "application/json");
+            var iOSPushResponse = await i_HttpClient.PostAsync(m_iOSUrl, iOSPushContent);
+
+            return Tuple.Create(androidPushResponse, iOSPushResponse);
+        }
+
+        private void addAdditionalDataToCustomData()
+        {
+            IDictionary<string, string> androidCustomData = AndroidNotificationObj.CustomData;
+            IDictionary<string, string> iOSCustomData = iOSNotificationObj.CustomData;
+
+            m_OriginalCustomDataAndroid = androidCustomData.ToDictionary(entry => entry.Key, entry => entry.Value);
+            m_OriginalCustomDataIOS = iOSCustomData.ToDictionary(entry => entry.Key, entry => entry.Value);
+
+            foreach (KeyValuePair<string, string> entry in AdditionalData)
+            {
+                if (!androidCustomData.ContainsKey(entry.Key))
+                {
+                    androidCustomData.Add(entry.Key, entry.Value);
+                }
+
+                if (!iOSCustomData.ContainsKey(entry.Key))
+                {
+                    iOSCustomData.Add(entry.Key, entry.Value);
+                }
             }
         }
 
-        private async Task sendPushRequest(HttpClient client)
+        private void revertCustomDataChanges()
         {
-            var content1 = new StringContent(androidNotificationObj.ToString(), Encoding.UTF8, "application/json");
-            HttpResponseMessage response1 = await client.PostAsync("mARk-It.Android/push/notifications", content1);
+            IDictionary<string, string> androidCustomData = AndroidNotificationObj.CustomData;
+            IDictionary<string, string> iOSCustomData = iOSNotificationObj.CustomData;
 
-            // iOS notifications are not configured - payment is required  
-            /// var content2 = new StringContent(iOSNotificationObj.ToString(), Encoding.UTF8, "application/json");
-            /// HttpResponseMessage response1 = await client.PostAsync("mARk-It.iOS/push/notifications", content2);
+            androidCustomData.Clear();
+            iOSCustomData.Clear();
+
+            foreach (KeyValuePair<string, string> entry in m_OriginalCustomDataAndroid)
+            {
+                androidCustomData.Add(entry.Key, entry.Value);
+            }
+
+            foreach (KeyValuePair<string, string> entry in m_OriginalCustomDataIOS)
+            {
+                iOSCustomData.Add(entry.Key, entry.Value);
+            }
         }
     }
 }

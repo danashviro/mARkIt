@@ -14,17 +14,13 @@ namespace Backend.Controllers
     [MobileAppController]
     public class RatingController : ApiController
     {
-        private const double k_EarthRadius = 6371e3;
-
-        private const double k_RelevantMarksDistanceRadius = 10;
-
         MobileServiceContext context;
+        public string LoggedUserId => this.GetLoggedUserId();
 
         public RatingController()
         {
             context = new MobileServiceContext();
         }
-        public string LoggedUserId => this.GetLoggedUserId();
 
         // GET api/RatingController
         [HttpGet]

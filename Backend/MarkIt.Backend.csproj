@@ -183,7 +183,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\Startup.MobileApp.cs" />
-    <Compile Include="Controllers\NotificationTestController.cs" />
     <Compile Include="Controllers\RatingController.cs" />
     <Compile Include="Controllers\RelevantMarksController.cs" />
     <Compile Include="Controllers\MarkController.cs" />
@@ -205,9 +204,8 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\MobileServiceContext.cs" />
-    <Compile Include="Notifications\AndroidNotificationJson.cs" />
     <Compile Include="Notifications\eTargetType.cs" />
-    <Compile Include="Notifications\iOSNotificationJson.cs" />
+    <Compile Include="Notifications\MarkitNotification.cs" />
     <Compile Include="Notifications\Notification.cs" />
     <Compile Include="Notifications\NotificationJson.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

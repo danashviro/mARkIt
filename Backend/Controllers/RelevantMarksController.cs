@@ -88,9 +88,9 @@ namespace Backend.Controllers
             return distance;
         }
 
-        private static double toRadians(double i_Degree)
+        private static double toRadians(double degree)
         {
-            return i_Degree * Math.PI / 180;
+            return degree * Math.PI / 180;
         }
     }
 }

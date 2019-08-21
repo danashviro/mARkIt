@@ -14,7 +14,7 @@ namespace Backend.DataObjects
         public int RatingsCount { get; set; }
         public float Rating { get; set; }
 
-        internal void UpdateRating()
+        public void UpdateRating()
         {
             Rating = RatingsSum / RatingsCount;
         }

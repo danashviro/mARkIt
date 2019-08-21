@@ -16,13 +16,14 @@ namespace Backend.Controllers
     [Authorize]
     public class UserController : TableController<User>
     {
+        public string LoggedUserId => this.GetLoggedUserId();
+
         protected override void Initialize(HttpControllerContext controllerContext)
         {
             base.Initialize(controllerContext);
             MobileServiceContext context = new MobileServiceContext();
             DomainManager = new EntityDomainManager<User>(context, Request);
         }
-        public string LoggedUserId => this.GetLoggedUserId();
 
         // GET tables/User
         public IQueryable<User> GetAllUser()

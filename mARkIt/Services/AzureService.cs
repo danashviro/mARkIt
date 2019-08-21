@@ -97,7 +97,7 @@ namespace mARkIt.Services
                 await MobileService.GetTable<T>().DeleteAsync(i_ObjectToDelete);
                 return true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return false;
             }

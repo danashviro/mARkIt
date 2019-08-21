@@ -52,21 +52,18 @@ namespace Backend.Controllers
         {
             item.UserId = LoggedUserId;
             Mark current = await InsertAsync(item);
-            await pushNotification();
-            return CreatedAtRoute("Tables", new { id = current.Id }, current);
-        }
 
-        private async Task pushNotification()
-        {
-            Notification notification = new Notification
+            Notification notification = new MarkitNotification
             {
-                IsBroadcast = false,
                 Targets = new List<string> { LoggedUserId },
-                Name = $"Mark upload - {DateTime.Now.ToString("MMddHHmmss")}",
+                Name = $"Mark upload - {DateTime.Now.ToString("MM.dd HH:mm:ss.fff")}",
                 Title = "Congrats!",
                 Body = "You've uploaded a new mark!"
             };
+
             await notification.Push();
+
+            return CreatedAtRoute("Tables", new { id = current.Id }, current);
         }
 
         // DELETE tables/Mark/48D68C86-6EA6-4C25-AA33-223FC9A27959
