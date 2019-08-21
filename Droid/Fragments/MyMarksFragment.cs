@@ -22,6 +22,9 @@ namespace mARkIt.Droid.Fragments
     {
         List<Mark> m_Marks;
 
+        // To prevent double clicking an item
+        bool m_ClickResponseEnabled = true;
+
         private async void getMyMarks()
         {
             m_Marks = await Mark.GetMyMarks();
@@ -31,28 +34,38 @@ namespace mARkIt.Droid.Fragments
         public override void OnHiddenChanged(bool hidden)
         {
             base.OnHiddenChanged(hidden);
-            if (hidden == false)
-                 getMyMarks();
+            if (!hidden)
+            {
+                getMyMarks();
+            }
+
+            m_ClickResponseEnabled = true;
         }
 
         public override void OnResume()
         {
             base.OnResume();
-            if(IsHidden==false)
-                 getMyMarks();
+            if(!IsHidden)
+            {
+                getMyMarks();
+            }
 
+            m_ClickResponseEnabled = true;
         }
 
         public override void OnListItemClick(ListView l, View v, int position, long id)
         {
             base.OnListItemClick(l, v, position, id);
-            var selectedMark = m_Marks[position];
-            Intent intent = new Intent(Activity, typeof(MarkDetailsActivity));
-            string MarkAsJson = JsonConvert.SerializeObject(selectedMark);
-            intent.PutExtra("markAsJson", MarkAsJson);
-            StartActivity(intent);
-            
 
+            if (m_ClickResponseEnabled)
+            {
+                var selectedMark = m_Marks[position];
+                Intent intent = new Intent(Activity, typeof(MarkDetailsActivity));
+                string MarkAsJson = JsonConvert.SerializeObject(selectedMark);
+                intent.PutExtra("markAsJson", MarkAsJson);
+                StartActivity(intent);
+                m_ClickResponseEnabled = false;
+            }
         }
     }
 }
