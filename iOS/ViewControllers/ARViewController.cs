@@ -253,7 +253,7 @@ namespace mARkIt.iOS
 
         private async void getMarks(double i_Longitude, double i_Latitude)
         {
-            var list = await Mark.GetRelevantMarks(i_Longitude, i_Latitude);
+            var list = await Mark.GetRelevantMarks(i_Longitude, i_Latitude,1.0);
             if (list != null)
             {
                 var jsonList = JsonConvert.SerializeObject(list);

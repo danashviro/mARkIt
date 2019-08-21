@@ -50,16 +50,6 @@ namespace mARkIt.Droid.Fragments
                 ArFeatures = ArchitectStartupConfiguration.Features.ImageTracking | ArchitectStartupConfiguration.Features.Geo
             };
 
-            //var config = new ArchitectStartupConfiguration
-            //{
-            //    LicenseKey = mARkIt.Utils.Keys.WikitudeLicense,
-            //    CameraPosition = Util.PlatformConverter.ConvertSharedToPlatformPosition(experience.CameraPosition),
-            //    CameraResolution = Util.PlatformConverter.ConvertSharedToPlatformResolution(experience.CameraResolution),
-            //    CameraFocusMode = Util.PlatformConverter.ConvertSharedToPlatformFocusMode(experience.CameraFocusMode),
-            //    Camera2Enabled = experience.Camera2Enabled,
-            //    ArFeatures = (int)experience.FeaturesMask
-            //};
-
             architectView.OnCreate(config);
             architectView.OnPostCreate();
             architectView.Load(arExperiencePath);
@@ -145,7 +135,7 @@ namespace mARkIt.Droid.Fragments
 
         private async void getMarks(double i_Longitude, double i_Latitude)
         {
-            var list = await Mark.GetRelevantMarks(i_Longitude, i_Latitude);
+            var list = await Mark.GetRelevantMarks(i_Longitude, i_Latitude, 1.0);
             if (list != null)
             {
                 var jsonList = JsonConvert.SerializeObject(list);
