@@ -26,7 +26,7 @@
         if (!m_LocationChanged) {
             m_LocationChanged = true;
             getMarks();
-            setInterval(getMarks, 60000);
+            setInterval(getMarks, 10000);
         }
 
         if (m_MarksLoaded) {
@@ -42,6 +42,17 @@ var m_alt;
 var m_acc;
 var m_LocationChanged = false;
 var m_ShowedMarks = [];
+// scaling value of 1 between 0 meters and 1 meters from the marker
+// linear scaling starts at this distance
+//AR.context.scene.minScalingDistance = 0.5;
+
+// scaling value of AR.context.scene.scalingFactor at 50km and more distance
+// linear scaling stops at this distance
+//AR.context.scene.maxScalingDistance = 500;
+
+// the scaling factor at maxScalingDistance
+// this is the smallest scaling applied
+//AR.context.scene.scalingFactor = 0.001;
 
 AR.context.onLocationChanged = World.locationChanged;
 
@@ -60,7 +71,7 @@ function getMarks() {
 
 function markIsShowed(mark){  
     for (var i = 0 ; i < m_ShowedMarks.length ; i++) {
-        if(mark.id == m_ShowedMarks[i].markData.id)
+        if(mark.id == m_ShowedMarks[i].markData.id && m_ShowedMarks[i].deleted==false)
             return true;
     }
     return false;
@@ -79,6 +90,7 @@ function deleteOldMarks(){
         var markData = m_ShowedMarks[i].markData;
         if( (markInNewList(markData)==false) || !((markData.longitude <= (m_lon + 0.0002))&& (markData.longitude >= (m_lon - 0.0002)) && (markData.latitude <= (m_lat + 0.0002))&& (markData.latitude >= (m_lat - 0.0002)))){
             m_ShowedMarks[i].markerObject.enabled = false;
+            m_ShowedMarks[i].deleted = true;
             m_ShowedMarks.splice(i, i);
         }
     }

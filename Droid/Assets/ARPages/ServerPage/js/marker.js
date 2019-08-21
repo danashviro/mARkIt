@@ -1,7 +1,7 @@
 ﻿function Marker(markData) {
 
     this.markData = markData;
-
+    this.deleted = false;
     var markerLocation = new AR.GeoLocation(markData.latitude, markData.longitude, markData.altitude);
     //var markerLocation = new AR.RelativeLocation(null, 5, 0, 1);
 
