@@ -39,7 +39,7 @@ namespace mARkIt.Droid.Fragments
         {
             base.OnActivityCreated(savedInstanceState);
 
-            var arExperiencePath = "ARPages/ServerPage/index.html";
+            var arExperiencePath = "ARPages/ARPage/index.html";
 
             var config = new ArchitectStartupConfiguration
             {
@@ -47,7 +47,7 @@ namespace mARkIt.Droid.Fragments
                 CameraPosition = CameraSettings.CameraPosition.Back,
                 CameraResolution = CameraSettings.CameraResolution.FULLHD1920x1080,
                 CameraFocusMode = CameraSettings.CameraFocusMode.Continuous,
-                ArFeatures = ArchitectStartupConfiguration.Features.ImageTracking | ArchitectStartupConfiguration.Features.Geo
+                ArFeatures = ArchitectStartupConfiguration.Features.ImageTracking | ArchitectStartupConfiguration.Features.Geo 
             };
 
             architectView.OnCreate(config);

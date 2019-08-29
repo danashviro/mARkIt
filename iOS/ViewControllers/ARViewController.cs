@@ -194,7 +194,7 @@ namespace mARkIt.iOS
         #region Private Methods
         private void LoadArExperienceIfRequired()
         {
-            NSUrl fullArExperienceURL = NSBundle.MainBundle.GetUrlForResource("index", "html", "ARPages/ServerPage");
+            NSUrl fullArExperienceURL = NSBundle.MainBundle.GetUrlForResource("index", "html", "ARPages/ARPage");
 
             if (loadedArExperienceNavigation == null || (loadedArExperienceNavigation != null && !loadedArExperienceNavigation.OriginalURL.Equals(fullArExperienceURL)))
             {

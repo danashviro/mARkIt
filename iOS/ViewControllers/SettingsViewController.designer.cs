@@ -36,10 +36,6 @@ namespace mARkIt.iOS
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
-        Syncfusion.SfRating.iOS.SfRating rating { get; set; }
-
-        [Outlet]
-        [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UIBarButtonItem saveButton { get; set; }
 
         [Outlet]
@@ -75,11 +71,6 @@ namespace mARkIt.iOS
             if (natureCheckBox != null) {
                 natureCheckBox.Dispose ();
                 natureCheckBox = null;
-            }
-
-            if (rating != null) {
-                rating.Dispose ();
-                rating = null;
             }
 
             if (saveButton != null) {

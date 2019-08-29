@@ -9,10 +9,9 @@
         zOrder: 0,
         opacity: 1.0
     });
+    var labelHeight = (markData.message.length/13)  * 0.5;
 
-
-
-    this.descriptionLabel = new AR.Label(markData.message.trunc(15), 0.5, {
+    this.descriptionLabel = new AR.Label(markData.message.trunc(13), labelHeight, {
         zOrder: 1,
         style: {
             textColor: '#FFFFFF'
@@ -39,9 +38,17 @@
 }
 
 
-
-
-// will truncate all strings longer than given max-length "n". e.g. "foobar".trunc(3) -> "foo..."
 String.prototype.trunc = function(n) {
-    return this.substr(0, n - 1) + (this.length > n ? '...' : '');
+    var size = this.length; 
+    var charsLeft = this.length;
+    var str = new String();
+    str = this.substr(0,n-1);
+    charsLeft -= n;
+
+    while(charsLeft > 0){
+      str += '\n';
+      str += this.substr(size - charsLeft ,n -1);
+      charsLeft -= n;
+    }
+    return str;
 };

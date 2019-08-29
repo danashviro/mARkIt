@@ -328,28 +328,17 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidAsset Include="Assets\ARPages\ade.js" />
-    <AndroidAsset Include="Assets\ARPages\3dARPage\index.html" />
-    <AndroidAsset Include="Assets\ARPages\3dARPage\assets\couch.wt3" />
-    <AndroidAsset Include="Assets\ARPages\3dARPage\assets\earth.wt3" />
-    <AndroidAsset Include="Assets\ARPages\3dARPage\assets\indi.png" />
-    <AndroidAsset Include="Assets\ARPages\3dARPage\assets\woodSign.png" />
-    <AndroidAsset Include="Assets\ARPages\3dARPage\js\3dARPage.js" />
-    <AndroidAsset Include="Assets\ARPages\3dARServerPage\index.html" />
-    <AndroidAsset Include="Assets\ARPages\3dARServerPage\assets\earth.wt3" />
-    <AndroidAsset Include="Assets\ARPages\3dARServerPage\assets\indi.png" />
-    <AndroidAsset Include="Assets\ARPages\3dARServerPage\assets\woodSign.png" />
-    <AndroidAsset Include="Assets\ARPages\3dARServerPage\js\3dARServerPage.js" />
-    <AndroidAsset Include="Assets\ARPages\3dARServerPage\js\jquery-2.0.3.min.js" />
-    <AndroidAsset Include="Assets\ARPages\3dARServerPage\js\marker.js" />
-    <AndroidAsset Include="Assets\ARPages\ServerPage\index.html" />
-    <AndroidAsset Include="Assets\ARPages\ServerPage\assets\indi.png" />
-    <AndroidAsset Include="Assets\ARPages\ServerPage\assets\woodSign.png" />
-    <AndroidAsset Include="Assets\ARPages\ServerPage\js\ServerPage.js" />
-    <AndroidAsset Include="Assets\ARPages\ServerPage\js\jquery-2.0.3.min.js" />
-    <AndroidAsset Include="Assets\ARPages\ServerPage\js\marker.js" />
-    <AndroidAsset Include="Assets\ARPages\ServerPage\assets\schoolSign.png" />
-    <AndroidAsset Include="Assets\ARPages\ServerPage\assets\metalSign.png" />
-    <AndroidAsset Include="Assets\ARPages\ServerPage\js\addButton.js" />
+    <AndroidAsset Include="Assets\ARPages\ARPage\index.html" />
+    <AndroidAsset Include="Assets\ARPages\ARPage\assets\indi.png" />
+    <AndroidAsset Include="Assets\ARPages\ARPage\assets\woodSign.png" />
+    <AndroidAsset Include="Assets\ARPages\ARPage\js\explore.js" />
+    <AndroidAsset Include="Assets\ARPages\ARPage\js\jquery-2.0.3.min.js" />
+    <AndroidAsset Include="Assets\ARPages\ARPage\js\marker.js" />
+    <AndroidAsset Include="Assets\ARPages\ARPage\assets\schoolSign.png" />
+    <AndroidAsset Include="Assets\ARPages\ARPage\assets\metalSign.png" />
+    <AndroidAsset Include="Assets\ARPages\ARPage\js\addButton.js" />
+    <AndroidAsset Include="Assets\ARPages\ARPage\css\button.css" />
+    <AndroidAsset Include="Assets\ARPages\ARPage\assets\addButton.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\Welcome.axml">
@@ -428,6 +417,9 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\woodSignAddMark.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Assets\ARPages\ARPage\css\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Android.Support.Annotations.28.0.0.1\build\monoandroid90\Xamarin.Android.Support.Annotations.targets" Condition="Exists('..\packages\Xamarin.Android.Support.Annotations.28.0.0.1\build\monoandroid90\Xamarin.Android.Support.Annotations.targets')" />

@@ -36,7 +36,7 @@ namespace mARkIt.iOS
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UITextView markTextView { get; set; }
+        UIKit.UITextField markTextField { get; set; }
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
@@ -73,9 +73,9 @@ namespace mARkIt.iOS
                 markStyleRadioGroup = null;
             }
 
-            if (markTextView != null) {
-                markTextView.Dispose ();
-                markTextView = null;
+            if (markTextField != null) {
+                markTextField.Dispose ();
+                markTextField = null;
             }
 
             if (saveMarkButton != null) {

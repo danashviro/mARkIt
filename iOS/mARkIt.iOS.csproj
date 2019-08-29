@@ -92,7 +92,7 @@
     </Reference>
     <Reference Include="Xamarin.iOS" />
     <Reference Include="Xamarin.Wikitude.SDK.JS.iOS">
-      <HintPath>..\packages\Xamarin.Wikitude.SDK.JS.8.3.0\lib\xamarinios10\Xamarin.Wikitude.SDK.JS.iOS.dll</HintPath>
+      <HintPath>..\packages\Xamarin.Wikitude.SDK.JS.8.7.0\lib\xamarinios10\Xamarin.Wikitude.SDK.JS.iOS.dll</HintPath>
     </Reference>
     <Reference Include="System.Json" />
     <Reference Include="System.Net.Http" />
@@ -237,28 +237,13 @@
     <Compile Include="CustomControls\MarkAnnotation.cs" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\ARPages\3dARPage\assets\couch.wt3" />
-    <BundleResource Include="Resources\ARPages\3dARPage\assets\earth.wt3" />
-    <BundleResource Include="Resources\ARPages\3dARPage\assets\indi.png" />
-    <BundleResource Include="Resources\ARPages\3dARPage\assets\woodSign.png" />
-    <BundleResource Include="Resources\ARPages\3dARPage\index.html" />
-    <BundleResource Include="Resources\ARPages\3dARPage\js\3dARPage.js" />
-    <BundleResource Include="Resources\ARPages\3dARServerPage\.DS_Store" />
-    <BundleResource Include="Resources\ARPages\3dARServerPage\assets\earth.wt3" />
-    <BundleResource Include="Resources\ARPages\3dARServerPage\assets\indi.png" />
-    <BundleResource Include="Resources\ARPages\3dARServerPage\assets\woodSign.png" />
-    <BundleResource Include="Resources\ARPages\3dARServerPage\index.html" />
-    <BundleResource Include="Resources\ARPages\3dARServerPage\js\.DS_Store" />
-    <BundleResource Include="Resources\ARPages\3dARServerPage\js\3dARServerPage.js" />
-    <BundleResource Include="Resources\ARPages\3dARServerPage\js\jquery-2.0.3.min.js" />
-    <BundleResource Include="Resources\ARPages\3dARServerPage\js\marker.js" />
     <BundleResource Include="Resources\ARPages\ade.js" />
-    <BundleResource Include="Resources\ARPages\ServerPage\assets\indi.png" />
-    <BundleResource Include="Resources\ARPages\ServerPage\assets\woodSign.png" />
-    <BundleResource Include="Resources\ARPages\ServerPage\index.html" />
-    <BundleResource Include="Resources\ARPages\ServerPage\js\jquery-2.0.3.min.js" />
-    <BundleResource Include="Resources\ARPages\ServerPage\js\marker.js" />
-    <BundleResource Include="Resources\ARPages\ServerPage\js\ServerPage.js" />
+    <BundleResource Include="Resources\ARPages\ARPage\assets\indi.png" />
+    <BundleResource Include="Resources\ARPages\ARPage\assets\woodSign.png" />
+    <BundleResource Include="Resources\ARPages\ARPage\index.html" />
+    <BundleResource Include="Resources\ARPages\ARPage\js\jquery-2.0.3.min.js" />
+    <BundleResource Include="Resources\ARPages\ARPage\js\marker.js" />
+    <BundleResource Include="Resources\ARPages\ARPage\js\explore.js" />
     <BundleResource Include="Resources\Icons\EyeIcon\eyeIcon.png" />
     <BundleResource Include="Resources\Icons\EyeIcon\eyeIcon%402x.png" />
     <BundleResource Include="Resources\Icons\EyeIcon\eyeIcon%403x.png" />
@@ -296,8 +281,8 @@
     <BundleResource Include="Resources\Icons\ListIcon\DottedListIcon.png" />
     <BundleResource Include="Resources\Icons\ListIcon\DottedListIcon%402x.png" />
     <BundleResource Include="Resources\Icons\ListIcon\DottedListIcon%403x.png" />
-    <BundleResource Include="Resources\ARPages\ServerPage\assets\metalSign.png" />
-    <BundleResource Include="Resources\ARPages\ServerPage\assets\schoolSign.png" />
+    <BundleResource Include="Resources\ARPages\ARPage\assets\metalSign.png" />
+    <BundleResource Include="Resources\ARPages\ARPage\assets\schoolSign.png" />
     <BundleResource Include="Resources\mapPins\Food.png" />
     <BundleResource Include="Resources\mapPins\History.png" />
     <BundleResource Include="Resources\mapPins\Nature.png" />

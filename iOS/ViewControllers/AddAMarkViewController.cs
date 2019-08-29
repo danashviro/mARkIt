@@ -31,8 +31,32 @@ namespace mARkIt.iOS
             doneBarButton.Clicked += DoneBarButton_Clicked;
             addMarkStyleRadioButtons();
             addCategoriesRadioButtons();
-            markTextView.Changed += MarkTextView_Changed;
-            letterCounterLabel.Text = m_MaxLettersAllowed.ToString();        }
+            markTextField.EditingChanged += MarkTextField_EditingChanged;
+            letterCounterLabel.Text = m_MaxLettersAllowed.ToString();
+            markTextField.ShouldReturn = delegate
+            {
+                markTextField.ResignFirstResponder();
+                return true;
+            };
+        }
+
+        private void MarkTextField_EditingChanged(object sender, EventArgs e)
+        {
+            int remainingLetters = m_MaxLettersAllowed - markTextField.Text.Count<char>();
+            letterCounterLabel.Text = (remainingLetters).ToString();
+            if (remainingLetters < 0)
+            {
+                letterCounterLabel.TextColor = UIColor.Red;
+            }
+            else if (remainingLetters < 10)
+            {
+                letterCounterLabel.TextColor = UIColor.Yellow;
+            }
+            else
+            {
+                letterCounterLabel.TextColor = UIColor.White;
+            }
+        }
 
         private void addCategoriesRadioButtons()
         {
@@ -60,24 +84,6 @@ namespace mARkIt.iOS
             categoriesRadioGroup.AddArrangedSubview(m_NatureCategoryRadioButton);
         }
 
-        private void MarkTextView_Changed(object sender, EventArgs e)
-        {
-            int remainingLetters = m_MaxLettersAllowed - markTextView.Text.Count<char>();
-            letterCounterLabel.Text = (remainingLetters).ToString();
-            if (remainingLetters < 0)
-            {
-                letterCounterLabel.TextColor = UIColor.Red;
-            }
-            else if (remainingLetters < 10)
-            {
-                letterCounterLabel.TextColor = UIColor.Yellow;
-            }
-            else
-            {
-                letterCounterLabel.TextColor = UIColor.White;
-            }
-        }
-
         private void addMarkStyleRadioButtons()
         {
             m_WoodMarkStyleRadioButton = new SfRadioButton();
@@ -103,7 +109,7 @@ namespace mARkIt.iOS
                     {
                         Latitude = location.Latitude,
                         Longitude = location.Longitude,
-                        Message = markTextView.Text,
+                        Message = markTextField.Text,
                         Style = getMarkStyle(),
                         CategoriesCode = getCategory()
                     };
@@ -169,12 +175,12 @@ namespace mARkIt.iOS
 
         private async void DoneBarButton_Clicked(object sender, EventArgs e)
         {
-            markTextView.UserInteractionEnabled = false;
-            if (markTextView.Text.Count<char>() > m_MaxLettersAllowed)
+            markTextField.UserInteractionEnabled = false;
+            if (markTextField.Text.Count<char>() > m_MaxLettersAllowed)
             {
                 Alert.Display("Error", "There are too many letters!", this);
             }
-            else if (string.IsNullOrEmpty(markTextView.Text))
+            else if (string.IsNullOrEmpty(markTextField.Text))
             {
                 Alert.Display("Error", "Please fill mARk text", this);
             }
@@ -183,7 +189,7 @@ namespace mARkIt.iOS
                 await uploadMarkAsync();
             }
 
-            markTextView.UserInteractionEnabled = true;
+            markTextField.UserInteractionEnabled = true;
         }
 
         partial void CancleBarButton_Activated(UIBarButtonItem sender)
