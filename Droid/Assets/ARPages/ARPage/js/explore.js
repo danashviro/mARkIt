@@ -1,19 +1,8 @@
 ﻿var World = {
-    initiallyLoadedData: false,
 
-    markerDrawable_idle: null,
+    loadMarksFromJsonData: function loadMarksFromJsonDataFn(markData,markerLocation) {
 
-    // called to inject new POI data
-    loadMarksFromJsonData: function loadMarksFromJsonDataFn(markData) {
-        if (markData.style == "Wood") {
-            World.markerDrawable_idle = new AR.ImageResource("assets/woodSign.png");
-        } else if (markData.style == "Metal") {
-            World.markerDrawable_idle = new AR.ImageResource("assets/metalSign.png");             
-        } else {
-            World.markerDrawable_idle = new AR.ImageResource("assets/schoolSign.png");      
-        }
-
-        var marker = new Marker(markData);
+        var marker = new Marker(markData,markerLocation);
         m_ShowedMarks.push(marker);
     },
     
@@ -26,7 +15,7 @@
         if (!m_LocationChanged) {
             m_LocationChanged = true;
             getMarks();
-            setInterval(getMarks, 45000);
+            setInterval(getMarks, 30000);
         }
 
         if (m_MarksLoaded) {
@@ -42,14 +31,13 @@ var m_alt;
 var m_acc;
 var m_LocationChanged = false;
 var m_ShowedMarks = [];
-
+var m_Marks=[];
+var m_MarksLoaded = false;
 
 AR.context.onLocationChanged = World.locationChanged;
 
-var m_Marks;
-var m_MarksLoaded = false;
-
 function setMarks(marksList) {
+    m_Marks = null;
     m_Marks = marksList;
     m_MarksLoaded = true;
     World.locationChanged(m_lat,m_lon,m_alt,m_acc);
@@ -67,21 +55,24 @@ function markIsShowed(mark){
     return false;
 }
 
-function markInNewList(mark){  
-    for (var i = 0 ; i < m_Marks.length ; i++) {
-        if(m_Marks[i].id == mark.id)
+function markInNewList(mark){ 
+    for (var i = 0 ; i < m_Marks.length ; i++) {      
+        if(m_Marks[i].id == mark.id){
             return true;
-    }
+        }        
+    }  
     return false;
+  
 }
 
 function deleteOldMarks(){
     for (var i = 0 ; i < m_ShowedMarks.length ; i++) {
         var markData = m_ShowedMarks[i].markData;
-        if( (markInNewList(markData)==false) || !((markData.longitude <= (m_lon + 0.0002))&& (markData.longitude >= (m_lon - 0.0002)) && (markData.latitude <= (m_lat + 0.0002))&& (markData.latitude >= (m_lat - 0.0002)))){
+        if( (markInNewList(markData)==false) || (m_ShowedMarks[i].markerLocation.distanceToUser()>50)){     
             m_ShowedMarks[i].markerObject.enabled = false;
             m_ShowedMarks[i].deleted = true;
-            m_ShowedMarks.splice(i, i);
+            m_ShowedMarks.splice(i, 1);
+            i--;
         }
     }
 }
@@ -89,18 +80,19 @@ function deleteOldMarks(){
 function showMarks(){
     for (var i = 0 ; i < m_Marks.length ; i++) {
         var mark = m_Marks[i];
-        if((!markIsShowed(mark)) && (mark.Longitude <= (m_lon + 0.0002))&& (mark.Longitude >= (m_lon - 0.0002)) && (mark.Latitude <= (m_lat + 0.0002))&& (mark.Latitude >= (m_lat - 0.0002)))
+        var markerLocation = new AR.GeoLocation(mark.Latitude, mark.Longitude, mark.Altitude);
+        if((!markIsShowed(mark)) && (markerLocation.distanceToUser() <= 50))
          {
               var markData = {
                   "id": mark.id,
                   "longitude": mark.Longitude,
                   "latitude": mark.Latitude,
-                  "altitude": m_alt,
+                  "altitude": mark.Altitude,
                   "message": mark.Message,
                   "style": mark.Style
 
              };
-             World.loadMarksFromJsonData(markData);                        
+             World.loadMarksFromJsonData(markData, markerLocation);                        
          }
       }
 }

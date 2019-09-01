@@ -70,24 +70,29 @@ function markIsShowed(mark){
     return false;
 }
 
-function markInNewList(mark){  
+function markInNewList(mark){ 
     for (var i = 0 ; i < m_Marks.length ; i++) {
-        if(m_Marks[i].id == mark.id)
+        
+        if(m_Marks[i].id == mark.id){
             return true;
-    }
+        }
+        
+    }  
     return false;
+  
 }
 
 function deleteOldMarks(){
-    var e = document.getElementById('debug');
-    e.innerHTML = x;
-    x++;
     for (var i = 0 ; i < m_ShowedMarks.length ; i++) {
         var markData = m_ShowedMarks[i].markData;
-        if( (markInNewList(markData)==false) || (m_ShowedMarks.markerLocation.distanceToUser()>100)){
+        var e = document.getElementById('debug');
+        e.innerHTML = i;
+        if( (markInNewList(markData)==false) || (m_ShowedMarks[i].markerLocation.distanceToUser()>100)){
+           
             m_ShowedMarks[i].markerObject.enabled = false;
             m_ShowedMarks[i].deleted = true;
-            m_ShowedMarks.splice(i, i);
+            m_ShowedMarks.splice(i, 1);
+            i--;
         }
     }
 }
@@ -95,14 +100,14 @@ function deleteOldMarks(){
 function showMarks(){
     for (var i = 0 ; i < m_Marks.length ; i++) {
         var mark = m_Marks[i];
-        var markerLocation = new AR.GeoLocation(mark.Latitude, mark.Longitude, m_alt);
+        var markerLocation = new AR.GeoLocation(mark.Latitude, mark.Longitude, mark.Altitude);
         if((!markIsShowed(mark)) && (markerLocation.distanceToUser() <= 100))
          {
               var markData = {
                   "id": mark.id,
                   "longitude": mark.Longitude,
                   "latitude": mark.Latitude,
-                  "altitude": m_alt,
+                  "altitude": mark.Altitude,
                   "message": mark.Message,
                   "style": mark.Style
 
