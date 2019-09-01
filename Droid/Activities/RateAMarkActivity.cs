@@ -23,6 +23,7 @@ namespace mARkIt.Droid.Activities
         protected async override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
+            this.RequestedOrientation = Android.Content.PM.ScreenOrientation.Portrait;
             SetContentView(Resource.Layout.RateAMark);
             m_MarkRatingBar = FindViewById<RatingBar>(Resource.Id.MarkRatingBar);
             m_YourRatingBar = FindViewById<RatingBar>(Resource.Id.YourRatingBar);

@@ -16,7 +16,7 @@ namespace mARkIt.Droid
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-
+            this.RequestedOrientation = Android.Content.PM.ScreenOrientation.Portrait;
             SetContentView(Resource.Layout.Login);
             
             ImageButton facebookLoginButton = FindViewById<ImageButton>(Resource.Id.facebook_login_button);

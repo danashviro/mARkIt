@@ -24,6 +24,7 @@ namespace mARkIt.Droid.Activities
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
+            this.RequestedOrientation = Android.Content.PM.ScreenOrientation.Portrait;
             SetContentView(Resource.Layout.MarkPresentaion);
             string markAsJson =Intent.GetStringExtra("markAsJson");
             m_Mark  = JsonConvert.DeserializeObject<Mark>(markAsJson);
