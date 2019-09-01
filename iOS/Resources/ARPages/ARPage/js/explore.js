@@ -1,19 +1,11 @@
 ﻿var World = {
     initiallyLoadedData: false,
 
-    markerDrawable_idle: null,
 
     // called to inject new POI data
-    loadMarksFromJsonData: function loadMarksFromJsonDataFn(markData) {
-        if (markData.style == "Wood") {
-            World.markerDrawable_idle = new AR.ImageResource("assets/woodSign.png");
-        } else if (markData.style == "Metal") {
-            World.markerDrawable_idle = new AR.ImageResource("assets/metalSign.png");             
-        } else {
-            World.markerDrawable_idle = new AR.ImageResource("assets/schoolSign.png");      
-        }
+    loadMarksFromJsonData: function loadMarksFromJsonDataFn(markData,markerLocation) {
 
-        var marker = new Marker(markData);
+        var marker = new Marker(markData,markerLocation);
         m_ShowedMarks.push(marker);
     },
     
@@ -56,10 +48,11 @@ var m_ShowedMarks = [];
 
 AR.context.onLocationChanged = World.locationChanged;
 
-var m_Marks;
+var m_Marks=[];
 var m_MarksLoaded = false;
-
+var x = 1;
 function setMarks(marksList) {
+    m_Marks = null;
     m_Marks = marksList;
     m_MarksLoaded = true;
     World.locationChanged(m_lat,m_lon,m_alt,m_acc);
@@ -86,9 +79,12 @@ function markInNewList(mark){
 }
 
 function deleteOldMarks(){
+    var e = document.getElementById('debug');
+    e.innerHTML = x;
+    x++;
     for (var i = 0 ; i < m_ShowedMarks.length ; i++) {
         var markData = m_ShowedMarks[i].markData;
-        if( (markInNewList(markData)==false) || !((markData.longitude <= (m_lon + 0.0002))&& (markData.longitude >= (m_lon - 0.0002)) && (markData.latitude <= (m_lat + 0.0002))&& (markData.latitude >= (m_lat - 0.0002)))){
+        if( (markInNewList(markData)==false) || (m_ShowedMarks.markerLocation.distanceToUser()>100)){
             m_ShowedMarks[i].markerObject.enabled = false;
             m_ShowedMarks[i].deleted = true;
             m_ShowedMarks.splice(i, i);
@@ -99,7 +95,8 @@ function deleteOldMarks(){
 function showMarks(){
     for (var i = 0 ; i < m_Marks.length ; i++) {
         var mark = m_Marks[i];
-        if((!markIsShowed(mark)) && (mark.Longitude <= (m_lon + 0.0002))&& (mark.Longitude >= (m_lon - 0.0002)) && (mark.Latitude <= (m_lat + 0.0002))&& (mark.Latitude >= (m_lat - 0.0002)))
+        var markerLocation = new AR.GeoLocation(mark.Latitude, mark.Longitude, m_alt);
+        if((!markIsShowed(mark)) && (markerLocation.distanceToUser() <= 100))
          {
               var markData = {
                   "id": mark.id,
@@ -110,7 +107,7 @@ function showMarks(){
                   "style": mark.Style
 
              };
-             World.loadMarksFromJsonData(markData);                        
+             World.loadMarksFromJsonData(markData,markerLocation);                        
          }
       }
 }
