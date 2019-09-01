@@ -14,6 +14,7 @@ namespace mARkIt.Models
         public string Message { get; set; }
         public double Longitude { get; set; }
         public double Latitude { get; set; }
+        public double Altitude { get; set; }
         public string Style { get; set; }
         public int CategoriesCode { get; set; }
         public int RatingsCount { get; set; }

@@ -1,8 +1,6 @@
 ﻿using Android.Gms.Maps;
 using Android.OS;
-using Android.Runtime;
 using Android.Views;
-using Android.Locations;
 using Android.Gms.Maps.Model;
 using mARkIt.Models;
 using mARkIt.Utils;
@@ -123,23 +121,5 @@ namespace mARkIt.Droid.Fragments
                 m_MapView.GetMapAsync(this);
             }
         }
-
-   
-
-        #region Empty implementations of ILocationListener methods
-
-        public void OnProviderDisabled(string provider)
-        {
-        }
-
-        public void OnProviderEnabled(string provider)
-        {
-        }
-
-        public void OnStatusChanged(string provider, [GeneratedEnum] Availability status, Bundle extras)
-        {
-        }
-
-        #endregion
     }
 }

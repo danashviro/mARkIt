@@ -54,9 +54,6 @@ namespace mARkIt.Droid.Fragments
             architectView.OnPostCreate();
             architectView.Load(arExperiencePath);
             architectView.AddArchitectJavaScriptInterfaceListener(this);
-            //FloatingActionButton floatingActionButton = new FloatingActionButton(Context);
-            //architectView.AddView(floatingActionButton);
-            //floatingActionButton.Bottom += 300;
         }
 
         public override void OnResume()

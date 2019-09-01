@@ -76,12 +76,12 @@ namespace mARkIt.Droid
                 try
                 {
                     var location = await Geolocation.GetLocationAsync();
-
                     Mark mark = new Mark()
                     {
                         Message = m_MessageEditText.Text,
                         Latitude = location.Latitude,
                         Longitude = location.Longitude,
+                        Altitude = location.Altitude.HasValue ? location.Altitude.Value : 0,
                         CategoriesCode = getCategoriesCode(),
                         Style = getStyle()
                     };
