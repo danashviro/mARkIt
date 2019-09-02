@@ -1,8 +1,5 @@
 ﻿var World = {
-    initiallyLoadedData: false,
 
-
-    // called to inject new POI data
     loadMarksFromJsonData: function loadMarksFromJsonDataFn(markData,markerLocation) {
 
         var marker = new Marker(markData,markerLocation);
@@ -18,7 +15,7 @@
         if (!m_LocationChanged) {
             m_LocationChanged = true;
             getMarks();
-            setInterval(getMarks, 10000);
+            setInterval(getMarks, 30000);
         }
 
         if (m_MarksLoaded) {
@@ -34,23 +31,11 @@ var m_alt;
 var m_acc;
 var m_LocationChanged = false;
 var m_ShowedMarks = [];
-// scaling value of 1 between 0 meters and 1 meters from the marker
-// linear scaling starts at this distance
-//AR.context.scene.minScalingDistance = 0.5;
-
-// scaling value of AR.context.scene.scalingFactor at 50km and more distance
-// linear scaling stops at this distance
-//AR.context.scene.maxScalingDistance = 500;
-
-// the scaling factor at maxScalingDistance
-// this is the smallest scaling applied
-//AR.context.scene.scalingFactor = 0.001;
+var m_Marks=[];
+var m_MarksLoaded = false;
 
 AR.context.onLocationChanged = World.locationChanged;
 
-var m_Marks=[];
-var m_MarksLoaded = false;
-var x = 1;
 function setMarks(marksList) {
     m_Marks = null;
     m_Marks = marksList;
@@ -71,12 +56,10 @@ function markIsShowed(mark){
 }
 
 function markInNewList(mark){ 
-    for (var i = 0 ; i < m_Marks.length ; i++) {
-        
+    for (var i = 0 ; i < m_Marks.length ; i++) {      
         if(m_Marks[i].id == mark.id){
             return true;
-        }
-        
+        }        
     }  
     return false;
   
@@ -85,10 +68,7 @@ function markInNewList(mark){
 function deleteOldMarks(){
     for (var i = 0 ; i < m_ShowedMarks.length ; i++) {
         var markData = m_ShowedMarks[i].markData;
-        var e = document.getElementById('debug');
-        e.innerHTML = i;
-        if( (markInNewList(markData)==false) || (m_ShowedMarks[i].markerLocation.distanceToUser()>100)){
-           
+        if( (markInNewList(markData)==false) || (m_ShowedMarks[i].markerLocation.distanceToUser()>50)){     
             m_ShowedMarks[i].markerObject.enabled = false;
             m_ShowedMarks[i].deleted = true;
             m_ShowedMarks.splice(i, 1);
@@ -100,19 +80,20 @@ function deleteOldMarks(){
 function showMarks(){
     for (var i = 0 ; i < m_Marks.length ; i++) {
         var mark = m_Marks[i];
-        var markerLocation = new AR.GeoLocation(mark.Latitude, mark.Longitude, mark.Altitude);
-        if((!markIsShowed(mark)) && (markerLocation.distanceToUser() <= 100))
+        var altitude = mark.Altitude== 1? AR.CONST.UNKNOWN_ALTITUDE: mark.Altitude;
+        var markerLocation = new AR.GeoLocation(mark.Latitude, mark.Longitude, altitude);
+        if((!markIsShowed(mark)) && (markerLocation.distanceToUser() <= 50))
          {
               var markData = {
                   "id": mark.id,
                   "longitude": mark.Longitude,
                   "latitude": mark.Latitude,
-                  "altitude": mark.Altitude,
+                  "altitude": altitude,
                   "message": mark.Message,
                   "style": mark.Style
 
              };
-             World.loadMarksFromJsonData(markData,markerLocation);                        
+             World.loadMarksFromJsonData(markData, markerLocation);                        
          }
       }
 }

@@ -82,7 +82,7 @@ namespace mARkIt.Droid
                         Message = m_MessageEditText.Text,
                         Latitude = location.Latitude,
                         Longitude = location.Longitude,
-                        Altitude = location.Altitude.HasValue ? location.Altitude.Value : 0,
+                        Altitude = location.Altitude.HasValue ? location.Altitude.Value : 1,
                         CategoriesCode = getCategoriesCode(),
                         Style = getStyle()
                     };

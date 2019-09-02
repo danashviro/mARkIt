@@ -5,6 +5,7 @@
     this.markerLocation = markerLocation;
     //var markerLocation = new AR.RelativeLocation(null, 5, 0, 1);
     this.markerImage;
+    
     if (markData.style == "Wood") {
         this.markerImage = new AR.ImageResource("assets/woodSign.png");
     } else if (markData.style == "Metal") {

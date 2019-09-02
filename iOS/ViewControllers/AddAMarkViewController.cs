@@ -109,7 +109,7 @@ namespace mARkIt.iOS
                     {
                         Latitude = location.Latitude,
                         Longitude = location.Longitude,
-                        Altitude = location.Altitude.HasValue ? location.Altitude.Value : 0,
+                        Altitude = location.Altitude.HasValue ? location.Altitude.Value : 1,
                         Message = markTextField.Text,
                         Style = getMarkStyle(),
                         CategoriesCode = getCategory()
