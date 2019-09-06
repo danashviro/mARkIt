@@ -80,14 +80,15 @@ function deleteOldMarks(){
 function showMarks(){
     for (var i = 0 ; i < m_Marks.length ; i++) {
         var mark = m_Marks[i];
-        var markerLocation = new AR.GeoLocation(mark.Latitude, mark.Longitude, mark.Altitude);
+        var altitude = mark.Altitude== 1? AR.CONST.UNKNOWN_ALTITUDE: mark.Altitude;
+        var markerLocation = new AR.GeoLocation(mark.Latitude, mark.Longitude, altitude);
         if((!markIsShowed(mark)) && (markerLocation.distanceToUser() <= 50))
          {
               var markData = {
                   "id": mark.id,
                   "longitude": mark.Longitude,
                   "latitude": mark.Latitude,
-                  "altitude": mark.Altitude,
+                  "altitude": altitude,
                   "message": mark.Message,
                   "style": mark.Style
 
