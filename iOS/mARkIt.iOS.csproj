@@ -288,6 +288,7 @@
     <BundleResource Include="Resources\mapPins\Nature.png" />
     <BundleResource Include="Resources\mapPins\Sport.png" />
     <BundleResource Include="Resources\mapPins\General.png" />
+    <BundleResource Include="Resources\Icons\circle46.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\mapPins\" />
