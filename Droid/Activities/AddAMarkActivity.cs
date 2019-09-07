@@ -56,8 +56,7 @@ namespace mARkIt.Droid
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-
-            // Create your application here
+            this.RequestedOrientation = Android.Content.PM.ScreenOrientation.Portrait;
             SetContentView(Resource.Layout.AddAMark);
             Button saveButton = FindViewById<Button>(Resource.Id.SaveButton);
             saveButton.Click += SaveButton_Click;
@@ -82,7 +81,7 @@ namespace mARkIt.Droid
                         Message = m_MessageEditText.Text,
                         Latitude = location.Latitude,
                         Longitude = location.Longitude,
-                        Altitude = location.Altitude.HasValue ? location.Altitude.Value : 0,
+                        Altitude = location.Altitude.HasValue ? location.Altitude.Value : 1,
                         CategoriesCode = getCategoriesCode(),
                         Style = getStyle()
                     };

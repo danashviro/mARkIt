@@ -21,8 +21,12 @@ namespace mARkIt.iOS
         public override async void ViewWillAppear(bool animated)
         {
             base.ViewWillAppear(animated);
-            m_Marks = await Mark.GetMyMarks();
-            TableView.ReloadData();
+            var marks = await Mark.GetMyMarks();
+            if(marks != null)
+            {
+                m_Marks = marks;
+                TableView.ReloadData();
+            }
         }
 
         public override nint RowsInSection(UITableView tableView, nint section)

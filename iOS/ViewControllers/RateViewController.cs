@@ -40,7 +40,8 @@ namespace mARkIt.iOS
         {
             if (await User.RateMark(MarkId, (float)userRating.Value))
             {
-                markRating.Value = (await Mark.GetById(MarkId)).Rating;
+                var mark = await Mark.GetById(MarkId);
+                markRating.Value = mark != null ? mark.Rating : 0;
                 Alert.Display("Success", "The mARk rateted", this);
             }
             else

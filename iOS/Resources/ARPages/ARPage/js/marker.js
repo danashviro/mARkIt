@@ -5,6 +5,7 @@
     this.markerLocation = markerLocation;
     //var markerLocation = new AR.RelativeLocation(null, 5, 0, 1);
     this.markerImage;
+
     if (markData.style == "Wood") {
         this.markerImage = new AR.ImageResource("assets/woodSign.png");
     } else if (markData.style == "Metal") {
@@ -17,6 +18,7 @@
         zOrder: 0,
         opacity: 1.0
     });
+
     var labelHeight;
     if(markData.message.length < 13){
         labelHeight = 0.5;
@@ -25,7 +27,6 @@
     }
     
     
-
     this.descriptionLabel = new AR.Label(markData.message.trunc(13), labelHeight, {
         zOrder: 1,
         style: {
@@ -42,11 +43,11 @@
     this.markerObject = new AR.GeoObject(markerLocation, {
         drawables: {
             cam: [this.markerDrawable_idle, this.descriptionLabel],
-            indicator: [indicatorDrawable]
-        },
+            indicator: [indicatorDrawable]        },
         onClick: function () {
             AR.platform.sendJSONObject({ "option": "rate", "markId": markData.id });
         }
+        
     });
 
     return this;
