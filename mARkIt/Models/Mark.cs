@@ -22,12 +22,23 @@ namespace mARkIt.Models
 
         public static async Task<List<Mark>> GetMyMarks()
         {
-            return await AzureService.MobileService.GetTable<Mark>().Where(mark => mark.UserId == App.ConnectedUser.Id).ToListAsync();       
+            List<Mark> marks;
+
+            try
+            {
+                marks = await AzureService.MobileService.GetTable<Mark>().Where(mark => mark.UserId == App.ConnectedUser.Id).ToListAsync();
+            }
+            catch
+            {
+                marks = null;
+            }
+
+            return marks;
         }
 
         public async static Task<Mark> GetById(string i_Id)
         {
-            Mark mark=await AzureService.GetById<Mark>(i_Id);
+            Mark mark = await AzureService.GetById<Mark>(i_Id);
             return mark;
         }
 

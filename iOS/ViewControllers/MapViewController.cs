@@ -89,19 +89,23 @@ namespace mARkIt.iOS
             }
         }
 
+
         private async Task getPins()
-        {
+        { 
             var marks = await Mark.GetRelevantMarks();
             mapView.RemoveAnnotations(mapView.Annotations);
-            foreach (Mark mark in marks)
+            if (marks != null)
             {
-                var pin = new MarkAnnotation()
+                foreach (Mark mark in marks)
                 {
-                    Title = mark.Message,
-                    Coordinate = new CLLocationCoordinate2D(mark.Latitude, mark.Longitude),
-                    Category = (eCategories)mark.CategoriesCode
-                };         
-                mapView.AddAnnotation(pin);
+                    var pin = new MarkAnnotation()
+                    {
+                        Title = mark.Message,
+                        Coordinate = new CLLocationCoordinate2D(mark.Latitude, mark.Longitude),
+                        Category = (eCategories)mark.CategoriesCode
+                    };
+                    mapView.AddAnnotation(pin);
+                }
             }
 
         }
