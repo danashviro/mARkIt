@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using mARkIt.Abstractions;
 using mARkIt.Authentication;
@@ -130,10 +132,26 @@ namespace mARkIt.Services
             }
         }
 
+        public static async Task RegisterNotificationsId(string i_NotificationsId)
+        {
+            Dictionary<string, string> parameters = new Dictionary<string, string>
+            {
+                { "newPushId" , i_NotificationsId }
+            };
+
+            await MobileService.InvokeApiAsync("NotificationsId", HttpMethod.Post, parameters);
+        }
+
         public static async Task Logout()
         {
+           await clearNotificationsId();
            await MobileService.LogoutAsync();
-            App.ConnectedUser = null;
+           App.ConnectedUser = null;
+        }
+
+        private static async Task clearNotificationsId()
+        {
+            await MobileService.InvokeApiAsync("NotificationsId", HttpMethod.Delete, parameters: null);
         }
     }
 }

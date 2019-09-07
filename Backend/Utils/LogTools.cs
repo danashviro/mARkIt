@@ -3,7 +3,7 @@ using System;
 using System.Security.Claims;
 using System.Data.Entity.Validation;
 
-namespace mARkIt.Backend
+namespace mARkIt.Backend.Utils
 {
     public static class LogTools
     {

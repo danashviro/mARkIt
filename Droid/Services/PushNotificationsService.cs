@@ -2,8 +2,11 @@
 using Android.Content;
 using Android.OS;
 using Android.Support.V4.App;
+using mARkIt.Services;
 using Microsoft.AppCenter;
 using Microsoft.AppCenter.Push;
+using System;
+using System.Threading.Tasks;
 
 namespace mARkIt.Droid.Services
 {
@@ -20,25 +23,28 @@ namespace mARkIt.Droid.Services
             if (!isRegistered)
             {
                 Context = context;
-                setupAppCenterPush();
+                Task.Run(setupAppCenterPush);
                 isRegistered = true;
             }
         }
 
-        private static void setupAppCenterPush()
+        private async static void setupAppCenterPush()
         {
             const string androidAppSecret = "7d213151-6a71-406c-9db2-732e5fa1b464";
+
             AppCenter.Start(androidAppSecret, typeof(Push));
-            AppCenter.SetUserId(App.ConnectedUser.Id);
-            App.UserChanged += async (user) =>
+
+            Guid? install_guid = await AppCenter.GetInstallIdAsync();
+
+            if (install_guid.HasValue)
             {
-                AppCenter.SetUserId(user.Id);
+                await AzureService.RegisterNotificationsId(install_guid.Value.ToString());
 
-                // User changes only after logout - which disables notifications
-                await Push.SetEnabledAsync(true);
-            };
+                // Register the new user after logging out the previous one.
+                App.UserChanged += async (user) => await AzureService.RegisterNotificationsId(install_guid.Value.ToString());
 
-            Push.PushNotificationReceived += OnNotificationReceived;
+                Push.PushNotificationReceived += OnNotificationReceived;
+            }
         }
 
         private static void OnNotificationReceived(object sender, PushNotificationReceivedEventArgs e)

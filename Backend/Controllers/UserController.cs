@@ -4,12 +4,10 @@ using System.Web.Http;
 using System.Web.Http.Controllers;
 using System.Web.Http.OData;
 using Microsoft.Azure.Mobile.Server;
-using Backend.DataObjects;
 using Backend.Models;
 using System.Net;
 using mARkIt.Backend.Utils;
-using mARkIt.Backend;
-using System;
+using mARkIt.Backend.DataObjects;
 
 namespace Backend.Controllers
 {

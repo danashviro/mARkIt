@@ -1,9 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Backend.DataObjects
+namespace mARkIt.Backend.DataObjects
 {
-    public class UserMarkRating
+    public class UserMarkExperience
     {
         [StringLength(450)]
         [ForeignKey("User")]
@@ -20,6 +21,10 @@ namespace Backend.DataObjects
 
         public virtual Mark Mark {get; set; }
 
-        public float Rating { get; set; }
+        public bool HasUserRated { get; set; }
+
+        public float UserRating { get; set; }
+
+        public DateTime? LastSeen { get; set; }
     }
 }

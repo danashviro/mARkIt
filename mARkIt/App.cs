@@ -44,7 +44,7 @@ namespace mARkIt
                 if (Instance.m_User != value && value != null)
                 {
                     Instance.m_User = value;
-                    UserChanged?.Invoke(ConnectedUser);
+                    UserChanged?.Invoke(Instance.m_User);
                 }
             }
         }

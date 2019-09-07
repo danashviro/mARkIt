@@ -28,6 +28,27 @@ namespace mARkIt.Models
             return await AzureService.Update(i_User);
         }
 
+        public static async Task<bool> UpdateMarkSeen(string i_MarkId)
+        {
+            bool updateSuccessful = false;
+
+            Dictionary<string, string> parameters = new Dictionary<string, string>
+            {
+                { "markId",i_MarkId }
+            };
+
+            try
+            {
+                updateSuccessful = await AzureService.MobileService.InvokeApiAsync<bool>("SeenMark", HttpMethod.Post, parameters);
+            }
+            catch (Exception)
+            {
+                updateSuccessful = false;
+            }
+
+            return updateSuccessful;
+        }
+
         /// <summary>
         /// Posts a new rating of mark by a user, or update his rating for the same mark.
         /// </summary>

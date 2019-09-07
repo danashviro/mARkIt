@@ -4,23 +4,24 @@ using System.Web.Http;
 using System.Web.Http.Controllers;
 using System.Web.Http.OData;
 using Microsoft.Azure.Mobile.Server;
-using Backend.DataObjects;
 using Backend.Models;
 using System;
-using mARkIt.Backend;
 using System.Net;
 using mARkIt.Backend.Utils;
 using mARkIt.Backend.Notifications;
 using System.Collections.Generic;
+using mARkIt.Backend.DataObjects;
 
 namespace Backend.Controllers
 {
     public class MarkController : TableController<Mark>
     {
+        MobileServiceContext context;
+
         protected override void Initialize(HttpControllerContext controllerContext)
         {
             base.Initialize(controllerContext);
-            MobileServiceContext context = new MobileServiceContext();
+            context = new MobileServiceContext();
             DomainManager = new EntityDomainManager<Mark>(context, Request);
         }
 
@@ -53,15 +54,21 @@ namespace Backend.Controllers
             item.UserId = LoggedUserId;
             Mark current = await InsertAsync(item);
 
-            Notification notification = new MarkitNotification
-            {
-                Targets = new List<string> { LoggedUserId },
-                Name = $"Mark upload - {DateTime.Now.ToString("MM.dd HH:mm:ss.fff")}",
-                Title = "Congrats!",
-                Body = "You've uploaded a new mark!"
-            };
+            string userPushId = context.Users.Find(LoggedUserId).NotificationsId;
 
-            await notification.Push();
+            if(!string.IsNullOrEmpty(userPushId))
+            {
+                Notification notification = new MarkitNotification
+                {
+                    Targets = new List<string> { userPushId },
+                    TargetType = eTargetType.Devices,
+                    Name = $"Mark upload - {DateTime.Now.ToString("MM.dd HH:mm:ss.fff")}",
+                    Title = "Congrats!",
+                    Body = "You've uploaded a new mark!"
+                };
+
+                await notification.Push();
+            }
 
             return CreatedAtRoute("Tables", new { id = current.Id }, current);
         }

@@ -186,22 +186,12 @@
     <Compile Include="Controllers\RatingController.cs" />
     <Compile Include="Controllers\RelevantMarksController.cs" />
     <Compile Include="Controllers\MarkController.cs" />
+    <Compile Include="Controllers\PushIdController.cs" />
+    <Compile Include="Controllers\SeenMarkController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="DataObjects\Mark.cs" />
-    <Compile Include="DataObjects\UserMarkRating.cs" />
+    <Compile Include="DataObjects\UserMarkExperience.cs" />
     <Compile Include="DataObjects\User.cs" />
-    <Compile Include="Migrations\201903231506328_Initial.cs" />
-    <Compile Include="Migrations\201903231506328_Initial.Designer.cs">
-      <DependentUpon>201903231506328_Initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201903231512526_AddLocations.cs" />
-    <Compile Include="Migrations\201903231512526_AddLocations.Designer.cs">
-      <DependentUpon>201903231512526_AddLocations.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201903231518290_test.cs" />
-    <Compile Include="Migrations\201903231518290_test.Designer.cs">
-      <DependentUpon>201903231518290_test.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\MobileServiceContext.cs" />
     <Compile Include="Notifications\eTargetType.cs" />
@@ -237,17 +227,6 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201903231506328_Initial.resx">
-      <DependentUpon>201903231506328_Initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201903231512526_AddLocations.resx">
-      <DependentUpon>201903231512526_AddLocations.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201903231518290_test.resx">
-      <DependentUpon>201903231518290_test.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

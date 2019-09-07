@@ -1,6 +1,6 @@
 ﻿using Microsoft.Azure.Mobile.Server;
 
-namespace Backend.DataObjects
+namespace mARkIt.Backend.DataObjects
 {
     public class Mark : EntityData
     {

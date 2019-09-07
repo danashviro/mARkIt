@@ -1,4 +1,4 @@
-using Backend.DataObjects;
+using mARkIt.Backend.DataObjects;
 using Microsoft.Azure.Mobile.Server.Tables;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
@@ -22,10 +22,8 @@ namespace Backend.Models
         }
 
         public DbSet<User> Users { get; set; }
-
         public DbSet<Mark> Marks { get; set; }
-
-        public DbSet<UserMarkRating> UserMarkRatings { get; set; }
+        public DbSet<UserMarkExperience> UserMarkExperiences { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

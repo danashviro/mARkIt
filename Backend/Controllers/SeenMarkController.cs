@@ -1,57 +1,35 @@
-﻿using System.Web.Http;
+﻿using Backend.Models;
 using Microsoft.Azure.Mobile.Server.Config;
-using System.Net;
 using System;
-using Backend.Models;
-using System.Data.Entity;
-using System.Threading.Tasks;
+using System.Web.Http;
 using mARkIt.Backend.Utils;
+using System.Threading.Tasks;
+using System.Net;
+using System.Data.Entity;
 using mARkIt.Backend.DataObjects;
 
-namespace Backend.Controllers
+namespace mARkIt.Backend.Controllers
 {
     [MobileAppController]
     [Authorize]
-    public class RatingController : ApiController
+    public class SeenMarkController : ApiController
     {
         MobileServiceContext context;
         public string LoggedUserId => this.GetLoggedUserId();
 
-        public RatingController()
+        public SeenMarkController()
         {
             context = new MobileServiceContext();
         }
 
-        // GET api/Rating
-        [HttpGet]
-        public double? Get(string markId)
-        {
-            // Check parameters validity
-            if (markId == null)
-            {
-                throw new HttpResponseException(HttpStatusCode.BadRequest);
-            }
-
-            UserMarkExperience userMarkExperience = context.UserMarkExperiences.Find(LoggedUserId, markId);
-
-            if (userMarkExperience == null)
-            {
-                return null;
-            }
-            else
-            {
-                return userMarkExperience.UserRating;
-            }
-        }
-
-        // POST api/Rating
+        // POST api/SeenMark
         [HttpPost]
-        public async Task<bool> Post(string markId, float? rating)
+        public async Task<bool> Post(string markId)
         {
             bool updateWasSuccessful = false;
 
             // Check parameters
-            if (markId == null || rating == null)
+            if (markId == null)
             {
                 throw new HttpResponseException(HttpStatusCode.BadRequest);
             }
@@ -78,18 +56,8 @@ namespace Backend.Controllers
                         validateOwner(userMarkExperience);
                     }
 
-                    userMarkExperience.Mark.RatingsSum -= userMarkExperience.UserRating;
-                    userMarkExperience.Mark.RatingsSum += rating.Value;
-                    userMarkExperience.UserRating = rating.Value;
                     userMarkExperience.LastSeen = DateTime.Now;
 
-                    if (!userMarkExperience.HasUserRated)
-                    {
-                        userMarkExperience.Mark.RatingsCount++;
-                        userMarkExperience.HasUserRated = true;
-                    }                    
-
-                    userMarkExperience.Mark.UpdateRating();
                     await context.SaveChangesAsync();
                     transaction.Commit();
                     updateWasSuccessful = true;

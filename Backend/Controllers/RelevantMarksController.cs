@@ -1,12 +1,12 @@
 ﻿using System.Web.Http;
 using Microsoft.Azure.Mobile.Server.Config;
 using System.Collections.Generic;
-using Backend.DataObjects;
 using System;
 using System.Linq;
 using Backend.Models;
 using System.Windows;
 using mARkIt.Backend.Utils;
+using mARkIt.Backend.DataObjects;
 
 namespace Backend.Controllers
 {
@@ -66,8 +66,11 @@ namespace Backend.Controllers
 
         private int getUserRelevantCateogiresCode()
         {
-            var userQuery = from user in context.Users where user.Id == LoggedUserId select user.RelevantCategoriesCode;
-            return userQuery.First();
+            User user = context.Users.Find(LoggedUserId);
+            return user.RelevantCategoriesCode;
+
+            /// var userQuery = from user in context.Users where user.Id == LoggedUserId select user.RelevantCategoriesCode;
+            /// return userQuery.First();
         }
 
         private bool markIsCloseEnough(Vector userPos, Vector markPos, double proximityThreshhold)
