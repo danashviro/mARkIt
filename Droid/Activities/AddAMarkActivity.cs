@@ -47,9 +47,9 @@ namespace mARkIt.Droid
 
         public void OnTextChanged(ICharSequence s, int start, int before, int count)
         {
-            m_LettersCount = count;
+            m_LettersCount = s.Count();
             int remainingLetters = k_MaxLetters - m_LettersCount;
-            m_NumOfLettersTextView.SetTextColor(remainingLetters < 0?Android.Graphics.Color.Red: Android.Graphics.Color.Black);
+            m_NumOfLettersTextView.SetTextColor(remainingLetters < 0?Android.Graphics.Color.Red: Android.Graphics.Color.White);
             m_NumOfLettersTextView.Text = "Letters: " + remainingLetters;
         }
 
