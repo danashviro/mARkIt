@@ -115,7 +115,7 @@ namespace mARkIt.Droid.Fragments
                 intent = new Intent(Activity, typeof(AddAMarkActivity));
                 StartActivity(intent);
             }
-            else if(option=="rate")
+            else if (option == "rate") 
             {
                 intent = new Intent(Activity, typeof(RateAMarkActivity));
                 intent.PutExtra("markId", p0.GetString("markId"));
@@ -126,6 +126,10 @@ namespace mARkIt.Droid.Fragments
                 double longitude = p0.GetDouble("longitude");
                 double latitude = p0.GetDouble("latitude");
                 getMarks(longitude, latitude);
+            }
+            else if (option == "seen")
+            {
+                User.UpdateMarkSeen(p0.GetString("markId"));
             }
         }
 

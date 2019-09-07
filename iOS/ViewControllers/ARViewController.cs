@@ -246,8 +246,12 @@ namespace mARkIt.iOS
             else if (option == "getMarks")
             {
                 double longitude = ((NSNumber)e.JsonObject.ObjectForKey(new NSString("longitude"))).DoubleValue;
-                double latitude = ((NSNumber)e.JsonObject.ObjectForKey(new NSString("latitude"))).DoubleValue; 
+                double latitude = ((NSNumber)e.JsonObject.ObjectForKey(new NSString("latitude"))).DoubleValue;
                 getMarks(longitude, latitude);
+            }
+            else if (option == "seen")
+            {
+                User.UpdateMarkSeen(e.JsonObject.ObjectForKey(new NSString("markId")).ToString());
             }
         }
 

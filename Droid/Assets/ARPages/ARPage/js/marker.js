@@ -5,6 +5,7 @@
     this.markerLocation = markerLocation;
     //var markerLocation = new AR.RelativeLocation(null, 5, 0, 1);
     this.markerImage;
+    var seen = false;
     
     if (markData.style == "Wood") {
         this.markerImage = new AR.ImageResource("assets/woodSign.png");
@@ -42,7 +43,13 @@
         },
         onClick: function () {
             AR.platform.sendJSONObject({ "option": "rate", "markId": markData.id });
-        }
+        },
+        onEnterFieldOfVision: function () {
+            if (seen == false) {
+                seen = true;
+                AR.platform.sendJSONObject({ "option": "seen", "markId": markData.id });
+            }
+        } 
     });
 
     return this;
