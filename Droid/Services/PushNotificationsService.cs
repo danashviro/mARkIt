@@ -23,7 +23,7 @@ namespace mARkIt.Droid.Services
             if (!isRegistered)
             {
                 Context = context;
-                Task.Run(setupAppCenterPush);
+                Task.Run(()=>setupAppCenterPush());
                 isRegistered = true;
             }
         }
