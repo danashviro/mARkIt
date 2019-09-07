@@ -53,34 +53,19 @@ namespace mARkIt.Droid.Services
             DisplayNotification(e.Title, e.Message, resultIntent);
         }
 
-        public static void createNotificationChannel()
-        {
-            if (Build.VERSION.SdkInt < BuildVersionCodes.O)
-            {
-                // Notification channels are new in API 26 (and not a part of the
-                // support library). There is no need to create a notification 
-                // channel on older versions of Android.
-                return;
-            }
-
-            var name = "mARK-It Notification";
-            var channel = new NotificationChannel(CHANNEL_ID, name, NotificationImportance.High)
-            {
-                Description = string.Empty
-            };
-
-            var notificationManager = (NotificationManager)Context.GetSystemService(Context.NotificationService);
-            notificationManager.CreateNotificationChannel(channel);
-        }
-
         private static Intent determineResultIntent(PushNotificationReceivedEventArgs e)
         {
             // When the user clicks the notification, TabsActivity will start up.
             return new Intent(Context, typeof(TabsActivity));
         }
 
-        public static void DisplayNotification(string title, string message, Intent resultIntent)
+        public static void DisplayNotification(string title, string message, Intent resultIntent = null)
         {
+            if(resultIntent == null)
+            {
+                resultIntent = new Intent(Context, typeof(TabsActivity));
+            }
+
             createNotificationChannel();
 
             // Construct a back stack for cross-task navigation:
@@ -102,6 +87,26 @@ namespace mARkIt.Droid.Services
             // Finally, publish the notification:
             var notificationManager = NotificationManagerCompat.From(Context);
             notificationManager.Notify(NOTIFICATION_ID, builder.Build());
+        }
+
+        public static void createNotificationChannel()
+        {
+            if (Build.VERSION.SdkInt < BuildVersionCodes.O)
+            {
+                // Notification channels are new in API 26 (and not a part of the
+                // support library). There is no need to create a notification 
+                // channel on older versions of Android.
+                return;
+            }
+
+            var name = "mARK-It Notification";
+            var channel = new NotificationChannel(CHANNEL_ID, name, NotificationImportance.High)
+            {
+                Description = string.Empty
+            };
+
+            var notificationManager = (NotificationManager)Context.GetSystemService(Context.NotificationService);
+            notificationManager.CreateNotificationChannel(channel);
         }
     }
 }
