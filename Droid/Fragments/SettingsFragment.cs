@@ -68,16 +68,9 @@ namespace mARkIt.Droid.Fragments
             button.Clickable = false;
             App.ConnectedUser.RelevantCategoriesCode = catagories;
             bool updated = await User.Update(App.ConnectedUser);
-            if(updated)
-            {
-                Toast.MakeText(Context, "Upload successfull!", ToastLength.Long).Show();
-                button.Clickable = true;
-            }
-            else
-            {
-                Toast.MakeText(Context, "Upload failed!", ToastLength.Long).Show();
-                button.Clickable = true;
-            }
+            string msg = updated ? "Upload successfull!" : "Upload failed!";
+            Toast.MakeText(Context, msg, ToastLength.Long).Show();
+            button.Clickable = true;
         }
 
         private int getCaregories()
