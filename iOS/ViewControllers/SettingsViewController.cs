@@ -12,12 +12,7 @@ namespace mARkIt.iOS
 {
     public partial class SettingsViewController : UIViewController
     {
-        private int? m_CategoriesCode = null;
-
-        public SettingsViewController (IntPtr handle) : base (handle)
-        {
-        }
-
+        public SettingsViewController (IntPtr handle) : base(handle) { }
         
         public override void ViewDidLoad()
         {
@@ -29,9 +24,8 @@ namespace mARkIt.iOS
         public override void ViewWillAppear(bool animated)
         {
             base.ViewWillAppear(animated);
-            if (m_CategoriesCode == null || m_CategoriesCode.Value != App.ConnectedUser.RelevantCategoriesCode)
+            if (getCategories() != App.ConnectedUser.RelevantCategoriesCode)
             {
-                m_CategoriesCode = App.ConnectedUser.RelevantCategoriesCode;
                 getCategoriesCheckBoxCheckStatusFromUser();
             }              
         }
@@ -48,7 +42,9 @@ namespace mARkIt.iOS
 
         private async void SaveButton_Clicked(object sender, EventArgs e)
         {
+            saveButton.Enabled = false;
             App.ConnectedUser.RelevantCategoriesCode = getCategories();
+            int prevCategoriesCode = App.ConnectedUser.RelevantCategoriesCode;
             bool updated = await User.Update(App.ConnectedUser);
             if(updated)
             {
@@ -56,8 +52,11 @@ namespace mARkIt.iOS
             }
             else
             {
+                App.ConnectedUser.RelevantCategoriesCode = prevCategoriesCode;
                 Alert.Display("Error", "Their was a problem saving your settings, please try again later", this);
             }
+
+            saveButton.Enabled = true;
         }
 
 

@@ -13,11 +13,7 @@ namespace mARkIt.iOS
     public partial class AddAMarkViewController : UIViewController
     {
         private SfRadioButton m_WoodMarkStyleRadioButton, m_MetalMarkStyleRadioButton, m_SchoolMarkStyleRadioButton;
-        private SfRadioButton m_GeneralCategoryRadioButton;
-        private SfRadioButton m_FoodCategoryRadioButton;
-        private SfRadioButton m_HistoryCategoryRadioButton;
-        private SfRadioButton m_SportCategoryRadioButton;
-        private SfRadioButton m_NatureCategoryRadioButton;
+        private SfRadioButton m_GeneralCategoryRadioButton, m_FoodCategoryRadioButton, m_HistoryCategoryRadioButton, m_SportCategoryRadioButton, m_NatureCategoryRadioButton;
         private const int m_MaxLettersAllowed = 40;
 
         public AddAMarkViewController(IntPtr handle) : base(handle)
@@ -176,8 +172,9 @@ namespace mARkIt.iOS
 
         private async void DoneBarButton_Clicked(object sender, EventArgs e)
         {
+            doneBarButton.Enabled = false;
             markTextField.UserInteractionEnabled = false;
-            if (markTextField.Text.Count<char>() > m_MaxLettersAllowed)
+            if (markTextField.Text.Count() > m_MaxLettersAllowed)
             {
                 Alert.Display("Error", "There are too many letters!", this);
             }
@@ -190,6 +187,7 @@ namespace mARkIt.iOS
                 await uploadMarkAsync();
             }
 
+            doneBarButton.Enabled = true;
             markTextField.UserInteractionEnabled = true;
         }
 
