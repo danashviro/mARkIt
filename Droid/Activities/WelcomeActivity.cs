@@ -79,7 +79,7 @@ namespace mARkIt.Droid.Activities
         {
             if (App.ConnectedUser != null)
             {
-                PushNotificationsService.Register(context: this);
+                AndroidNotifications.Register(context: this);
                 startMainApp();
             }
             else

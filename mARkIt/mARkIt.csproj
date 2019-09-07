@@ -42,7 +42,7 @@
     <Compile Include="Utils\Configuration.cs" />
     <Compile Include="Utils\Keys.cs" />
     <Compile Include="Utils\eCategories.cs" />
-    <Compile Include="Services\AzureService.cs" />
+    <Compile Include="AzureWebApi.cs" />
     <Compile Include="Authentication\LoginHelper.cs" />
   </ItemGroup>
   <ItemGroup>

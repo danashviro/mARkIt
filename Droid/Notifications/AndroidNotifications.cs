@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace mARkIt.Droid.Services
 {
-    public static class PushNotificationsService
+    public static class AndroidNotifications
     {
         // Unique ID for our notification: 
         static readonly int NOTIFICATION_ID = 1000;
@@ -38,10 +38,10 @@ namespace mARkIt.Droid.Services
 
             if (install_guid.HasValue)
             {
-                await AzureService.RegisterNotificationsId(install_guid.Value.ToString());
+                await AzureWebApi.RegisterNotificationsId(install_guid.Value.ToString());
 
                 // Register the new user after logging out the previous one.
-                App.UserChanged += async (user) => await AzureService.RegisterNotificationsId(install_guid.Value.ToString());
+                App.UserChanged += async (user) => await AzureWebApi.RegisterNotificationsId(install_guid.Value.ToString());
 
                 Push.PushNotificationReceived += OnNotificationReceived;
             }
@@ -49,7 +49,6 @@ namespace mARkIt.Droid.Services
 
         private static void OnNotificationReceived(object sender, PushNotificationReceivedEventArgs e)
         {
-            createNotificationChannel();
             var resultIntent = determineResultIntent(e);
             DisplayNotification(e.Title, e.Message, resultIntent);
         }
@@ -67,7 +66,7 @@ namespace mARkIt.Droid.Services
             var name = "mARK-It Notification";
             var channel = new NotificationChannel(CHANNEL_ID, name, NotificationImportance.High)
             {
-                Description = ""
+                Description = string.Empty
             };
 
             var notificationManager = (NotificationManager)Context.GetSystemService(Context.NotificationService);
@@ -82,6 +81,8 @@ namespace mARkIt.Droid.Services
 
         public static void DisplayNotification(string title, string message, Intent resultIntent)
         {
+            createNotificationChannel();
+
             // Construct a back stack for cross-task navigation:
             var stackBuilder = Android.App.TaskStackBuilder.Create(Context);
             stackBuilder.AddParentStack(Java.Lang.Class.FromType(typeof(TabsActivity)));

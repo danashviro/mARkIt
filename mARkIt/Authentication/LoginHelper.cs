@@ -49,7 +49,7 @@ namespace mARkIt.Authentication
                     break;
             }
 
-            await AzureService.LoginToBackend(s_AuthType, i_Account);
+            await AzureWebApi.Login(s_AuthType, i_Account);
         }
 
 
@@ -104,7 +104,7 @@ namespace mARkIt.Authentication
         public static async Task Logout()
         {
             Xamarin.Essentials.SecureStorage.RemoveAll();
-            await AzureService.Logout();
+            await AzureWebApi.Logout();
         }
     }
 }

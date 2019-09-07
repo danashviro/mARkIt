@@ -26,7 +26,7 @@ namespace mARkIt.Models
 
             try
             {
-                marks = await AzureService.MobileService.GetTable<Mark>().Where(mark => mark.UserId == App.ConnectedUser.Id).ToListAsync();
+                marks = await AzureWebApi.MobileService.GetTable<Mark>().Where(mark => mark.UserId == App.ConnectedUser.Id).ToListAsync();
             }
             catch
             {
@@ -38,7 +38,7 @@ namespace mARkIt.Models
 
         public async static Task<Mark> GetById(string i_Id)
         {
-            Mark mark = await AzureService.GetById<Mark>(i_Id);
+            Mark mark = await AzureWebApi.GetById<Mark>(i_Id);
             return mark;
         }
 
@@ -63,7 +63,7 @@ namespace mARkIt.Models
 
             try
             {
-                relevantMarks = await AzureService.MobileService.InvokeApiAsync<List<Mark>>("RelevantMarks", HttpMethod.Get, parameters);
+                relevantMarks = await AzureWebApi.MobileService.InvokeApiAsync<List<Mark>>("RelevantMarks", HttpMethod.Get, parameters);
             }
             catch(Exception ex)
             {
@@ -75,17 +75,17 @@ namespace mARkIt.Models
 
         public static async Task<bool> Insert(Mark i_Mark)
         {
-            return await AzureService.Insert(i_Mark);
+            return await AzureWebApi.Insert(i_Mark);
         }
 
         public static async Task<bool> Delete(Mark i_Mark)
         {
-            return await AzureService.Delete(i_Mark);
+            return await AzureWebApi.Delete(i_Mark);
         }
 
         public static async Task<bool> Update(Mark i_Mark)
         {
-            return await AzureService.Update(i_Mark);
+            return await AzureWebApi.Update(i_Mark);
         }
     }
 }

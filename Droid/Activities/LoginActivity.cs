@@ -44,7 +44,7 @@ namespace mARkIt.Droid
         public async void OnAuthenticationCompleted(Account i_Account)
         {
             await LoginHelper.CreateUserAndSaveToDevice(i_Account);
-            PushNotificationsService.Register(context: this);
+            AndroidNotifications.Register(context: this);
             startMainApp();
         }
 

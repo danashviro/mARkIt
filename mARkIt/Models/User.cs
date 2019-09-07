@@ -15,17 +15,17 @@ namespace mARkIt.Models
 
         public static async Task<bool> Insert(User i_User)
         {
-            return await AzureService.Insert(i_User);
+            return await AzureWebApi.Insert(i_User);
         }
 
         public static async Task<bool> Delete(User i_User)
         {
-            return await AzureService.Delete(i_User);
+            return await AzureWebApi.Delete(i_User);
         }
 
         public static async Task<bool> Update(User i_User)
         {
-            return await AzureService.Update(i_User);
+            return await AzureWebApi.Update(i_User);
         }
 
         public static async Task<bool> UpdateMarkSeen(string i_MarkId)
@@ -39,7 +39,7 @@ namespace mARkIt.Models
 
             try
             {
-                updateSuccessful = await AzureService.MobileService.InvokeApiAsync<bool>("SeenMark", HttpMethod.Post, parameters);
+                updateSuccessful = await AzureWebApi.MobileService.InvokeApiAsync<bool>("SeenMark", HttpMethod.Post, parameters);
             }
             catch (Exception)
             {
@@ -72,7 +72,7 @@ namespace mARkIt.Models
 
             try
             {
-                updateSuccessful = await AzureService.MobileService.InvokeApiAsync<bool>("Rating", HttpMethod.Post, parameters);
+                updateSuccessful = await AzureWebApi.MobileService.InvokeApiAsync<bool>("Rating", HttpMethod.Post, parameters);
             }
             catch(Exception)
             {
@@ -103,7 +103,7 @@ namespace mARkIt.Models
 
             try
             {
-                userRatingOfMark = await AzureService.MobileService.InvokeApiAsync<float?>("Rating", HttpMethod.Get, parameters);
+                userRatingOfMark = await AzureWebApi.MobileService.InvokeApiAsync<float?>("Rating", HttpMethod.Get, parameters);
             }
             catch(Exception)
             {
