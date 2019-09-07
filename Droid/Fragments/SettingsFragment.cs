@@ -63,13 +63,20 @@ namespace mARkIt.Droid.Fragments
 
         private async void SaveButton_Click(object sender, EventArgs e)
         {
-            int catagories = getCaregories();
+            int previousCatagories = App.ConnectedUser.RelevantCategoriesCode;
             Button button = sender as Button;
             button.Clickable = false;
-            App.ConnectedUser.RelevantCategoriesCode = catagories;
+            App.ConnectedUser.RelevantCategoriesCode = getCaregories();
             bool updated = await User.Update(App.ConnectedUser);
-            string msg = updated ? "Upload successfull!" : "Upload failed!";
-            Toast.MakeText(Context, msg, ToastLength.Long).Show();
+            if(updated)
+            {
+                Toast.MakeText(Context, "Upload successfull!", ToastLength.Long).Show();
+            }
+            else
+            {
+                Toast.MakeText(Context, "Upload failed!", ToastLength.Long).Show();
+                App.ConnectedUser.RelevantCategoriesCode = previousCatagories;
+            }
             button.Clickable = true;
         }
 
@@ -101,13 +108,13 @@ namespace mARkIt.Droid.Fragments
 
         private void fillComponents()
         {
-            int relevantCategoriesCode = App.ConnectedUser.RelevantCategoriesCode;
+            int categories = App.ConnectedUser.RelevantCategoriesCode;
 
-            m_GeneralCheckBox.Checked = (relevantCategoriesCode & (int)eCategories.General) != 0 ? true : false;
-            m_FoodCheckBox.Checked = (relevantCategoriesCode & (int)eCategories.Food) != 0 ? true : false;
-            m_HistoryCheckBox.Checked = (relevantCategoriesCode & (int)eCategories.History) != 0 ? true : false;
-            m_SportCheckBox.Checked = (relevantCategoriesCode & (int)eCategories.Sport) != 0 ? true : false;
-            m_NatureCheckBox.Checked = (relevantCategoriesCode & (int)eCategories.Nature) != 0 ? true : false;
+            m_GeneralCheckBox.Checked = (categories & (int)eCategories.General) != 0 ? true : false;
+            m_FoodCheckBox.Checked = (categories & (int)eCategories.Food) != 0 ? true : false;
+            m_HistoryCheckBox.Checked = (categories & (int)eCategories.History) != 0 ? true : false;
+            m_SportCheckBox.Checked = (categories & (int)eCategories.Sport) != 0 ? true : false;
+            m_NatureCheckBox.Checked = (categories & (int)eCategories.Nature) != 0 ? true : false;
         }
 
         private async void LogoutButton_Click(object sender, EventArgs e)
