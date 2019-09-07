@@ -37,6 +37,7 @@ namespace mARkIt.Droid.Fragments
             m_GoogleMap = googleMap;
             googleMap.MapType = GoogleMap.MapTypeNormal;
             googleMap.MyLocationEnabled = true;
+            googleMap.Clear();
             addMarksFromServer();
             googleMap.MyLocationChange += GoogleMap_MyLocationChange;
         }

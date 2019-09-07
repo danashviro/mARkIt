@@ -429,9 +429,6 @@
     <AndroidResource Include="Resources\drawable\Sport.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\Here.png" />
-  </ItemGroup>
-  <ItemGroup>
     <AndroidResource Include="Resources\drawable\metalSignAddMark.png" />
   </ItemGroup>
   <ItemGroup>
