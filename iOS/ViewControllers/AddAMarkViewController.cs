@@ -36,60 +36,6 @@ namespace mARkIt.iOS
             };
         }
 
-        private void MarkTextField_EditingChanged(object sender, EventArgs e)
-        {
-            int remainingLetters = m_MaxLettersAllowed - markTextField.Text.Count<char>();
-            letterCounterLabel.Text = (remainingLetters).ToString();
-            if (remainingLetters < 0)
-            {
-                letterCounterLabel.TextColor = UIColor.Red;
-            }
-            else if (remainingLetters < 10)
-            {
-                letterCounterLabel.TextColor = UIColor.Yellow;
-            }
-            else
-            {
-                letterCounterLabel.TextColor = UIColor.White;
-            }
-        }
-
-        private void addCategoriesRadioButtons()
-        {
-            m_GeneralCategoryRadioButton = new SfRadioButton();
-            m_FoodCategoryRadioButton = new SfRadioButton();
-            m_HistoryCategoryRadioButton = new SfRadioButton();
-            m_SportCategoryRadioButton = new SfRadioButton();
-            m_NatureCategoryRadioButton = new SfRadioButton();
-            m_GeneralCategoryRadioButton.IsChecked = true;
-            m_GeneralCategoryRadioButton.SetTitle("General", UIControlState.Normal);
-            m_FoodCategoryRadioButton.SetTitle("Food", UIControlState.Normal);
-            m_HistoryCategoryRadioButton.SetTitle("History", UIControlState.Normal);
-            m_SportCategoryRadioButton.SetTitle("Sport", UIControlState.Normal);
-            m_NatureCategoryRadioButton.SetTitle("Nature", UIControlState.Normal);
-            m_GeneralCategoryRadioButton.Font = UIFont.FromName("Arial", 15);
-            m_FoodCategoryRadioButton.Font = UIFont.FromName("Arial", 15);
-            m_HistoryCategoryRadioButton.Font = UIFont.FromName("Arial", 15);
-            m_SportCategoryRadioButton.Font = UIFont.FromName("Arial", 15);
-            m_NatureCategoryRadioButton.Font = UIFont.FromName("Arial", 15);
-
-            categoriesRadioGroup.AddArrangedSubview(m_GeneralCategoryRadioButton);
-            categoriesRadioGroup.AddArrangedSubview(m_FoodCategoryRadioButton);
-            categoriesRadioGroup.AddArrangedSubview(m_HistoryCategoryRadioButton);
-            categoriesRadioGroup.AddArrangedSubview(m_SportCategoryRadioButton);
-            categoriesRadioGroup.AddArrangedSubview(m_NatureCategoryRadioButton);
-        }
-
-        private void addMarkStyleRadioButtons()
-        {
-            m_WoodMarkStyleRadioButton = new SfRadioButton();
-            m_MetalMarkStyleRadioButton = new SfRadioButton();
-            m_SchoolMarkStyleRadioButton = new SfRadioButton();
-            m_WoodMarkStyleRadioButton.IsChecked = true;
-            markStyleRadioGroup.AddArrangedSubview(m_WoodMarkStyleRadioButton);
-            markStyleRadioGroup.AddArrangedSubview(m_MetalMarkStyleRadioButton);
-            markStyleRadioGroup.AddArrangedSubview(m_SchoolMarkStyleRadioButton);
-        }
 
         private async Task uploadMarkAsync()
         {
@@ -196,5 +142,59 @@ namespace mARkIt.iOS
             NavigationController.PopViewController(true);
         }
 
+        private void MarkTextField_EditingChanged(object sender, EventArgs e)
+        {
+            int remainingLetters = m_MaxLettersAllowed - markTextField.Text.Count<char>();
+            letterCounterLabel.Text = (remainingLetters).ToString();
+            if (remainingLetters < 0)
+            {
+                letterCounterLabel.TextColor = UIColor.Red;
+            }
+            else if (remainingLetters < 10)
+            {
+                letterCounterLabel.TextColor = UIColor.Yellow;
+            }
+            else
+            {
+                letterCounterLabel.TextColor = UIColor.White;
+            }
+        }
+
+        private void addCategoriesRadioButtons()
+        {
+            m_GeneralCategoryRadioButton = new SfRadioButton();
+            m_FoodCategoryRadioButton = new SfRadioButton();
+            m_HistoryCategoryRadioButton = new SfRadioButton();
+            m_SportCategoryRadioButton = new SfRadioButton();
+            m_NatureCategoryRadioButton = new SfRadioButton();
+            m_GeneralCategoryRadioButton.IsChecked = true;
+            m_GeneralCategoryRadioButton.SetTitle("General", UIControlState.Normal);
+            m_FoodCategoryRadioButton.SetTitle("Food", UIControlState.Normal);
+            m_HistoryCategoryRadioButton.SetTitle("History", UIControlState.Normal);
+            m_SportCategoryRadioButton.SetTitle("Sport", UIControlState.Normal);
+            m_NatureCategoryRadioButton.SetTitle("Nature", UIControlState.Normal);
+            m_GeneralCategoryRadioButton.Font = UIFont.FromName("Arial", 15);
+            m_FoodCategoryRadioButton.Font = UIFont.FromName("Arial", 15);
+            m_HistoryCategoryRadioButton.Font = UIFont.FromName("Arial", 15);
+            m_SportCategoryRadioButton.Font = UIFont.FromName("Arial", 15);
+            m_NatureCategoryRadioButton.Font = UIFont.FromName("Arial", 15);
+
+            categoriesRadioGroup.AddArrangedSubview(m_GeneralCategoryRadioButton);
+            categoriesRadioGroup.AddArrangedSubview(m_FoodCategoryRadioButton);
+            categoriesRadioGroup.AddArrangedSubview(m_HistoryCategoryRadioButton);
+            categoriesRadioGroup.AddArrangedSubview(m_SportCategoryRadioButton);
+            categoriesRadioGroup.AddArrangedSubview(m_NatureCategoryRadioButton);
+        }
+
+        private void addMarkStyleRadioButtons()
+        {
+            m_WoodMarkStyleRadioButton = new SfRadioButton();
+            m_MetalMarkStyleRadioButton = new SfRadioButton();
+            m_SchoolMarkStyleRadioButton = new SfRadioButton();
+            m_WoodMarkStyleRadioButton.IsChecked = true;
+            markStyleRadioGroup.AddArrangedSubview(m_WoodMarkStyleRadioButton);
+            markStyleRadioGroup.AddArrangedSubview(m_MetalMarkStyleRadioButton);
+            markStyleRadioGroup.AddArrangedSubview(m_SchoolMarkStyleRadioButton);
+        }
     }
 }

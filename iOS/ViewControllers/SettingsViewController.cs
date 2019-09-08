@@ -1,10 +1,7 @@
-using CoreGraphics;
-using Foundation;
 using mARkIt.Authentication;
 using mARkIt.iOS.Helpers;
 using mARkIt.Models;
 using mARkIt.Utils;
-using Syncfusion.SfRating.iOS;
 using System;
 using UIKit;
 

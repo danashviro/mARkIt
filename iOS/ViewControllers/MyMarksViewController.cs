@@ -2,9 +2,7 @@ using Foundation;
 using System;
 using UIKit;
 using System.Collections.Generic;
-using mARkIt.Services;
 using mARkIt.Models;
-using mARkIt.Authentication;
 using Syncfusion.SfRating.iOS;
 
 namespace mARkIt.iOS

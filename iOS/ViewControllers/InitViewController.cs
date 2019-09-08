@@ -15,15 +15,11 @@ namespace mARkIt.iOS
         private WTAuthorizationRequestManager m_AuthorizationRequestManager = new WTAuthorizationRequestManager();
         private Account m_Account;
 
-        public InitViewController(IntPtr handle) : base(handle)
-        {
-
-        }
+        public InitViewController(IntPtr handle) : base(handle) { }
 
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
-
             getWikitudePermissions();
         }
 

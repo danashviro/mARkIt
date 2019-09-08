@@ -26,16 +26,14 @@ namespace mARkIt.iOS
             mapView.ShowsCompass = true;
         }
 
-        string pId = "PinAnnotation";
-
         public MKAnnotationView GetViewForAnnotation(MKMapView mapView, IMKAnnotation annotation)
         {
             MKAnnotationView pinView = null;
             if (annotation is MarkAnnotation)
             {
-                pinView = mapView.DequeueReusableAnnotation(pId);
+                pinView = mapView.DequeueReusableAnnotation("PinAnnotation");
                 if (pinView == null)
-                    pinView = new MKAnnotationView(annotation, pId);
+                    pinView = new MKAnnotationView(annotation, "PinAnnotation");
                 pinView.Image = GetIconByCategory((annotation as MarkAnnotation).Category);
                 pinView.CanShowCallout = true;
             }

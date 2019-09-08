@@ -21,8 +21,15 @@ namespace mARkIt.Authentication
             switch (s_AuthType)
             {
                 case MobileServiceAuthenticationProvider.Facebook:
-                    FacebookClient fbClient = new FacebookClient(i_Account);
-                    user = await fbClient.GetUserAsync();
+                    try
+                    {
+                        FacebookClient fbClient = new FacebookClient(i_Account);
+                        user = await fbClient.GetUserAsync();
+                    }
+                    catch
+                    {
+                        throw;
+                    }
                     break;
                 case MobileServiceAuthenticationProvider.Google:
                     try

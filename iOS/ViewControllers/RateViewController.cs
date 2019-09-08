@@ -1,4 +1,3 @@
-using Foundation;
 using mARkIt.iOS.Helpers;
 using mARkIt.Models;
 using Syncfusion.SfRating.iOS;
@@ -22,7 +21,8 @@ namespace mARkIt.iOS
             markRating.Precision = SFRatingPrecision.Exact;
             userRating.ItemSize = 33;
             userRating.Precision = SFRatingPrecision.Exact;
-            markRating.Value = (await Mark.GetById(MarkId)).Rating;
+            var mark = await Mark.GetById(MarkId);
+            markRating.Value = mark != null ? mark.Rating : 0;
             var userRatingVal = await User.GetUserRatingForMark(MarkId);
             userRating.Value = userRatingVal != null ? userRatingVal.Value : 0;
             saveButton.Clicked += SaveButton_Clicked;

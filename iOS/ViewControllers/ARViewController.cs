@@ -77,14 +77,11 @@ namespace mARkIt.iOS
             currentCaptureDevicePosition = AVCaptureDevicePosition.Unspecified;
         }
 
-        public ARViewController(IntPtr handle) : base(handle)
-        {
-        }
+        public ARViewController(IntPtr handle) : base(handle) { }
 
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
-            // Perform any additional setup after loading the view, typically from a nib.
 
             architectView = new WTArchitectView();
             architectView.SetLicenseKey(Utils.Keys.WikitudeLicense);
@@ -108,7 +105,7 @@ namespace mARkIt.iOS
         {
             base.ViewWillAppear(animated);
 
-            NavigationItem.Title = "AR";
+            NavigationItem.Title = "Explore";
 
             NavigationController.InteractivePopGestureRecognizer.Delegate = this;
 
@@ -139,11 +136,6 @@ namespace mARkIt.iOS
             NSNotificationCenter.DefaultCenter.RemoveObserver(applicationDidBecomeActiveObserver);
         }
 
-        public override void DidReceiveMemoryWarning()
-        {
-            base.DidReceiveMemoryWarning();
-            // Release any cached data, images, etc that aren't in use.
-        }
 
         public override void ViewWillTransitionToSize(CGSize toSize, IUIViewControllerTransitionCoordinator coordinator)
         {

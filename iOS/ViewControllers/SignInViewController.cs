@@ -50,9 +50,17 @@ namespace mARkIt.iOS
         public async void OnAuthenticationCompleted(Account i_Account)
         {
             DismissViewController(true, null);
-            await LoginHelper.CreateUserAndSaveToDevice(i_Account);
-            m_HasLoggedIn = true;
-            PerformSegue("launchAppSegue", this);
+            try
+            {
+                await LoginHelper.CreateUserAndSaveToDevice(i_Account);
+                m_HasLoggedIn = true;
+                PerformSegue("launchAppSegue", this);
+            }
+            catch
+            {
+               Helpers.Alert.Display("Error", "There was a problem, please try again later.", this);
+               SecureStorageAccountStore.RemoveAllAccounts();
+            }
         }
 
 
@@ -60,6 +68,7 @@ namespace mARkIt.iOS
         {
             DismissViewController(true, null);
             SecureStorageAccountStore.RemoveAllAccounts();
+            Helpers.Alert.Display("Error", "There was a problem, please try again later.", this); 
         }
 
         public void OnAuthenticationCanceled()
