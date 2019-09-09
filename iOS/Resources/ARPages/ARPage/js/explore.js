@@ -81,7 +81,8 @@ function showMarks(){
     for (var i = 0 ; i < m_Marks.length ; i++) {
         var mark = m_Marks[i];
         var altitude = m_alt  + Math.random()*2 - Math.random()*2;
-        var markerLocation = new AR.GeoLocation(mark.Latitude, mark.Longitude, altitude);
+        var markerLocation = new AR.GeoLocation(mark.Latitude, mark.Longitude, altitude);     
+
         if((!markIsShowed(mark)) && (markerLocation.distanceToUser() <= 50) && ((mark.Altitude == 1) ||(Math.abs(m_alt - mark.Altitude) < 10))) {
               var markData = {
                   "id": mark.id,
