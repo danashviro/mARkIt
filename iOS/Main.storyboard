@@ -371,7 +371,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="17" weight="light"/>
                                 <state key="normal" title="Logout"/>
                                 <connections>
-                                    <segue id="26137" destination="BYZ-38-t0r" kind="show"/>
+                                    <segue id="26137" destination="BYZ-38-t0r" kind="show" identifier="logoutSegue"/>
                                 </connections>
                             </button>
                             <navigationBar contentMode="scaleToFill" id="36872" translatesAutoresizingMaskIntoConstraints="NO" translucent="NO">
