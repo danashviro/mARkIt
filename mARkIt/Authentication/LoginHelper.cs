@@ -108,10 +108,18 @@ namespace mARkIt.Authentication
             return s_GoogleAuthenticator.GetOAuth2();
         }
 
-        public static async Task Logout()
+        public static async Task<bool> Logout()
         {
-            Xamarin.Essentials.SecureStorage.RemoveAll();
-            await AzureWebApi.Logout();
+            try
+            {
+                await AzureWebApi.Logout();
+                Xamarin.Essentials.SecureStorage.RemoveAll();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }

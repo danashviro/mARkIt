@@ -29,9 +29,9 @@ namespace mARkIt.Droid.Activities
             m_YourRatingBar = FindViewById<RatingBar>(Resource.Id.YourRatingBar);
             m_MarkId = Intent.GetStringExtra("markId");
             Mark mark= await Mark.GetById(m_MarkId);
-            m_MarkRatingBar.Rating = mark.Rating;
+            m_MarkRatingBar.Rating = mark != null ? mark.Rating : 0;
             float? rating= await User.GetUserRatingForMark(m_MarkId);
-            m_YourRatingBar.Rating = rating == null ? 0 : rating.Value;
+            m_YourRatingBar.Rating = rating != null ? rating.Value : 0;
             Button saveButton = FindViewById<Button>(Resource.Id.saveButton);
             saveButton.Click += SaveButton_Click;
         }
@@ -43,13 +43,14 @@ namespace mARkIt.Droid.Activities
             if(succeded)
             {
                 Mark mark = await Mark.GetById(m_MarkId);
-                m_MarkRatingBar.Rating = mark.Rating;
-                Alert.Show("Success", "Your rating has been submited.",this);
+                m_MarkRatingBar.Rating = mark != null ? mark.Rating : m_MarkRatingBar.Rating;
+                Alert.Show("Success", "Your rating has been submited.", this);
             }
             else
             {
                 Alert.Show("Faliure", "Something went wrong.", this);
             }
+
         }
     }
 }

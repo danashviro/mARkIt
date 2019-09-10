@@ -19,7 +19,10 @@ namespace mARkIt.Droid.Fragments
         private async void getMyMarks()
         {
             m_Marks = await Mark.GetMyMarks();
-            ListAdapter = new MarkAdapter(Context, m_Marks);
+            if(m_Marks!=null)
+            {
+                ListAdapter = new MarkAdapter(Context, m_Marks);
+            }
         }
 
         public override void OnHiddenChanged(bool hidden)

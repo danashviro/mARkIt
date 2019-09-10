@@ -75,7 +75,7 @@ namespace mARkIt.Droid
             {
                 try
                 {
-                    var location = await Geolocation.GetLocationAsync();
+                    var location = await Geolocation.GetLastKnownLocationAsync();
                     Mark mark = new Mark()
                     {
                         Message = m_MessageEditText.Text,

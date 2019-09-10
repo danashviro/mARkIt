@@ -54,15 +54,17 @@ namespace mARkIt.Droid.Fragments
         private async void addMarksFromServer()
         {
             var marks = await Mark.GetRelevantMarks();
-
-            foreach (Mark mark in marks)
+            if(marks!=null)
             {
-                MarkerOptions marker = new MarkerOptions();
+                foreach (Mark mark in marks)
+                {
+                    MarkerOptions marker = new MarkerOptions();
 
-                marker.SetPosition(new LatLng(mark.Latitude, mark.Longitude));
-                marker.SetTitle(mark.Message);
-                marker.SetIcon(GetIconByCategory(mark.CategoriesCode));
-                m_GoogleMap.AddMarker(marker);
+                    marker.SetPosition(new LatLng(mark.Latitude, mark.Longitude));
+                    marker.SetTitle(mark.Message);
+                    marker.SetIcon(GetIconByCategory(mark.CategoriesCode));
+                    m_GoogleMap.AddMarker(marker);
+                }
             }
         }
 
@@ -96,9 +98,12 @@ namespace mARkIt.Droid.Fragments
         private async void mapToMyLocation()
         {
             var geoInfo = await Plugin.Geolocator.CrossGeolocator.Current.GetLastKnownLocationAsync();
-            LatLng position = new LatLng(geoInfo.Latitude, geoInfo.Longitude);
-            var cameraPosition = new CameraPosition.Builder().Target(position).Zoom(16).Bearing(0).Build();
-            m_GoogleMap.MoveCamera(CameraUpdateFactory.NewCameraPosition(cameraPosition));
+            if(geoInfo!=null)
+            {
+                LatLng position = new LatLng(geoInfo.Latitude, geoInfo.Longitude);
+                var cameraPosition = new CameraPosition.Builder().Target(position).Zoom(16).Bearing(0).Build();
+                m_GoogleMap.MoveCamera(CameraUpdateFactory.NewCameraPosition(cameraPosition));
+            }
         }
 
         public override void OnPause()

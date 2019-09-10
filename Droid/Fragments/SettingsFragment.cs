@@ -10,6 +10,7 @@ using Android.Util;
 using Android.Views;
 using Android.Widget;
 using mARkIt.Authentication;
+using mARkIt.Droid.Helpers;
 using mARkIt.Models;
 using mARkIt.Utils;
 using Microsoft.AppCenter.Push;
@@ -28,7 +29,7 @@ namespace mARkIt.Droid.Fragments
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             // Use this to return your custom view for this Fragment
-            m_View= inflater.Inflate(Resource.Layout.Settings, container, false);
+            m_View = inflater.Inflate(Resource.Layout.Settings, container, false);
             return m_View; 
         }
 
@@ -120,12 +121,20 @@ namespace mARkIt.Droid.Fragments
         private async void LogoutButton_Click(object sender, EventArgs e)
         {
             // remove account from device
-            await LoginHelper.Logout();
+            bool loggedOut = await LoginHelper.Logout();
 
             //  go back to login activity
-            Intent loginIntent = new Intent(Activity, typeof(LoginActivity));
-            StartActivity(loginIntent);
-            Activity.Finish();
+            if(loggedOut)
+            {
+                Intent loginIntent = new Intent(Activity, typeof(LoginActivity));
+                StartActivity(loginIntent);
+                Activity.Finish();
+            }
+            else
+            {
+                Alert.Show("Logout failed", "Unable to logout at the moment.",Context);
+            }
+
         }
 
         private void findComponents()
