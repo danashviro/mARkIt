@@ -9,6 +9,7 @@ namespace mARkIt.iOS
     public partial class RateViewController : UIViewController
     {
         public string MarkId { get; set; }
+
         public RateViewController (IntPtr handle) : base (handle)
         {
         }
@@ -41,7 +42,7 @@ namespace mARkIt.iOS
             if (await User.RateMark(MarkId, (float)userRating.Value))
             {
                 var mark = await Mark.GetById(MarkId);
-                markRating.Value = mark != null ? mark.Rating : 0;
+                markRating.Value = mark != null ? mark.Rating : markRating.Value;
                 Alert.Display("Success", "The mARk rateted", this);
             }
             else
