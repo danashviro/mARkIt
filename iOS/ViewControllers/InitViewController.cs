@@ -23,7 +23,6 @@ namespace mARkIt.iOS
             getWikitudePermissions();
         }
 
-
         private void getWikitudePermissions()
         {
             WTFeatures requiredFeatures = WTFeatures.Geo | WTFeatures.WTFeature_InstantTracking;
@@ -41,7 +40,7 @@ namespace mARkIt.iOS
         {
             try
             {
-                await LoginHelper.AutoConnect(refreshGoogleAccessToken);
+                await LoginHelper.AutoConnect();
             }
             catch
             {
@@ -58,24 +57,5 @@ namespace mARkIt.iOS
             }
 
         }
-
-
-        private async Task refreshGoogleAccessToken(Account i_Account)
-        {
-            GoogleAuthenticator glAuth = new GoogleAuthenticator(Keys.GoogleClientId, Configuration.GoogleAuthScope);
-            OAuth2Authenticator oauth2 = glAuth.GetOAuth2();
-            m_Account = i_Account;
-            oauth2.Completed += OnAuthenticationCompleted_RefreshedToken;
-            int refreshTokenExpireTime = await oauth2.RequestRefreshTokenAsync(i_Account.Properties["refresh_token"]);
-        }
-
-        private void OnAuthenticationCompleted_RefreshedToken(object sender, AuthenticatorCompletedEventArgs e)
-        {
-            if (e.IsAuthenticated)
-            {
-                m_Account.Properties["access_token"] = e.Account.Properties["access_token"];
-            }
-        }
-
     }
 }

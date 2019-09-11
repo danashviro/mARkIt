@@ -19,7 +19,7 @@ using mARkIt.Models;
 using mARkIt.Utils;
 using Xamarin.Essentials;
 
-namespace mARkIt.Droid
+namespace mARkIt.Droid.Activities
 {
     [Activity(Label = "AddAMarkActivity")]
     public class AddAMarkActivity : AppCompatActivity,ITextWatcher
@@ -99,7 +99,7 @@ namespace mARkIt.Droid
                         button.Clickable = true;
                     }
                 }
-                catch (FeatureNotEnabledException ex)
+                catch (FeatureNotEnabledException)
                 {
                     Toast.MakeText(this, "Please activate location services.", ToastLength.Long).Show();
                     button.Clickable = true;

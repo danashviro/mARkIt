@@ -303,6 +303,7 @@
   <ItemGroup>
     <Compile Include="Activities\LoginActivity.cs" />
     <Compile Include="Activities\MarkDetailsActivity.cs" />
+    <Compile Include="Activities\PriorToMainAppActivity.cs" />
     <Compile Include="Activities\RateAMarkActivity.cs" />
     <Compile Include="Activities\WelcomeActivity.cs" />
     <Compile Include="Adapters\MarkAdapter.cs" />

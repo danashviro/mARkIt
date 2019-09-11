@@ -2,6 +2,7 @@
 using Android.Content;
 using Android.OS;
 using Android.Support.V4.App;
+using mARkIt.Droid.Activities;
 using mARkIt.Services;
 using Microsoft.AppCenter;
 using Microsoft.AppCenter.Push;

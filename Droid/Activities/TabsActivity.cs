@@ -12,7 +12,7 @@ using System.Drawing;
 using System.Threading.Tasks;
 using Xamarin.Auth;
 
-namespace mARkIt.Droid
+namespace mARkIt.Droid.Activities
 {
     [Activity(Label = "TabsActivity", ConfigurationChanges = Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.KeyboardHidden | Android.Content.PM.ConfigChanges.ScreenSize)]
 

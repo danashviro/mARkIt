@@ -27,14 +27,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Abstractions\AuthenticatorClient.cs" />
+    <Compile Include="Authentication\AuthenticatorUserDataProvider.cs" />
     <Compile Include="App.cs" />
     <Compile Include="Authentication\Account\SecureStorageAccountStore.cs" />
+    <Compile Include="Authentication\UnauthorizedException.cs" />
     <Compile Include="Authentication\Facebook\FacebookAuthenticator.cs" />
-    <Compile Include="Authentication\Facebook\FacebookClient.cs" />
     <Compile Include="Abstractions\TableData.cs" />
     <Compile Include="Authentication\Google\GoogleAuthenticator.cs" />
-    <Compile Include="Authentication\Google\GoogleClient.cs" />
     <Compile Include="Authentication\IAuthenticationDelegate.cs" />
     <Compile Include="Models\Mark.cs" />
     <Compile Include="Models\User.cs" />
@@ -63,6 +62,9 @@
     </Reference>
     <Reference Include="Xamarin.Auth, Version=1.6.0.1, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Xamarin.Auth.Extensions.1.7.0\lib\portable-net45+wp8+wpa81+win8+MonoAndroid10+MonoTouch10+XamarinIOS10\Xamarin.Auth.dll</HintPath>
+    </Reference>
+    <Reference Include="Xamarin.Auth.Extensions">
+      <HintPath>..\packages\Xamarin.Auth.Extensions.1.7.0\lib\netstandard1.6\Xamarin.Auth.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="Xamarin.Essentials">
       <HintPath>..\packages\Xamarin.Essentials.1.2.0\lib\netstandard1.0\Xamarin.Essentials.dll</HintPath>

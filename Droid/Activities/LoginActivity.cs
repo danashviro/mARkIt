@@ -8,10 +8,10 @@ using Android.Support.V7.App;
 using mARkIt.Authentication;
 using mARkIt.Droid.Services;
 
-namespace mARkIt.Droid
+namespace mARkIt.Droid.Activities
 {
     [Activity(Label = "Login")]
-    public class LoginActivity: AppCompatActivity, IAuthenticationDelegate
+    public class LoginActivity: PriorToMainAppActivity , IAuthenticationDelegate
     {
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -43,9 +43,8 @@ namespace mARkIt.Droid
 
         public async void OnAuthenticationCompleted(Account i_Account)
         {
-            await LoginHelper.CreateUserAndSaveToDevice(i_Account);
-            AndroidNotifications.Register(context: this);
-            startMainApp();
+            await LoginHelper.SaveAccountAndLoginToBackend(i_Account);
+            StartMainApp();
         }
 
         public void OnAuthenticationFailed(string i_Message, Exception i_Exception)
@@ -69,14 +68,6 @@ namespace mARkIt.Droid
                            .SetTitle("Authentication canceled")
                            .SetMessage("You didn't complete the authentication process")
                            .Show();
-        }
-
-        private async void startMainApp()
-        {
-            Intent mainTabs = new Intent(this, typeof(TabsActivity));
-            mainTabs.SetFlags(ActivityFlags.ClearTop | ActivityFlags.SingleTop);
-            StartActivity(mainTabs);
-            Finish();
         }
     }
 }

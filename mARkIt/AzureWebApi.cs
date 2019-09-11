@@ -19,22 +19,7 @@ namespace mARkIt.Services
         private static string BackendURL = "https://mark-api.azurewebsites.net/";
 
         public static MobileServiceClient MobileService = new MobileServiceClient(BackendURL);
-
-        public static string LoggedUserId
-        {
-            get
-            {
-                string loggedUserId = "";
-                if (MobileService.CurrentUser != null)
-                {
-                    // Azure places "sid:" at the start of the generated id, which we want to remove to avoid redundancy and URI errors (because of ':' character)
-                    loggedUserId = MobileService.CurrentUser.UserId.Replace("sid:", "");
-                }
-
-                return loggedUserId;
-            }
-        }
-
+        
         public static bool IsConnected
         {
             get
@@ -46,24 +31,61 @@ namespace mARkIt.Services
         public static async Task Login(MobileServiceAuthenticationProvider i_AuthType, Account i_Account)
         {
             var zumoPayload = makeZumoPayload(i_AuthType, i_Account);
-            await MobileService.LoginAsync(i_AuthType, zumoPayload);
 
-            User user = await GetById<User>(LoggedUserId);
+            try
+            {
+                await MobileService.LoginAsync(i_AuthType, zumoPayload);
+            }
+
+            catch(MobileServiceInvalidOperationException e)
+            {
+                if (e.Response.ReasonPhrase == "Unauthorized")
+                {
+                    throw new UnauthorizedException(i_AuthType);
+                }
+
+                else
+                {
+                    throw e;
+                }
+            }
+
+            App.ConnectedUser = await getUserAsync();
+        }
+
+        private async static Task<User> getUserAsync()
+        {
+            string loggedUserId = getLoggedUserId();
+
+            User user = await GetById<User>(loggedUserId);
 
             if (user == null)
             {
                 // Add the user to the database
                 user = new User()
                 {
-                    Id = LoggedUserId,
+                    Id = loggedUserId,
                     RelevantCategoriesCode = (int)eCategories.All
                 };
 
                 await Insert(user);
-                user = await GetById<User>(LoggedUserId);
+                user = await GetById<User>(loggedUserId);
             }
 
-            App.ConnectedUser = user;
+            return user;
+        }
+
+        private static string getLoggedUserId()
+        {
+            string loggedUserId = string.Empty;
+
+            if (MobileService.CurrentUser != null)
+            {
+                // Azure places "sid:" at the start of the generated id, which we want to remove to avoid redundancy and URI errors (because of ':' character)
+                loggedUserId = MobileService.CurrentUser.UserId.Replace("sid:", "");
+            }
+
+            return loggedUserId;
         }
 
         private static JObject makeZumoPayload(MobileServiceAuthenticationProvider i_AuthType, Account i_Account)
@@ -99,7 +121,7 @@ namespace mARkIt.Services
                 await MobileService.GetTable<T>().DeleteAsync(i_ObjectToDelete);
                 return true;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return false;
             }
@@ -126,7 +148,7 @@ namespace mARkIt.Services
                 await MobileService.GetTable<T>().UpdateAsync(i_ObjectToUpdate);
                 return true;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return false;
             }

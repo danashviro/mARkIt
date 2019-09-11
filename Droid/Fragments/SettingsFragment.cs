@@ -10,6 +10,7 @@ using Android.Util;
 using Android.Views;
 using Android.Widget;
 using mARkIt.Authentication;
+using mARkIt.Droid.Activities;
 using mARkIt.Droid.Helpers;
 using mARkIt.Models;
 using mARkIt.Utils;

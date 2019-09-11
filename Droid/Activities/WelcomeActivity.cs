@@ -17,32 +17,17 @@ using mARkIt.Droid.Services;
 namespace mARkIt.Droid.Activities
 {
     [Activity(Label = "mARk-It", MainLauncher = true)]
-    public class WelcomeActivity : AppCompatActivity, IPermissionManagerPermissionManagerCallback
+    public class WelcomeActivity : PriorToMainAppActivity, IPermissionManagerPermissionManagerCallback
     {
-        Account m_Account = null;
-
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
             this.RequestedOrientation = Android.Content.PM.ScreenOrientation.Portrait;
             SetContentView(Resource.Layout.Welcome);
-            askForARPermissions();
+            getWikitudePermissions();
         }
 
-        private async void autoConnect()
-        {
-            try
-            {
-                await LoginHelper.AutoConnect(refreshGoogleAccessToken);
-            }
-            catch (Exception)
-            {
-
-            }
-            loadApp();
-        }
-
-        private void askForARPermissions()
+        private void getWikitudePermissions()
         {
             string[] permissions = { Manifest.Permission.Camera,
                                      Manifest.Permission.AccessFineLocation,
@@ -65,22 +50,24 @@ namespace mARkIt.Droid.Activities
             autoConnect();
         }
 
-        public void PermissionsDenied(string[] deniedPermissions)
+        private async void autoConnect()
         {
-            showPermissionsDeniedDialog();
-        }
+            try
+            {
+                await LoginHelper.AutoConnect();
+            }
+            catch (Exception)
+            {
 
-        public void ShowPermissionRationale(int requestCode, string[] permissions)
-        {
-            showPermissionsDeniedDialog();
+            }
+            loadApp();
         }
 
         private void loadApp()
         {
             if (App.ConnectedUser != null)
             {
-                AndroidNotifications.Register(context: this);
-                startMainApp();
+                StartMainApp();
             }
             else
             {
@@ -95,29 +82,14 @@ namespace mARkIt.Droid.Activities
             Finish();
         }
 
-        private void startMainApp()
+        public void PermissionsDenied(string[] deniedPermissions)
         {
-            Intent mainTabs = new Intent(this, typeof(TabsActivity));
-            mainTabs.SetFlags(ActivityFlags.ClearTop | ActivityFlags.SingleTop);
-            StartActivity(mainTabs);
-            Finish();
+            showPermissionsDeniedDialog();
         }
 
-        private async Task refreshGoogleAccessToken(Account i_Account)
+        public void ShowPermissionRationale(int requestCode, string[] permissions)
         {
-            GoogleAuthenticator glAuth = new GoogleAuthenticator(Keys.GoogleClientId, Configuration.GoogleAuthScope);
-            OAuth2Authenticator oauth2 = glAuth.GetOAuth2();
-            m_Account = i_Account;
-            oauth2.Completed += OnAuthenticationCompleted_RefreshedToken;
-            int refreshTokenExpireTime = await oauth2.RequestRefreshTokenAsync(i_Account.Properties["refresh_token"]);
-        }
-
-        private void OnAuthenticationCompleted_RefreshedToken(object sender, AuthenticatorCompletedEventArgs e)
-        {
-            if (e.IsAuthenticated)
-            {
-                m_Account.Properties["access_token"] = e.Account.Properties["access_token"];
-            }
+            showPermissionsDeniedDialog();
         }
 
         private void showPermissionsDeniedDialog()

@@ -52,7 +52,7 @@ namespace mARkIt.iOS
             DismissViewController(true, null);
             try
             {
-                await LoginHelper.CreateUserAndSaveToDevice(i_Account);
+                await LoginHelper.SaveAccountAndLoginToBackend(i_Account);
                 m_HasLoggedIn = true;
                 PerformSegue("launchAppSegue", this);
             }
@@ -74,6 +74,5 @@ namespace mARkIt.iOS
         public void OnAuthenticationCanceled()
         {
         }
-
     }
 }
