@@ -1,3 +1,4 @@
+using Foundation;
 using mARkIt.Authentication;
 using mARkIt.iOS.Helpers;
 using mARkIt.Models;
@@ -9,6 +10,7 @@ namespace mARkIt.iOS
 {
     public partial class SettingsViewController : UIViewController
     {
+        private bool m_LoggedOut = false;
         public SettingsViewController (IntPtr handle) : base(handle) { }
         
         public override void ViewDidLoad()
@@ -85,9 +87,23 @@ namespace mARkIt.iOS
         }
 
 
+        public override bool ShouldPerformSegue(string segueIdentifier, NSObject sender)
+        {
+            if(segueIdentifier == "logoutSegue")
+            {
+                return m_LoggedOut;
+            }
+
+            return base.ShouldPerformSegue(segueIdentifier, sender);
+        }
+
         private async void LogoutButton_TouchUpInside(object sender, EventArgs e)
         {
-            await LoginHelper.Logout();
+            m_LoggedOut = await LoginHelper.Logout();
+            if(!m_LoggedOut)
+            {
+                Alert.Display("Error", "There was a problem logging you out", this);
+            }
         }
 
     }
