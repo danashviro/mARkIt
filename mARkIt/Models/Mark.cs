@@ -4,7 +4,6 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using mARkIt.Abstractions;
 using mARkIt.Services;
-using mARkIt.Utils;
 
 namespace mARkIt.Models
 {

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-using mARkIt.Models;
 using mARkIt.Services;
 using mARkIt.Utils;
 using Microsoft.WindowsAzure.MobileServices;
