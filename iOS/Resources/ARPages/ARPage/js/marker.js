@@ -5,6 +5,8 @@
         this.markerLocation = markerLocation;
         this.seen = false;
         this.drawables = [];
+        this.onClickMark = this.onClickMark.bind(this);
+        this.onEnterFieldOfVisionMark = this.onEnterFieldOfVisionMark.bind(this);
         
         this.initSignDrawble();
         this.initLabel();
@@ -45,25 +47,28 @@
         });
      }
 
+     onClickMark() {
+        AR.platform.sendJSONObject({ "option": "rate", "markId": this.markData.id });
+     }
+
+     onEnterFieldOfVisionMark() {
+        if (this.seen == false) {
+            this.seen = true;
+            AR.platform.sendJSONObject({ "option": "seen", "markId": this.markData.id });
+        }
+     }
+     
+
      initMarkGeoObject() {
         this.markerObject = new AR.GeoObject(this.markerLocation, {
             drawables: {
                 cam: this.drawables,
                 indicator: [this.indicatorDrawable]
             },
-            onClick: function () {
-                AR.platform.sendJSONObject({ "option": "rate", "markId": this.markData.id });
-            },
-            onEnterFieldOfVision: function () {
-                if (this.seen == false) {
-                    this.seen = true;
-                    AR.platform.sendJSONObject({ "option": "seen", "markId": this.markData.id });
-                }
-            }       
+            onClick: this.onClickMark,
+            onEnterFieldOfVision: this.onEnterFieldOfVisionMark      
         });
      }
-    //var markerLocation = new AR.RelativeLocation(null, 5, 0, 1);
-
 }
 
 
