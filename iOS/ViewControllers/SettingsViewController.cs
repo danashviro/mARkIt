@@ -11,6 +11,7 @@ namespace mARkIt.iOS
     public partial class SettingsViewController : UIViewController
     {
         private bool m_LoggedOut = false;
+
         public SettingsViewController (IntPtr handle) : base(handle) { }
         
         public override void ViewDidLoad()

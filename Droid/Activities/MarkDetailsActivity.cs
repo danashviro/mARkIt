@@ -14,25 +14,25 @@ namespace mARkIt.Droid.Activities
     [Activity(Label = "MarkDetailsActivity")]
     public class MarkDetailsActivity : Activity, IOnMapReadyCallback
     {
-        MapFragment m_MapFragment;
-        TextView m_MessageTextView;
-        TextView m_DateTextView;
-        RatingBar m_MarkRatingBar;
-        Mark m_Mark;
-        GoogleMap m_GoogleMap;
+        private MapFragment m_MapFragment;
+        private TextView m_MessageTextView;
+        private TextView m_DateTextView;
+        private RatingBar m_MarkRatingBar;
+        private Mark m_Mark;
+        private GoogleMap m_GoogleMap;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
             this.RequestedOrientation = Android.Content.PM.ScreenOrientation.Portrait;
             SetContentView(Resource.Layout.MarkPresentaion);
-            string markAsJson =Intent.GetStringExtra("markAsJson");
+            string markAsJson = Intent.GetStringExtra("markAsJson");
             m_Mark  = JsonConvert.DeserializeObject<Mark>(markAsJson);
             Button button = FindViewById<Button>(Resource.Id.DeleteButton);
             button.Click += deleteButton_Click;
             findComponents();
             m_MessageTextView.Text = m_Mark.Message;
-            m_DateTextView.Text= m_Mark.CreatedAt.ToLocalTime().ToLongDateString();
+            m_DateTextView.Text = m_Mark.CreatedAt.ToLocalTime().ToLongDateString();
             m_MarkRatingBar.Rating = m_Mark.Rating;
             m_MapFragment.GetMapAsync(this);
         }

@@ -54,14 +54,12 @@ namespace mARkIt.Droid.Fragments
         private async void addMarksFromServer()
         {
             var marks = await Mark.GetRelevantMarks();
-            if(marks!=null)
+            if (marks != null) 
             {
-                foreach (Mark mark in marks)
+                foreach (Mark mark in marks) 
                 {
                     MarkerOptions marker = new MarkerOptions();
-
                     marker.SetPosition(new LatLng(mark.Latitude, mark.Longitude));
-                    marker.SetTitle(mark.Message);
                     marker.SetIcon(GetIconByCategory(mark.CategoriesCode));
                     m_GoogleMap.AddMarker(marker);
                 }
@@ -71,9 +69,9 @@ namespace mARkIt.Droid.Fragments
         private BitmapDescriptor GetIconByCategory(int i_CategoriesCode)
         {
             BitmapDescriptor icon = null;
-            if((i_CategoriesCode&(int)eCategories.General)!=0)
+            if ((i_CategoriesCode & (int)eCategories.General) != 0) 
             {
-                icon= BitmapDescriptorFactory.FromResource(Resource.Drawable.General);
+                icon = BitmapDescriptorFactory.FromResource(Resource.Drawable.General);
             }
             else if((i_CategoriesCode & (int)eCategories.Food) != 0)
             {
@@ -98,7 +96,7 @@ namespace mARkIt.Droid.Fragments
         private async void mapToMyLocation()
         {
             var geoInfo = await Plugin.Geolocator.CrossGeolocator.Current.GetLastKnownLocationAsync();
-            if(geoInfo!=null)
+            if (geoInfo != null) 
             {
                 LatLng position = new LatLng(geoInfo.Latitude, geoInfo.Longitude);
                 var cameraPosition = new CameraPosition.Builder().Target(position).Zoom(16).Bearing(0).Build();
@@ -106,10 +104,6 @@ namespace mARkIt.Droid.Fragments
             }
         }
 
-        public override void OnPause()
-        {
-            base.OnPause();
-        }
 
         public override void OnResume()
         {
@@ -121,7 +115,7 @@ namespace mARkIt.Droid.Fragments
         public override void OnHiddenChanged(bool hidden)
         {
             base.OnHiddenChanged(hidden);
-            if (!hidden)
+            if (!hidden) 
             {
                 m_InitLocation = false;
                 m_MapView.GetMapAsync(this);

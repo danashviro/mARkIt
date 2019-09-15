@@ -1,4 +1,3 @@
-using Foundation;
 using Syncfusion.SfRating.iOS;
 using System;
 using UIKit;

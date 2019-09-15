@@ -1,13 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 using Android.App;
 using Android.Content;
 using Android.OS;
-using Android.Runtime;
-using Android.Views;
 using Android.Widget;
 using mARkIt.Droid.Helpers;
 using mARkIt.Models;
@@ -20,6 +14,7 @@ namespace mARkIt.Droid.Activities
         private RatingBar m_MarkRatingBar;
         private RatingBar m_YourRatingBar;
         private string m_MarkId;
+
         protected async override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);

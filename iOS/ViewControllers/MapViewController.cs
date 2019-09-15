@@ -13,10 +13,7 @@ namespace mARkIt.iOS
     {
         private bool m_UserLocationInit = false;
 
-        public MapViewController (IntPtr handle) : base (handle)
-        {
-
-        }
+        public MapViewController (IntPtr handle) : base (handle) { }
 
         public override void ViewDidLoad()
         {

@@ -11,9 +11,7 @@ namespace mARkIt.iOS
     {
         public Mark ViewMark { get; set; }
 
-        public MarkViewController (IntPtr handle) : base (handle)
-        {
-        }
+        public MarkViewController (IntPtr handle) : base (handle) { }
 
         public override void ViewDidLoad()
         {

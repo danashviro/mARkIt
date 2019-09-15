@@ -10,11 +10,7 @@ namespace mARkIt.iOS
     {
         private bool m_HasLoggedIn = false;
 
-
-        public SignInViewController(IntPtr handle) : base(handle)
-        {
-        }
-
+        public SignInViewController(IntPtr handle) : base(handle) { }
 
         public override void ViewDidLoad()
         {

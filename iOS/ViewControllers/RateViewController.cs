@@ -10,9 +10,7 @@ namespace mARkIt.iOS
     {
         public string MarkId { get; set; }
 
-        public RateViewController (IntPtr handle) : base (handle)
-        {
-        }
+        public RateViewController (IntPtr handle) : base (handle) {}
 
 
         public override async void ViewDidLoad()

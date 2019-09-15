@@ -69,7 +69,7 @@ function showMarks(){
     for (let i = 0 ; i < m_Marks.length ; i++) {
         const mark = m_Marks[i];
         const altitude = m_alt ? m_alt + Math.random()*2 - Math.random()*2 : AR.CONST.UNKNOWN_ALTITUDE;
-        let markerLocation = new AR.GeoLocation(mark.Latitude, mark.Longitude, altitude);     
+        let markerLocation = new AR.GeoLocation(mark.Latitude, mark.Longitude);     
 
         if((!markIsShowed(mark)) && (markerLocation.distanceToUser() <= 40)) {
               let markData = {

@@ -9,10 +9,10 @@ namespace mARkIt.Droid.Adapters
 {
     class MarkAdapter : BaseAdapter
     {
+        private Context context;
+        private List<Mark> m_Marks;
 
-        Context context;
-        List<Mark> m_Marks;
-        public MarkAdapter(Context context,List<Mark> marks)
+        public MarkAdapter(Context context, List<Mark> marks)
         {
             this.context = context;
             m_Marks = marks;
@@ -75,6 +75,5 @@ namespace mARkIt.Droid.Adapters
         //Your adapter views to re-use
         public TextView Message { get; set; }
         public TextView Date { get; set; }
-
     }
 }

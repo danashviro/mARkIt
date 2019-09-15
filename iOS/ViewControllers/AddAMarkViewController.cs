@@ -16,9 +16,7 @@ namespace mARkIt.iOS
         private SfRadioButton m_GeneralCategoryRadioButton, m_FoodCategoryRadioButton, m_HistoryCategoryRadioButton, m_SportCategoryRadioButton, m_NatureCategoryRadioButton;
         private const int m_MaxLettersAllowed = 40;
 
-        public AddAMarkViewController(IntPtr handle) : base(handle)
-        {
-        }
+        public AddAMarkViewController(IntPtr handle) : base(handle) { }
 
         public override void ViewDidLoad()
         {

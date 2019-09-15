@@ -1,12 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Android.App;
 using Android.Content;
 using Android.OS;
-using Android.Runtime;
-using Android.Util;
 using Android.Views;
 using Android.Widget;
 using mARkIt.Authentication;
@@ -14,13 +8,12 @@ using mARkIt.Droid.Activities;
 using mARkIt.Droid.Helpers;
 using mARkIt.Models;
 using mARkIt.Utils;
-using Microsoft.AppCenter.Push;
 
 namespace mARkIt.Droid.Fragments
 {
     public class SettingsFragment : Android.Support.V4.App.Fragment
     {
-        View m_View;
+        private View m_View;
         private CheckBox m_GeneralCheckBox;
         private CheckBox m_FoodCheckBox;
         private CheckBox m_SportCheckBox;
@@ -52,14 +45,14 @@ namespace mARkIt.Droid.Fragments
         public override void OnHiddenChanged(bool hidden)
         {
             base.OnHiddenChanged(hidden);
-            if(hidden==false)
+            if (hidden == false) 
                 fillComponents();
         }
 
         public override void OnResume()
         {
             base.OnResume();
-            if(IsHidden==false)
+            if (IsHidden == false) 
                 fillComponents();
         }
 

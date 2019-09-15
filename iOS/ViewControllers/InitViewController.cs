@@ -1,9 +1,7 @@
 using mARkIt.Authentication;
 using mARkIt.iOS.CoreServices;
 using mARkIt.iOS.Helpers;
-using mARkIt.Utils;
 using System;
-using System.Threading.Tasks;
 using UIKit;
 using WikitudeComponent.iOS;
 using Xamarin.Auth;
@@ -13,7 +11,6 @@ namespace mARkIt.iOS
     public partial class InitViewController : UIViewController
     {
         private WTAuthorizationRequestManager m_AuthorizationRequestManager = new WTAuthorizationRequestManager();
-        private Account m_Account;
 
         public InitViewController(IntPtr handle) : base(handle) { }
 

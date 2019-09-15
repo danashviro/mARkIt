@@ -1,18 +1,13 @@
 ﻿using System;
 using System.Linq;
-using System.Threading.Tasks;
 using Android;
 using Android.App;
 using Android.Content;
 using Android.OS;
-using Android.Support.V7.App;
 using mARkIt.Authentication;
 using Com.Wikitude.Architect;
 using Com.Wikitude.Common.Permission;
-using Xamarin.Auth;
-using mARkIt.Utils;
 using mARkIt.Droid.Helpers;
-using mARkIt.Droid.Services;
 
 namespace mARkIt.Droid.Activities
 {

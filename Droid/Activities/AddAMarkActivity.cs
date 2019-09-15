@@ -1,17 +1,9 @@
-﻿
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Linq;
-using System.Text;
-
 using Android.App;
-using Android.Content;
-using Android.Locations;
 using Android.OS;
-using Android.Runtime;
 using Android.Support.V7.App;
 using Android.Text;
-using Android.Views;
 using Android.Widget;
 using Java.Lang;
 using mARkIt.Droid.Helpers;
@@ -49,7 +41,7 @@ namespace mARkIt.Droid.Activities
         {
             m_LettersCount = s.Count();
             int remainingLetters = k_MaxLetters - m_LettersCount;
-            m_NumOfLettersTextView.SetTextColor(remainingLetters < 0?Android.Graphics.Color.Red: Android.Graphics.Color.White);
+            m_NumOfLettersTextView.SetTextColor(remainingLetters < 0 ? Android.Graphics.Color.Red : Android.Graphics.Color.White);
             m_NumOfLettersTextView.Text = "Letters: " + remainingLetters;
         }
 
@@ -89,9 +81,7 @@ namespace mARkIt.Droid.Activities
 
                     if (uploadSuccessful)
                     {
-
                         Alert.Show("Success", "Upload successfull.", this, Finish);
-
                     }
                     else
                     {

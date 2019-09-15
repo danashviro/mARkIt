@@ -1,16 +1,8 @@
 ﻿using Android.App;
-using Android.Content;
 using Android.OS;
 using Android.Support.Design.Widget;
 using Android.Support.V4.App;
-using mARkIt.Authentication;
 using mARkIt.Droid.Fragments;
-using mARkIt.Models;
-using Newtonsoft.Json;
-using System;
-using System.Drawing;
-using System.Threading.Tasks;
-using Xamarin.Auth;
 
 namespace mARkIt.Droid.Activities
 {
@@ -29,8 +21,6 @@ namespace mARkIt.Droid.Activities
             base.OnCreate(savedInstanceState);
             this.RequestedOrientation = Android.Content.PM.ScreenOrientation.Portrait;
             SetContentView(Resource.Layout.Tabs);
-
-            // create user object from the account
 
             m_TabLayout = FindViewById<TabLayout>(Resource.Id.mainTabLayout);
             m_TabLayout.TabSelected += TabLayout_TabSelected;
@@ -96,10 +86,6 @@ namespace mARkIt.Droid.Activities
             m_TabLayout.GetTabAt(1).SetIcon(Resource.Drawable.Map);
             m_TabLayout.GetTabAt(2).SetIcon(Resource.Drawable.MyMarks);
             m_TabLayout.GetTabAt(3).SetIcon(Resource.Drawable.Settings);
-
-            //m_TabLayout.SetSelectedTabIndicatorColor(Color.White.ToArgb());
-            //m_TabLayout.SetSelectedTabIndicatorHeight((int)(5 * GetResources().getDisplayMetrics().density));
-            //m_TabLayout.SetTabTextColors(Color.White.ToArgb(), Color.BlueViolet.ToArgb());
         }
     }
 }
