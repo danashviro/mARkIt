@@ -9,6 +9,9 @@ namespace mARkIt.Authentication
 {
     public class LoginHelper
     {
+        public static event Action LoggedIn;
+        public static event Action LoggedOut;
+
         private static Account s_Account;
         public static GoogleAuthenticator s_GoogleAuthenticator;
         private static FacebookAuthenticator s_FacebookAuthenticator;
@@ -27,6 +30,7 @@ namespace mARkIt.Authentication
             if (s_Account != null)
             {
                 await loginToBackend();
+                LoggedIn?.Invoke();
             }
         }
 
@@ -58,6 +62,7 @@ namespace mARkIt.Authentication
             {
                 await AzureWebApi.Logout();
                 Xamarin.Essentials.SecureStorage.RemoveAll();
+                LoggedOut?.Invoke();
                 return true;
             }
             catch
@@ -81,7 +86,7 @@ namespace mARkIt.Authentication
                     await AzureWebApi.Login(s_AuthType, s_Account);
                 }
 
-                catch(Exception e)
+                catch (Exception e)
                 {
 
                 }

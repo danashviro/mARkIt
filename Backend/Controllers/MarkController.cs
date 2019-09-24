@@ -54,21 +54,21 @@ namespace Backend.Controllers
             item.UserId = LoggedUserId;
             Mark current = await InsertAsync(item);
 
-            string userPushId = context.Users.Find(LoggedUserId).NotificationsId;
+            ////string userPushId = context.Users.Find(LoggedUserId).NotificationsId;
 
-            if(!string.IsNullOrEmpty(userPushId))
-            {
-                Notification notification = new MarkitNotification
-                {
-                    Targets = new List<string> { userPushId },
-                    TargetType = eTargetType.Devices,
-                    Name = $"Mark upload - {DateTime.Now.ToString("MM.dd HH:mm:ss.fff")}",
-                    Title = "Congrats!",
-                    Body = "You've uploaded a new mark!"
-                };
+            ////if(!string.IsNullOrEmpty(userPushId))
+            ////{
+            ////    Notification notification = new MarkitNotification
+            ////    {
+            ////        Targets = new List<string> { userPushId },
+            ////        TargetType = eTargetType.Devices,
+            ////        Name = $"Mark upload - {DateTime.Now.ToString("MM.dd HH:mm:ss.fff")}",
+            ////        Title = "Congrats!",
+            ////        Body = "You've uploaded a new mark!"
+            ////    };
 
-                await notification.Push();
-            }
+            ////    await notification.Push();
+            ////}
 
             return CreatedAtRoute("Tables", new { id = current.Id }, current);
         }

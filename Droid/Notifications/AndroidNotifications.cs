@@ -2,20 +2,23 @@
 using Android.Content;
 using Android.OS;
 using Android.Support.V4.App;
-using mARkIt.Droid.Activities;
 using mARkIt.Services;
 using Microsoft.AppCenter;
 using Microsoft.AppCenter.Push;
 using System;
 using System.Threading.Tasks;
+using mARkIt.Droid.Activities;
+using Plugin.Geolocator.Abstractions;
+using mARkIt.Models;
+using System.Net.Http;
+using System.Collections.Generic;
+using Plugin.Geolocator;
+using mARkIt.Authentication;
 
-namespace mARkIt.Droid.Services
+namespace mARkIt.Droid.Notifications
 {
     public static class AndroidNotifications
     {
-        // Unique ID for our notification: 
-        static readonly int NOTIFICATION_ID = 1000;
-        static readonly string CHANNEL_ID = "location_notification";
         private static bool isRegistered = false;
         private static Context Context { get; set; }
 
@@ -24,9 +27,23 @@ namespace mARkIt.Droid.Services
             if (!isRegistered)
             {
                 Context = context;
-                Task.Run(()=>setupAppCenterPush());
+                Task.Run(() => setupAppCenterPush());
+                searchForNewClosestMarkInTheBackground();
+                LoginHelper.LoggedIn += searchForNewClosestMarkInTheBackground;
+                LoginHelper.LoggedOut += stopSearching;
+
                 isRegistered = true;
-            }
+            }            
+        }
+
+        private static void onLoggedIn()
+        {
+            searchForNewClosestMarkInTheBackground();
+        }        
+
+        private static void stopSearching()
+        {
+            m_ShouldContinueSearching = false;
         }
 
         private async static void setupAppCenterPush()
@@ -51,7 +68,7 @@ namespace mARkIt.Droid.Services
         private static void OnNotificationReceived(object sender, PushNotificationReceivedEventArgs e)
         {
             var resultIntent = determineResultIntent(e);
-            DisplayNotification(e.Title, e.Message, resultIntent);
+            new LocalNotification(Context).Show(e.Title, e.Message, resultIntent);
         }
 
         private static Intent determineResultIntent(PushNotificationReceivedEventArgs e)
@@ -60,54 +77,83 @@ namespace mARkIt.Droid.Services
             return new Intent(Context, typeof(TabsActivity));
         }
 
-        public static void DisplayNotification(string title, string message, Intent resultIntent = null)
+        private static bool m_ShouldContinueSearching = true;
+
+        private static void searchForNewClosestMarkInTheBackground()
         {
-            if(resultIntent == null)
+            m_ShouldContinueSearching = true;
+            PowerManager pw = (PowerManager)Context.GetSystemService(Context.PowerService);
+            PowerManager.WakeLock wl = pw.NewWakeLock(WakeLockFlags.Full, "MarkitWakelock");
+            wl.Acquire();
+
+            var stam = Task.Run(() =>
             {
-                resultIntent = new Intent(Context, typeof(TabsActivity));
-            }
+                System.Timers.Timer timer = new System.Timers.Timer();
+                timer.Interval = TimeSpan.FromSeconds(60).TotalMilliseconds;
+                timer.Enabled = true;
+                timer.Elapsed += (s, e) =>
+                {
+                    checkForClosestNewMark();
 
-            createNotificationChannel();
+                    if (!m_ShouldContinueSearching)
+                    {
+                        timer.Stop();
+                        wl.Release();
+                    }
+                };
 
-            // Construct a back stack for cross-task navigation:
-            var stackBuilder = Android.App.TaskStackBuilder.Create(Context);
-            stackBuilder.AddParentStack(Java.Lang.Class.FromType(typeof(TabsActivity)));
-            stackBuilder.AddNextIntent(resultIntent);
-
-            // Create the PendingIntent with the back stack:            
-            var resultPendingIntent = stackBuilder.GetPendingIntent(0, PendingIntentFlags.UpdateCurrent);
-
-            // Build the notification:
-            var builder = new NotificationCompat.Builder(Context, CHANNEL_ID)
-                          .SetAutoCancel(true) // Dismiss the notification from the notification area when the user clicks on it
-                          .SetContentIntent(resultPendingIntent) // Start up this activity when the user clicks the intent.
-                          .SetContentTitle(title) // Set the title
-                          .SetSmallIcon(Resource.Drawable.MainLogo)
-                          .SetContentText(message); // the message to display.
-
-            // Finally, publish the notification:
-            var notificationManager = NotificationManagerCompat.From(Context);
-            notificationManager.Notify(NOTIFICATION_ID, builder.Build());
+                timer.Start();
+            });
         }
 
-        public static void createNotificationChannel()
+        public static void StopLongRunningBackgroundTask()
         {
-            if (Build.VERSION.SdkInt < BuildVersionCodes.O)
+            m_ShouldContinueSearching = false;
+        }
+
+        private async static void checkForClosestNewMark()
+        {
+            try
             {
-                // Notification channels are new in API 26 (and not a part of the
-                // support library). There is no need to create a notification 
-                // channel on older versions of Android.
-                return;
+                Position lastKnownPosition = await CrossGeolocator.Current.GetLastKnownLocationAsync();
+
+                if (lastKnownPosition != null)
+                {
+                    Dictionary<string, string> parameters = new Dictionary<string, string>
+                    {
+                        {"latitude", lastKnownPosition.Latitude.ToString() },
+                        {"longitude", lastKnownPosition.Longitude.ToString() }
+                    };
+
+                    Mark closestMark = await AzureWebApi.MobileService.InvokeApiAsync<Mark>("ClosestMark", HttpMethod.Get, parameters);
+
+                    if (closestMark != null)
+                    {
+                        new LocalNotification(Context).Show("mARkIt", "A new mark is closeby!");
+                    }
+                }
             }
 
-            var name = "mARK-It Notification";
-            var channel = new NotificationChannel(CHANNEL_ID, name, NotificationImportance.High)
+            catch (Exception e)
             {
-                Description = string.Empty
-            };
-
-            var notificationManager = (NotificationManager)Context.GetSystemService(Context.NotificationService);
-            notificationManager.CreateNotificationChannel(channel);
+                Android.Util.Log.Debug("MyWorker", "failure:");
+                Android.Util.Log.Debug("MyWorker", e.Message);
+            }
         }
+
+        ////public static void setupWorker()
+        ////{
+        ////    WorkManager.Instance.CancelAllWork();
+
+        ////    //var constraints = new Constraints.Builder().SetRequiredNetworkType(NetworkType.Connected).Build();
+        ////    var data = new Data.Builder().PutString("UserId", App.ConnectedUser.Id).Build();
+
+        ////    PeriodicWorkRequest workRequest = PeriodicWorkRequest.Builder.From<CheckForNewMarksWorker>(TimeSpan.FromMinutes(15))
+        ////        //.SetConstraints(constraints)
+        ////        .SetInputData(data)
+        ////        .Build();
+
+        ////    WorkManager.Instance.Enqueue(workRequest);
+        ////}
     }
 }

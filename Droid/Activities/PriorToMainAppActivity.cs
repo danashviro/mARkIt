@@ -1,6 +1,6 @@
 ﻿using Android.Content;
 using Android.Support.V7.App;
-using mARkIt.Droid.Services;
+using mARkIt.Droid.Notifications;
 
 namespace mARkIt.Droid.Activities
 {

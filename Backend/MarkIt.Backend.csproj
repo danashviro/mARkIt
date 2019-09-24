@@ -183,6 +183,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\Startup.MobileApp.cs" />
+    <Compile Include="Controllers\ClosestMarkController.cs" />
     <Compile Include="Controllers\RatingController.cs" />
     <Compile Include="Controllers\RelevantMarksController.cs" />
     <Compile Include="Controllers\MarkController.cs" />
@@ -205,6 +206,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="Startup.cs" />
+    <Compile Include="Utils\DistanceCalculator.cs" />
     <Compile Include="Utils\Extensions.cs" />
     <Compile Include="Utils\LogTools.cs" />
   </ItemGroup>
