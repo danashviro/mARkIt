@@ -14,7 +14,7 @@ using mARkIt.Droid.Activities;
 
 namespace mARkIt.Droid.Notifications
 {
-    class LocalNotification
+    public class LocalNotification
     {
         static readonly int NOTIFICATION_ID = 1000;
         static readonly string CHANNEL_ID = "location_notification";

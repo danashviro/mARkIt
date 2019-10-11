@@ -1,7 +1,11 @@
-﻿using System;
+﻿using Backend.Models;
+using mARkIt.Backend.DataObjects;
+using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Security.Claims;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 
@@ -24,7 +28,36 @@ namespace mARkIt.Backend.Utils
 
             return userId;
         }
+
+        public async static Task<bool> InsertUserMarkExperience(this MobileServiceContext context, string userId, string markId)
+        {
+            bool updateWasSuccessful = false;
+
+            using (DbContextTransaction transaction = context.Database.BeginTransaction())
+            {
+                try
+                {
+                    UserMarkExperience userMarkExperience = context.UserMarkExperiences.Create();
+                    userMarkExperience.UserId = userId;
+                    userMarkExperience.MarkId = markId;
+                    userMarkExperience.HasUserRated = false;
+                    userMarkExperience.LastSeen = DateTime.Now;
+                    context.UserMarkExperiences.Add(userMarkExperience);
+
+                    await context.SaveChangesAsync();
+                    transaction.Commit();
+                    updateWasSuccessful = true;
+                }
+
+                catch (Exception ex)
+                {
+                    LogTools.LogException(ex);
+                    transaction.Rollback();
+                    throw ex;
+                }
+            }
+
+            return updateWasSuccessful;
+        }
     }
-
-
 }

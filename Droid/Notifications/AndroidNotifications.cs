@@ -34,12 +34,7 @@ namespace mARkIt.Droid.Notifications
 
                 isRegistered = true;
             }            
-        }
-
-        private static void onLoggedIn()
-        {
-            searchForNewClosestMarkInTheBackground();
-        }        
+        }     
 
         private static void stopSearching()
         {
@@ -136,24 +131,8 @@ namespace mARkIt.Droid.Notifications
 
             catch (Exception e)
             {
-                Android.Util.Log.Debug("MyWorker", "failure:");
-                Android.Util.Log.Debug("MyWorker", e.Message);
+                Android.Util.Log.Debug("Markit", e.Message);
             }
         }
-
-        ////public static void setupWorker()
-        ////{
-        ////    WorkManager.Instance.CancelAllWork();
-
-        ////    //var constraints = new Constraints.Builder().SetRequiredNetworkType(NetworkType.Connected).Build();
-        ////    var data = new Data.Builder().PutString("UserId", App.ConnectedUser.Id).Build();
-
-        ////    PeriodicWorkRequest workRequest = PeriodicWorkRequest.Builder.From<CheckForNewMarksWorker>(TimeSpan.FromMinutes(15))
-        ////        //.SetConstraints(constraints)
-        ////        .SetInputData(data)
-        ////        .Build();
-
-        ////    WorkManager.Instance.Enqueue(workRequest);
-        ////}
     }
 }

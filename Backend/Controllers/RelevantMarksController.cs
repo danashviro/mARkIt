@@ -18,7 +18,7 @@ namespace Backend.Controllers
 
         MobileServiceContext context;
 
-        public string LoggedUserId => this.GetLoggedUserId();
+        private string LoggedUserId => this.GetLoggedUserId();
 
         public RelevantMarksController()
         {
@@ -66,9 +66,6 @@ namespace Backend.Controllers
         {
             User user = context.Users.Find(LoggedUserId);
             return user.RelevantCategoriesCode;
-
-            /// var userQuery = from user in context.Users where user.Id == LoggedUserId select user.RelevantCategoriesCode;
-            /// return userQuery.First();
         }
 
         private bool markIsCloseEnough(Vector userPos, Vector markPos, double proximityThreshhold)

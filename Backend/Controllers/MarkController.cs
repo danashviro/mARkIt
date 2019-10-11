@@ -11,6 +11,7 @@ using mARkIt.Backend.Utils;
 using mARkIt.Backend.Notifications;
 using System.Collections.Generic;
 using mARkIt.Backend.DataObjects;
+using System.Data.Entity;
 
 namespace Backend.Controllers
 {
@@ -54,21 +55,8 @@ namespace Backend.Controllers
             item.UserId = LoggedUserId;
             Mark current = await InsertAsync(item);
 
-            ////string userPushId = context.Users.Find(LoggedUserId).NotificationsId;
-
-            ////if(!string.IsNullOrEmpty(userPushId))
-            ////{
-            ////    Notification notification = new MarkitNotification
-            ////    {
-            ////        Targets = new List<string> { userPushId },
-            ////        TargetType = eTargetType.Devices,
-            ////        Name = $"Mark upload - {DateTime.Now.ToString("MM.dd HH:mm:ss.fff")}",
-            ////        Title = "Congrats!",
-            ////        Body = "You've uploaded a new mark!"
-            ////    };
-
-            ////    await notification.Push();
-            ////}
+            // Add a UserMarkExperience between the mark and it's creator to avoid notifying the user about it
+            await context.InsertUserMarkExperience(LoggedUserId, current.Id);
 
             return CreatedAtRoute("Tables", new { id = current.Id }, current);
         }
@@ -81,7 +69,7 @@ namespace Backend.Controllers
             return DeleteAsync(id);
         }
 
-        public void validateOwner(string id)
+        private void validateOwner(string id)
         {
             var result = Lookup(id).Queryable.Where(item => item.UserId.Equals(LoggedUserId)).FirstOrDefault<Mark>();
             if (result == null)

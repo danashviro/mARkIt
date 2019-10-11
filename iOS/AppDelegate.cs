@@ -1,6 +1,8 @@
 ﻿using System;
 using Foundation;
 using mARkIt.Authentication;
+using mARkIt.iOS.Notifications;
+using mARkIt.Services;
 using UIKit;
 
 namespace mARkIt.iOS
@@ -23,11 +25,62 @@ namespace mARkIt.iOS
             // Override point for customization after application launch.
             // If not required for your application you can safely delete this method
 
-            //Register Syncfusion license
+            // Register Syncfusion license
             Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("MTIyODAwQDMxMzcyZTMyMmUzME9VUW53ZlNSems5clIwOHkyM3pDa3VwSTFtb1hScDNUeEczQVdpRG5va1U9");
+
+            if (UIDevice.CurrentDevice.CheckSystemVersion(8, 0))
+            {
+                var notificationSettings = UIUserNotificationSettings.GetSettingsForTypes(
+                    UIUserNotificationType.Alert | UIUserNotificationType.Badge | UIUserNotificationType.Sound, null
+                );
+
+                application.RegisterUserNotificationSettings(notificationSettings);
+                UIApplication.SharedApplication.SetMinimumBackgroundFetchInterval(60);
+            }
+
+            // Check if app was launched from local notification
+            if (launchOptions != null)
+            {
+                // check for a local notification
+                if (launchOptions.ContainsKey(UIApplication.LaunchOptionsLocalNotificationKey))
+                {
+                    var localNotification = launchOptions[UIApplication.LaunchOptionsLocalNotificationKey] as UILocalNotification;
+                    if (localNotification != null)
+                    {
+                        UIAlertController okayAlertController = UIAlertController.Create(localNotification.AlertAction, localNotification.AlertBody, UIAlertControllerStyle.Alert);
+                        okayAlertController.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, null));
+
+                        Window.RootViewController.PresentViewController(okayAlertController, true, null);
+
+                        // reset our badge
+                        UIApplication.SharedApplication.ApplicationIconBadgeNumber = 0;
+                    }
+                }
+            }
 
 
             return true;
+        }
+
+        public override void PerformFetch(UIApplication application, Action<UIBackgroundFetchResult> completionHandler)
+        {
+            // Show local notification
+            new LocalNotification().Show(i_Title: "Title", i_Message:"Message");
+
+            // Inform system of fetch results
+            completionHandler(UIBackgroundFetchResult.NewData);
+        }
+
+        public override void ReceivedLocalNotification(UIApplication application, UILocalNotification notification)
+        {
+            // show an alert
+            UIAlertController okayAlertController = UIAlertController.Create(notification.AlertAction, notification.AlertBody, UIAlertControllerStyle.Alert);
+            okayAlertController.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, null));
+
+            UIApplication.SharedApplication.KeyWindow.RootViewController.PresentViewController(okayAlertController, true, null);
+
+            // reset our badge
+            UIApplication.SharedApplication.ApplicationIconBadgeNumber = 0;
         }
 
         public override void OnResignActivation(UIApplication application)

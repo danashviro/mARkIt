@@ -15,7 +15,7 @@ namespace Backend.Controllers
     public class NotificationsIdController : ApiController
     {
         MobileServiceContext context;
-        public string LoggedUserId => this.GetLoggedUserId();
+        private string LoggedUserId => this.GetLoggedUserId();
 
         public NotificationsIdController()
         {

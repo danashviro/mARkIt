@@ -14,7 +14,7 @@ namespace Backend.Controllers
     [Authorize]
     public class UserController : TableController<User>
     {
-        public string LoggedUserId => this.GetLoggedUserId();
+        private string LoggedUserId => this.GetLoggedUserId();
 
         protected override void Initialize(HttpControllerContext controllerContext)
         {
@@ -57,9 +57,9 @@ namespace Backend.Controllers
             return DeleteAsync(id);
         }
 
-        public void validateOwner(string id)
+        private void validateOwner(string id)
         {
-            var result = Lookup(id).Queryable.Where(item => item.Id.Equals(LoggedUserId)).FirstOrDefault<User>();
+            var result = Lookup(id).Queryable.Where(item => item.Id.Equals(LoggedUserId)).FirstOrDefault();
             if (result == null)
             {
                 throw new HttpResponseException(HttpStatusCode.NotFound);

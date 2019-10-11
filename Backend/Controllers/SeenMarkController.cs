@@ -15,7 +15,7 @@ namespace mARkIt.Backend.Controllers
     public class SeenMarkController : ApiController
     {
         MobileServiceContext context;
-        public string LoggedUserId => this.GetLoggedUserId();
+        private string LoggedUserId => this.GetLoggedUserId();
 
         public SeenMarkController()
         {
@@ -28,33 +28,34 @@ namespace mARkIt.Backend.Controllers
         {
             bool updateWasSuccessful = false;
 
-            // Check parameters
             if (markId == null)
             {
                 throw new HttpResponseException(HttpStatusCode.BadRequest);
             }
 
-            // Use a transaction to update the database
+            UserMarkExperience userMarkExperience = await context.UserMarkExperiences.FindAsync(LoggedUserId, markId);
+            if (userMarkExperience == null)
+            {
+                updateWasSuccessful= await context.InsertUserMarkExperience(LoggedUserId, markId);
+            }
+            else
+            {
+                updateWasSuccessful = await updateLastSeenTime(markId);
+            }
+
+            return updateWasSuccessful;
+        }
+
+        private async Task<bool> updateLastSeenTime(string markId)
+        {
+            bool updateWasSuccessful = false;
+
             using (DbContextTransaction transaction = context.Database.BeginTransaction())
             {
                 try
                 {
                     UserMarkExperience userMarkExperience = await context.UserMarkExperiences.FindAsync(LoggedUserId, markId);
-
-                    if (userMarkExperience == null)
-                    {
-                        // Create and add the new user-mark experience
-                        userMarkExperience = context.UserMarkExperiences.Create();
-                        userMarkExperience.UserId = LoggedUserId;
-                        userMarkExperience.MarkId = markId;
-
-                        context.UserMarkExperiences.Add(userMarkExperience);
-                    }
-
-                    else
-                    {
-                        validateOwner(userMarkExperience);
-                    }
+                    validateOwner(userMarkExperience);
 
                     userMarkExperience.LastSeen = DateTime.Now;
 
@@ -74,7 +75,7 @@ namespace mARkIt.Backend.Controllers
             return updateWasSuccessful;
         }
 
-        public void validateOwner(UserMarkExperience userMarkRating)
+        private void validateOwner(UserMarkExperience userMarkRating)
         {
             if (userMarkRating.UserId != LoggedUserId)
             {

@@ -15,7 +15,7 @@ namespace Backend.Controllers
     public class RatingController : ApiController
     {
         MobileServiceContext context;
-        public string LoggedUserId => this.GetLoggedUserId();
+        private string LoggedUserId => this.GetLoggedUserId();
 
         public RatingController()
         {
@@ -56,27 +56,27 @@ namespace Backend.Controllers
                 throw new HttpResponseException(HttpStatusCode.BadRequest);
             }
 
-            // Use a transaction to update the database
+            UserMarkExperience userMarkExperience = await context.UserMarkExperiences.FindAsync(LoggedUserId, markId);
+            if (userMarkExperience == null)
+            {
+                await context.InsertUserMarkExperience(LoggedUserId, markId);
+            }
+
+            updateWasSuccessful = await updateMarkRating(markId, rating);
+
+            return updateWasSuccessful;
+        }
+
+        private async Task<bool> updateMarkRating(string markId, float? rating)
+        {
+            bool updateWasSuccessful = false;
+
             using (DbContextTransaction transaction = context.Database.BeginTransaction())
             {
                 try
                 {
                     UserMarkExperience userMarkExperience = await context.UserMarkExperiences.FindAsync(LoggedUserId, markId);
-
-                    if (userMarkExperience == null)
-                    {
-                        // Create and add the new user-mark experience
-                        userMarkExperience = context.UserMarkExperiences.Create();
-                        userMarkExperience.UserId = LoggedUserId;
-                        userMarkExperience.MarkId = markId;
-
-                        context.UserMarkExperiences.Add(userMarkExperience);
-                    }
-
-                    else
-                    {
-                        validateOwner(userMarkExperience);
-                    }
+                    validateOwner(userMarkExperience);
 
                     userMarkExperience.Mark.RatingsSum -= userMarkExperience.UserRating;
                     userMarkExperience.Mark.RatingsSum += rating.Value;
@@ -87,7 +87,7 @@ namespace Backend.Controllers
                     {
                         userMarkExperience.Mark.RatingsCount++;
                         userMarkExperience.HasUserRated = true;
-                    }                    
+                    }
 
                     userMarkExperience.Mark.UpdateRating();
                     await context.SaveChangesAsync();
@@ -106,7 +106,7 @@ namespace Backend.Controllers
             return updateWasSuccessful;
         }
 
-        public void validateOwner(UserMarkExperience userMarkRating)
+        private void validateOwner(UserMarkExperience userMarkRating)
         {
             if (userMarkRating.UserId != LoggedUserId)
             {
