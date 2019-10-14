@@ -8,10 +8,7 @@ using Backend.Models;
 using System;
 using System.Net;
 using mARkIt.Backend.Utils;
-using mARkIt.Backend.Notifications;
-using System.Collections.Generic;
 using mARkIt.Backend.DataObjects;
-using System.Data.Entity;
 
 namespace Backend.Controllers
 {

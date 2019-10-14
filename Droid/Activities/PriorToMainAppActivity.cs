@@ -1,5 +1,6 @@
 ﻿using Android.Content;
 using Android.Support.V7.App;
+using mARkIt.Authentication;
 using mARkIt.Droid.Notifications;
 
 namespace mARkIt.Droid.Activities
@@ -8,7 +9,8 @@ namespace mARkIt.Droid.Activities
     {
         protected void StartMainApp()
         {
-            AndroidNotifications.Register(context: this);
+            MarksScanner.StartScanning(context: this);
+            LoginHelper.LoggedOut += Notifications.MarksScanner.StopScanning;
 
             Intent mainTabs = new Intent(this, typeof(TabsActivity));
             mainTabs.SetFlags(ActivityFlags.ClearTop | ActivityFlags.SingleTop);

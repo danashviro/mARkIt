@@ -35,7 +35,6 @@ namespace mARkIt.iOS
                 );
 
                 application.RegisterUserNotificationSettings(notificationSettings);
-                UIApplication.SharedApplication.SetMinimumBackgroundFetchInterval(60);
             }
 
             // Check if app was launched from local notification
@@ -58,17 +57,7 @@ namespace mARkIt.iOS
                 }
             }
 
-
             return true;
-        }
-
-        public override void PerformFetch(UIApplication application, Action<UIBackgroundFetchResult> completionHandler)
-        {
-            // Show local notification
-            new LocalNotification().Show(i_Title: "Title", i_Message:"Message");
-
-            // Inform system of fetch results
-            completionHandler(UIBackgroundFetchResult.NewData);
         }
 
         public override void ReceivedLocalNotification(UIApplication application, UILocalNotification notification)
@@ -125,4 +114,3 @@ namespace mARkIt.iOS
         }
     }
 }
-

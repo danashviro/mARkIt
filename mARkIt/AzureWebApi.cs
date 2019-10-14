@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http;
 using System.Threading.Tasks;
 using mARkIt.Abstractions;
 using mARkIt.Authentication;
@@ -18,14 +16,14 @@ namespace mARkIt.Services
         private static string BackendURL = "https://mark-api.azurewebsites.net/";
 
         public static MobileServiceClient MobileService = new MobileServiceClient(BackendURL);
-        
+
         public static bool IsConnected
         {
             get
             {
                 return MobileService.CurrentUser != null;
             }
-        }  
+        }
 
         public static async Task Login(MobileServiceAuthenticationProvider i_AuthType, Account i_Account)
         {
@@ -36,7 +34,7 @@ namespace mARkIt.Services
                 await MobileService.LoginAsync(i_AuthType, zumoPayload);
             }
 
-            catch(MobileServiceInvalidOperationException e)
+            catch (MobileServiceInvalidOperationException e)
             {
                 if (e.Response.ReasonPhrase == "Unauthorized")
                 {
@@ -153,26 +151,10 @@ namespace mARkIt.Services
             }
         }
 
-        public static async Task RegisterNotificationsId(string i_NotificationsId)
-        {
-            Dictionary<string, string> parameters = new Dictionary<string, string>
-            {
-                { "newPushId" , i_NotificationsId }
-            };
-
-            await MobileService.InvokeApiAsync("NotificationsId", HttpMethod.Post, parameters);
-        }
-
         public static async Task Logout()
         {
-           await clearNotificationsId();
-           await MobileService.LogoutAsync();
-           App.ConnectedUser = null;
-        }
-
-        private static async Task clearNotificationsId()
-        {
-            await MobileService.InvokeApiAsync("NotificationsId", HttpMethod.Delete, parameters: null);
+            await MobileService.LogoutAsync();
+            App.ConnectedUser = null;
         }
     }
 }

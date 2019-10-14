@@ -187,7 +187,6 @@
     <Compile Include="Controllers\RatingController.cs" />
     <Compile Include="Controllers\RelevantMarksController.cs" />
     <Compile Include="Controllers\MarkController.cs" />
-    <Compile Include="Controllers\PushIdController.cs" />
     <Compile Include="Controllers\SeenMarkController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="DataObjects\Mark.cs" />
@@ -195,10 +194,6 @@
     <Compile Include="DataObjects\User.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\MobileServiceContext.cs" />
-    <Compile Include="Notifications\eTargetType.cs" />
-    <Compile Include="Notifications\MarkitNotification.cs" />
-    <Compile Include="Notifications\Notification.cs" />
-    <Compile Include="Notifications\NotificationJson.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>

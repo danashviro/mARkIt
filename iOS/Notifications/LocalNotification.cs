@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using Foundation;
+﻿using Foundation;
 using UIKit;
 
 namespace mARkIt.iOS.Notifications
@@ -16,7 +11,7 @@ namespace mARkIt.iOS.Notifications
             var notification = new UILocalNotification();
 
             // set the fire date (the date time in which it will fire)
-            notification.FireDate = NSDate.FromTimeIntervalSinceNow(0);
+            notification.FireDate = NSDate.FromTimeIntervalSinceNow(30);
 
             // configure the alert
             notification.AlertAction = i_Title;
