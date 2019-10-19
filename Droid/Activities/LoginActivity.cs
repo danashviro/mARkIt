@@ -41,23 +41,29 @@ namespace mARkIt.Droid.Activities
 
         public async void OnAuthenticationCompleted(Account i_Account)
         {
-            await LoginHelper.SaveAccountAndLoginToBackend(i_Account);
-            StartMainApp();
+            try
+            {
+                await LoginHelper.SaveAccountAndLoginToBackend(i_Account);
+                StartMainApp();
+            }
+            catch
+            {
+                Helpers.Alert.Show("Error", "There was a problem, please try again later.", this);
+                SecureStorageAccountStore.RemoveAllAccounts();
+            }
         }
 
         public void OnAuthenticationFailed(string i_Message, Exception i_Exception)
         {
             // if permission was not granted, we do not want to store any account - to be safe
+            Helpers.Alert.Show("Error", "There was a problem, please try again later.", this);
             SecureStorageAccountStore.RemoveAllAccounts();
         }
 
         public void OnAuthenticationCanceled()
         {
             // user canceled (pressed back) during auth process
-            new Android.App.AlertDialog.Builder(this)
-                           .SetTitle("Authentication canceled")
-                           .SetMessage("You didn't complete the authentication process")
-                           .Show();
+            Helpers.Alert.Show("Authentication canceled", "You didn't complete the authentication process", this);
         }
     }
 }
