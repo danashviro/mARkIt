@@ -237,6 +237,10 @@
       <DependentUpon>RateViewController.cs</DependentUpon>
     </Compile>
     <Compile Include="CustomControls\MarkAnnotation.cs" />
+    <Compile Include="ViewControllers\TabBarController.cs" />
+    <Compile Include="ViewControllers\TabBarController.designer.cs">
+      <DependentUpon>TabBarController.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\ARPages\ade.js" />

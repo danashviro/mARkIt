@@ -14,8 +14,6 @@ namespace mARkIt.iOS
     {
         // class-level declarations
 
-        LocationManager m_LocationManager;
-
         public override UIWindow Window
         {
             get;
@@ -48,7 +46,7 @@ namespace mARkIt.iOS
                     var localNotification = launchOptions[UIApplication.LaunchOptionsLocalNotificationKey] as UILocalNotification;
                     if (localNotification != null)
                     {
-                        UIAlertController okayAlertController = UIAlertController.Create(localNotification.AlertAction, localNotification.AlertBody, UIAlertControllerStyle.Alert);
+                        UIAlertController okayAlertController = UIAlertController.Create(localNotification.AlertAction, localNotification.AlertBody, UIAlertControllerStyle.ActionSheet);
                         okayAlertController.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, null));
 
                         Window.RootViewController.PresentViewController(okayAlertController, true, null);
@@ -58,9 +56,6 @@ namespace mARkIt.iOS
                     }
                 }
             }
-            m_LocationManager = new LocationManager();
-            m_LocationManager.StartLocationUpdates();
-
 
             return true;
         }

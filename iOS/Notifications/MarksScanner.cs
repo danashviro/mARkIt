@@ -11,71 +11,56 @@ using UIKit;
 
 namespace mARkIt.iOS.Notifications
 {
-    public class LocationManager
+    public static class LocationManager
     {
         private static DateTime lastServiceRun;
 
-        private CLLocationManager locMgr;
+        private static CLLocationManager locMgr;
 
-        public LocationManager()
+         static LocationManager()
         {
-            this.locMgr = new CLLocationManager();
-            this.locMgr.AllowsBackgroundLocationUpdates = true;
-            this.LocationUpdated += this.PrintLocation;
-            this.locMgr.Failed += (object sender, NSErrorEventArgs e) =>
+            locMgr = new CLLocationManager();
+            locMgr.AllowsBackgroundLocationUpdates = true;
+            locMgr.Failed += (object sender, NSErrorEventArgs e) =>
             {
                 Console.WriteLine("didFailWithError " + e.Error);
                 Console.WriteLine("didFailWithError coe " + e.Error.Code);
             };
         }
 
-        public event EventHandler<LocationUpdatedEventArgs> LocationUpdated = delegate { };
-
         public static TimeSpan TimeDiff { get; set; }
 
-        public CLLocationManager LocMgr
+        public static CLLocationManager LocMgr
         {
             get
             {
-                return this.locMgr;
+                return locMgr;
             }
         }
 
-        public void StartLocationUpdates()
+        public static void StartLocationUpdates()
         {
 
             if (CLLocationManager.LocationServicesEnabled)
             {
                 // sets the accuracy that we want in meters
-                this.LocMgr.DesiredAccuracy = 1;
+                LocMgr.DesiredAccuracy = 1;
 
-                //// Location updates are handled differently pre-iOS 6. If we want to support older versions of iOS,
-                //// we want to do perform this check and let our LocationManager know how to handle location updates.
-
-                if (UIDevice.CurrentDevice.CheckSystemVersion(6, 0))
+                
+                LocMgr.LocationsUpdated += (object sender, CLLocationsUpdatedEventArgs e) =>
                 {
-                    this.LocMgr.LocationsUpdated += (object sender, CLLocationsUpdatedEventArgs e) =>
-                    {
-                        //// fire our custom Location Updated event
-                        this.LocationUpdated(this, new LocationUpdatedEventArgs(e.Locations[e.Locations.Length - 1]));
-                    };
-                }
-                else
-                {
-                    //// this won't be called on iOS 6 (deprecated). We will get a warning here when we build.
-                    this.LocMgr.UpdatedLocation += (object sender, CLLocationUpdatedEventArgs e) =>
-                    {
-                        this.LocationUpdated(this, new LocationUpdatedEventArgs(e.NewLocation));
-                    };
-                }
+                    CLLocation newLocation = e.Locations[e.Locations.Length - 1];
+                    PrintLocation(newLocation);
+                };
+                
 
                 //// Start our location updates
-                this.LocMgr.StartUpdatingLocation();
+                LocMgr.StartUpdatingLocation();
 
                 lastServiceRun = DateTime.Now;
 
                 // Get some output from our manager in case of failure
-                this.LocMgr.Failed += (object sender, NSErrorEventArgs e) =>
+                LocMgr.Failed += (object sender, NSErrorEventArgs e) =>
                 {
                     Console.WriteLine(e.Error);
                 };
@@ -90,29 +75,25 @@ namespace mARkIt.iOS.Notifications
         /// <summary>
         /// The stop updating location.
         /// </summary>
-        public void StopUpdatingLocation()
+        public static void StopUpdatingLocation()
         {
-            this.locMgr.StopUpdatingLocation();
+            locMgr.StopUpdatingLocation();
         }
 
-        /// <summary>
-        /// The print location. (This will keep going in the background)
-        /// </summary>
-        /// <param name="sender"> The sender. </param>
-        /// <param name="e"> Location updated event argument </param>
-        public void PrintLocation(object sender, LocationUpdatedEventArgs e)
-        {
-            CLLocation location = e.Location;
 
+        public static async void PrintLocation(CLLocation location)
+        {
             Console.WriteLine("Longitude: " + location.Coordinate.Longitude);
             Console.WriteLine("Latitude: " + location.Coordinate.Latitude);
 
             var diff = DateTime.Now - lastServiceRun;
             TimeDiff = diff;
-            if (TimeDiff.Seconds >= 60)
+            if (TimeDiff.Seconds >= 10)
             {
                 lastServiceRun = DateTime.Now;
-                new LocalNotification().Show("Location changed", "!!");
+                string firstMarkId = "6e3d7472aa134f03ad682075b0ad0a59";
+                Mark stamMark = await AzureWebApi.MobileService.GetTable<Mark>().LookupAsync(firstMarkId);
+                new LocalNotification().Show("Location changed", stamMark.Message);
             }
         }
 
@@ -120,12 +101,12 @@ namespace mARkIt.iOS.Notifications
         {
             public static void StartScanning()
             {
-
+                LocationManager.StartLocationUpdates();
             }
 
             public static void StopScanning()
             {
-
+                LocationManager.StopUpdatingLocation();
             }
 
             private async static void checkForClosestNewMark()
@@ -163,20 +144,7 @@ namespace mARkIt.iOS.Notifications
             }
         }
 
-        public class LocationUpdatedEventArgs : EventArgs
-        {
-            private CLLocation location;
 
-            public LocationUpdatedEventArgs(CLLocation location)
-            {
-                this.location = location;
-            }
-
-            public CLLocation Location
-            {
-                get { return this.location; }
-            }
-        }
     }
     
 }
