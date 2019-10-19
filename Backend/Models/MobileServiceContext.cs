@@ -12,11 +12,11 @@ namespace Backend.Models
 
         public MobileServiceContext() : base(connectionStringName)
         {
-            Database.Log = WriteLog;
+            Database.Log = LogAction;
         }
 
         // System.Diagnostics.Debug is removed from the context when DEBUG is not defined, so we can't just use it directly
-        public void WriteLog(string msg)
+        public void LogAction(string msg)
         {
             System.Diagnostics.Debug.WriteLine(msg);
         }

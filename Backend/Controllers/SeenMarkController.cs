@@ -36,7 +36,7 @@ namespace mARkIt.Backend.Controllers
             UserMarkExperience userMarkExperience = await context.UserMarkExperiences.FindAsync(LoggedUserId, markId);
             if (userMarkExperience == null)
             {
-                updateWasSuccessful= await context.InsertUserMarkExperience(LoggedUserId, markId);
+                updateWasSuccessful = await context.InsertUserMarkExperience(LoggedUserId, markId);
             }
             else
             {
@@ -79,7 +79,7 @@ namespace mARkIt.Backend.Controllers
         {
             if (userMarkRating.UserId != LoggedUserId)
             {
-                throw new HttpResponseException(HttpStatusCode.NotFound);
+                throw new HttpResponseException(HttpStatusCode.Unauthorized);
             }
         }
     }

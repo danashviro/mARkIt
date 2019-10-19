@@ -22,7 +22,8 @@ namespace mARkIt.Backend.Utils
             {
                 userId = claim.Value;
 
-                // Azure places "sid:" at the start of the generated id, which we want to remove to avoid redundancy and URI errors (because of ':' character)
+                // Azure places "sid:" at the start of the generated id, which we want to remove to avoid redundancy
+                // the to avoid sending the ':' character in HTTP uri's since it causes an error.
                 userId = userId.Replace("sid:", "");
             }
 

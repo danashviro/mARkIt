@@ -24,7 +24,7 @@ namespace mARkIt.iOS
         public override void ViewWillAppear(bool animated)
         {
             base.ViewWillAppear(animated);
-            if (getCategories() != App.ConnectedUser.RelevantCategoriesCode)
+            if (getCategories() != App.ConnectedUser.relevantCategoriesCode)
             {
                 getCategoriesCheckBoxCheckStatusFromUser();
             }              
@@ -32,19 +32,19 @@ namespace mARkIt.iOS
 
         private void getCategoriesCheckBoxCheckStatusFromUser()
         {
-            generalCheckBox.IsChecked = (App.ConnectedUser.RelevantCategoriesCode & (int)eCategories.General) != 0;
-            foodCheckBox.IsChecked = (App.ConnectedUser.RelevantCategoriesCode & (int)eCategories.Food) != 0;
-            sportCheckBox.IsChecked = (App.ConnectedUser.RelevantCategoriesCode & (int)eCategories.Sport) != 0;
-            historyCheckBox.IsChecked = (App.ConnectedUser.RelevantCategoriesCode & (int)eCategories.History) != 0;
-            natureCheckBox.IsChecked = (App.ConnectedUser.RelevantCategoriesCode & (int)eCategories.Nature) != 0;
+            generalCheckBox.IsChecked = (App.ConnectedUser.relevantCategoriesCode & (int)eCategories.General) != 0;
+            foodCheckBox.IsChecked = (App.ConnectedUser.relevantCategoriesCode & (int)eCategories.Food) != 0;
+            sportCheckBox.IsChecked = (App.ConnectedUser.relevantCategoriesCode & (int)eCategories.Sport) != 0;
+            historyCheckBox.IsChecked = (App.ConnectedUser.relevantCategoriesCode & (int)eCategories.History) != 0;
+            natureCheckBox.IsChecked = (App.ConnectedUser.relevantCategoriesCode & (int)eCategories.Nature) != 0;
 
         }
 
         private async void SaveButton_Clicked(object sender, EventArgs e)
         {
             saveButton.Enabled = false;
-            App.ConnectedUser.RelevantCategoriesCode = getCategories();
-            int prevCategoriesCode = App.ConnectedUser.RelevantCategoriesCode;
+            App.ConnectedUser.relevantCategoriesCode = getCategories();
+            int prevCategoriesCode = App.ConnectedUser.relevantCategoriesCode;
             bool updated = await User.Update(App.ConnectedUser);
             if(updated)
             {
@@ -52,7 +52,7 @@ namespace mARkIt.iOS
             }
             else
             {
-                App.ConnectedUser.RelevantCategoriesCode = prevCategoriesCode;
+                App.ConnectedUser.relevantCategoriesCode = prevCategoriesCode;
                 Alert.Display("Error", "Their was a problem saving your settings, please try again later", this);
             }
 

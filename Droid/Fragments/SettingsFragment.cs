@@ -58,10 +58,10 @@ namespace mARkIt.Droid.Fragments
 
         private async void SaveButton_Click(object sender, EventArgs e)
         {
-            int previousCatagories = App.ConnectedUser.RelevantCategoriesCode;
+            int previousCatagories = App.ConnectedUser.relevantCategoriesCode;
             Button button = sender as Button;
             button.Clickable = false;
-            App.ConnectedUser.RelevantCategoriesCode = getCaregories();
+            App.ConnectedUser.relevantCategoriesCode = getCaregories();
             bool updated = await User.Update(App.ConnectedUser);
             if(updated)
             {
@@ -70,7 +70,7 @@ namespace mARkIt.Droid.Fragments
             else
             {
                 Toast.MakeText(Context, "Upload failed!", ToastLength.Long).Show();
-                App.ConnectedUser.RelevantCategoriesCode = previousCatagories;
+                App.ConnectedUser.relevantCategoriesCode = previousCatagories;
             }
             button.Clickable = true;
         }
@@ -103,7 +103,7 @@ namespace mARkIt.Droid.Fragments
 
         private void fillComponents()
         {
-            int categories = App.ConnectedUser.RelevantCategoriesCode;
+            int categories = App.ConnectedUser.relevantCategoriesCode;
 
             m_GeneralCheckBox.Checked = (categories & (int)eCategories.General) != 0 ? true : false;
             m_FoodCheckBox.Checked = (categories & (int)eCategories.Food) != 0 ? true : false;

@@ -5,7 +5,6 @@ using System.Web.Http.Controllers;
 using System.Web.Http.OData;
 using Microsoft.Azure.Mobile.Server;
 using Backend.Models;
-using System;
 using System.Net;
 using mARkIt.Backend.Utils;
 using mARkIt.Backend.DataObjects;
@@ -68,10 +67,10 @@ namespace Backend.Controllers
 
         private void validateOwner(string id)
         {
-            var result = Lookup(id).Queryable.Where(item => item.UserId.Equals(LoggedUserId)).FirstOrDefault<Mark>();
+            var result = Lookup(id).Queryable.Where(item => item.UserId.Equals(LoggedUserId)).FirstOrDefault();
             if (result == null)
             {
-                throw new HttpResponseException(HttpStatusCode.NotFound);
+                throw new HttpResponseException(HttpStatusCode.Unauthorized);
             }
         }
     }

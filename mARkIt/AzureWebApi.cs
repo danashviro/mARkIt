@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using mARkIt.Abstractions;
@@ -62,7 +63,7 @@ namespace mARkIt.Services
                 user = new User()
                 {
                     Id = loggedUserId,
-                    RelevantCategoriesCode = (int)eCategories.All
+                    relevantCategoriesCode = (int)eCategories.All
                 };
 
                 await Insert(user);
@@ -126,16 +127,19 @@ namespace mARkIt.Services
 
         public static async Task<T> GetById<T>(string i_Id) where T : TableData
         {
+            T res = null;
+
             try
             {
-                var table = MobileService.GetTable<T>().Where(t => t.Id == i_Id);
-                var list = await table.ToListAsync();
-                return list.First();
+                res = await MobileService.GetTable<T>().LookupAsync(i_Id);
             }
-            catch (Exception)
+
+            catch (Exception e)
             {
                 return null;
             }
+
+            return res;
         }
 
         public static async Task<bool> Update<T>(T i_ObjectToUpdate)

@@ -3,7 +3,6 @@ using Android;
 using Android.Content;
 using Android.Locations;
 using Android.Support.V4.Content;
-using Android.Util;
 
 namespace mARkIt.Droid.Location
 {

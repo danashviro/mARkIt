@@ -1,7 +1,6 @@
 ﻿using System.Web.Http;
 using Microsoft.Azure.Mobile.Server.Config;
 using System.Collections.Generic;
-using System;
 using System.Linq;
 using Backend.Models;
 using System.Windows;
@@ -32,9 +31,9 @@ namespace Backend.Controllers
 
             int relevantCategoriesCode = getUserRelevantCateogiresCode();
 
-            var relevantMarksByCategory =  from mark in context.Marks
-                                           where (relevantCategoriesCode & mark.CategoriesCode) != 0
-                                           select mark;
+            var relevantMarksByCategory = from mark in context.Marks
+                                          where (relevantCategoriesCode & mark.CategoriesCode) != 0
+                                          select mark;
 
             if (longitude.HasValue && latitude.HasValue)
             {

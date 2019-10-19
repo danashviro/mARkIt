@@ -32,6 +32,8 @@ namespace Backend.Controllers
         // GET tables/User/48D68C86-6EA6-4C25-AA33-223FC9A27959
         public SingleResult<User> GetUser(string id)
         {
+            LogTools.Log($"Entered UserController.GetUser");
+
             validateOwner(id);
             return Lookup(id);
         }
@@ -62,7 +64,7 @@ namespace Backend.Controllers
             var result = Lookup(id).Queryable.Where(item => item.Id.Equals(LoggedUserId)).FirstOrDefault();
             if (result == null)
             {
-                throw new HttpResponseException(HttpStatusCode.NotFound);
+                throw new HttpResponseException(HttpStatusCode.Unauthorized);
             }
         }
     }

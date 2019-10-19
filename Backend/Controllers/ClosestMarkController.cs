@@ -15,7 +15,7 @@ namespace mARkIt.Backend.Controllers
     [Authorize]
     public class ClosestMarkController : ApiController
     {
-        private string LoggedUserId => this.GetLoggedUserId();        
+        private string LoggedUserId => this.GetLoggedUserId();
 
         MobileServiceContext context;
 
@@ -43,7 +43,7 @@ namespace mARkIt.Backend.Controllers
                 IEnumerable<string> seenMarksIds = from userMarkExperiences in context.UserMarkExperiences
                                                    where userMarkExperiences.UserId == LoggedUserId
                                                    select userMarkExperiences.MarkId;
-                               
+
                 IEnumerable<Mark> unseenMarks = from marks in context.Marks
                                                 where !seenMarksIds.Contains(marks.Id)
                                                 select marks;

@@ -11,7 +11,7 @@ namespace mARkIt.Models
 {
     public class User : TableData
     {
-        public int RelevantCategoriesCode { get; set; }
+        public int relevantCategoriesCode { get; set; }
 
         public static async Task<bool> Insert(User i_User)
         {

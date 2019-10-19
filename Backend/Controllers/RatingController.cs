@@ -110,7 +110,7 @@ namespace Backend.Controllers
         {
             if (userMarkRating.UserId != LoggedUserId)
             {
-                throw new HttpResponseException(HttpStatusCode.NotFound);
+                throw new HttpResponseException(HttpStatusCode.Unauthorized);
             }
         }
     }
