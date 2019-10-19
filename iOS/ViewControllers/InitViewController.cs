@@ -1,6 +1,7 @@
 using mARkIt.Authentication;
 using mARkIt.iOS.CoreServices;
 using mARkIt.iOS.Helpers;
+using mARkIt.iOS.Notifications;
 using System;
 using UIKit;
 using WikitudeComponent.iOS;

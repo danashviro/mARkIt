@@ -63,5 +63,11 @@
 	<array>
 		<string>location</string>
 	</array>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>New Entry</string>
+	<key>NSLocationUsageDescription</key>
+	<string>New Entry</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>New Entry</string>
 </dict>
 </plist>

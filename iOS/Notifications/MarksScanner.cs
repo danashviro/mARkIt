@@ -20,6 +20,7 @@ namespace mARkIt.iOS.Notifications
         public LocationManager()
         {
             this.locMgr = new CLLocationManager();
+            this.locMgr.AllowsBackgroundLocationUpdates = true;
             this.LocationUpdated += this.PrintLocation;
             this.locMgr.Failed += (object sender, NSErrorEventArgs e) =>
             {
@@ -108,72 +109,74 @@ namespace mARkIt.iOS.Notifications
 
             var diff = DateTime.Now - lastServiceRun;
             TimeDiff = diff;
-            if (TimeDiff.Minutes == 0.5)
+            if (TimeDiff.Seconds >= 60)
             {
-                int a = 5;
-                a += 1;
+                lastServiceRun = DateTime.Now;
+                new LocalNotification().Show("Location changed", "!!");
             }
         }
 
         public static class MarksScanner
-    {
-        public static void StartScanning()
         {
-
-        }
-
-        public static void StopScanning()
-        {
-
-        }
-
-        private async static void checkForClosestNewMark()
-        {
-            try
+            public static void StartScanning()
             {
-                CLLocation lastKnownPosition = getCurrentLocation();
 
-                if (lastKnownPosition != null)
+            }
+
+            public static void StopScanning()
+            {
+
+            }
+
+            private async static void checkForClosestNewMark()
+            {
+                try
                 {
-                    Dictionary<string, string> parameters = new Dictionary<string, string>
+                    CLLocation lastKnownPosition = getCurrentLocation();
+
+                    if (lastKnownPosition != null)
+                    {
+                        Dictionary<string, string> parameters = new Dictionary<string, string>
                     {
                         {"latitude", lastKnownPosition.Coordinate.Latitude.ToString() },
                         {"longitude", lastKnownPosition.Coordinate.Longitude.ToString() }
                     };
 
-                    Mark closestMark = await AzureWebApi.MobileService.InvokeApiAsync<Mark>("ClosestMark", HttpMethod.Get, parameters);
+                        Mark closestMark = await AzureWebApi.MobileService.InvokeApiAsync<Mark>("ClosestMark", HttpMethod.Get, parameters);
 
-                    if (closestMark != null)
-                    {
-                        new LocalNotification().Show("mARkIt", "A new mark is closeby!");
+                        if (closestMark != null)
+                        {
+                            new LocalNotification().Show("mARkIt", "A new mark is closeby!");
+                        }
                     }
+                }
+
+                catch (Exception e)
+                {
+                    // Log
                 }
             }
 
-            catch (Exception e)
+            private static CLLocation getCurrentLocation()
             {
-                // Log
+                throw new NotImplementedException();
             }
         }
 
-        private static CLLocation getCurrentLocation()
+        public class LocationUpdatedEventArgs : EventArgs
         {
-            throw new NotImplementedException();
+            private CLLocation location;
+
+            public LocationUpdatedEventArgs(CLLocation location)
+            {
+                this.location = location;
+            }
+
+            public CLLocation Location
+            {
+                get { return this.location; }
+            }
         }
     }
-
-    public class LocationUpdatedEventArgs : EventArgs
-    {
-        private CLLocation location;
-
-        public LocationUpdatedEventArgs(CLLocation location)
-        {
-            this.location = location;
-        }
-
-        public CLLocation Location
-        {
-            get { return this.location; }
-        }
-    }
+    
 }

@@ -14,6 +14,8 @@ namespace mARkIt.iOS
     {
         // class-level declarations
 
+        LocationManager m_LocationManager;
+
         public override UIWindow Window
         {
             get;
@@ -56,6 +58,9 @@ namespace mARkIt.iOS
                     }
                 }
             }
+            m_LocationManager = new LocationManager();
+            m_LocationManager.StartLocationUpdates();
+
 
             return true;
         }

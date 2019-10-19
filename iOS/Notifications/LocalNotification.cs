@@ -11,7 +11,7 @@ namespace mARkIt.iOS.Notifications
             var notification = new UILocalNotification();
 
             // set the fire date (the date time in which it will fire)
-            notification.FireDate = NSDate.FromTimeIntervalSinceNow(30);
+            notification.FireDate = NSDate.FromTimeIntervalSinceNow(0);
 
             // configure the alert
             notification.AlertAction = i_Title;
