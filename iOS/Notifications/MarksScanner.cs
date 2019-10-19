@@ -21,6 +21,7 @@ namespace mARkIt.iOS.Notifications
         {
             locMgr = new CLLocationManager();
             locMgr.AllowsBackgroundLocationUpdates = true;
+            locMgr.PausesLocationUpdatesAutomatically = false;
             locMgr.Failed += (object sender, NSErrorEventArgs e) =>
             {
                 Console.WriteLine("didFailWithError " + e.Error);
@@ -88,7 +89,7 @@ namespace mARkIt.iOS.Notifications
 
             var diff = DateTime.Now - lastServiceRun;
             TimeDiff = diff;
-            if (TimeDiff.Seconds >= 10)
+            if (TimeDiff.Minutes >= 1)
             {
                 lastServiceRun = DateTime.Now;
                 string firstMarkId = "6e3d7472aa134f03ad682075b0ad0a59";

@@ -241,6 +241,7 @@
     <Compile Include="ViewControllers\TabBarController.designer.cs">
       <DependentUpon>TabBarController.cs</DependentUpon>
     </Compile>
+    <Compile Include="Notifications\UserNotificationCenterDelegate.cs" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\ARPages\ade.js" />
