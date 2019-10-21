@@ -193,8 +193,8 @@
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
     <Compile Include="CoreServices\ArExperienceAuthorizationController.cs" />
-    <Compile Include="Notifications\LocalNotification.cs" />
-    <Compile Include="Notifications\MarksScanner.cs" />
+    <Compile Include="Notifications\IOSLocalNotification.cs" />
+    <Compile Include="Notifications\IOSMarksScanner.cs" />
     <Compile Include="ViewControllers\ARViewController.cs" />
     <Compile Include="ViewControllers\ARViewController.designer.cs">
       <DependentUpon>ARViewController.cs</DependentUpon>

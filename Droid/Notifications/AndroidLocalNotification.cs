@@ -3,40 +3,46 @@ using Android.Content;
 using Android.OS;
 using Android.Support.V4.App;
 using mARkIt.Droid.Activities;
+using mARkIt.Notifications;
 
 namespace mARkIt.Droid.Notifications
 {
-    public class LocalNotification
+    public class AndroidLocalNotification : ILocalNotification
     {
         static readonly int NOTIFICATION_ID = 1000;
         static readonly string CHANNEL_ID = "location_notification";
+        private Context m_Context;
+        private Intent m_ResultIntent;
 
-        public Context Context { get; set; }
-
-        public LocalNotification(Context context)
+        public AndroidLocalNotification(Context context)
         {
-            Context = context;
+            m_Context = context;
         }
 
-        public void Show(string title, string message, Intent resultIntent = null)
+        public AndroidLocalNotification(Context context, Intent resultIntent) : this(context)
         {
-            if (resultIntent == null)
+            m_ResultIntent = resultIntent;
+        }
+
+        public void Show(string title, string message)
+        {
+            if (m_ResultIntent == null)
             {
-                resultIntent = new Intent(Context, typeof(TabsActivity));
+                m_ResultIntent = new Intent(m_Context, typeof(TabsActivity));
             }
 
             createNotificationChannel();
 
             // Construct a back stack for cross-task navigation:
-            var stackBuilder = Android.App.TaskStackBuilder.Create(Context);
+            var stackBuilder = Android.App.TaskStackBuilder.Create(m_Context);
             stackBuilder.AddParentStack(Java.Lang.Class.FromType(typeof(TabsActivity)));
-            stackBuilder.AddNextIntent(resultIntent);
+            stackBuilder.AddNextIntent(m_ResultIntent);
 
             // Create the PendingIntent with the back stack:            
             var resultPendingIntent = stackBuilder.GetPendingIntent(0, PendingIntentFlags.UpdateCurrent);
 
             // Build the notification:
-            var builder = new NotificationCompat.Builder(Context, CHANNEL_ID)
+            var builder = new NotificationCompat.Builder(m_Context, CHANNEL_ID)
                           .SetAutoCancel(true) // Dismiss the notification from the notification area when the user clicks on it
                           .SetContentIntent(resultPendingIntent) // Start up this activity when the user clicks the intent.
                           .SetContentTitle(title) // Set the title
@@ -44,7 +50,7 @@ namespace mARkIt.Droid.Notifications
                           .SetContentText(message); // the message to display.
 
             // Finally, publish the notification:
-            var notificationManager = NotificationManagerCompat.From(Context);
+            var notificationManager = NotificationManagerCompat.From(m_Context);
             notificationManager.Notify(NOTIFICATION_ID, builder.Build());
         }
 
@@ -64,7 +70,7 @@ namespace mARkIt.Droid.Notifications
                 Description = string.Empty
             };
 
-            var notificationManager = (NotificationManager)Context.GetSystemService(Context.NotificationService);
+            var notificationManager = (NotificationManager)m_Context.GetSystemService(Context.NotificationService);
             notificationManager.CreateNotificationChannel(channel);
         }
     }

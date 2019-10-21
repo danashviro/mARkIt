@@ -1,9 +1,10 @@
 ﻿using Foundation;
+using mARkIt.Notifications;
 using UIKit;
 
 namespace mARkIt.iOS.Notifications
 {
-    class LocalNotification
+    public class IOSLocalNotification : ILocalNotification
     {
         public void Show(string i_Title, string i_Message)
         {

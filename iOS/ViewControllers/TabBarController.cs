@@ -1,8 +1,8 @@
-using Foundation;
 using mARkIt.Authentication;
+using mARkIt.iOS.Notifications;
+using mARkIt.Notifications;
 using System;
 using UIKit;
-using static mARkIt.iOS.Notifications.LocationManager;
 
 namespace mARkIt.iOS
 {
@@ -15,8 +15,10 @@ namespace mARkIt.iOS
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
-            MarksScanner.StartScanning();
-            LoginHelper.LoggedOut += MarksScanner.StopScanning;
+
+            MarksScanner marksScanner = IOSMarksScanner.Instance;
+            marksScanner.StartScanning();
+            LoginHelper.LoggedOut += marksScanner.StopScanning;
         }
     }
 }
