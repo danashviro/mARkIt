@@ -1,15 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
 using CoreLocation;
 using Foundation;
-using mARkIt.Models;
 using mARkIt.Notifications;
-using mARkIt.Services;
-using UIKit;
 
 namespace mARkIt.iOS.Notifications
 {
@@ -22,8 +14,8 @@ namespace mARkIt.iOS.Notifications
         private static IOSMarksScanner s_Instance = null;
         private static object s_LockObj = new Object();
 
-        private CLLocationManager locMng;
-        private DateTime lastScanTime;
+        private CLLocationManager m_LocationManager;
+        private DateTime m_LastScanTime;
 
         public static IOSMarksScanner Instance
         {
@@ -46,56 +38,47 @@ namespace mARkIt.iOS.Notifications
 
         private IOSMarksScanner()
         {
-            locMng = new CLLocationManager();
-            locMng.AllowsBackgroundLocationUpdates = true;
-            locMng.PausesLocationUpdatesAutomatically = false;
-            locMng.DesiredAccuracy = 1;
-            locMng.Failed += locMgr_OnFailure;
-            locMng.LocationsUpdated += locMgr_OnLocationsUpdated;
+            m_LocationManager = new CLLocationManager();
+            m_LocationManager.AllowsBackgroundLocationUpdates = true;
+            m_LocationManager.PausesLocationUpdatesAutomatically = false;
+            m_LocationManager.DesiredAccuracy = 1;
+            m_LocationManager.Failed += locMgr_OnFailure;
+            m_LocationManager.LocationsUpdated += locMgr_OnLocationsUpdated;
         }
 
         public override void StartScanning()
         {
             if (CLLocationManager.LocationServicesEnabled)
             {
-                lastScanTime = DateTime.Now;
+                m_LastScanTime = DateTime.Now;
 
-                locMng.StartUpdatingLocation();
+                m_LocationManager.StartUpdatingLocation();
             }
         }
 
         public override void StopScanning()
         {
-            locMng.StopUpdatingLocation();
+            m_LocationManager.StopUpdatingLocation();
         }
 
         private async void locMgr_OnLocationsUpdated(object sender, CLLocationsUpdatedEventArgs e)
         {
             CLLocation lastKnownPosition = e.Locations[e.Locations.Length - 1];
-            TimeSpan timeSinceLastScan = DateTime.Now - lastScanTime;
+            TimeSpan timeSinceLastScan = DateTime.Now - m_LastScanTime;
 
             if (timeSinceLastScan.Minutes >= 1)
             {
-                lastScanTime = DateTime.Now;
+                m_LastScanTime = DateTime.Now;
 
-                /// base.CheckForClosestNewMark(lastKnownPosition.Coordinate.Latitude, lastKnownPosition.Coordinate.Longitude);
-
-                await dummyTest();
+                base.CheckForClosestNewMark(lastKnownPosition.Coordinate.Latitude, lastKnownPosition.Coordinate.Longitude);
             }
-        }
-
-        private async Task dummyTest()
-        {
-            string firstMarkId = "6e3d7472aa134f03ad682075b0ad0a59";
-            Mark stamMark = await AzureWebApi.MobileService.GetTable<Mark>().LookupAsync(firstMarkId);
-            new IOSLocalNotification().Show("Location changed", stamMark.Message);
         }
 
         private void locMgr_OnFailure(object sender, NSErrorEventArgs e)
         {
             Console.WriteLine("didFailWithError " + e.Error);
             Console.WriteLine("didFailWithError coe " + e.Error.Code);
-        }  
+        }
 
         protected override ILocalNotification CreateLocalNotification()
         {
