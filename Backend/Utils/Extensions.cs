@@ -60,5 +60,11 @@ namespace mARkIt.Backend.Utils
 
             return updateWasSuccessful;
         }
+
+        public static int GetUserRelevantCateogiresCode(this MobileServiceContext context, string userId)
+        {
+            User user = context.Users.Find(userId);
+            return user.RelevantCategoriesCode;
+        }
     }
 }

@@ -40,24 +40,28 @@ namespace mARkIt.Backend.Controllers
 
             try
             {
+                int relevantCategoriesCode = context.GetUserRelevantCateogiresCode(LoggedUserId);
+
                 IEnumerable<string> seenMarksIds = from userMarkExperiences in context.UserMarkExperiences
                                                    where userMarkExperiences.UserId == LoggedUserId
                                                    select userMarkExperiences.MarkId;
 
-                IEnumerable<Mark> unseenMarks = from marks in context.Marks
-                                                where !seenMarksIds.Contains(marks.Id)
-                                                select marks;
+                IEnumerable<Mark> unseenRelevantMarks = from mark in context.Marks
+                                                        where (relevantCategoriesCode & mark.CategoriesCode) != 0
+                                                              && !seenMarksIds.Contains(mark.Id)
+                                                        select mark;
 
-                if (unseenMarks.Count() != 0)
+                if (unseenRelevantMarks.Count() != 0)
                 {
-                    closestMark = unseenMarks.OrderByDescending((mark) => distanceFromUserKm(mark)).Last();
+                    closestMark = unseenRelevantMarks.OrderByDescending((mark) => distanceFromUserKm(mark)).Last();
 
                     double distanceFromClosestMark = distanceFromUserKm(closestMark);
-                    if (distanceFromClosestMark > 0.1)
+                    if (distanceFromClosestMark > 0.04)
                     {
                         // Closest mark is too far
                         closestMark = null;
                     }
+
                     else
                     {
                         // Insert a UserMarkExperience to avoid notifying this user about this mark again

@@ -29,7 +29,7 @@ namespace Backend.Controllers
         {
             List<Mark> relevantMarksByCategoryAndProximity = null;
 
-            int relevantCategoriesCode = getUserRelevantCateogiresCode();
+            int relevantCategoriesCode = context.GetUserRelevantCateogiresCode(LoggedUserId);
 
             var relevantMarksByCategory = from mark in context.Marks
                                           where (relevantCategoriesCode & mark.CategoriesCode) != 0
@@ -59,12 +59,6 @@ namespace Backend.Controllers
             }
 
             return relevantMarksByCategoryAndProximity;
-        }
-
-        private int getUserRelevantCateogiresCode()
-        {
-            User user = context.Users.Find(LoggedUserId);
-            return user.RelevantCategoriesCode;
         }
 
         private bool markIsCloseEnough(Vector userPos, Vector markPos, double proximityThreshhold)
