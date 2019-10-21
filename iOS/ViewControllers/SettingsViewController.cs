@@ -105,6 +105,10 @@ namespace mARkIt.iOS
             {
                 Alert.Display("Error", "There was a problem logging you out", this);
             }
+            else
+            {
+                PerformSegue("logoutSegue", this);
+            }
         }
 
     }
