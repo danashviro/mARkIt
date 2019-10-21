@@ -50,7 +50,7 @@ namespace mARkIt.iOS.Notifications
             locMng.AllowsBackgroundLocationUpdates = true;
             locMng.PausesLocationUpdatesAutomatically = false;
             locMng.DesiredAccuracy = 1;
-            locMng.Failed += locMgr_OnFailor;
+            locMng.Failed += locMgr_OnFailure;
             locMng.LocationsUpdated += locMgr_OnLocationsUpdated;
         }
 
@@ -91,7 +91,7 @@ namespace mARkIt.iOS.Notifications
             new IOSLocalNotification().Show("Location changed", stamMark.Message);
         }
 
-        private void locMgr_OnFailor(object sender, NSErrorEventArgs e)
+        private void locMgr_OnFailure(object sender, NSErrorEventArgs e)
         {
             Console.WriteLine("didFailWithError " + e.Error);
             Console.WriteLine("didFailWithError coe " + e.Error.Code);
